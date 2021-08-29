@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html lang="{{ config.language }}" {% if page.dir== "rtl" %}dir="rtl"{% endif %}>
+<head>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <title>{% block title %}{{ config.title|d("GitBook", true) }}{% endblock %}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="baidu-site-verification" content="Y34sAqDKUH"/>
+    <meta name="theme-color" content="#ffffff">
+    <!--<meta name="description" content="{% block description %}{% endblock %}">-->
+    <meta name="description" content="《Flutter实战》是Flutter中文网（https://flutterchina.club）开源的电子书，旨在帮助开发者系统化的了解并学习Flutter。">
+    <meta name="keywords" content="flutter实战,flutter书籍,flutter电子书,flutter中文网 ">
+    <meta name="generator" content="GitBook {{ gitbook.version }}">
+    {% if config.author %}
+    <meta name="author" content="{{ config.author }}">
+    {% endif %}
+    {% if config.isbn %}
+    <meta name="identifier" content="{{ config.isbn }}" scheme="ISBN">
+    {% endif %}
+    {% block style %}
+    {% for resource in plugins.resources.css %}
+    {% if resource.url %}
+    <link rel="stylesheet" href="{{ resource.url }}">
+    {% else %}
+    <link rel="stylesheet" href="{{ resource.path|resolveAsset }}">
+    {% endif %}
+    {% endfor %}
+    {% endblock %}
+    {% block head %}{% endblock %}
+    <style>
+        .pull-right > i {
+            font-size: 25px;
+            color: #777 !important;
+            cursor: pointer;
+
+        }
+
+        .pull-right > i:hover {
+            color: #777 !important;
+        }
+
+        body {
+            font-size: 15px !important;
+        }
+
+        a[href='../todo.html'], a[href='todo.html'] {
+            color: #888 !important;
+        }
+
+        .copyright {
+            text-align: center;
+            margin: 80px 16px 8px 16px;
+            padding-top: 16px;
+            border-top: #eee 1px solid;
+            color: grey;
+            font-size: .9em;
+        }
+
+        .f-links a{
+            text-decoration: underline;
+            color: dodgerblue !important;
+        }
+
+        .f-links a:hover{
+            opacity: .8 !important;
+        }
+
+        /*.ad {*/
+            /*color: white;*/
+            /*text-align: center;*/
+            /*background: url(https://img.alicdn.com/tfs/TB1Huu7vMmTBuNjy1XbXXaMrVXa-2880-400.png);*/
+            /*background-size: cover;*/
+            /*cursor: pointer;*/
+            /*margin-bottom: 30px;*/
+            /*padding: 18px*/
+        /*}*/
+
+        /*.ad:hover {*/
+            /*opacity: .8;*/
+        /*}*/
+
+        .buy-btn {
+            text-decoration: none !important;
+            padding: 8px 18px;
+            border: #268bd2 1px solid !important;
+            display: inline-block !important;
+            border-radius: 25px;
+            color: #268bd2;
+            margin-top: 10px;
+        }
+
+        .buy-btn:hover {
+            transition: all ease 200ms;
+            box-shadow: #555 2px 5px 10px;
+            background: #eee;
+            color: dodgerblue !important;
+        }
+
+        .maoyun{
+            padding-top: 5px;
+        }
+
+
+    </style>
+</head>
+<body>
+<!--<div id="ad" style="display: none">-->
+<!--<div class="ad ad0"-->
+<!--onclick="_track('aliyun','https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hhi4dts')">-->
+<!--<div style="font-size: 1.3em; padding-right: 120px; position: relative; top: 12px">阿里云新春特惠</div>-->
+<!--<div style="color:orange; font-size: 13px">限时红包 最高￥<span style="font-size: 40px">1888</span></div>-->
+<!--</div>-->
+<!--<div class="ad ad1"-->
+<!--onclick="_track('aliyun-puhui','https://promotion.aliyun.com/ntms/act/qwbk.html?spm=5176.11533457.1089570.10.74e877e33jtaGy&userCode=8hhi4dts')">-->
+<!--<div style="font-size: 1.5em;">阿里云全民云计算-新春特惠</div>-->
+<!--<div style="color:orange; font-size: 18px;padding-top: 4px;">普惠上云，云服务器1核1G仅需293元/年</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<div class="ad"  style="text-align:center; padding-bottom:30px; display: none"><a href="https://item.jd.com/12816296.html" onclick="buy('img')" title='点击购买' target="_blank"><img style="height:250px;box-shadow: #aaa 5px 5px 10px;" src="../imgs/book.png"/></a>  <br/> <a class="buy-btn" onclick="buy('btn')" href="https://item.jd.com/12816296.html" title='点击购买' target="_blank"> 购买实体书 </a></div>
+
+
+<!--<div class="ad"  style="text-align:center; padding-bottom:30px; display: none"><a href="https://item.jd.com/12816296.html" onclick="buy('img')" title='点击购买' target="_blank"><img style="height:250px;box-shadow: #aaa 5px 5px 10px;" src="../imgs/book.png"/></a>  <br/> <a class="buy-btn" onclick="buy('img')" href="https://item.jd.com/12816296.html" title='点击购买' target="_blank"> 购买实体书 </a>-->
+    <!--<a id="jd" href="https://item.jd.com/12816296.html" onclick="buy('jd')"  style=" display: block; padding: 10px; color: red; text-decoration: underline; ">即日起至4.23日，京东图书每满100减50！ </a>-->
+<!--</div>-->
+
+{% block body %}{% endblock %}
+
+{% block javascript %}{% endblock %}
+
+<script src="gitbook/pub.js"></script>
+</body>
+
+</html>
