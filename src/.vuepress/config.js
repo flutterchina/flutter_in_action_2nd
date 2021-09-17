@@ -14,11 +14,11 @@ module.exports = {
     nav: [
       { text: '和作者做同事', link: '/join_us' },
       { text: 'Flutter中国', link: 'https://github.com/flutterchina' },
-      { text: 'Github', link: 'https://github.com/flutterchina/flutter-in-action-2nd' },
+      { text: 'Github', link: 'https://github.com/flutterchina/flutter_in_action_2nd' },
     ],
     sidebar: [
       {
-        title:"首页",
+        title:"第二版序",
         path:"/preface"
       },
       {

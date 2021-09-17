@@ -45,7 +45,7 @@
     * [5.3：变换（Transform）](chapter5/transform.md) 
     * [5.4：Container容器](chapter5/container.md) 
     * [5.5：剪裁（Clip）](chapter5/clip.md) 
-    * [5.6：FittedBox](chapter5/fittedbox.md)
+    * [5.6：空间适配FittedBox](chapter5/fittedbox.md)
     * [5.7：页面骨架Scaffold](chapter5/material_scaffold.md) 
     
 ## 进阶篇
@@ -58,10 +58,11 @@
     * [6.5：AnimatedList](chapter6/animatedlist.md) 
     * [6.6：GridView](chapter6/gridview.md)    
     * [6.7：PageView与页面缓存](chapter6/pageview.md) 
-    * [6.8：TabBarView](chapter6/tabview.md)         
-    * [6.9：CustomScrollView与Slivers](chapter6/custom_scrollview.md) 
-    * [6.10：自定义Sliver](chapter6/sliver.md) 
-    * [6.11：NestedScrollView](chapter6/nestedscrollview.md) 
+    * [6.8：可滚动组件子项缓存](chapter6/keepalive.md)   
+    * [6.9：TabBarView](chapter6/tabview.md)         
+    * [6.10：CustomScrollView与Slivers](chapter6/custom_scrollview.md) 
+    * [6.11：自定义Sliver](chapter6/sliver.md) 
+    * [6.12：NestedScrollView](chapter6/nestedscrollview.md) 
 
 * [第七章：功能型组件](chapter7/index.md)
     * [7.1：导航返回拦截（WillPopScope）](chapter7/willpopscope.md)
@@ -75,7 +76,7 @@
 * [第八章：事件处理与通知](chapter8/index.md)
     * [8.1：原始指针事件处理](chapter8/listener.md)
     * [8.2：手势识别](chapter8/gesture.md)
-    * [8.3：Flutter事件机制原理](chapter8/hittest.md)
+    * [8.3：Flutter事件机制](chapter8/hittest.md)
     * [8.4：手势原理与手势冲突](chapter8/gesture_conflict.md)
     * [8.5：全局事件总线](chapter8/eventbus.md) 
     * [8.6：通知(Notification)](chapter8/notification.md)     
@@ -94,7 +95,7 @@
     * [10.2：组合现有组件](chapter10/combine.md)
     * [10.3：组合实例：TurnBox](chapter10/turn_box.md)
     * [10.4：CustomPaint与Canvas](chapter10/custom_paint.md) 
-    * [10.5：自绘实例：圆形渐变进度条(自绘)](chapter10/gradient_circular_progress_demo.md) 
+    * [10.5：自绘实例：圆形渐变进度条](chapter10/gradient_circular_progress_demo.md) 
     * [10.6：自绘组件：CustomCheckbox](chapter10/custom_checkbox.md)
     * [10.7：自绘组件：DoneWidget](chapter10/done_widget.md)
     * [10.8：水印组件实例：文本绘制与离屏渲染](chapter10/watermark.md)
@@ -125,7 +126,7 @@
     * [14.6：Flutter 绘制（二）组件树绘制流程](chapter14/paint.md)
     * [14.7：Flutter 绘制（三）Layer实例](chapter14/layer.md)
     * [14.8：Flutter 绘制（四）Compositing](chapter14/compositing.md)
-    * [14.9：Flutter 图片加载与缓存](chapter14/todo.md)
+    * [14.9：Flutter 图片加载与缓存](todo.md)
     * [14.10：Flutter 性能优化建议](todo.md)  
 
 ## 实例篇
