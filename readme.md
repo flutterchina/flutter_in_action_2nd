@@ -10,6 +10,10 @@
 - [wendux github 个人主页](https://github.com/wendux)。
 - [wendux 掘金专栏地址](https://juejin.im/user/58211b88a0bb9f0058c25b7f)
 
+## 赞助项目
+
+<img width='300' src='https://github.com/flutterchina/flutter_in_action_2nd/raw/main/book/src/imgs/sponse.jpeg'>
+
 ## 内容简介
 
 本书由浅入深的介绍了Flutter技术和开发流程。本书包含不仅包含大量示例、图片，还有配套的示例源码，可帮助读者循序渐进的掌握Flutter开发技术。本书分为入门、进阶、实例三大篇，其中

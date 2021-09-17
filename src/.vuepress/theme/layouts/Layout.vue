@@ -42,12 +42,16 @@
         <!--</div>-->
       <!--</template>-->
       <template #bottom>
+        <div style="text-align: center">
+          <img src="./pay.jpeg" width="200">
+          <div> 请作者喝杯咖啡 </div>
+        </div>
         <div class='copyright'> 版权所有，禁止私自转发、克隆网站。</div>
         <div style='text-align: center' class='f-links'>
-          <a @click='buy("link")'
-             title='点击购买'
-             target='_blank'> 购买实体书
-          </a> |
+          <!--<a @click='buy("link")'-->
+             <!--title='点击购买'-->
+             <!--target='_blank'> 购买实体书-->
+          <!--</a> |-->
           <a href='https://github.com/flutterchina'>
             Flutter中国开源项目
           </a> |
