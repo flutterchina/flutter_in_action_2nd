@@ -2,9 +2,20 @@
 
 草稿正在整理中，请先不要 fork，如果对内容有建议可以提issue，书稿在 src 目录下，随书源码会在书稿整理完成后上传，禁止任何未授权的转载。
 
+- 电子书在线阅读：https://book.flutterchina.club/
+
+### 进度
+
+- 第 11、13、15 章尚未更新。
+- 第 14 章最后两节“图片加载与缓存”、“Flutter性能优化建议” 正在创作。
+
+更新时间点：笔者平时工作较忙，周末统一处理 Issue 和更新。
+
+
+
 ## 关于作者
 
-作者杜文（网名[wendux](https://github.com/wendux)）作者曾就职于百度、小赢科技等互联网公司，从事过PC桌面开发、移动端开发以及Web开发，现就职于字节跳动，负责幸福里大前端团队。
+作者杜文（网名[wendux](https://github.com/wendux)）从事过 PC 桌面开发、Android 开发以及 Web 开发，现就职于字节跳动，负责幸福里大前端团队。
 
 - [Flutter中文社区开源项目](https://github.com/flutterchina) 创办人。
 - [wendux github 个人主页](https://github.com/wendux)。
