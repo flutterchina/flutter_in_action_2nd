@@ -1,4 +1,4 @@
-# 14.7 绘制（四）Compositing
+# 14.8 绘制（四）Compositing
 
 本节我们来介绍一下 flushCompositingBits()。现在，我们再来回顾一下Flutter的渲染管线：
 
@@ -14,7 +14,7 @@ void drawFrame(){
 
 其中只有 flushCompositingBits() 还没有介绍过，这是因为要理解flushCompositingBits()，就必须的了解Layer是什么，以及 Layer 树构建的过程。为了更容易理解它，我们先看一个demo。
 
-## 14.7.1 CustomRotatedBox
+## 14.8.1 CustomRotatedBox
 
 我们实现一个CustomRotatedBox，它的功能是将其子元素放倒（顺时针旋转 90 度），要实现个效果我们可以直接使用 canvas 的变换功能，下面是核心代码：
 
@@ -326,7 +326,7 @@ void paint(PaintingContext context, Offset offset) {
 | ClipRectLayer    | pushClipRect              | ClipRect              |
 | TransformLayer   | pushTransform             | RotatedBox、Transform |
 
-## 14.7.2 什么时候需要合成 Layer ？
+## 14.8.2 什么时候需要合成 Layer ？
 
 通过上面的例子我们知道 CustomRotatedBox 的直接子节点是绘制边界节点时 CustomRotatedBox 中就需要合成 layer。实际上这只是一种特例，还有一些其它情况也需要 CustomRotatedBox 进行 Layer 合成，那什么时候需要 Layer 合成有没有一个一般性的普适原则？答案是：有！ 我们思考一下 CustomRotatedBox 中需要 Layer 合成的根本原因是什么？如果 CustomRotatedBox 的所有后代节点都共享的是同一个PictureLayer，但是，一旦有后代节点创建了新的PictureLayer，则绘制就会脱离了之前PictureLayer，因为不同的PictureLayer上的绘制是相互隔离的，是不能相互影响，所以为了使变换对所有后代节点对应的 PictureLayer 都生效，则我们就需要将所有后代节点的添加到同一个 ContainerLayer 中，所以就需要在 CustomRotatedBox 中先进行 Layer 合成。
 
@@ -481,7 +481,7 @@ class RenderOpacity extends RenderProxyBox {
 
 Flutter 也考虑到了这个问题，于是便有了flushCompositingBits 方法，我们下面来正式介绍它。
 
-## 14.7.3 flushCompositingBits
+## 14.8.3 flushCompositingBits
 
 每一个节点（RenderObject中）都有一个`_needsCompositing` 字段，该字段用于缓存当前节点在绘制子节点时是否需要合成 layer。flushCompositingBits 的功能就是在节点树初始化和子树中合成信息发生变化时来重新遍历节点树，更新每一个节点的`_needsCompositing` 值。可以发现：
 
@@ -592,11 +592,11 @@ class CustomRenderRotatedBox extends RenderBox
 
 ### 再论 flushCompositingBits
 
-现在，我们思考一下引入 flushCompositingBits 的根本原因是什么？假如，我们在变换类容器中，始终采用合成 layer 的方式来对子树应用变换效果，也就是说不会使用 canvas 进行变换，那么flushCompositingBits 的过程也就不需要了，为什么还要大费周章的搞一个 flushCompositingBits 流程？根本原因就是，如果在变换类组件中一刀切的使用合成 layer 方式的话，则每遇到一个变换类组件，则至少会再创建一个layer，这样的话，最终layer树上的layer数量就会变多。我们之前说过当对子树的变换效果既能通过canvas实现，又能通过容器类Layer的话，建议使用canvas，这是因为没新建一个 layer 都会有额外的开销，所以我们应该在无法通过 canvas 来实现的时候再通过容器类Layer合成的方式来实现。总结一下，**引入 flushCompositingBits 的根本原因是为了减少 layer的数量**。
+现在，我们思考一下引入 flushCompositingBits 的根本原因是什么？假如我们在变换类容器中始终采用合成 layer 的方式来对子树应用变换效果，也就是说不再使用 canvas 进行变换，这样的话 flushCompositingBits 也就没必要存在了，为什么一定要 flushCompositingBits 呢？根本原因就是：如果在变换类组件中一刀切的使用合成 layer 方式的话，每遇到一个变换类组件则至少会再创建一个 layer，这样的话，最终 layer 树上的layer数量就会变多。我们之前说过对子树应用的变换效果既能通过 Canvas 实现也能通过容器类Layer实现时，建议使用Canvas 。这是因为每新建一个 layer 都会有额外的开销，所以我们只应该在无法通过 Canvas 来实现子树变化效果时再通过Layer 合成的方式来实现。综上，我们可以发现**引入 flushCompositingBits 的根本原因其实是为了减少 layer的数量**。
 
 另外，flushCompositingBits 的执行过程只是做标记，并没有进行层的合成，真正的合成是在绘制时（组件的 paint 方法中）。
 
-### 14.7.4 总结
+### 14.8.4 总结
 
 1. 首先只有组件树中有变换类容器时，才有可能需要重新合成 layer；如果没有变换类组件，则不需要。
 
