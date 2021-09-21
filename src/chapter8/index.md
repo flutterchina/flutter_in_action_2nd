@@ -4,7 +4,9 @@ Flutter中的手势系统有两个独立的层。第一层为原始指针(pointe
 
 ## 本章目录
 
-* [原始指针事件处理](listener.md)
-* [手势识别](gesture.md)
-* [全局事件总线](eventbus.md) 
-* [通知Notification](notification.md) 
+* [8.1：原始指针事件处理](listener.md)
+* [8.2：手势识别](gesture.md)
+* [8.3：Flutter事件机制](hittest.md)
+* [8.4：手势原理与手势冲突](gesture_conflict.md)
+* [8.5：全局事件总线](eventbus.md) 
+* [8.6：通知(Notification)](notification.md)  

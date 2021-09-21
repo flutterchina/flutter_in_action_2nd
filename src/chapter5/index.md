@@ -10,9 +10,9 @@
 ## 本章目录
 
 * [5.1：填充（Padding）](padding.md)
-* [5.2：尺寸限制类容器（ConstrainedBox等）](constrainedbox_and_sizebox.md)
-* [5.3：装饰容器（DecoratedBox）](decoratedbox.md)      
-* [5.4：变换（Transform）](transform.md) 
-* [5.5：Container容器](container.md) 
-* [5.6：Scaffold、TabBar、底部导航](material_scaffold.md) 
-* [5.7：剪裁（Clip）](clip.md) 
+* [5.2：装饰容器（DecoratedBox）](decoratedbox.md)      
+* [5.3：变换（Transform）](transform.md) 
+* [5.4：Container容器](container.md) 
+* [5.5：剪裁（Clip）](clip.md) 
+* [5.6：空间适配FittedBox](fittedbox.md)
+* [5.7：页面骨架Scaffold](material_scaffold.md) 

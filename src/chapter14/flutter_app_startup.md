@@ -135,16 +135,56 @@ RenderObjectToWidgetElement<T> attachToRenderTree(BuildOwner owner, [RenderObjec
 
 ### Frame
 
-一次绘制过程，我们称其为一帧（frame）。我们之前说的Flutter可以实现60fps（Frame Per-Second），就是指一秒钟最多可以触发 60 次重绘，FPS 值越大，界面就越流畅。这里需要说明的是 Flutter中 的 frame 概念并不等同于屏幕刷新帧（frame），因为Flutter UI 框架的 frame 并不是每次屏幕刷新都会触发，这是因为，如果 UI 在一段时间不变，那么每次屏幕刷新都重新走一遍渲染流程是不必要的，因此，Flutter 在第一帧渲染结束后会采取一种主动请求 frame 的方式来实现只有当UI可能会改变时才会重新走渲染流程。
+一次绘制过程，我们称其为一帧（frame）。我们之前说的 Flutter 可以实现60fps（Frame Per-Second）就是指一秒钟最多可以触发 60 次重绘，FPS 值越大，界面就越流畅。这里需要说明的是 Flutter中 的 frame 概念并不等同于屏幕刷新帧（frame），因为Flutter UI 框架的 frame 并不是每次屏幕刷新都会触发，这是因为，如果 UI 在一段时间不变，那么每次屏幕刷新都重新走一遍渲染流程是不必要的，因此，Flutter 在第一帧渲染结束后会采取一种主动请求 frame 的方式来实现只有当UI可能会改变时才会重新走渲染流程。
 
 1. Flutter 在 `window` 上注册一个 `onBeginFrame `和一个 `onDrawFrame` 回调，在`onDrawFrame` 回调中最终会调用 `drawFrame`。
 2. 当我们调用 `window.scheduleFrame()` 方法之后，Flutter引擎会在合适的时机（可以认为是在屏幕下一次刷新之前，具体取决于lutter引擎的实现）来调用`onBeginFrame `和` onDrawFrame `。
 
 可以看见，只有主动调用`scheduleFrame() `，才会执行 `drawFrame`。所以，**我们在Flutter 中的提到 frame 时，如无特别说明，则是和 `drawFrame()` 的调用对应，而不是和屏幕的刷新频率对应**。
 
-### 渲染管线：每一帧都做了什么？
+### Flutter 调度过程 SchedulerPhase
 
-`onDrawFrame`  最终会调用到 WidgetsBinding 的 `drawFrame()` 方法，我们来看看它的实现：
+Flutter 应用执行过程简单来讲分为 idle 和 frame 两种状态，idle 状态代表没有 frame 处理，如果应用状态改变需要刷新 UI，则需要通过`scheduleFrame()`去请求新的 frame，当 frame 到来时，就进入了frame状态，整个Flutter应用生命周期就是在 idle 和 frame 两种状态间切换。
+
+#### frame 处理流程
+
+当有新的 frame 到来时，开始调用 `SchedulerBinding.handleDrawFrame` 来处理 frame，具体处理过程就是依次执行四个任务队列：transientCallbacks、midFrameMicrotasks、persistentCallbacks、postFrameCallbacks，当四个任务队列执行完毕后当前 frame 结束。
+
+综上，Flutter 将整个生命周期分为五种状态，通过 SchedulerPhase 枚举类来表示它们：
+
+```dart
+enum SchedulerPhase {
+  
+  /// 空闲状态，并没有 frame 在处理。这种状态代表页面未发生变化，并不需要重新渲染。
+  /// 如果页面发生变化，需要调用`scheduleFrame()`来请求 frame。
+  /// 注意，空闲状态只是指没有 frame 在处理，通常微任务、定时器回调或者用户事件回调都
+  /// 可能被执行，比如监听了tap事件，用户点击后我们 onTap 回调就是在idle阶段被执行的。
+  idle,
+
+  /// 执行”临时“回调任务，”临时“回调任务只能被执行一次，执行后会被移出”临时“任务队列。
+  /// 典型的代表就是动画回调会在该阶段执行。
+  transientCallbacks,
+
+  /// 在执行临时任务时可能会产生一些新的微任务，比如在执行第一个临时任务时创建了一个
+  /// Future，且这个 Future 在所有临时任务执行完毕前就已经 resolve 了，这中情况
+  /// Future 的回调将在[midFrameMicrotasks]阶段执行
+  midFrameMicrotasks,
+
+  /// 执行一些持久的任务（每一个frame都要执行的任务），比如渲染管线（构建、布局、绘制）
+  /// 就是在该任务队列中执行的.
+  persistentCallbacks,
+
+  /// 在当前 frame 在结束之前将会执行 postFrameCallbacks，通常进行一些清理工作和
+  /// 请求新的 frame。
+  postFrameCallbacks,
+}
+```
+
+需要注意，我们接下来要重点介绍的渲染管线就是在 persistentCallbacks 中执行的。
+
+### 渲染管线（rendering pipline）
+
+当新的 frame 到来时，调用到 WidgetsBinding 的 `drawFrame()` 方法，我们来看看它的实现：
 
 ```dart
 @override
@@ -157,7 +197,7 @@ void drawFrame() {
 }
 ```
 
-实际上关键的代码就两行：先 rebuild，然后再调用父类的 drawFrame 方法，我们将父类的 drawFrame方法展开后：
+实际上关键的代码就两行：先从新构建（build），然后再调用父类的 drawFrame 方法，我们将父类的 drawFrame方法展开后：
 
 ```dart
 void drawFrame() {
@@ -168,8 +208,7 @@ void drawFrame() {
   pipelineOwner.flushPaint(); // 4.重绘
   if (sendFramesToEngine) {
     renderView.compositeFrame(); // 5. 上屏，会将绘制出的bit数据发送给GPU
-    pipelineOwner.flushSemantics(); // this also sends the semantics to the OS.
-    _firstFrameSent = true;
+    ...
   }
 }
 ```
@@ -183,7 +222,7 @@ void drawFrame() {
 4. 重绘。
 5. 上屏：将绘制的产物显示在屏幕上
 
-我们称上面的5步为  rendering pipline，中文翻译为“渲染流水线”或 “渲染管线”。而渲染管线的这 5 个步骤的具体过程便是本章重点要介绍的。下面我们以 setState 的执行更新的流程为例先对整个更新流程有一个大概的影响
+我们称上面的5步为  rendering pipline，中文翻译为 “渲染流水线” 或 “渲染管线”。而渲染管线的这 5 个步骤的具体过程便是本章重点要介绍的。下面我们以 setState 的执行更新的流程为例先对整个更新流程有一个大概的影响
 
 ### setState 执行流
 
@@ -193,7 +232,7 @@ setState 调用后：
 2. 接着调用 scheduleBuildFor，将当前 element 添加到piplineOwner的 dirtyElements 列表。
 3. 最后请求一个新的 frame，随后会绘制新的 frame：onBuildScheduled->ensureVisualUpdate->scheduleFrame() 。当新的 frame 到来时执行渲染管线
 
-```
+```dart
 void drawFrame() {
   buildOwner!.buildScope(renderViewElement!); //重新构建widget树
   pipelineOwner.flushLayout(); // 更新布局
@@ -207,17 +246,118 @@ void drawFrame() {
 }
 ```
 
-1. 重新构建widget树：如果 dirtyElements 列表不为空，则遍历该列表，调用每一个element的rebuild方法重新构建新的widget（树），由于新的widget(树)使用新的状态构建，所以可能导致widget布局信息（占用的空间和位置）发生变化，如果发生变化，则会调用其renderObject的markNeedsLayout方法，该方法会从当前节点向父级查找，直到找到一个relayoutBoundary的节点，然后会将它添加到一个全局的nodesNeedingLayout列表中；如果直到根节点也没有找到relayoutBoundary，则将根节点添加到nodesNeedingLayout列表中。
-2. 更新布局：遍历nodesNeedingLayout数组，对每一个renderObject重新布局（调用其layout方法），确定新的大小和偏移。layout方法中会调用markNeedsPaint()，该方法和 markNeedsLayout 方法功能类似，也会从当前节点向父级查找，直到找到一个isRepaintBoundary属性为true的父节点，然后将它添加到一个全局的nodesNeedingPaint列表中；由于根节点（RenderView）的 isRepaintBoundary 为 true，所以必会找到一个。查找过程结束后会调用buildOwner.requestVisualUpdate方法，该方法最终会调用scheduleFrame()，该方法中会先判断是否已经请求过新的frame，如果没有则请求一个新的frame。
+1. 重新构建 widget 树：如果 dirtyElements 列表不为空，则遍历该列表，调用每一个element的rebuild方法重新构建新的widget（树），由于新的widget(树)使用新的状态构建，所以可能导致widget布局信息（占用的空间和位置）发生变化，如果发生变化，则会调用其renderObject的markNeedsLayout方法，该方法会从当前节点向父级查找，直到找到一个relayoutBoundary的节点，然后会将它添加到一个全局的nodesNeedingLayout列表中；如果直到根节点也没有找到relayoutBoundary，则将根节点添加到nodesNeedingLayout列表中。
+2. 更新布局：遍历nodesNeedingLayout数组，对每一个renderObject重新布局（调用其layout方法），确定新的大小和偏移。layout方法中会调用markNeedsPaint()，该方法和 markNeedsLayout 方法功能类似，也会从当前节点向父级查找，直到找到一个isRepaintBoundary属性为true的父节点，然后将它添加到一个全局的nodesNeedingPaint列表中；由于根节点（RenderView）的 isRepaintBoundary 为 true，所以必会找到一个。查找过程结束后会调用 buildOwner.requestVisualUpdate 方法，该方法最终会调用scheduleFrame()，该方法中会先判断是否已经请求过新的frame，如果没有则请求一个新的frame。
 3. 更新合成信息：先忽略，后面我们专门介绍。
 4. 更新绘制：遍历nodesNeedingPaint列表，调用每一个节点的paint方法进行重绘，绘制过程会生成Layer。需要说明一下，flutter中绘制结果是是保存在Layer中的，也就是说只要Layer不释放，那么绘制的结果就会被缓存，因此，Layer可以跨frame来缓存绘制结果，避免不必要的重绘开销。Flutter框架绘制过程中，遇到isRepaintBoundary 为 true 的节点时，才会生成一个新的Layer。可见Layer和 renderObject 不是一一对应关系，父子节点可以共享，这个我们会在随后的一个试验中来验证。当然，如果是自定义组件，我们可以在renderObject中手动添加任意多个 Layer，这通常用于只需一次绘制而随后不会发生变化的绘制元素的缓存场景，这个随后我们也会通过一个例子来演示。
 5. 上屏：绘制完成后，我们得到的是一棵Layer树，最后我们需要将Layer树中的绘制信息在屏幕上显示。我们知道Flutter是自实现的渲染引擎，因此，我们需要将绘制信息提交给Flutter engine，而`renderView.compositeFrame` 正是完成了这个使命。
 
 以上，便是setState调用到UI更的大概更新过程，实际的流程会更复杂一些，比如在build过程中是不允许再调用setState的，框架需要做一些检查。又比如在frame中会涉及到动画的的调度、在上屏时会将所有的Layer添加到场景（Scene）对象后，再渲染Scene。上面的流程读者先有个映像即可，我们将在后面的小节中详细介绍。
 
+### setState 执行时机问题
+
+setState 会触发 build，而 build 是在执行 `persistentCallbacks` 阶段执行的，因此只要不是在该阶段执行 setState 就绝对安全，但是这样的粒度太粗，比如在transientCallbacks 和 midFrameMicrotasks 阶段，如果应用状态发生变化，最好的方式是只将组件标记为 dirty，而不用再去请求新的 frame ，因为当前frame 还没有执行到 `persistentCallbacks`，因此后面执行到后就会在当前帧渲染管线中刷新UI。因此，setState 在标记完 dirty 后会先判断一下调度状态，如果是 idle 或 执行 postFrameCallbacks 阶段才会去请求新的 frame :
+
+```dart
+void ensureVisualUpdate() {
+  switch (schedulerPhase) {
+    case SchedulerPhase.idle:
+    case SchedulerPhase.postFrameCallbacks:
+      scheduleFrame(); // 请求新的frame
+      return;
+    case SchedulerPhase.transientCallbacks:
+    case SchedulerPhase.midFrameMicrotasks:
+    case SchedulerPhase.persistentCallbacks: // 注意这一行
+      return;
+  }
+}
+```
+
+上面的代码在大多数情况下是没有问题的，但是如果我们在 build 阶段又调用 setState 的话还是会有问题，因为如果我们在 build 阶段又调用 setState 的话就又会导致 build....这样将将导致循环调用，因此 flutter 框架发现在 build 阶段调用 setState 的话就会报错，如：
+
+```dart
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, c) {
+        // build 阶段不能调用 setState, 会报错
+        setState(() {
+          ++index;
+        });
+        return Text('xx');
+      },
+    );
+  }
+```
+
+运行后会报错，控制台会打印：
+
+```
+==== Exception caught by widgets library ====
+The following assertion was thrown building LayoutBuilder:
+setState() or markNeedsBuild() called during build.
+```
+
+需要注意，如果我们直接在 build 中调用`setState` ，代码如下：
+
+```dart
+@override
+Widget build(BuildContext context) {
+  setState(() {
+    ++index;
+  });
+  return Text('$index');
+}  
+```
+
+运行后是不会报错的，原因是在执行 build 时当前组件的 dirty 状态（对应的element中）为 true，只有 build 执行完后才会被置为 false。而 setState 执行的时候会会先判断当前 dirty 值，如果为 true 则会直接返回，因此就不会报错。
+
+上面我们只讨论了在 build 阶段调用 setState 会导致错误，实际上在整个构建、布局和绘制阶段都不能同步调用 setState，这是因为，在这些阶段调用 setState 都有可能请求新的 frame，都可能会导致循环调用，因此如果要在这些阶段更新应用状态时，都不能直接调用 setState。
+
+#### 安全更新
+
+现在我们知道在 build 阶段不能调用 setState了，实际上在组件的布局阶段和绘制阶段也都不能直接再同步请求重新布局或重绘，道理是相同的，那在这些阶段正确的更新方式是什么呢，我们以 setState 为例，可以通过如下方式：
+
+```dart
+// 在build、布局、绘制阶段安全更新
+void update(VoidCallback fn) {
+  SchedulerBinding.instance!.addPostFrameCallback((_) {
+    setState(fn);
+  });
+}
+```
+
+注意，update 函数只应该在 frame 执行 `persistentCallbacks` 时执行，其它阶段直接调用 setState 即可。因为 idle 状态会是一个特例，如果 在idle 状态调用 update 的话，需要手动调用 `scheduleFrame()` 请求新的 frame，否则 postFrameCallbacks 在下一个frame （其它组件请求的 frame ）到来之前不会被执行，因此我们可以将 update 修改一下：
+
+```dart
+void update(VoidCallback fn) {
+  final schedulerPhase = SchedulerBinding.instance!.schedulerPhase;
+  if (schedulerPhase == SchedulerPhase.persistentCallbacks) {
+    SchedulerBinding.instance!.addPostFrameCallback((_) {
+      setState(fn);
+    });
+  } else {
+    setState(fn);
+  }
+}
+```
+
+至此，我们封装了一个可以安全更新状态的 update 函数。
+
+现在我们回想一下，在第十章 “自绘组件：CustomCheckbox” 一节中，为了执行动画，我们在绘制完成之后通过如下代码请求重绘：
+
+```dart
+ SchedulerBinding.instance!.addPostFrameCallback((_) {
+   ...
+   markNeedsPaint();
+ });
+```
+
+我们并没有直接调用 markNeedsPaint()，而原因正如上面所述。
+
 ### 总结
 
-本节介绍了Flutter App 从启动到显示到屏幕上的主流程，重点是 Flutter 的渲染流程：![image-20210829204119900](/Users/duwen/Library/Application Support/typora-user-images/image-20210829204119900.png)
+本节介绍了Flutter App 从启动到显示到屏幕上的主流程，重点是 Flutter 的渲染流程：![Flutter渲染流程](../imgs/pipeline.png)
 
 需要说明的是 build 过程和 layout 过程是可以交替执行的，这个我们在介绍 LayoutBuilder 一节时已经解释过了。读者需要对整个渲染流程有个大概映像，后面我们会详细介绍，不过在深入介绍渲染管线之前，我们得仔细的了解一下 Element 、BuildContext 和 RenderObject 三个类。
 

@@ -50,7 +50,7 @@ Sliver 需要确定的是 SliverGeometry：
 
 ```dart
 const SliverGeometry({
-  //Sliver在主轴方向预估长度，用于计算sliverConstraints.scrollOffset
+  //Sliver在主轴方向预估长度，大多数啊情况是固定值，用于计算sliverConstraints.scrollOffset
   this.scrollExtent = 0.0, 
   this.paintExtent = 0.0, // 可视区域中的绘制长度
   this.paintOrigin = 0.0, // 绘制的坐标原点，相对于自身布局位置
@@ -63,6 +63,8 @@ const SliverGeometry({
   bool? visible,// 是否显示
   //是否会溢出Viewport，如果为true，Viewport便会裁剪
   this.hasVisualOverflow = false,
+  //scrollExtent的修正值：layoutExtent变化后，为了防止sliver突然跳动（应用新的layoutExtent）
+  //可以先进行修正，具体的作用在后面 SliverFlexibleHeader 示例中会介绍。
   this.scrollOffsetCorrection,
   double? cacheExtent, // 在预渲染区域中占据的长度
 }) 
@@ -132,7 +134,7 @@ class _SliverFlexibleHeader extends SingleChildRenderObjectWidget {
 
   @override
   RenderObject createRenderObject(BuildContext context) {
-    return _FlexibleHeaderRenderSliver()..visibleExtent = visibleExtent;
+   return _FlexibleHeaderRenderSliver(visibleExtent);
   }
 
   @override
@@ -149,6 +151,9 @@ class _SliverFlexibleHeader extends SingleChildRenderObjectWidget {
 
 ```dart
 class _FlexibleHeaderRenderSliver extends RenderSliverSingleBoxAdapter {
+    _FlexibleHeaderRenderSliver(double visibleExtent)
+      : _visibleExtent = visibleExtent;
+  
   double _lastOverScroll = 0;
   double _lastScrollOffset = 0;
   late double _visibleExtent = 0;
@@ -167,7 +172,7 @@ class _FlexibleHeaderRenderSliver extends RenderSliverSingleBoxAdapter {
   void performLayout() {
     // 滑动距离大于_visibleExtent时则表示子节点已经在屏幕之外了
     if (child == null || (constraints.scrollOffset > _visibleExtent)) {
-      geometry = SliverGeometry.zero;
+      geometry = SliverGeometry(scrollExtent: _visibleExtent);
       return;
     }
 
@@ -284,23 +289,17 @@ class ExtraInfoBoxConstraints<T> extends BoxConstraints {
   // 额外的信息
   final T extra;
   
-    @override
+  @override
   bool operator ==(Object other) {
-    assert(debugAssertIsValid());
     if (identical(this, other)) return true;
-    if (other.runtimeType != runtimeType) return false;
     return other is ExtraInfoBoxConstraints &&
-        other.minWidth == minWidth &&
-        other.maxWidth == maxWidth &&
-        other.minHeight == minHeight &&
-        other.maxHeight == maxHeight &&
+        super == other &&
         other.extra == extra;
   }
 
   @override
   int get hashCode {
-    assert(debugAssertIsValid());
-    return hashValues(minWidth, maxWidth, minHeight, maxHeight, extra);
+    return hashValues(super.hashCode, extra);
   }
 }
 ```
@@ -387,35 +386,83 @@ if (constraints.userScrollDirection == ScrollDirection.idle) {
 }
 ```
 
+### 高度修正 scrollOffsetCorrection
+
+如果 visibleExtent 变化时，我们看看效果：
+
+![突兀跳一下](../imgs/suddenly-jump.gif)
+
+可以看到有一个突兀地跳动，这是因为 visibleExtent 变化时会导致 layoutExtent 发生变化，也就是说 SliverFlexibleHeader 在屏幕中所占的布局高度会发生变化，所以列表就出现跳动。但这个跳动效果太突兀了，我们知道每一个 Sliver 的高度是通过 scrollExtent 属性预估出来的，因此我们需要修正一下 scrollExtent，但是我们不能直接修改 scrollExtent 的值，直接修改不会有任何动画效果，仍然会跳动，为此，SliverGeometry 提供了一个 scrollOffsetCorrection 属性，它专门用于修正 scrollExtent ，我们只需要将要修正差值传给scrollOffsetCorrection，然后 Sliver 会自动执行一个动画效果过渡到我们期望的高度。
+
+```dart
+  // 是否需要修正scrollOffset. _visibleExtent 值更新后，
+  // 为了防止突然的跳动，要先修正 scrollOffset。
+  double? _scrollOffsetCorrection;
+
+  set visibleExtent(double value) {
+    // 可视长度发生变化，更新状态并重新布局
+    if (_visibleExtent != value) {
+      _lastOverScroll = 0;
+      _reported = false;
+      // 计算修正值
+      _scrollOffsetCorrection = value - _visibleExtent;
+      _visibleExtent = value;
+      markNeedsLayout();
+    }
+  }
+
+  @override
+  void performLayout() {
+    // _visibleExtent 值更新后，为了防止突然的跳动，先修正 scrollOffset
+    if (_scrollOffsetCorrection != null) {
+      geometry = SliverGeometry(
+        //修正
+        scrollOffsetCorrection: _scrollOffsetCorrection,
+      );
+      _scrollOffsetCorrection = null;
+      return;
+    }
+    ...
+  } 
+```
+
+运行后效果如下（动图可能太快，可以直接运行示例查看效果）：
+
+![突兀跳一下](../imgs/scrolloffset-correction.gif)
+
 ### 边界
 
 在 SliverFlexibleHeader 构建子组件时开发者可能会依赖“当前的可用高度是否为0”来做一些特殊处理，比如记录是否子组件已经离开了屏幕。但是根据上面的实现，当用户滑动非常快时，子组件离开屏幕时的最后一次布局时传递的约束的 maxExtent 可能不为 0，而当 constraints.scrollOffset 大于 _visibleExtent 时我们在 performLayout 的一开始就返回了，因此 LayoutBuilder 的 builder 中就有可能收不到 maxExtent 为 0 时的回调。为了解决这个问题，我们只需要在每次 Sliver 离开屏幕时调用一次 child.layout 同时 将maxExtent 指定为 0 即可，为此我们修改一下：
 
 ```dart
 void performLayout() {
-  // 滑动距离大于_visibleExtent时则表示子节点已经在屏幕之外了
-  if (child == null || (constraints.scrollOffset > _visibleExtent)) {
-    geometry = SliverGeometry.zero;
-    // 当已经完全滑出屏幕时，通知 child 重新布局。注意，通知一次即可。如果不通知，滑出屏幕后，
-    // child 在最后一次构建时拿到的可用高度可能不为 0。因为使用者在构建子节点的时候，
-    // 可能会依赖"当前的可用高度是否为0"来做一些特殊处理，比如记录是否子节点已经离开
-    // 了屏幕，因此，我们需要在离开屏幕时确保LayoutBuilder的builder会被调用一次（构建
-    // 子组件）。
-    if (child != null && !_reported) {
-      _reported = true;
-      child!.layout(
-        ExtraInfoBoxConstraints(
-          _direction, //传递滑动方向
-          constraints.asBoxConstraints(maxExtent: 0),
-        ),
-        //我们不会使用自节点的 Size, 关于此参数更详细的内容见本书后面关于layout原理的介绍
-        parentUsesSize: false,
-      );
+    if (child == null) {
+      geometry = SliverGeometry(scrollExtent: _visibleExtent);
+      return;
     }
-    return;
-  }
-  //子组件回到了屏幕中，重置通知状态
-  _reported = false;
+    //当已经完全滑出屏幕时
+    if (constraints.scrollOffset > _visibleExtent) {
+      geometry = SliverGeometry(scrollExtent: _visibleExtent);
+      // 通知 child 重新布局，注意，通知一次即可，如果不通知，滑出屏幕后，child 在最后
+      // 一次构建时拿到的可用高度可能不为 0。因为使用者在构建子节点的时候，可能会依赖
+      // "当前的可用高度是否为0" 来做一些特殊处理，比如记录是否子节点已经离开了屏幕，
+      // 因此，我们需要在离开屏幕时确保LayoutBuilder的builder会被调用一次（构建子组件）。
+      if (!_reported) {
+        _reported = true;
+        child!.layout(
+          ExtraInfoBoxConstraints(
+            _direction, //传递滑动方向
+            constraints.asBoxConstraints(maxExtent: 0),
+          ),
+          //我们不会使用自节点的 Size, 关于此参数更详细的内容见本书后面关于layout原理的介绍
+          parentUsesSize: false,
+        );
+      }
+      return;
+    }
+
+    //子组件回到了屏幕中，重置通知状态
+    _reported = false;
   
   ...
 }

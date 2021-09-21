@@ -19,7 +19,7 @@ const ValueListenableBuilder({
 
 ### 示例
 
-我们依然实现一个技术器，点击
+我们依然实现一个计数器，点击
 
 ```dart
 class ValueListenableRoute extends StatefulWidget {
