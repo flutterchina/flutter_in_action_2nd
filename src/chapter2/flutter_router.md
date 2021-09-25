@@ -26,14 +26,14 @@
 
    新路由继承自`StatelessWidget`，界面很简单，在页面中间显示一句"This is new route"。
 
-2. 在`_MyHomePageState.build`方法中的`Column`的子widget中添加一个按钮（`FlatButton`） :
+2. 在`_MyHomePageState.build`方法中的`Column`的子widget中添加一个按钮（`TextButton`） :
 
    ```dart
    Column(
      mainAxisAlignment: MainAxisAlignment.center,
      children: <Widget>[
        ... //省略无关代码
-       FlatButton(
+       TextButton(
          child: Text("open new route"),
          textColor: Colors.blue,
          onPressed: () {
@@ -256,7 +256,7 @@ MaterialApp(
 Future pushNamed(BuildContext context, String routeName,{Object arguments})
 ```
 
-`Navigator` 除了`pushNamed`方法，还有`pushReplacementNamed`等其他管理命名路由的方法，读者可以自行查看API文档。接下来我们通过路由名来打开新的路由页，修改`FlatButton`的`onPressed`回调代码，改为：
+`Navigator` 除了`pushNamed`方法，还有`pushReplacementNamed`等其他管理命名路由的方法，读者可以自行查看API文档。接下来我们通过路由名来打开新的路由页，修改`TextButton`的`onPressed`回调代码，改为：
 
 ```dart
 onPressed: () {

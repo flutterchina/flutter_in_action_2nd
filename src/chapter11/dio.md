@@ -62,7 +62,7 @@ response=await dio.download("https://www.google.com/",_savePath);
 发送 FormData:
 
 ```dart
-FormData formData = new FormData.from({
+FormData formData = FormData.from({
    "name": "wendux",
    "age": 25,
 });
@@ -74,15 +74,15 @@ response = await dio.post("/info", data: formData)
 通过FormData上传多个文件:
 
 ```dart
-FormData formData = new FormData.from({
+FormData formData = FormData.from({
    "name": "wendux",
    "age": 25,
-   "file1": new UploadFileInfo(new File("./upload.txt"), "upload1.txt"),
-   "file2": new UploadFileInfo(new File("./upload.txt"), "upload2.txt"),
+   "file1": UploadFileInfo(File("./upload.txt"), "upload1.txt"),
+   "file2": UploadFileInfo(File("./upload.txt"), "upload2.txt"),
      // 支持文件数组上传
    "files": [
-      new UploadFileInfo(new File("./example/upload.txt"), "upload.txt"),
-      new UploadFileInfo(new File("./example/upload.txt"), "upload.txt")
+      UploadFileInfo(File("./example/upload.txt"), "upload.txt"),
+      UploadFileInfo(File("./example/upload.txt"), "upload.txt")
     ]
 });
 response = await dio.post("/info", data: formData)
@@ -121,12 +121,12 @@ response = await dio.post("/info", data: formData)
 
 ```dart
 class _FutureBuilderRouteState extends State<FutureBuilderRoute> {
-  Dio _dio = new Dio();
+  Dio _dio = Dio();
 
   @override
   Widget build(BuildContext context) {
 
-    return new Container(
+    return Container(
       alignment: Alignment.center,
       child: FutureBuilder(
           future: _dio.get("https://api.github.com/orgs/flutterchina/repos"),

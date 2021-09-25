@@ -277,7 +277,7 @@ Dart类库有非常多的返回`Future`或者`Stream`对象的函数。 这些�
 为了方便示例，在本例中我们使用`Future.delayed` 创建了一个延时任务（实际场景会是一个真正的耗时任务，比如一次网络请求），即2秒后返回结果字符串"hi world!"，然后我们在`then`中接收异步结果并打印结果，代码如下：
 
 ```dart
-Future.delayed(new Duration(seconds: 2),(){
+Future.delayed(Duration(seconds: 2),(){
    return "hi world!";
 }).then((data){
    print(data);
@@ -289,7 +289,7 @@ Future.delayed(new Duration(seconds: 2),(){
 如果异步任务发生错误，我们可以在`catchError`中捕获错误，我们将上面示例改为：
 
 ```dart
-Future.delayed(new Duration(seconds: 2),(){
+Future.delayed(Duration(seconds: 2),(){
    //return "hi world!";
    throw AssertionError("Error");  
 }).then((data){
@@ -304,7 +304,7 @@ Future.delayed(new Duration(seconds: 2),(){
 在本示例中，我们在异步任务中抛出了一个异常，`then `的回调函数将不会被执行，取而代之的是 `catchError`回调函数将被调用；但是，并不是只有 `catchError`回调才能捕获错误，`then`方法还有一个可选参数`onError`，我们也可以它来捕获异常：
 
 ```dart
-Future.delayed(new Duration(seconds: 2), () {
+Future.delayed(Duration(seconds: 2), () {
 	//return "hi world!";
 	throw AssertionError("Error");
 }).then((data) {
@@ -319,7 +319,7 @@ Future.delayed(new Duration(seconds: 2), () {
 有些时候，我们会遇到无论异步任务执行成功或失败都需要做一些事的场景，比如在网络请求前弹出加载对话框，在请求结束后关闭对话框。这种场景，有两种方法，第一种是分别在`then`或`catch`中关闭一下对话框，第二种就是使用`Future`的`whenComplete`回调，我们将上面示例改一下：
 
 ```dart
-Future.delayed(new Duration(seconds: 2),(){
+Future.delayed(Duration(seconds: 2),(){
    //return "hi world!";
    throw AssertionError("Error");
 }).then((data){
@@ -342,11 +342,11 @@ Future.delayed(new Duration(seconds: 2),(){
 ```dart
 Future.wait([
   // 2秒后返回结果  
-  Future.delayed(new Duration(seconds: 2), () {
+  Future.delayed(Duration(seconds: 2), () {
     return "hello";
   }),
   // 4秒后返回结果  
-  Future.delayed(new Duration(seconds: 4), () {
+  Future.delayed(Duration(seconds: 4), () {
     return " world";
   })
 ]).then((results){

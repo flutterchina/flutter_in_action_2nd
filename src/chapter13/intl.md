@@ -52,7 +52,7 @@ class DemoLocalizations {
     //2
     return initializeMessages(localeName).then((b) {
       Intl.defaultLocale = localeName;
-      return new DemoLocalizations();
+      return DemoLocalizations();
     });
   }
 

@@ -50,7 +50,7 @@ Text("Hello world",
     fontSize: 18.0,
     height: 1.2,  
     fontFamily: "Courier",
-    background: new Paint()..color=Colors.yellow,
+    background: Paint()..color=Colors.yellow,
     decoration:TextDecoration.underline,
     decorationStyle: TextDecorationStyle.dashed
   ),

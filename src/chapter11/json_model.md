@@ -65,7 +65,7 @@ class User {
 
 ```dart
 Map userMap = json.decode(json);
-var user = new User.fromJson(userMap);
+var user = User.fromJson(userMap);
 
 print('Howdy, ${user.name}!');
 print('We sent the verification link to ${user.email}.');

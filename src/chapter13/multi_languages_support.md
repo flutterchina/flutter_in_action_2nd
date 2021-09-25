@@ -25,7 +25,7 @@ dependencies:
 ```dart
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-new MaterialApp(
+MaterialApp(
  localizationsDelegates: [
    // 本地化的代理类
    GlobalMaterialLocalizations.delegate,

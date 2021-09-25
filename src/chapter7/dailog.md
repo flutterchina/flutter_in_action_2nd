@@ -38,11 +38,11 @@ AlertDialog(
   title: Text("提示"),
   content: Text("您确定要删除当前文件吗?"),
   actions: <Widget>[
-    FlatButton(
+    TextButton(
       child: Text("取消"),
       onPressed: () => Navigator.of(context).pop(), //关闭对话框
     ),
-    FlatButton(
+    TextButton(
       child: Text("删除"),
       onPressed: () {
         // ... 执行删除操作
@@ -92,11 +92,11 @@ Future<bool> showDeleteConfirmDialog1() {
         title: Text("提示"),
         content: Text("您确定要删除当前文件吗?"),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             child: Text("取消"),
             onPressed: () => Navigator.of(context).pop(), // 关闭对话框
           ),
-          FlatButton(
+          TextButton(
             child: Text("删除"),
             onPressed: () {
               //关闭对话框并返回true
@@ -160,7 +160,7 @@ Future<void> changeLanguage() async {
 }
 ```
 
-列表项组件我们使用了`SimpleDialogOption`组件来包装了一下，它相当于一个FlatButton，只不过按钮文案是左对齐的，并且padding较小。上面示例运行后，用户选择一种语言后，控制台就会打印出它。
+列表项组件我们使用了`SimpleDialogOption`组件来包装了一下，它相当于一个TextButton，只不过按钮文案是左对齐的，并且padding较小。上面示例运行后，用户选择一种语言后，控制台就会打印出它。
 
 ### Dialog
 
@@ -318,11 +318,11 @@ showCustomDialog<bool>(
       title: Text("提示"),
       content: Text("您确定要删除当前文件吗?"),
       actions: <Widget>[
-        FlatButton(
+        TextButton(
           child: Text("取消"),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        FlatButton(
+        TextButton(
           child: Text("删除"),
           onPressed: () {
             // 执行删除操作
@@ -434,11 +434,11 @@ class _DialogRouteState extends State<DialogRoute> {
             ],
           ),
           actions: <Widget>[
-            FlatButton(
+            TextButton(
               child: Text("取消"),
               onPressed: () => Navigator.of(context).pop(),
             ),
-            FlatButton(
+            TextButton(
               child: Text("删除"),
               onPressed: () {
                 //执行删除操作
@@ -531,11 +531,11 @@ Future<bool?> showDeleteConfirmDialog3() {
           ],
         ),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             child: Text("取消"),
             onPressed: () => Navigator.of(context).pop(),
           ),
-          FlatButton(
+          TextButton(
             child: Text("删除"),
             onPressed: () {
               // 将选中状态返回
@@ -684,11 +684,11 @@ Future<bool?> showDeleteConfirmDialog4() {
           ],
         ),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             child: Text("取消"),
             onPressed: () => Navigator.of(context).pop(),
           ),
-          FlatButton(
+          TextButton(
             child: Text("删除"),
             onPressed: () {
               // 执行删除操作

@@ -87,7 +87,7 @@ Pub（https://pub.dev/ ）是 Google 官方的 Dart Packages 仓库，类似于 
      @override
      Widget build(BuildContext context) {
       // 生成随机字符串
-       final wordPair = new WordPair.random();
+       final wordPair = WordPair.random();
        return Padding(
          padding: const EdgeInsets.all(8.0),
          child: Text(wordPair.toString()),

@@ -75,11 +75,11 @@ import 'package:web_socket_channel/io.dart';
 
 class WebSocketRoute extends StatefulWidget {
   @override
-  _WebSocketRouteState createState() => new _WebSocketRouteState();
+  _WebSocketRouteState createState() => _WebSocketRouteState();
 }
 
 class _WebSocketRouteState extends State<WebSocketRoute> {
-  TextEditingController _controller = new TextEditingController();
+  TextEditingController _controller = TextEditingController();
   IOWebSocketChannel channel;
   String _text = "";
 
@@ -87,27 +87,27 @@ class _WebSocketRouteState extends State<WebSocketRoute> {
   @override
   void initState() {
     //创建websocket连接
-    channel = new IOWebSocketChannel.connect('ws://echo.websocket.org');
+    channel = IOWebSocketChannel.connect('ws://echo.websocket.org');
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("WebSocket(内容回显)"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("WebSocket(内容回显)"),
       ),
-      body: new Padding(
+      body: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: new Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            new Form(
-              child: new TextFormField(
+            Form(
+              child: TextFormField(
                 controller: _controller,
-                decoration: new InputDecoration(labelText: 'Send a message'),
+                decoration: InputDecoration(labelText: 'Send a message'),
               ),
             ),
-            new StreamBuilder(
+            StreamBuilder(
               stream: channel.stream,
               builder: (context, snapshot) {
                 //网络不通会走到这
@@ -116,19 +116,19 @@ class _WebSocketRouteState extends State<WebSocketRoute> {
                 } else if (snapshot.hasData) {
                   _text = "echo: "+snapshot.data;
                 }
-                return new Padding(
+                return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 24.0),
-                  child: new Text(_text),
+                  child: Text(_text),
                 );
               },
             )
           ],
         ),
       ),
-      floatingActionButton: new FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: _sendMessage,
         tooltip: 'Send message',
-        child: new Icon(Icons.send),
+        child: Icon(Icons.send),
       ),
     );
   }

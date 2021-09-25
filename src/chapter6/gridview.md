@@ -168,7 +168,7 @@ GridView.builder(
 ```dart
 class InfiniteGridView extends StatefulWidget {
   @override
-  _InfiniteGridViewState createState() => new _InfiniteGridViewState();
+  _InfiniteGridViewState createState() => _InfiniteGridViewState();
 }
 
 class _InfiniteGridViewState extends State<InfiniteGridView> {

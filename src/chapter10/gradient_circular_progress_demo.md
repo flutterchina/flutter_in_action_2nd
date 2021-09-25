@@ -180,7 +180,7 @@ import '../widgets/index.dart';
 class GradientCircularProgressRoute extends StatefulWidget {
   @override
   GradientCircularProgressRouteState createState() {
-    return new GradientCircularProgressRouteState();
+    return GradientCircularProgressRouteState();
   }
 }
 
@@ -192,7 +192,7 @@ class GradientCircularProgressRouteState
   void initState() {
     super.initState();
     _animationController =
-        new AnimationController(vsync: this, duration: Duration(seconds: 3));
+        AnimationController(vsync: this, duration: Duration(seconds: 3));
     bool isForward = true;
     _animationController.addStatusListener((status) {
       if (status == AnimationStatus.forward) {

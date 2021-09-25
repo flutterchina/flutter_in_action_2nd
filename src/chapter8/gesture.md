@@ -217,7 +217,7 @@ class _GestureRecognizer extends StatefulWidget {
 }
 
 class _GestureRecognizerState extends State<_GestureRecognizer> {
-  TapGestureRecognizer _tapGestureRecognizer = new TapGestureRecognizer();
+  TapGestureRecognizer _tapGestureRecognizer = TapGestureRecognizer();
   bool _toggle = false; //变色开关
 
   @override

@@ -104,7 +104,7 @@ var duration = Duration(seconds: 1);
 AnimatedDecoratedBox1(
   duration: duration,
   decoration: BoxDecoration(color: _decorationColor),
-  child: FlatButton(
+  child: TextButton(
     onPressed: () {
       setState(() {
         _decorationColor = Colors.red;
@@ -292,7 +292,7 @@ class _AnimatedWidgetsTestState extends State<AnimatedWidgetsTest> {
             duration: duration,
             height: _height,
             color: _color,
-            child: FlatButton(
+            child: TextButton(
               onPressed: () {
                 setState(() {
                   _height = 150;
@@ -324,7 +324,7 @@ class _AnimatedWidgetsTestState extends State<AnimatedWidgetsTest> {
           AnimatedDecoratedBox(
             duration: duration,
             decoration: BoxDecoration(color: _decorationColor),
-            child: FlatButton(
+            child: TextButton(
               onPressed: () {
                 setState(() {
                   _decorationColor = Colors.red;

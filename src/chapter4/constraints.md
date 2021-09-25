@@ -110,7 +110,7 @@ BoxConstraints(minHeight: 80.0,maxHeight: 80.0,minWidth: 80.0,maxWidth: 80.0)
 ```dart
 @override
 RenderConstrainedBox createRenderObject(BuildContext context) {
-  return new RenderConstrainedBox(
+  return RenderConstrainedBox(
     additionalConstraints: ...,
   );
 }

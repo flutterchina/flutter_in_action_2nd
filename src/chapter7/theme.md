@@ -160,7 +160,7 @@ ThemeData({
 
 class ThemeTestRoute extends StatefulWidget {
   @override
-  _ThemeTestRouteState createState() => new _ThemeTestRouteState();
+  _ThemeTestRouteState createState() => _ThemeTestRouteState();
 }
 
 class _ThemeTestRouteState extends State<ThemeTestRoute> {

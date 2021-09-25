@@ -90,7 +90,7 @@ class HomeView extends ComponentElement{
     Color primary=Theme.of(this).primaryColor; //1
     return GestureDetector(
       child: Center(
-        child: FlatButton(
+        child: TextButton(
           child: Text(text, style: TextStyle(color: primary),),
           onPressed: () {
             var t = text.split("")..shuffle();

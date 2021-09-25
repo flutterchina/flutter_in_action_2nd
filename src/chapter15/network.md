@@ -144,7 +144,7 @@ class Git {
 
   BuildContext context;
   Options _options;
-  static Dio dio = new Dio(BaseOptions(
+  static Dio dio = Dio(BaseOptions(
     baseUrl: 'https://api.github.com/',
     headers: {
       HttpHeaders.acceptHeader: "application/vnd.github.squirrel-girl-preview,"

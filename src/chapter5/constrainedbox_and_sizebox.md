@@ -5,7 +5,7 @@
 尺寸限制类容器涉及到Flutter 布局流程 ，确定子组件大小的步骤为：
 
 1. 上层组件向下层组件传递约束条件。
-2. 下层组件确定自己的大小，然后告诉商城组件，注意下层组件的大小必须符合父组件的约束。
+2. 下层组件确定自己的大小，然后告诉上层组件，注意下层组件的大小必须符合父组件的约束。
 
 比如，父组件传递给子组件的约束是 最大宽高不能超过100，最小宽高为0；如果我们给子组件设置宽高都为200，则子组件最终的大小是100*100，因为子组件必须先遵守父组件的约束（相当于父组件的约束和自身的大小求一个交集）。
 
@@ -95,7 +95,7 @@ BoxConstraints(minHeight: 80.0,maxHeight: 80.0,minWidth: 80.0,maxWidth: 80.0)
 ```dart
 @override
 RenderConstrainedBox createRenderObject(BuildContext context) {
-  return new RenderConstrainedBox(
+  return RenderConstrainedBox(
     additionalConstraints: ...,
   );
 }

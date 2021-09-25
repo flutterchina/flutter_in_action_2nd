@@ -39,12 +39,12 @@ controller.addListener(()=>print(controller.offset))
 class ScrollControllerTestRoute extends StatefulWidget {
   @override
   ScrollControllerTestRouteState createState() {
-    return new ScrollControllerTestRouteState();
+    return ScrollControllerTestRouteState();
   }
 }
 
 class ScrollControllerTestRouteState extends State<ScrollControllerTestRoute> {
-  ScrollController _controller = new ScrollController();
+  ScrollController _controller = ScrollController();
   bool showToTopBtn = false; //是否显示“返回到顶部”按钮
 
   @override
@@ -191,7 +191,7 @@ import 'package:flutter/material.dart';
 class ScrollNotificationTestRoute extends StatefulWidget {
   @override
   _ScrollNotificationTestRouteState createState() =>
-      new _ScrollNotificationTestRouteState();
+      _ScrollNotificationTestRouteState();
 }
 
 class _ScrollNotificationTestRouteState

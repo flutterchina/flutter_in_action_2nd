@@ -26,8 +26,8 @@ public class MainActivity extends FlutterActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new MethodChannel(getFlutterView(), CHANNEL).setMethodCallHandler(
-          new MethodCallHandler() {
+        MethodChannel(getFlutterView(), CHANNEL).setMethodCallHandler(
+          MethodCallHandler() {
              @Override
              public void onMethodCall(MethodCall call, Result result) {
                  // TODO
@@ -60,8 +60,8 @@ private int getBatteryLevel() {
     BatteryManager batteryManager = (BatteryManager) getSystemService(BATTERY_SERVICE);
     batteryLevel = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
   } else {
-    Intent intent = new ContextWrapper(getApplicationContext()).
-        registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+    Intent intent = ContextWrapper(getApplicationContext()).
+        registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     batteryLevel = (intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) * 100) /
         intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
   }

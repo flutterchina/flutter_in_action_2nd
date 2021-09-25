@@ -1,6 +1,6 @@
 ## 《Flutter实战·第二版》
 
-草稿正在整理中，请先不要 fork，如果对内容有建议可以提issue，书稿在 src 目录下，随书源码会在书稿整理完成后上传，禁止任何未授权的转载。
+草稿正在整理中，每周末都会更新，请先不要 fork，如果对内容有建议可以提issue，书稿在 src 目录下，随书源码会在书稿整理完成后上传，**禁止任何未授权的转载**。
 
 - 电子书在线阅读：https://book.flutterchina.club/
 
@@ -23,7 +23,7 @@
 
 ## 赞助项目
 
-<img width='300' src='https://github.com/flutterchina/flutter_in_action_2nd/raw/main/src/imgs/sponse.jpeg'>
+<img width='200' src='https://github.com/flutterchina/flutter_in_action_2nd/raw/main/src/imgs/sponse.jpeg'>
 
 ## 内容简介
 

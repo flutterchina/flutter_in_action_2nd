@@ -186,7 +186,6 @@
           this.$refs.nav.$forceUpdate()
         } else if (window.innerWidth >= 720 && themeConfig.logo === "") {
           themeConfig.logo = logo
-          console.log("xx")
           this.$refs.nav.$forceUpdate()
         }
       }

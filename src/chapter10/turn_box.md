@@ -22,7 +22,7 @@ class TurnBox extends StatefulWidget {
   final Widget child;
 
   @override
-  _TurnBoxState createState() => new _TurnBoxState();
+  _TurnBoxState createState() => _TurnBoxState();
 }
 
 class _TurnBoxState extends State<TurnBox>
@@ -32,7 +32,7 @@ class _TurnBoxState extends State<TurnBox>
   @override
   void initState() {
     super.initState();
-    _controller = new AnimationController(
+    _controller = AnimationController(
         vsync: this,
         lowerBound: -double.infinity,
         upperBound: double.infinity
@@ -57,7 +57,7 @@ class _TurnBoxState extends State<TurnBox>
   @override
   void didUpdateWidget(TurnBox oldWidget) {
     super.didUpdateWidget(oldWidget);
-    //旋转角度发生变化时执行过渡动画  
+    //旋转角度发生变化时执行过渡动画
     if (oldWidget.turns != widget.turns) {
       _controller.animateTo(
         widget.turns,
@@ -82,7 +82,7 @@ import '../widgets/index.dart';
 
 class TurnBoxRoute extends StatefulWidget {
   @override
-  _TurnBoxRouteState createState() => new _TurnBoxRouteState();
+  _TurnBoxRouteState createState() => _TurnBoxRouteState();
 }
 
 class _TurnBoxRouteState extends State<TurnBoxRoute> {

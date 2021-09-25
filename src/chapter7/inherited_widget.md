@@ -42,7 +42,7 @@ class ShareDataWidget extends InheritedWidget {
 ```dart
 class _TestWidget extends StatefulWidget {
   @override
-  __TestWidgetState createState() => new __TestWidgetState();
+  __TestWidgetState createState() => __TestWidgetState();
 }
 
 class __TestWidgetState extends State<_TestWidget> {
@@ -67,7 +67,7 @@ class __TestWidgetState extends State<_TestWidget> {
 ```dart
 class InheritedWidgetTestRoute extends StatefulWidget {
   @override
-  _InheritedWidgetTestRouteState createState() => new _InheritedWidgetTestRouteState();
+  _InheritedWidgetTestRouteState createState() => _InheritedWidgetTestRouteState();
 }
 
 class _InheritedWidgetTestRouteState extends State<InheritedWidgetTestRoute> {

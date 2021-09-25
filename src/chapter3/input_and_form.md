@@ -224,12 +224,12 @@ TextField(
 ```dart
 class FocusTestRoute extends StatefulWidget {
   @override
-  _FocusTestRouteState createState() => new _FocusTestRouteState();
+  _FocusTestRouteState createState() => _FocusTestRouteState();
 }
 
 class _FocusTestRouteState extends State<FocusTestRoute> {
-  FocusNode focusNode1 = new FocusNode();
-  FocusNode focusNode2 = new FocusNode();
+  FocusNode focusNode1 = FocusNode();
+  FocusNode focusNode2 = FocusNode();
   FocusScopeNode focusScopeNode;
 
   @override
@@ -295,7 +295,7 @@ class _FocusTestRouteState extends State<FocusTestRoute> {
 ```dart
 ...
 // 创建 focusNode   
-FocusNode focusNode = new FocusNode();
+FocusNode focusNode = FocusNode();
 ...
 // focusNode绑定输入框   
 TextField(focusNode: focusNode);
@@ -463,8 +463,8 @@ class FormTestRoute extends StatefulWidget {
 
 class _FormTestRouteState extends State<FormTestRoute> {
   TextEditingController _unameController = TextEditingController();
-  TextEditingController _pwdController = new TextEditingController();
-  GlobalKey _formKey = new GlobalKey<FormState>();
+  TextEditingController _pwdController = TextEditingController();
+  GlobalKey _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {

@@ -106,7 +106,7 @@ if (color != null)
 
 ```dart
 @override
-StatelessElement createElement() => new StatelessElement(this);
+StatelessElement createElement() => StatelessElement(this);
 ```
 
 `StatelessElement` 间接继承自`Element`类，与`StatelessWidget `相对应（作为其配置数据）。
@@ -194,7 +194,7 @@ abstract class StatefulWidget extends Widget {
   const StatefulWidget({ Key key }) : super(key: key);
     
   @override
-  StatefulElement createElement() => new StatefulElement(this);
+  StatefulElement createElement() => StatefulElement(this);
     
   @protected
   State createState();
@@ -596,7 +596,7 @@ import 'package:flutter/ widget s.dart';
 
 #### Material组件
 
-Flutter 提供了一套丰富 的Material 组件，它可以帮助我们构建遵循 Material Design 设计规范的应用程序。Material 应用程序以[`MaterialApp`](https://docs.flutter.io/flutter/material/MaterialApp-class.html) 组件开始， 该组件在应用程序的根部创建了一些必要的组件，比如`Theme`组件，它用于配置应用的主题。 是否使用[`MaterialApp`](https://docs.flutter.io/flutter/material/MaterialApp-class.html)完全是可选的，但是使用它是一个很好的做法。在之前的示例中，我们已经使用过多个 Material 组件了，如：`Scaffold`、`AppBar`、`FlatButton`等。要使用 Material 组件，需要先引入它：
+Flutter 提供了一套丰富 的Material 组件，它可以帮助我们构建遵循 Material Design 设计规范的应用程序。Material 应用程序以[`MaterialApp`](https://docs.flutter.io/flutter/material/MaterialApp-class.html) 组件开始， 该组件在应用程序的根部创建了一些必要的组件，比如`Theme`组件，它用于配置应用的主题。 是否使用[`MaterialApp`](https://docs.flutter.io/flutter/material/MaterialApp-class.html)完全是可选的，但是使用它是一个很好的做法。在之前的示例中，我们已经使用过多个 Material 组件了，如：`Scaffold`、`AppBar`、`TextButton`等。要使用 Material 组件，需要先引入它：
 
 ```dart
 import 'package:flutter/material.dart';
