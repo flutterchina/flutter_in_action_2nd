@@ -167,7 +167,7 @@ class ContextRoute extends StatelessWidget  {
       body: Container(
         child: Builder(builder: (context) {
           // 在 widget 树中向上查找最近的父级`Scaffold`  widget 
-          Scaffold scaffold = context.findAncestor widget OfExactType<Scaffold>();
+          Scaffold scaffold = context.findAncestorWidgetOfExactType<Scaffold>();
           // 直接返回 AppBar的title， 此处实际上是Text("Context测试")
           return (scaffold.appBar as AppBar).title;
         }),
@@ -353,8 +353,8 @@ I/flutter ( 5436): dispose
 
 下面我们来看看各个回调函数：
 
-- `initState`：当 widget 第一次插入到 widget 树时会被调用，对于每一个State对象，Flutter 框架只会调用一次该回调，所以，通常在该回调中做一些一次性的操作，如状态初始化、订阅子树的事件通知等。不能在该回调中调用`BuildContext.dependOnInherited widget OfExactType`（该方法用于在 widget 树上获取离当前 widget 最近的一个父级`InheritFrom widget `，关于`Inherited widget `我们将在后面章节介绍），原因是在初始化完成后， widget 树中的`InheritFrom widget `也可能会发生变化，所以正确的做法应该在在`build（）`方法或`didChangeDependencies()`中调用它。
-- `didChangeDependencies()`：当State对象的依赖发生变化时会被调用；例如：在之前`build()` 中包含了一个`Inherited widget `，然后在之后的`build()` 中`Inherited widget `发生了变化，那么此时`Inherited widget `的子 widget 的`didChangeDependencies()`回调都会被调用。典型的场景是当系统语言 Locale 或应用主题改变时，Flutter 框架会通知 widget 调用此回调。
+- `initState`：当 widget 第一次插入到 widget 树时会被调用，对于每一个State对象，Flutter 框架只会调用一次该回调，所以，通常在该回调中做一些一次性的操作，如状态初始化、订阅子树的事件通知等。不能在该回调中调用`BuildContext.dependOnInheritedWidgetOfExactType`（该方法用于在 widget 树上获取离当前 widget 最近的一个父级`InheritedWidget`，关于`InheritedWidget`我们将在后面章节介绍），原因是在初始化完成后， widget 树中的`InheritFrom widget `也可能会发生变化，所以正确的做法应该在在`build（）`方法或`didChangeDependencies()`中调用它。
+- `didChangeDependencies()`：当State对象的依赖发生变化时会被调用；例如：在之前`build()` 中包含了一个`InheritedWidget `，然后在之后的`build()` 中`Inherited widget `发生了变化，那么此时`Inherited widget `的子 widget 的`didChangeDependencies()`回调都会被调用。典型的场景是当系统语言 Locale 或应用主题改变时，Flutter 框架会通知 widget 调用此回调。
 - `build()`：此回调读者现在应该已经相当熟悉了，它主要是用于构建 widget 子树的，会在如下场景被调用：
 
   1. 在调用`initState()`之后。
@@ -401,10 +401,10 @@ StatefulWidget 生命周期如图3-2所示：
   class MyAnimationWidget  extends AnimatedWidget {
       @override
       Widget build(BuildContext context, State state){
-        //由于子类要用到AnimatedWidget 的状态对象_animatedWidget State，
-        //所以AnimatedWidget 必须通过某种方式将其状态对象_animatedWidget State
+        //由于子类要用到AnimatedWidget 的状态对象_animatedWidgetState，
+        //所以AnimatedWidget 必须通过某种方式将其状态对象_animatedWidgetState
         //暴露给其子类   
-        super.build(context, _animatedWidget State)
+        super.build(context, _animatedWidgetState)
       }
   }
   ```
@@ -521,7 +521,7 @@ Flutter还有一种通用的获取`State`对象的方法——通过GlobalKey来
    _globalKey.currentState.openDrawer()
    ```
 
-GlobalKey 是 Flutter 提供的一种在整个 App 中引用 element 的机制。如果一个 widget 设置了`GlobalKey`，那么我们便可以通过`globalKey.current widget `获得该 widget 对象、`globalKey.currentElement`来获得 widget 对应的element对象，如果当前 widget 是`StatefulWidget`，则可以通过`globalKey.currentState`来获得该 widget 对应的state对象。
+GlobalKey 是 Flutter 提供的一种在整个 App 中引用 element 的机制。如果一个 widget 设置了`GlobalKey`，那么我们便可以通过`globalKey.currentWidget `获得该 widget 对象、`globalKey.currentElement`来获得 widget 对应的element对象，如果当前 widget 是`StatefulWidget`，则可以通过`globalKey.currentState`来获得该 widget 对应的state对象。
 
 > 注意：使用 GlobalKey 开销较大，如果有其他可选方案，应尽量避免使用它。另外，同一个 GlobalKey 在整个 widget 树中必须是唯一的，不能重复。
 
@@ -581,17 +581,17 @@ RenderCustomObject 类是继承自 RenderBox，而 RenderBox 继承自 RenderObj
 Flutter 提供了一套丰富、强大的基础组件，在基础组件库之上 Flutter 又提供了一套 Material 风格（ Android 默认的视觉风格）和一套 Cupertino 风格（iOS视觉风格）的组件库。要使用基础组件库，需要先导入：
 
 ```dart
-import 'package:flutter/ widget s.dart';
+import 'package:flutter/widgets.dart';
 ```
 
 下面我们介绍一下常用的组件。
 
 #### 基础组件
 
-- [`Text`](https://docs.flutter.io/flutter/ widget s/Text-class.html)：该组件可让您创建一个带格式的文本。
-- [`Row`](https://docs.flutter.io/flutter/ widget s/Row-class.html)、 [`Column`](https://docs.flutter.io/flutter/ widget s/Column-class.html)： 这些具有弹性空间的布局类 widget 可让您在水平（Row）和垂直（Column）方向上创建灵活的布局。其设计是基于 Web 开发中的 Flexbox 布局模型。
-- [`Stack`](https://docs.flutter.io/flutter/ widget s/Stack-class.html)： 取代线性布局 (译者语：和 Android 中的`FrameLayout`相似)，[`Stack`](https://docs.flutter.io/flutter/ widget s/Stack-class.html)允许子 widget 堆叠， 你可以使用 [`Positioned`](https://docs.flutter.io/flutter/ widget s/Positioned-class.html) 来定位他们相对于`Stack`的上下左右四条边的位置。Stacks是基于Web开发中的绝对定位（absolute positioning )布局模型设计的。
-- [`Container`](https://docs.flutter.io/flutter/ widget s/Container-class.html)： [`Container`](https://docs.flutter.io/flutter/ widget s/Container-class.html) 可让您创建矩形视觉元素。Container 可以装饰一个[`BoxDecoration`](https://docs.flutter.io/flutter/painting/BoxDecoration-class.html), 如 background、一个边框、或者一个阴影。 [`Container`](https://docs.flutter.io/flutter/ widget s/Container-class.html) 也可以具有边距（margins）、填充(padding)和应用于其大小的约束(constraints)。另外， [`Container`](https://docs.flutter.io/flutter/ widget s/Container-class.html)可以使用矩阵在三维空间中对其进行变换。
+- [`Text`](https://docs.flutter.io/flutter/widgets/Text-class.html)：该组件可让您创建一个带格式的文本。
+- [`Row`](https://docs.flutter.io/flutter/widgets/Row-class.html)、 [`Column`](https://docs.flutter.io/flutter/widgets/Column-class.html)： 这些具有弹性空间的布局类 widget 可让您在水平（Row）和垂直（Column）方向上创建灵活的布局。其设计是基于 Web 开发中的 Flexbox 布局模型。
+- [`Stack`](https://docs.flutter.io/flutter/widgets/Stack-class.html)： 取代线性布局 (译者语：和 Android 中的`FrameLayout`相似)，[`Stack`](https://docs.flutter.io/flutter/ widgets/Stack-class.html)允许子 widget 堆叠， 你可以使用 [`Positioned`](https://docs.flutter.io/flutter/widgets/Positioned-class.html) 来定位他们相对于`Stack`的上下左右四条边的位置。Stacks是基于Web开发中的绝对定位（absolute positioning )布局模型设计的。
+- [`Container`](https://docs.flutter.io/flutter/widgets/Container-class.html)： [`Container`](https://docs.flutter.io/flutter/widgets/Container-class.html) 可让您创建矩形视觉元素。Container 可以装饰一个[`BoxDecoration`](https://docs.flutter.io/flutter/painting/BoxDecoration-class.html), 如 background、一个边框、或者一个阴影。 [`Container`](https://docs.flutter.io/flutter/widgets/Container-class.html) 也可以具有边距（margins）、填充(padding)和应用于其大小的约束(constraints)。另外， [`Container`](https://docs.flutter.io/flutter/widgets/Container-class.html)可以使用矩阵在三维空间中对其进行变换。
 
 
 #### Material组件
