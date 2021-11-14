@@ -60,10 +60,10 @@ class LayoutBuilderRoute extends StatelessWidget {
 }
 ```
 
-可以发现 LayoutBuilder 的使用很简单，但是不要小看它，因为它非常实用且重要，它有主要有连个使用场景：
+可以发现 LayoutBuilder 的使用很简单，但是不要小看它，因为它非常实用且重要，它主要有两个使用场景：
 
-1. 可以使用 LayoutBuilder 来根据设备设备的尺寸来实现响应式布局。
-2. LayoutBuilder 可以帮我们高效排查问题。比如我们在遇到布局问题或者想调试组件树中某一个节点布局时的约束时 LayoutBuilder 就很有用。
+1. 可以使用 LayoutBuilder 来根据设备的尺寸来实现响应式布局。
+2. LayoutBuilder 可以帮我们高效排查问题。比如我们在遇到布局问题或者想调试组件树中某一个节点布局的约束时 LayoutBuilder 就很有用。
 
 ### 打印布局时的约束信息
 

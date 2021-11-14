@@ -69,7 +69,7 @@ Future<T?> showDialog<T>({
 
 ```dart
 //点击该按钮后弹出对话框
-RaisedButton(
+ElevatedButton(
   child: Text("对话框1"),
   onPressed: () async {
     //弹出对话框并等待其关闭
@@ -84,7 +84,7 @@ RaisedButton(
 ),
 
 // 弹出对话框
-Future<bool> showDeleteConfirmDialog1() {
+Future<bool?> showDeleteConfirmDialog1() {
   return showDialog<bool>(
     context: context,
     builder: (context) {
@@ -389,7 +389,7 @@ class _DialogRouteState extends State<DialogRoute> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        RaisedButton(
+        ElevatedButton(
           child: Text("对话框2"),
           onPressed: () async {
             bool? delete = await showDeleteConfirmDialog2();
@@ -552,7 +552,7 @@ Future<bool?> showDeleteConfirmDialog3() {
 最后，就是使用：
 
 ```dart
-RaisedButton(
+ElevatedButton(
   child: Text("话框3（复选框可点击）"),
   onPressed: () async {
     //弹出删除确认对话框，等待用户确认
@@ -755,7 +755,7 @@ Future<int?> _showModalBottomSheet() {
 点击按钮，弹出该对话框：
 
 ```dart
-RaisedButton(
+ElevatedButton(
   child: Text("显示底部菜单列表"),
   onPressed: () async {
     int type = await _showModalBottomSheet();

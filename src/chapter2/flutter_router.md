@@ -135,7 +135,7 @@ class TipRoute extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Text(text),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () => Navigator.pop(context, "我是返回值"),
                 child: Text("返回"),
               )
@@ -155,7 +155,7 @@ class RouterTestRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: RaisedButton(
+      child: ElevatedButton(
         onPressed: () async {
           // 打开`TipRoute`，并等待返回结果
           var result = await Navigator.push(

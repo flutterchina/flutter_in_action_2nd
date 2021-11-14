@@ -33,7 +33,7 @@
 3-7  TextStyle示例
 3-8  TextSpan示例
 3-9  DefaultTextStyle示例
-3-10 RaisedButton示例
+3-10 ElevatedButton示例
 3-11 TextButton示例
 3-12 OutlineButton示例
 3-13 IconButton示例

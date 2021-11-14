@@ -530,7 +530,7 @@ class AccurateSizedBoxRoute extends StatelessWidget {
 
 我们在第四章中介绍过 AfterLayout ，然后再介绍 Hero 动画原理时也使用过它，现在我们就来看看它的实现原理。
 
-AfterLayout 可以在布局结束后拿到子组件的代理渲染对象 （RenderAfterLayout）， RenderAfterLayout 对象会代理子组件渲染对象 ，因此，通过RenderAfterLayout 对象也就可以获取到子组件渲染对象上的舒心，比如件大小、位置等。
+AfterLayout 可以在布局结束后拿到子组件的代理渲染对象 （RenderAfterLayout）， RenderAfterLayout 对象会代理子组件渲染对象 ，因此，通过RenderAfterLayout 对象也就可以获取到子组件渲染对象上的属性，比如件大小、位置等。
 
 AfterLayout 的实现代码如下：
 

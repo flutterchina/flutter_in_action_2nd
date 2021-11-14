@@ -125,7 +125,7 @@ class _HomeRouteState extends State<HomeRoute> {
     if (!userModel.isLogin) {
       //用户未登录，显示登录按钮
       return Center(
-        child: RaisedButton(
+        child: ElevatedButton(
           child: Text(GmLocalizations.of(context).login),
           onPressed: () => Navigator.of(context).pushNamed("login"),
         ),

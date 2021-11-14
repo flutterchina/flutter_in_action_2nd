@@ -50,7 +50,7 @@ Sliver 需要确定的是 SliverGeometry：
 
 ```dart
 const SliverGeometry({
-  //Sliver在主轴方向预估长度，大多数啊情况是固定值，用于计算sliverConstraints.scrollOffset
+  //Sliver在主轴方向预估长度，大多数情况是固定值，用于计算sliverConstraints.scrollOffset
   this.scrollExtent = 0.0, 
   this.paintExtent = 0.0, // 可视区域中的绘制长度
   this.paintOrigin = 0.0, // 绘制的坐标原点，相对于自身布局位置

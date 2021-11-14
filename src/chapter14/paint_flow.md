@@ -24,7 +24,7 @@ Flutter第一次绘制时，会从上到下开始递归的绘制子节点，每�
    1. 创建一个Canvas 对象和一个 PictureLayer，然后将它们绑定，后续调用Canvas 绘制都会落到和其绑定的PictureLayer 上。
    2. 接着将这个 PictureLayer 加入到边界节点的 layer 中。
 2. 如果不是第一次绘制，则复用已有的  PictureLayer 和 Canvas 对象 。
-3. 如果字节点是边界节点，则对递归上述过程。当子树的递归完成后，就要将子节点的layer 添加到父级 Layer中。
+3. 如果子节点是边界节点，则对递归上述过程。当子树的递归完成后，就要将子节点的layer 添加到父级 Layer中。
 
 整个流程执行完后就生成了一棵Layer树。下面我们通过一个例子来理解整个过程：下图左边是 widget 树，右边是最终生成的Layer树，我们看一下生成过程：
 
@@ -216,7 +216,7 @@ Canvas get canvas {
 }
 ```
 
-之后，我们将新生成的 PictureLayer 和 Canvas 记为 PictureLayer3 和 Canvas3， Text5 会的绘制会落在 PictureLayer3 上，所以最终的 Layer 树如下：
+之后，我们将新生成的 PictureLayer 和 Canvas 记为 PictureLayer3 和 Canvas3，Text5 的绘制会落在 PictureLayer3 上，所以最终的 Layer 树如下：
 
 ![image-20210812112443622](../imgs/image-20210812112443622.png)
 

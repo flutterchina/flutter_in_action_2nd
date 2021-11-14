@@ -104,7 +104,7 @@ class _AnimatedListRouteState extends State<AnimatedListRoute> {
 }
 ```
 
-删除的实收需要我们通过AnimatedListState 的 removeItem 方法来应用删除动画，具体逻辑在 onDelete 中：
+删除的时候需要我们通过AnimatedListState 的 removeItem 方法来应用删除动画，具体逻辑在 onDelete 中：
 
 ```dart
 setState(() {
@@ -113,8 +113,8 @@ setState(() {
     (context, animation) {
       // 删除过程执行的是反向动画，animation.value 会从1变为0
       var item = buildItem(context, index);
-      data.removeAt(index);
       print('删除 ${data[index]}');
+      data.removeAt(index);
       // 删除动画是一个合成动画：渐隐 + 缩小列表项告诉
       return FadeTransition(
         opacity: CurvedAnimation(

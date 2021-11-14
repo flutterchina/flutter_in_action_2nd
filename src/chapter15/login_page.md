@@ -84,7 +84,7 @@ class _LoginRouteState extends State<LoginRoute> {
                 padding: const EdgeInsets.only(top: 25),
                 child: ConstrainedBox(
                   constraints: BoxConstraints.expand(height: 55.0),
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     color: Theme.of(context).primaryColor,
                     onPressed: _onLogin,
                     textColor: Colors.white,
