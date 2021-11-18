@@ -7,7 +7,10 @@
 `main`函数为APP入口函数，实现如下：
 
 ```dart
-void main() => Global.init().then((e) => runApp(MyApp()));
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Global.init().then((e) => runApp(MyApp()));
+};
 ```
 
 初始化完成后才会加载UI(`MyApp`)，`MyApp` 是应用的入口Widget，实现如下：
