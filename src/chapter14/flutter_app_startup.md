@@ -138,7 +138,7 @@ RenderObjectToWidgetElement<T> attachToRenderTree(BuildOwner owner, [RenderObjec
 一次绘制过程，我们称其为一帧（frame）。我们之前说的 Flutter 可以实现60fps（Frame Per-Second）就是指一秒钟最多可以触发 60 次重绘，FPS 值越大，界面就越流畅。这里需要说明的是 Flutter中 的 frame 概念并不等同于屏幕刷新帧（frame），因为Flutter UI 框架的 frame 并不是每次屏幕刷新都会触发，这是因为，如果 UI 在一段时间不变，那么每次屏幕刷新都重新走一遍渲染流程是不必要的，因此，Flutter 在第一帧渲染结束后会采取一种主动请求 frame 的方式来实现只有当UI可能会改变时才会重新走渲染流程。
 
 1. Flutter 在 `window` 上注册一个 `onBeginFrame `和一个 `onDrawFrame` 回调，在`onDrawFrame` 回调中最终会调用 `drawFrame`。
-2. 当我们调用 `window.scheduleFrame()` 方法之后，Flutter引擎会在合适的时机（可以认为是在屏幕下一次刷新之前，具体取决于lutter引擎的实现）来调用`onBeginFrame `和` onDrawFrame `。
+2. 当我们调用 `window.scheduleFrame()` 方法之后，Flutter引擎会在合适的时机（可以认为是在屏幕下一次刷新之前，具体取决于Flutter引擎的实现）来调用`onBeginFrame `和` onDrawFrame `。
 
 可以看见，只有主动调用`scheduleFrame() `，才会执行 `drawFrame`。所以，**我们在Flutter 中的提到 frame 时，如无特别说明，则是和 `drawFrame()` 的调用对应，而不是和屏幕的刷新频率对应**。
 

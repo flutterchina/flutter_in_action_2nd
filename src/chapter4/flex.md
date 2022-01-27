@@ -18,7 +18,7 @@ Flex({
 
 ### Expanded
 
-Expanded 只能作为 Flex 的孩子（否则会报错），它可以按比例“扩伸”`Flex`子组件所占用的空间。因为  `Row`和`Column` 继都承自Flex，所以 Expanded 也可以作为它们的孩子。
+Expanded 只能作为 Flex 的孩子（否则会报错），它可以按比例“扩伸”`Flex`子组件所占用的空间。因为  `Row`和`Column` 都继承自 Flex，所以 Expanded 也可以作为它们的孩子。
 
 ```dart
 const Expanded({
