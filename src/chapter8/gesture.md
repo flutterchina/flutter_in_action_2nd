@@ -256,7 +256,7 @@ class _GestureRecognizerState extends State<_GestureRecognizer> {
 }
 ```
 
-运行效果：
+运行效果如图8-5所示：
 
 ![图8-5](../imgs/8-5.png)
 

@@ -1,4 +1,4 @@
-# 5.5 Container
+# 5.4 Container
 
 我们在前面的章节示例中多次用到过`Container`组件，本节我们就详细介绍一下`Container`组件。`Container`是一个组合类容器，它本身不对应具体的`RenderObject`，它是`DecoratedBox`、`ConstrainedBox、Transform`、`Padding`、`Align`等组件组合的一个多功能容器，所以我们只需通过一个`Container`组件可以实现同时需要装饰、变换、限制的场景。下面是`Container`的定义：
 
@@ -26,9 +26,9 @@ Container({
 
 ### 实例
 
-我们通过`Container`来实现如图5-16所示的卡片：
+我们通过`Container`来实现如图5-9所示的卡片：
 
-![图5-16](../imgs/5-16.png)
+![图5-9](../imgs/5-9.png)
 
 
 
@@ -85,7 +85,9 @@ Container(
 ...
 ```
 
-![图5-17](../imgs/5-17.png)
+效果如图 5-10 所示：
+
+![图5-10](../imgs/5-10.png)
 
 可以发现，直观的感觉就是`margin`的留白是在容器外部，而`padding`的留白是在容器内部，读者需要记住这个差异。事实上，`Container`内`margin`和`padding`都是通过`Padding` 组件来实现的，上面的示例代码实际上等价于：
 

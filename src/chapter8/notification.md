@@ -150,9 +150,9 @@ class MyNotification extends Notification {
 
 > 注意：代码中注释的部分是不能正常工作的，因为这个`context`是根Context，而NotificationListener是监听的子树，所以我们通过`Builder`来构建ElevatedButton，来获得按钮位置的context。
 
-运行效果如图8-6所示：
+运行效果如图8-7所示：
 
-![图8-6](../imgs/8-6.png)
+![图8-7](../imgs/8-7.png)
 
 ### 阻止冒泡
 

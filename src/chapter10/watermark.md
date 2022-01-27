@@ -252,6 +252,17 @@ import 'dart:ui' as ui;
     canvas.drawParagraph(paragraph, Offset.zero);
 
   }
+
+  TextStyle _handleTextStyle(double devicePixelRatio) {
+    var style = textStyle;
+    double _scale(attr) => attr == null ? 1.0 : devicePixelRatio;
+    return style.apply(
+      decorationThicknessFactor: _scale(style.decorationThickness),
+      letterSpacingFactor: _scale(style.letterSpacing),
+      wordSpacingFactor: _scale(style.wordSpacing),
+      heightFactor: _scale(style.height),
+    );
+  }
 ```
 
 可以看到绘制文本的过程还是比较复杂的，为此 Flutter 提供了一个专门用于绘制文本的画笔 TextPainter，我们用 TextPainter 改造上面代码：
@@ -305,15 +316,17 @@ painter.paint(canvas, Offset.zero);
   }
 ```
 
-![image-20210907182546138](../imgs/text-painter.png)
+运行后如图10-9：
+
+![图10-9](../imgs/10-9.png)
 
 从日志可以看到通过 TextPainter 测量的文本大小和实际占用是
 
 ### 应用旋转和 padding
 
-应用旋转效果本身比较简单，但难的是文本旋转后它占用的空间大小会发生变化，所以我们得动态计算旋转后文本所占用空间的大小，假设沿顺时针方向旋转了了 rotate 角度，画出布局图如下：
+应用旋转效果本身比较简单，但难的是文本旋转后它占用的空间大小会发生变化，所以我们得动态计算旋转后文本所占用空间的大小，假设沿顺时针方向旋转了了 rotate 角度，画出布局图10-10：
 
-![旋转示意图](../imgs/textwatermarkpainter-rotate1.png)
+![图10-10](../imgs/10-10.png)
 
 我们可以根据上面公式求出最终的宽度和高度，是不是感觉高中学的三角函数终于派上用场了！注意，上面的公式中并没有考虑padding，padding 的处理比较简单，不赘述，看代码：
 
@@ -362,9 +375,9 @@ painter.paint(canvas, Offset.zero);
   }
 ```
 
-注意，在旋转前我们对 canvas 进行了平移操作，如果不限平移，就会导致旋转之后一部分内容的位置跑在画布之外了，如图：
+注意，在旋转前我们对 canvas 进行了平移操作，如果不限平移，就会导致旋转之后一部分内容的位置跑在画布之外了，如图10-11：
 
-![旋转示意图](../imgs/textwatermarkpainter-rotate2.png)
+![图10-11](../imgs/10-11.png)
 
 接下来实现 shouldRepaint 方法：
 
@@ -421,19 +434,17 @@ Widget wPage() {
 ... //省略无关代码
 ```
 
-运行后效果如图：
+运行后效果如图10-12：
 
-![文本水印](../imgs/watermark1.png)
+![图10-12](../imgs/10-12.png)
 
 
 
 ## 10.8.4 单元水印画笔—交错文本水印
 
-拥有交错效果的文本水印比较常见，效果如下图：
+拥有交错效果的文本水印比较常见，效果如图10-13：
 
-![交错文本水印](../imgs/stagger-watermark.png)
-
-
+![图10-13](../imgs/10-13.png)
 
 要实现这样的效果按照之前思路，我们只需要将单元水印绘制为图中红色框圈出来的部分即可，可以看到这个单元水印和之前TextWaterMarkPainter 有一点不同，即 TextWaterMarkPainter 只能绘制单个文本，而现在我们需要绘制两个问文本，且两个文本沿竖直方向排列，且两个文本左边起始位置有偏移。
 
@@ -553,9 +564,9 @@ Widget wStaggerTextWaterMark() {
 
 ## 10.8.5 对水印应用偏移
 
-我们实现的两个文本水印画笔能对单元水印指定padding，但是如果我们需要对整个水印组件应用偏移效果呢？比如期望如下图所示的效果: 让 WaterMark 的整个背景向左平移了30像素，可以看到第一列的水印文本只显示了一部分。
+我们实现的两个文本水印画笔能对单元水印指定padding，但是如果我们需要对整个水印组件应用偏移效果呢？比如期望如图10-14所示的效果：让 WaterMark 的整个背景向左平移了30像素，可以看到第一列的水印文本只显示了一部分。
 
-![文本水印偏移](../imgs/watermark-with-offset.png)
+![图10-14](../imgs/10-14.png)
 
 首先，我们不能在文本水印画笔中应用偏移，因为水印画笔画的是单元水印，如果我们绘制的单元水印只显示了部分文本，则单元水印重复时每个重复区域也都只显示部分文本。所以我们得对 WaterMark 的背景整体做一个偏移，这时想必读者应该想到了 Transform 组件，OK，那我们先用 Transform 组件来试试。
 
@@ -574,9 +585,9 @@ Widget wStaggerTextWaterMark() {
 ),
 ```
 
-运行后效果如下：
+运行后效果如图10-15：
 
-![文本水印偏移bug](../imgs/watermark-with-translate.png)
+![图10-15](../imgs/10-15.png)
 
 可以发现虽然整体向做偏移了，但是右边出现了空白，这时因为 WaterMark 占用的空间本来就是和屏幕等宽的，所以它绘制时的区域也就和屏幕一样大，而Transform.translate 的作用相当于是在绘制时将绘制的原点向做平移了 30 像素，所以右边就出现了空白。
 
@@ -621,9 +632,9 @@ Widget wTextWaterMarkWithOffset() {
 }
 ```
 
-上面的代码可以实现我们期望的效果：
+上面的代码可以实现我们期望的效果（见图10-14）。
 
-![文本水印偏移](../imgs/watermark-with-offset.png)
+
 
 需要说明的是因为 SingleChildScrollView 被 IgnorePointer 包裹着，所以它是接收不到事件的，所以不会受用户滑动的干扰。
 
@@ -649,11 +660,9 @@ LayoutBuilder(
 ),
 ```
 
-运行后效果下：
+运行后效果如图10-16：
 
-![水印溢出](../imgs/watermark-with-overflow.png)
-
-
+![图10-16](../imgs/10-16.png)
 
 我们看到，左边出现了一个溢出提示条，这是因为 UnconstrainedBox 虽然在其子组件布局时可以取消约束（子组件可以为无限大），但是 UnconstrainedBox 自身是受其父组件约束的，所以当 UnconstrainedBox 随着其子组件变大后，如果 UnconstrainedBox 的大小超过它父组件大小时，就导致了溢出。
 
@@ -696,11 +705,7 @@ assert(() {
 ),
 ```
 
-运行后，效果如下：
-
-![文本水印偏移](../imgs/watermark-with-offset.png)
-
-
+运行后，能实现我们预期的效果（见图10-14）。
 
 FittedBox 主要的使用场景是对子组件进行一些缩放、拉升等以适配父组件的空间，而在本例的场景中我们并没有用到这个功能（适配方式制定了 BoxFit.none ），还是有点杀鸡用牛刀的感觉，那还有其它更合适的组件来解决这个问题吗？答案是有，OverflowBox ！
 
@@ -783,13 +788,7 @@ Widget wTextWaterMarkWithOffset2() {
 }
 ```
 
-运行后效果：
-
-![文本水印偏移](../imgs/watermark-with-offset.png)
-
-
-
-成功了！
+运行后，能实现我们预期的效果（见图10-14）。
 
 ## 10.8.6 总结
 
@@ -798,7 +797,7 @@ Widget wTextWaterMarkWithOffset2() {
 1. 水印组件的实现思路以及如何定义单元水印画笔。
 2. 如何绘制文本以及如何进行离屏渲染。
 3. 如何对水印整体应用偏移。
-4. 笔者已经将本章封装的水印组件和水印画笔添加到了 flukit 组件库。
+4. 笔者已经将本章封装的水印组件和水印画笔添加到了 flukit 组件库，完整实现代码可在 flukit 库中找到。
 
 
 

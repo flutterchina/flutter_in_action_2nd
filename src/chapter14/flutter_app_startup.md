@@ -357,7 +357,7 @@ void update(VoidCallback fn) {
 
 ### 总结
 
-本节介绍了Flutter App 从启动到显示到屏幕上的主流程，重点是 Flutter 的渲染流程：![Flutter渲染流程](../imgs/pipeline.png)
+本节介绍了Flutter App 从启动到显示到屏幕上的主流程，重点是 Flutter 的渲染流程，如图14-4：![图14-4](../imgs/14-4.png)
 
 需要说明的是 build 过程和 layout 过程是可以交替执行的，这个我们在介绍 LayoutBuilder 一节时已经解释过了。读者需要对整个渲染流程有个大概映像，后面我们会详细介绍，不过在深入介绍渲染管线之前，我们得仔细的了解一下 Element 、BuildContext 和 RenderObject 三个类。
 

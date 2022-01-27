@@ -2,11 +2,10 @@
 
 # 10.6 自绘组件：CustomCheckbox
 
-Flutter 自带的 Checkbox 组件是不能自由指定大小的，本节我们通过自定义一个可以自由指定大小的 CustomCheckbox 组件来演示如何通过定义 RenderObject 的方式来自定义组件（而不是通过组合）。
+## 10.6.1 CustomCheckbox
+Flutter 自带的 Checkbox 组件是不能自由指定大小的，本节我们通过自定义一个可以自由指定大小的 CustomCheckbox 组件来演示如何通过定义 RenderObject 的方式来自定义组件（而不是通过组合）。我们要实现的 CustomCheckbox 组件效果如图10-6所示：
 
-![CustomCheckbox](../imgs/custom-checkbox.gif)
-
-
+![图10-6](../imgs/10-6.gif)
 
 1. 有选中和未选中两种状态。
 2. 状态切换时要执行动画。
@@ -145,12 +144,12 @@ void performLayout() {
 
 #### 绘制背景
 
-下面我们先看看如何绘制背景：
+下面结合图10-7，我们先看看如何绘制背景：
 
 1. 当状态切换为选中状态时，将矩形逐渐从边缘向中心收缩填充，直到填满 Checkbox 区域。
 2. 当状态切换为未选中状态时，填充从中间逐渐向边缘消散，直到只剩一个边框为止。
 
-![CustomCheckbox](../imgs/custom-checkbox-frame.png)
+![图10-7](../imgs/10-7.png)
 
 实现的思路是先将整个背景矩形区域全部填充满蓝色，然后在上面绘制一个白色背景的矩形，根据动画进度来动态改变白色矩形区域大小即可。幸运的是 Canvas API 中已经帮助我们实现了我们期望的功能，drawDRRect 他可以指定内外两个矩形，然后画出不相交的部分，并且可以指定圆角，下面是具体实现：
 
@@ -287,7 +286,7 @@ void handleEvent(PointerEvent event, covariant BoxHitTestEntry entry) {
 }
 ```
 
-## 动画调度抽象 RenderObjectAnimationMixin
+## 10.6.2 动画调度抽象 RenderObjectAnimationMixin
 
 我们可以看到，在RenderObject 中调度动画还是比较复杂的，为此我们抽象了一个  RenderObjectAnimationMixin，如果还有其它 RenderObject 中需要执行动画，可以直接复用。
 
@@ -580,7 +579,7 @@ class _CustomCheckboxTestState extends State<CustomCheckboxTest> {
 }
 ```
 
-## 总结
+## 10.6.3总结
 
-本节演示了如何通过自定义 RenderObject 的方式来进行UI绘制、动画调度和事件处理。
+本节演示了如何通过自定义 RenderObject 的方式来进行UI绘制、动画调度和事件处理，可以看到通过 RenderObject 来自定义组件会比组合的方式更复杂一些，但这种方式会更接近 Flutter 组件的本质。
 

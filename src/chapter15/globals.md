@@ -17,7 +17,7 @@ const _themes = <MaterialColor>[
 ];
 
 class Global {
-  static SharedPreferences _prefs;
+  static late SharedPreferences _prefs;
   static Profile profile = Profile();
   // 网络缓存对象
   static NetCache netCache = NetCache();
@@ -30,6 +30,7 @@ class Global {
 
   //初始化全局信息，会在APP启动时执行
   static Future init() async {
+    WidgetsFlutterBinding.ensureInitialized();
     _prefs = await SharedPreferences.getInstance();
     var _profile = _prefs.getString("profile");
     if (_profile != null) {
@@ -38,6 +39,9 @@ class Global {
       } catch (e) {
         print(e);
       }
+    }else{
+      // 默认主题索引为0，代表蓝色
+      profile= Profile()..theme=0;
     }
 
     // 如果没有缓存策略，设置默认缓存策略

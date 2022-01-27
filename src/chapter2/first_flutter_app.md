@@ -7,9 +7,9 @@
 
 ## 2.1.1 创建Flutter应用模板
 
-通过 Android Studio 或 VS Code 创建一个新的 Flutter 工程，命名为 "first_flutter_app"。创建好后，就会得到一个计数器应用的 Demo。
+通过 Android Studio 或 VS Code 创建一个新的 Flutter 工程，命名为 "first_flutter_app"。创建好后，就会得到一个默认的计数器应用示例。
 
-> 注意，默认 Demo 示例可能随着编辑器 Flutter 插件的版本变化而变化，本例中会介绍计数器示例的全部代码，所以不会对本示例产生影响。
+> 注意，默认计数器示例可能随着编辑器 Flutter 插件的版本变化而变化，本例中会介绍计数器示例的全部代码，所以不会对本示例产生影响。
 
 我们先运行创建的工程，效果如图2-1所示：
 

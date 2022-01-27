@@ -21,9 +21,9 @@
 }
 ```
 
-运行效果如下：
+运行效果如图6-22所示：
 
-![两个ListView结构图](../imgs/twolistview.gif)
+![图6-22](../imgs/6-22.gif)
 
 页面中有两个 ListView，各占可视区域一半高度，虽然能够显式出来，但每一个 ListView 只会响应自己可视区域中滑动，实现不了我们想要的效果。之所以会这样的原因是两个 ListView 都有自己独立的 Scrollable 、 Viewport 和 Sliver，既然如此，我们自己创建一个共用的 Scrollable 和 Viewport 对象，然后再将两个 ListView 对应的 Sliver 添加到这个共用的 Viewport 对象中就可以实现我们想要的效果了。如果这个工作让开发者自己来做无疑是比较麻烦的，因此 Flutter 提供了一个 `CustomScrollView` 组件来帮助我们创建一个公共的 Scrollable 和 Viewport ，然后它的 slivers 参数接受一个 Sliver 数组，这样我们就可以使用CustomScrollView 方面的实现我们期望的功能了：
 
@@ -49,15 +49,15 @@ Widget buildTwoSliverList() {
 }
 ```
 
-运行后效果如下：
+运行后效果图6-23所示：
 
-![合并两个List](../imgs/combine-twolist.gif)
+![图6-23](../imgs/6-23.gif)
 
 可以看到我们期望的效果实现了。
 
-综上，`CustomScrollView` 的主要功能是提供一个公共的的 Scrollable 和 Viewport，来组合多个 Sliver，CustomScrollView 的结构图如下：
+综上，`CustomScrollView` 的主要功能是提供一个公共的的 Scrollable 和 Viewport，来组合多个 Sliver，CustomScrollView 的结构如图6-24：
 
-![CustomScrollView 结构图](../imgs/customscrollview-arc.png)
+![图6-24](../imgs/6-24.png)
 
 ## 6.10.2 Flutter 中常用的 Sliver
 
@@ -161,9 +161,9 @@ Material(
 - 中间的`SliverGrid`：它用`SliverPadding`包裹以给`SliverGrid`添加补白。`SliverGrid`是一个两列，宽高比为4的网格，它有20个子组件。
 - 底部`SliverFixedExtentList`：它是一个所有子元素高度都为50像素的列表。
 
-运行效果如图：
+运行效果如图6-25、6-26所示：
 
-![图6-12](../imgs/6-12.png)![图6-13](../imgs/6-13.png)
+![图6-25](../imgs/6-25.png)![图6-26](../imgs/6-26.png)
 
 
 
@@ -370,15 +370,9 @@ class PersistentHeaderRoute extends StatelessWidget {
   }
 }
 ```
-运行后效果如下:
+运行后效果如图6-27所示:
 
-![PersistentHeader](../imgs/persistent-header.gif)
-
-
-
-截了两张图，第一张图为初始状态，第二张是滑动后，header1、header2 都滑动到顶部固定后的效果：
-
-![图](../imgs/header1.png)![图6-13](../imgs/header2.png)
+![PersistentHeader](../imgs/6-27.gif)
 
 
 

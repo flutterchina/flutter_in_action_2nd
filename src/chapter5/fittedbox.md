@@ -1,6 +1,6 @@
-# 5.7 空间适配 FittedBox
+# 5.6 空间适配 FittedBox
 
-## 5.7.1 FittedBox
+## 5.6.1 FittedBox
 
 子组件大小超出了父组件大小时，如果不经过处理的话 Flutter 中就会显示一个溢出警告并在控制台打印错误日志，比如下面代码会导致溢出：
 
@@ -10,9 +10,9 @@ Padding(
   child: Row(children: [Text('xx'*30)]), //文本长度超出 Row 的最大宽度会溢出
 )
 ```
-运行效果如下：
+运行效果如图5-13所示：
 
-![溢出](../imgs/overflow.png)
+![图5-13](../imgs/5-13.png)
 
 可以看到右边溢出了 45 像素。
 
@@ -66,9 +66,9 @@ Widget wContainer(BoxFit boxFit) {
 }
 ```
 
-运行后效果如下：
+运行后效果如图5-14所示：
 
-![溢出](../imgs/fittedbox-none-and-contain.png)
+![图5-14](../imgs/5-14.png)
 
 因为父Container要比子Container 小，所以当没有指定任何适配方式时，子组件会按照其真实大小进行绘制，所以第一个蓝色区域会超出父组件的空间，因而看不到红色区域。第二个我们指定了适配方式为 BoxFit.contain，含义是按照子组件的比例缩放，尽可能多的占据父组件空间，因为子组件的长宽并不相同，所以按照比例缩放适配父组件后，父组件能显示一部分。
 
@@ -90,7 +90,7 @@ Widget wContainer(BoxFit boxFit) {
 
 关于 BoxFit 的各种适配规则和 Image 的 fix 属性指定是一样的，读者可以查看我们在介绍 Image 组件时关于各种适配规则对应的效果。
 
-## 5.7.2 实例：单行缩放布局
+## 5.6.2 实例：单行缩放布局
 
 比如我们有三个数据指标，需要在一行显示，因为换行的话就会将我们的页面布局打乱，所以换行是不能接受的。因为不同设备的屏幕宽度不同，且不同人的数据也不同，所以就会出现数据太长或屏幕太窄时三个数据无法在一行显示，因此，我们希望当无法在一行显示时能够对组件进行适当的缩放以确保一行能够显示的下，为此我们写了一个测试 demo ：
 
@@ -124,11 +124,11 @@ Widget wContainer(BoxFit boxFit) {
     return child;
   }
 ```
-运行后效果如下图：
+运行后效果如图5-15所示：
 
-![溢出](../imgs/fitted-box.png)
+![图5-15](../imgs/5-15.png)
 
-首先，因为我们给Row在主轴的对齐方式指定为  MainAxisAlignment.spaceEvenly，这会将水平方向的的剩余显示空间均分成多份穿插在每一个 child之间。
+首先，因为我们给Row在主轴的对齐方式指定为`MainAxisAlignment.spaceEvenly`，这会将水平方向的的剩余显示空间均分成多份穿插在每一个 child之间。
 
 可以看到，当数字为'  90000000000000000  '时，三个数字的长度加起来已经超出了测试设备的屏幕宽度，所以直接使用 Row 会溢出，当给 Row 添加上如果加上 FittedBox时，就可以按比例缩放至一行显示，实现了我们预期的效果。但是当数字没有那么大时，比如下面的 ' 800 '，直接使用 Row 是可以的，但加上 FittedBox 后三个数字虽然也能正常显示，但是它们却挤在了一起，这不符合我们的期望。之所以会这样，原因其实很简单：在指定主轴对齐方式为 spaceEvenly 的情况下，Row 在进行布局时会拿到父组件的约束，如果约束的 maxWidth 不是无限大，则 Row 会根据子组件的数量和它们的大小在主轴方向来根据 spaceEvenly 填充算法来分割水平方向的长度，最终Row 的宽度为 maxWidth；但如果 maxWidth 为无限大时，就无法在进行分割了，所以此时 Row 就会将子组件的宽度之和作为自己的宽度。
 
@@ -183,9 +183,9 @@ wRow(' 800 '),
 SingleLineFittedBox(child: wRow(' 800 ')),
 ```
 
-运行后我们看看效果:
+运行后效果如图5-16所示:
 
-![SingleLineFittedBox有bug版](../imgs/singleline-fittedbox.png)
+![图5-16](../imgs/5-16.png)
 
 返现 800 正常显示了，但用SingleLineFittedBox包裹的 ' 90000000000000000 ' 的那个 Row 却溢出了！溢出的原因其实也很简单，因为我们在 SingleLineFittedBox 中将传给 Row 的 maxWidth 置为屏幕宽度后，效果和不加SingleLineFittedBox 的效果是一样的，Row 收到父组件约束的 maxWidth 都是屏幕的宽度，所以搞了半天实现了个寂寞。但是，不要放弃，其实离胜利只有一步，只要我们稍加修改，就能实现我们的预期，话不多说，直接上代码：
 
@@ -216,8 +216,8 @@ class SingleLineFittedBox extends StatelessWidget {
 
 代码很简单，我们将最小宽度（minWidth）约束指定为屏幕宽度，因为Row必须得遵守父组件的约束，所以 Row 的宽度至少等于屏幕宽度，所以就不会出现缩在一起的情况；同时我们将 maxWidth 指定为无限大，则就可以处理数字总长度超出屏幕宽度的情况。
 
-重新运行后：
+重新运行后如图5-17所示：
 
-![SingleLineFittedBox](../imgs/singleline-fittedbox-nobug.png)
+![图5-17](../imgs/5-17.png)
 
 发现无论长数字还是短数字，我们的SingleLineFittedBox 都可以正常工作，大功告成！我们的组件库里面又多了一个组件 。

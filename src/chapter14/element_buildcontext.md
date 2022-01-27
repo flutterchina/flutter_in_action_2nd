@@ -4,9 +4,9 @@
 
 在“Widget简介”一节，我们介绍了Widget和Element的关系，我们知道最终的UI树其实是由一个个独立的Element节点构成。我们也说过组件最终的Layout、渲染都是通过`RenderObject`来完成的，从创建到渲染的大体流程是：根据Widget生成Element，然后创建相应的`RenderObject`并关联到`Element.renderObject`属性上，最后再通过`RenderObject`来完成布局排列和绘制。
 
-Element就是Widget在UI树具体位置的一个实例化对象，大多数Element只有唯一的`renderObject`，但还有一些Element会有多个子节点，如继承自`RenderObjectElement`的一些类，比如`MultiChildRenderObjectElement`。最终所有Element的RenderObject构成一棵树，我们称之为”Render Tree“即”渲染树“。总结一下，我们可以认为Flutter的UI系统包含三棵树：Widget树、Element树、渲染树。他们的依赖关系是：Element树根据Widget树生成，而渲染树又依赖于Element树，如图14-0所示。
+Element就是Widget在UI树具体位置的一个实例化对象，大多数Element只有唯一的`renderObject`，但还有一些Element会有多个子节点，如继承自`RenderObjectElement`的一些类，比如`MultiChildRenderObjectElement`。最终所有Element的RenderObject构成一棵树，我们称之为”Render Tree“即”渲染树“。总结一下，我们可以认为Flutter的UI系统包含三棵树：Widget树、Element树、渲染树。他们的依赖关系是：Element树根据Widget树生成，而渲染树又依赖于Element树，如图14-1 所示。
 
-![图14-0](../imgs/14-0.png)
+![图14-1](../imgs/14-1.png)
 
 现在我们重点看一下Element，Element的生命周期如下：
 
@@ -120,9 +120,9 @@ class CustomHome extends Widget {
 }
 ```
 
-现在就可以将`CustomHome`添加到widget树了，我们在一个新路由页创建它，最终效果如下如图14-1和14-2（点击后）所示：
+现在就可以将`CustomHome`添加到widget树了，我们在一个新路由页创建它，最终效果如下如图14-2 和14-3（点击后）所示：
 
-![图14-1](../imgs/14-1.png) ![图14-2](../imgs/14-2.png)
+![图14-2](../imgs/14-2.png) ![图14-3](../imgs/14-3.png)
 
 点击按钮则按钮文本会随机排序。
 

@@ -67,9 +67,9 @@ class _ValueListenableState extends State<ValueListenableRoute> {
 }
 ```
 
-运行后连续点击两次 + 按钮效果如下：
+运行后连续点击两次 + 按钮效果如图7-8所示：
 
-![ValueListenableBuilde](../imgs/valuelistenablebuilder.gif)
+![图7-8](../imgs/7-8.gif)
 
 可以看见，功能正常实现了，同时控制台只在页面打开时 build 了一次，点击 + 按钮的时候只是ValueListenableBuilder 重新构建了子组件树，而整个页面并没有重新 build ，因此日志面板只打印了一次 "build" 。因此我们有一个建议就是：**尽可能让 ValueListenableBuilder 只构建依赖数据源的widget，这样的话可以缩小重新构建的范围，也就是说 ValueListenableBuilder 的拆分粒度应该尽可能细**。
 

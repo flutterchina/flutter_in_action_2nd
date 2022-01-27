@@ -1,5 +1,7 @@
 # 13.1 让App支持多语言
 
+## 13.1.1 简介
+
 如果我们的应用要支持多种语言，那么我们需要“国际化”它。这意味着我们在开发时需要为应用程序支持的每种语言环境设置“本地化”的一些值，如文本和布局。Flutter SDK已经提供了一些组件和类来帮助我们实现国际化，下面我们来介绍一下Flutter中实现国际化的步骤。
 
 接下来我们以`MaterialApp`类为入口的应用来说明如何支持国际化。
@@ -8,7 +10,7 @@
 
 注意，”本地化的值和资源“是指我们针对不同语言准备的不同资源，这些资源一般是指文案（字符串），当然也会有一些其他的资源会根据不同语言地区而不同，比如我们需要显示一个APP上架地的国旗图片，那么不同Locale区域我们就需要提供不同的的国旗图片。
 
-### 支持国际化
+## 13.1.2 支持国际化
 
 默认情况下，Flutter SDK中的组件仅提供美国英语本地化资源（主要是文本）。要添加对其他语言的支持，应用程序须添加一个名为“flutter_localizations”的包依赖，然后还需要在`MaterialApp`中进行一些配置。 要使用`flutter_localizations`包，首先需要添加依赖到`pubspec.yaml`文件中：
 
@@ -46,7 +48,7 @@ MaterialApp(
 
 `supportedLocales`也接收一个Locale数组，表示我们的应用支持的语言列表，在本例中我们的应用只支持美国英语和中文简体两种语言。
 
-### 获取当前区域Locale
+## 13.1.3 获取当前区域Locale
 
 [`Locale`](https://docs.flutter.io/flutter/dart-ui/Locale-class.html)类是用来标识用户的语言环境的，它包括语言和国家两个标志如：
 
@@ -62,7 +64,7 @@ Locale myLocale = Localizations.localeOf(context);
 
 [`Localizations`](https://docs.flutter.io/flutter/widgets/Localizations-class.html) 组件一般位于widget树中其它业务组件的顶部，它的作用是定义区域Locale以及设置子树依赖的本地化资源。 如果系统的语言环境发生变化，[WidgetsApp](https://docs.flutter.io/flutter/widgets/WidgetsApp-class.html)将创建一个新的Localizations 组件并重建它，这样子树中通过`Localizations.localeOf(context)` 获取的Locale就会更新。
 
-### 监听系统语言切换
+## 13.1.4 监听系统语言切换
 
 当我们更改系统语言设置时，APP中的Localizations组件会重新构建，`Localizations.localeOf(context)` 获取的Locale就会更新，最终界面会重新build达到切换语言的效果。但是这个过程是隐式完成的，我们并没有主动去监听系统语言切换，但是有时我们需要在系统语言发生改变时做一些事，比如系统语言切换为一种我们APP不支持的语言时，我们需要设置一个默认的语言，这时我们就需要监听locale改变事件。
 
@@ -100,7 +102,7 @@ Locale Function(List<Locale> locales, Iterable<Locale> supportedLocales)
 
 在Flutter中，应该优先使用`localeListResolutionCallback`，当然你不必担心Android系统的差异性，如果在低版本的Android系统中，Flutter会自动处理这种情况，这时Locale列表只会包含一项。
 
-### Localization 组件
+## 13.1.5 Localization 组件
 
 Localizations组件用于加载和查找应用当前语言下的本地化值或资源。应用程序通过[`Localizations.of(context,type)`](https://docs.flutter.io/flutter/widgets/Localizations/of.html)来引用这些对象。 如果设备的Locale区域设置发生更改，则Localizations 组件会自动加载新区域的Locale值，然后重新build使用（依赖）了它们的组件，之所以会这样，是因为`Localizations`内部使用了[InheritedWidget](https://book.flutterchina.club/chapter7/inherited_widget.html) ，我们在介绍该组件时讲过：当子组件的`build`函数引用了`InheritedWidget`时，会创建对`InheritedWidget`的隐式依赖关系。因此，当`InheritedWidget`发生更改时，即`Localizations`的Locale设置发生更改时，将重建所有依赖它的子组件。
 
@@ -123,7 +125,7 @@ static MaterialLocalizations of(BuildContext context) {
 tooltip: MaterialLocalizations.of(context).backButtonTooltip,
 ```
 
-### 使用打包好的LocalizationsDelegates
+## 13.1.6 使用打包好的LocalizationsDelegates
 
 为了尽可能小而且简单，flutter软件包中仅提供美国英语值的`MaterialLocalizations`和`WidgetsLocalizations`接口的实现。 这些实现类分别称为`DefaultMaterialLocalizations`和`DefaultWidgetsLocalizations`。flutter_localizations 包包含`GlobalMaterialLocalizations`和`GlobalWidgetsLocalizations`的本地化接口的多语言实现， 国际化的应用程序必须按照本节开头说明的那样为这些类指定本地化Delegate。
 

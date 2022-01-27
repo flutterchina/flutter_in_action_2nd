@@ -76,9 +76,9 @@ Column(
 );
 ```
 
-实际运行结果如图4-1所示：
+实际运行结果如图4-9所示：
 
-![图4-1](../imgs/4-1.png)
+![图4-9](../imgs/4-9.png)
 
 解释：第一个`Row`很简单，默认为居中对齐；第二个`Row`，由于`mainAxisSize`值为`MainAxisSize.min`，`Row`的宽度等于两个`Text`的宽度和，所以对齐是无意义的，所以会从左往右显示；第三个`Row`设置`textDirection`值为`TextDirection.rtl`，所以子组件会从右向左的顺序排列，而此时`MainAxisAlignment.end`表示左对齐，所以最终显示结果就是图中第三行的样子；第四个 Row 测试的是纵轴的对齐方式，由于两个子 Text 字体不一样，所以其高度也不同，我们指定了`verticalDirection`值为`VerticalDirection.up`，即从低向顶排列，而此时`crossAxisAlignment`值为`CrossAxisAlignment.start`表示底对齐。
 
@@ -103,9 +103,9 @@ class CenterColumnRoute extends StatelessWidget {
 }
 ```
 
-运行效果如图4-2所示：
+运行效果如图4-10所示：
 
-![图4-2示例](../imgs/4-2.png)
+![图4-10示例](../imgs/4-10.png)
 
 
 
@@ -166,9 +166,9 @@ Container(
 );
 ```
 
-运行效果如图4-3所示：
+运行效果如图4-11所示：
 
-![图4-3](../imgs/4-3.png)
+![图4-11](../imgs/4-11.png)
 
 如果要让里面的`Column`占满外部`Column`，可以使用`Expanded` 组件：
 
@@ -187,9 +187,9 @@ Expanded(
 )
 ```
 
-运行效果如图4-4所示：
+运行效果如图4-12所示：
 
-![图4-4](../imgs/4-4.png)
+![图4-12](../imgs/4-12.png)
 
 我们将在介绍弹性布局时详细介绍Expanded。
 

@@ -7,13 +7,14 @@
 APP语言选择页提供三个选项：中文简体、美国英语、跟随系统。我们将当前APP使用的语言高亮显示，并且在后面添加一个“对号”图标，实现如下：
 
 ```dart
+import '../index.dart';
+
 class LanguageRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var color = Theme.of(context).primaryColor;
     var localeModel = Provider.of<LocaleModel>(context);
     var gm = GmLocalizations.of(context);
-    //构建语言选择项
     Widget _buildLanguageItem(String lan, value) {
       return ListTile(
         title: Text(
@@ -24,7 +25,7 @@ class LanguageRoute extends StatelessWidget {
         trailing:
             localeModel.locale == value ? Icon(Icons.done, color: color) : null,
         onTap: () {
-          // 更新locale后MaterialApp会重新build
+          // 此行代码会通知MaterialApp重新build
           localeModel.locale = value;
         },
       );
@@ -76,7 +77,7 @@ class ThemeChangeRoute extends StatelessWidget{
             ),
             onTap: () {
               //主题更新后，MaterialApp会重新build
-              Provider.of<ThemeModel>(context).theme = e;
+              Provider.of<ThemeModel>(context, listen: false).theme = e;
             },
           );
         }).toList(),

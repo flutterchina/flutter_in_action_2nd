@@ -19,7 +19,7 @@
     * [2.5：包管理](chapter2/flutter_package_mgr.md)        
     * [2.6：资源管理](chapter2/flutter_assets_mgr.md) 
     * [2.7：异常捕获与上报](chapter2/thread_model_and_error_report.md)
-    * [2.8：DevTools](chapter13/locallization_implement.md) 
+    * [2.8：DevTools](_chapter13/locallization_implement.md) 
     
 * [第三章：基础组件](chapter3/index.md)
     * [3.1：文本、字体样式](chapter3/text.md)
@@ -103,20 +103,19 @@
 * [第十一章：文件操作与网络请求](chapter11/index.md)
     * [11.1：文件操作](chapter11/file_operation.md)
     * [11.2：Http请求-HttpClient](chapter11/http.md)
-    * [11.3：*Http请求封装](todo.md) 
     * [11.5：WebSocket](chapter11/websocket.md) 
     * [11.6：使用Socket API](chapter11/socket.md) 
     * [11.7：Json转Dart Model类](chapter11/json_model.md) 
     
-* [第十二章：包与插件](chapter13/index.md)
+* [第十二章：包与插件](_chapter13/index.md)
     ...
 
     
-* [第十三章：国际化](chapter13/index.md)
-    * [13.1：让App支持多语言](chapter13/multi_languages_support.md)
-    * [13.2：实现Localizations](chapter13/locallization_implement.md) 
-    * [13.3：使用Intl包](chapter13/intl.md) 
-    * [13.4：国际化常见问题](chapter13/faq.md) 
+* [第十三章：国际化](_chapter13/index.md)
+    * [13.1：让App支持多语言](_chapter13/multi_languages_support.md)
+    * [13.2：实现Localizations](_chapter13/locallization_implement.md) 
+    * [13.3：使用Intl包](_chapter13/intl.md) 
+    * [13.4：国际化常见问题](_chapter13/faq.md) 
     
 * [第十四章：Flutter核心原理](chapter14/index.md)
     * [14.1：Flutter UI框架（Framework）](chapter14/flutter_ui_system.md)

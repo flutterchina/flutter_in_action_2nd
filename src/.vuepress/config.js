@@ -82,7 +82,6 @@ module.exports = {
         collapsable: false,
         children:[
           '/chapter5/padding',
-          '/chapter5/constrainedbox_and_sizebox',
           '/chapter5/decoratedbox',
           '/chapter5/transform',
           '/chapter5/container',
@@ -182,19 +181,15 @@ module.exports = {
           '/chapter11/json_model',
         ]
       },
-      // {
-      //   title:"第十二章：包与插件(可能会删除)",
-      //   path:"/chapter12/index",
-      //   collapsable: false,
-      //   children:[
-      //     // '/chapter12/develop_package',
-      //     // '/chapter12/platform-channel',
-      //     // '/chapter12/develop_plugin',
-      //     // '/chapter12/android_implement',
-      //     // '/chapter12/ios_implement',
-      //     // '/chapter12/texture_platformview',
-      //   ]
-      // },
+      {
+        title:"第十二章：Flutter 扩展",
+        path:"/chapter12/index",
+        collapsable: false,
+        children:[
+          '/chapter12/package_and_plugin',
+          '/chapter12/flutter_web',
+        ]
+      },
       {
         title:"第十三章：国际化",
         path:"/chapter13/index",
@@ -219,7 +214,6 @@ module.exports = {
           '/chapter14/paint_flow',
           '/chapter14/layer',
           '/chapter14/compositing',
-          // '/chapter14/image_and_cache',
         ]
       },
       {

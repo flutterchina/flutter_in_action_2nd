@@ -26,9 +26,9 @@ Flutter第一次绘制时，会从上到下开始递归的绘制子节点，每�
 2. 如果不是第一次绘制，则复用已有的  PictureLayer 和 Canvas 对象 。
 3. 如果子节点是边界节点，则对递归上述过程。当子树的递归完成后，就要将子节点的layer 添加到父级 Layer中。
 
-整个流程执行完后就生成了一棵Layer树。下面我们通过一个例子来理解整个过程：下图左边是 widget 树，右边是最终生成的Layer树，我们看一下生成过程：
+整个流程执行完后就生成了一棵Layer树。下面我们通过一个例子来理解整个过程：图14-10 左边是 widget 树，右边是最终生成的Layer树，我们看一下生成过程：
 
-![image-20210812112539815](../imgs/image-20210812112539815.png)
+![图14-10](../imgs/14-10.png)
 
 1. RenderView 是 Flutter 应用的根节点，绘制会从它开始，因为他是一个绘制边界节点，在第一次绘制时，会为他创建一个 OffsetLayer，我们记为 OffsetLayer1，接下来 OffsetLayer1会传递给Row.
 2. 由于 Row 是一个容器类组件且不需要绘制自身，那么接下来他会绘制自己的孩子，它有两个孩子，先绘制第一个孩子Column1，将 OffsetLayer1 传给 Column1，而 Column1 也不需要绘制自身，那么它又会将 OffsetLayer1 传递给第一个子节点Text1。
@@ -180,11 +180,9 @@ void paintChild(RenderObject child, Offset offset) {
 
 ## 14.6.5 创建新的 PictureLayer
 
-现在，我们在本节最开篇示例基础上，给 Row 添加第三个子节点 Text5，那么它的Layer 树会变成什么样的？
+现在，我们在本节最开篇示例基础上，给 Row 添加第三个子节点 Text5，如图14-11，那么它的Layer 树会变成什么样的？
 
-![image-20210812104635705](../imgs/image-20210812104635705.png)
-
-
+![图14-11](../imgs/14-11.png)
 
 因为 Text5 是在 RepaintBoundary 绘制完成后才会绘制，上例中当 RepaintBoundary 的子节点绘制完时，将 RepaintBoundary 的 layer（ OffsetLayer2 ）添加到父级Layer（OffsetLayer1）中后发生了什么？答案在我们上面介绍的` repaintCompositedChild` 的最后一行：
 
@@ -216,21 +214,21 @@ Canvas get canvas {
 }
 ```
 
-之后，我们将新生成的 PictureLayer 和 Canvas 记为 PictureLayer3 和 Canvas3，Text5 的绘制会落在 PictureLayer3 上，所以最终的 Layer 树如下：
+之后，我们将新生成的 PictureLayer 和 Canvas 记为 PictureLayer3 和 Canvas3，Text5 的绘制会落在 PictureLayer3 上，所以最终的 Layer 树如图14-12：
 
-![image-20210812112443622](../imgs/image-20210812112443622.png)
+![图14-12](../imgs/14-12.png)
 
-我们总结一下：**父节点在绘制子节点时，如果子节点是绘制边界节点，则在绘制完子节点后会生成一个新的 PictureLayer，后续其它子节点会在新的 PictureLayer 上绘制**。原理我们搞清楚了，但是为什么要这么做呢？直接复用之前的 PictureLayer1 有问题吗？这个问题，笔者当时也比较疑惑，后来在用到 Stack 组件时才猛然醒悟。先说结论，答案是：在当前的示例中是不会有问题，但是在层叠布局的场景中就会有问题，下面我们看一个例子：
+我们总结一下：**父节点在绘制子节点时，如果子节点是绘制边界节点，则在绘制完子节点后会生成一个新的 PictureLayer，后续其它子节点会在新的 PictureLayer 上绘制**。原理我们搞清楚了，但是为什么要这么做呢？直接复用之前的 PictureLayer1 有问题吗？这个问题，笔者当时也比较疑惑，后来在用到 Stack 组件时才猛然醒悟。先说结论，答案是：在当前的示例中是不会有问题，但是在层叠布局的场景中就会有问题，下面我们看一个例子，结构图见图14-13：
 
-![image-20210812114515155](../imgs/image-20210812114515155.png)
+![图14-13](../imgs/14-13.png)
 
 左边是一个 Stack 布局，右边是对应的Layer树结构；我们知道Stack布局中会根据其子组件的加入顺序进行层叠绘制，最先加入的孩子在最底层，最后加入的孩子在最上层。可以设想一下如果绘制 Child3 时复用了 PictureLayer1，则会导致 Child3 被 Child2 遮住，这显然不符合预期，但如果新建一个 PictureLayer 在添加到 OffsetLayer 最后面，则可以获得正确的结果。
 
 现在我们再来深入思考一下：如果 Child2 的父节点不是 RepaintBoundary，那么是否就意味着 Child3 和 Child1就可以共享同一个 PictureLayer 了？
 
-答案是否定的！如果 Child2 的父组件改为一个自定义的组件，在这个自定义的组件中我们希望对子节点在渲染时进行一些举证变化，为了实现这个功能，我们创建一个新的 TransformLayer 并指定变换规则，然后我们把它传递给 Child2，Child2会绘制完成后，我们需要将 TransformLayer 添加到 Layer 树中（不添加到Layer树中是不会显示的），则组件树和最终的 Layer 树结构如下图所示：
+答案是否定的！如果 Child2 的父组件改为一个自定义的组件，在这个自定义的组件中我们希望对子节点在渲染时进行一些举证变化，为了实现这个功能，我们创建一个新的 TransformLayer 并指定变换规则，然后我们把它传递给 Child2，Child2会绘制完成后，我们需要将 TransformLayer 添加到 Layer 树中（不添加到Layer树中是不会显示的），则组件树和最终的 Layer 树结构如图14-14所示：
 
-![image-20210812121229286](../imgs/image-20210812121229286.png)
+![图14-14](../imgs/14-14.png)
 
 可以发现这种情况本质上和上面使用 RepaintBoudary 的情况是一样的，Child3 仍然不应该复用 PictureLayer1，那么现在我们可以总结一个一般规律了：**只要一个组件需要往 Layer 树中添加新的 Layer，那么就必须也要结束掉当前 PictureLayer 的绘制**。这也是为什么 PaintingContext 中需要往 Layer 树中添加新 Layer 的方法（比如pushLayer、addLayer）中都有如下两行代码：
 
@@ -239,11 +237,9 @@ stopRecordingIfNeeded(); //先结束当前 PictureLayer 的绘制
 appendLayer(layer);// 再添加到 layer树
 ```
 
-这是向 Layer 树中添加Layer的标准操作。这个结论要牢记，我们在后面介绍 `flushCompositingBits()` 的原理时会用到。
+这是向 Layer 树中添加Layer的标准操作。这个结论要牢记，我们在后面介绍 `flushCompositingBits()` 的原理时会用到。综上，Layer树的最终结构大致如图14-15所示（随便一个例子，并不和本例对应）：
 
-
-
-![image-20210812102255548](../imgs/image-20210812102255548.png)
+![图14-15](../imgs/14-15.png)
 
 
 

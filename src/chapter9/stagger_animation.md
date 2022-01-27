@@ -222,7 +222,7 @@ class StaggerAnimation extends StatelessWidget {
   }
 }
 ```
-执行效果如图：
+执行效果如图9-3所示：
 
 ![图9-3](../imgs/9-3.gif)
 

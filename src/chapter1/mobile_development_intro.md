@@ -209,7 +209,7 @@ Qt 是一个1991年由 Qt Company 开发的跨平台 C++ 图形用户界面应�
 
 “千呼万唤始出来”，铺垫这么久，现在终于等到本书的主角出场了！
 
-Flutter 是 Google 发布的一个用于创建跨平台、高性能移动应用的框架。Flutter 和 Qt mobile 一样，都没有使用原生控件，相反都实现了一个自绘引擎，使用自身的布局、绘制系统。那么，我们会担心，Qt mobile 面对的问题Flutter是否也一样，Flutter会不会步入Qt mobile后尘，成为另一个烈士？要回到这个问题，我们先来看看Flutter诞生过程：从 2017 年 Google I/O 大会上，Google 首次发布 Flutter 到 2021年8月底，已经有 127K 的 Star，Star 数量 Github 上排名前 20 。经历了4年多的时间，Flutter 生态系统得以快速增长，国内外有非常基于 Flutter 的成功案例，国内的互联网公司基本都有专门的 Flutter 团队。总之，历时 4 年，Flutter 发展飞快，已在业界得到了广泛的关注和认可，在开发者中受到了热烈的欢迎，成为了移动跨端开发中最受欢迎的框架之一。
+Flutter 是 Google 发布的一个用于创建跨平台、高性能移动应用的框架。Flutter 和 Qt mobile 一样，都没有使用原生控件，相反都实现了一个自绘引擎，使用自身的布局、绘制系统。那么，我们会担心，Qt mobile 面对的问题Flutter是否也一样，Flutter会不会步入Qt mobile后尘，成为另一个烈士？要回到这个问题，我们先来看看Flutter诞生过程：从 2017 年 Google I/O 大会上，Google 首次发布 Flutter 到 2021年8月底，已经有 127K 的 Star，Star 数量 Github 上排名前 20 。经历了4年多的时间，Flutter 生态系统得以快速增长，国内外有非常多基于 Flutter 的成功案例，国内的互联网公司基本都有专门的 Flutter 团队。总之，历时 4 年，Flutter 发展飞快，已在业界得到了广泛的关注和认可，在开发者中受到了热烈的欢迎，成为了移动跨端开发中最受欢迎的框架之一。
 
 现在，我们来和 Qt mobile做一个对比：
 

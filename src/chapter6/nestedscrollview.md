@@ -15,9 +15,9 @@ const NestedScrollView({
 }) 
 ```
 
-我们先看一个简单的示例，需要实现的页面的最终效果如下：
+我们先看一个简单的示例，需要实现的页面的最终效果如图6-32所示：
 
-![图](../imgs/nestedscrollview1.png)
+![图6-32](../imgs/6-32.png)
 
 页面有三部分组成：
 
@@ -64,9 +64,9 @@ NestedScrollView  在逻辑上将可滚动组件分为了 header 和 body 两部
 
 ## 6.12.2 NestedScrollView 原理
 
-NestedScrollView 的结构图如下：
+NestedScrollView 的结构图如图6-33所示：
 
-![image-20210824203719827](../imgs/image-20210824203719827.png)
+![图6-33](../imgs/6-33.png)
 
 有几点解释：
 
@@ -145,9 +145,9 @@ class SnapAppBar extends StatelessWidget {
 }
 ```
 
-运行后效果如下：
+运行后效果如图6-34：
 
-![图](../imgs/nestedscrollview-snap.png)
+![图6-34](../imgs/6-34.png)
 
 当我们滑动到顶部时，然后反向轻微滑动一点点，这时 SliverAppBar 就会整体回到屏幕顶部，但这时有一个问题，注意图中红色圈出来的部分，我们发现  SliverAppBar 返回到屏幕后将 0 - 4 这几个列表项遮住了！而按照正常的交互逻辑，预期是不能遮住的，因为往下滑时，用户就是为了看上面的内容，SliverAppBar 突然整体回到屏幕后正好遮住了上面的内容，这时，用户不得不继续往下再滑动一些距离，这个体验很不好。
 

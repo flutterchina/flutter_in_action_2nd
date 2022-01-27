@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "vuepress dev src",
-    "build": "vuepress build src"
+    "build": "vuepress build src",
+    "gif": "node gif.js"
   },
   "author": "wendux",
   "license": "ISC",
@@ -13,7 +14,9 @@
     "@antv/g2": "^4.0.6"
   },
   "devDependencies": {
+    "canvas": "^2.8.0",
     "html-minifier": "^3.5.21",
+    "qr-image": "^3.2.0",
     "vuepress": "^1.8.2"
   }
 }

@@ -51,8 +51,10 @@ class NetCache extends Interceptor {
   var cache = LinkedHashMap<String, CacheObject>();
 
   @override
-  onRequest(RequestOptions options) async {
-    if (!Global.profile.cache.enable) return options;
+  onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+    if (!Global.profile.cache!.enable) {
+      return handler.next(options);
+    }
     // refresh标记是否是"下拉刷新"
     bool refresh = options.extra["refresh"] == true;
     //如果是下拉刷新，先删除相关缓存
@@ -64,7 +66,7 @@ class NetCache extends Interceptor {
         // 如果不是列表，则只删除uri相同的缓存
         delete(options.uri.toString());
       }
-      return options;
+      return handler.next(options);
     }
     if (options.extra["noCache"] != true &&
         options.method.toLowerCase() == 'get') {
@@ -73,35 +75,32 @@ class NetCache extends Interceptor {
       if (ob != null) {
         //若缓存未过期，则返回缓存内容
         if ((DateTime.now().millisecondsSinceEpoch - ob.timeStamp) / 1000 <
-            Global.profile.cache.maxAge) {
-          return cache[key].response;
+            Global.profile.cache!.maxAge) {
+          return handler.resolve(ob.response);
         } else {
           //若已过期则删除缓存，继续向服务器请求
           cache.remove(key);
         }
       }
     }
+    handler.next(options);
   }
 
   @override
-  onError(DioError err) async {
-    // 错误状态不缓存
-  }
-
-  @override
-  onResponse(Response response) async {
+  onResponse(Response response, ResponseInterceptorHandler handler) async {
     // 如果启用缓存，将返回结果保存到缓存
-    if (Global.profile.cache.enable) {
+    if (Global.profile.cache!.enable) {
       _saveCache(response);
     }
+    handler.next(response);
   }
 
   _saveCache(Response object) {
-    RequestOptions options = object.request;
+    RequestOptions options = object.requestOptions;
     if (options.extra["noCache"] != true &&
         options.method.toLowerCase() == "get") {
       // 如果缓存数量超过最大数量限制，则先移除最早的一条记录
-      if (cache.length == Global.profile.cache.maxCount) {
+      if (cache.length == Global.profile.cache!.maxCount) {
         cache.remove(cache[cache.keys.first]);
       }
       String key = options.extra["cacheKey"] ?? options.uri.toString();
@@ -162,9 +161,10 @@ class Git {
     if (!Global.isRelease) {
       (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
           (client) {
-        client.findProxy = (uri) {
-          return "PROXY 10.1.10.250:8888";
-        };
+        // 设置代理抓包，调试用
+        // client.findProxy = (uri) {
+        //   return 'PROXY 192.168.50.154:8888';
+        // };
         //代理工具会提供一个抓包的自签名证书，会通不过证书校验，所以我们禁用证书校验
         client.badCertificateCallback =
             (X509Certificate cert, String host, int port) => true;
@@ -176,7 +176,7 @@ class Git {
   Future<User> login(String login, String pwd) async {
     String basic = 'Basic ' + base64.encode(utf8.encode('$login:$pwd'));
     var r = await dio.get(
-      "/users/$login",
+      "/user",
       options: _options.merge(headers: {
         HttpHeaders.authorizationHeader: basic
       }, extra: {

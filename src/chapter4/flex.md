@@ -4,7 +4,7 @@
 
 ### Flex
 
-`Flex`组件可以沿着水平或垂直方向排列子组件，如果你知道主轴方向，使用`Row`或`Column`会方便一些，**因为`Row`和`Column`都继承自`Flex`，**参数基本相同，所以能使用Flex的地方基本上都可以使用`Row`或`Column`。`Flex`本身功能是很强大的，它也可以和`Expanded`组件配合实现弹性布局。接下来我们只讨论`Flex`和弹性布局相关的属性(其它属性已经在介绍`Row`和`Column`时介绍过了)。
+`Flex`组件可以沿着水平或垂直方向排列子组件，如果你知道主轴方向，使用`Row`或`Column`会方便一些，**因为`Row`和`Column`都继承自`Flex`**，参数基本相同，所以能使用Flex的地方基本上都可以使用`Row`或`Column`。`Flex`本身功能是很强大的，它也可以和`Expanded`组件配合实现弹性布局。接下来我们只讨论`Flex`和弹性布局相关的属性(其它属性已经在介绍`Row`和`Column`时介绍过了)。
 
 ```dart
 Flex({
@@ -90,9 +90,9 @@ class FlexLayoutTestRoute extends StatelessWidget {
 }
 ```
 
-运行效果如图4-5所示：
+运行效果如图4-13所示：
 
-![弹性布局](../imgs/4-5.png)
+![图4-13](../imgs/4-13.png)
 
 示例中的`Spacer`的功能是占用指定比例的空间，实际上它只是`Expanded`的一个包装类，`Spacer`的源码如下：
 

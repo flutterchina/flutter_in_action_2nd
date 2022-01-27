@@ -1,10 +1,10 @@
-# 5.8 Scaffold
+# 5.7 Scaffold
 
 Material 组件库提供了丰富多样的组件，本节介绍一下最常用的 Scaffold 组件，其余的读者可以自行查看文档或 Flutter Gallery 中 Material 组件部分的示例。
 
 > Flutter Gallery是Flutter官方提供的Flutter Demo，源码位于flutter源码中的examples目录下，笔者强烈建议用户将Flutter Gallery示例跑起来，它是一个很全面的Flutter示例应用，是非常好的参考Demo，也是笔者学习Flutter的第一手资料。
 
-## 5.8.1 Scaffold
+## 5.7.1 Scaffold
 
 一个完整的路由页可能会包含导航栏、抽屉菜单(Drawer)以及底部 Tab 导航菜单等。如果每个路由页面都需要开发者自己手动去实现这些，这会是一件非常麻烦且无聊的事。幸运的是，Flutter Material 组件库提供了一些现成的组件来减少我们的开发任务。`Scaffold` 是一个路由页的骨架，我们使用它可以很容易地拼装出一个完整的页面。
 
@@ -82,7 +82,7 @@ class _ScaffoldRouteState extends State<ScaffoldRoute> {
 
 下面我们来分别介绍一下它们。
 
-## 5.8.2 AppBar
+## 5.7.2 AppBar
 
 `AppBar`是一个Material风格的导航栏，通过它可以设置导航栏标题、导航栏菜单、导航栏底部的Tab标题等。下面我们看看AppBar的定义：
 
@@ -130,7 +130,7 @@ Scaffold(
 
 
 
-## 5.8.3 抽屉菜单Drawer
+## 5.7.3 抽屉菜单Drawer
 
 `Scaffold`的`drawer`和`endDrawer`属性可以分别接受一个Widget来作为页面的左、右抽屉菜单。如果开发者提供了抽屉菜单，那么当用户手指从屏幕左（或右）侧向里滑动时便可打开抽屉菜单。本节开始部分的示例中实现了一个左抽屉菜单`MyDrawer`，它的源码如下：
 
@@ -194,15 +194,15 @@ class MyDrawer extends StatelessWidget {
 
 抽屉菜单通常将`Drawer`组件作为根节点，它实现了Material风格的菜单面板，`MediaQuery.removePadding`可以移除Drawer默认的一些留白（比如Drawer默认顶部会留和手机状态栏等高的留白），读者可以尝试传递不同的参数来看看实际效果。抽屉菜单页由顶部和底部组成，顶部由用户头像和昵称组成，底部是一个菜单列表，用ListView实现，关于ListView我们将在后面“可滚动组件”一节详细介绍。
 
-## 5.8.4 FloatingActionButton
+## 5.7.4 FloatingActionButton
 
 `FloatingActionButton`是Material设计规范中的一种特殊Button，通常悬浮在页面的某一个位置作为某种常用动作的快捷入口，如本节示例中页面右下角的"➕"号按钮。我们可以通过`Scaffold`的`floatingActionButton`属性来设置一个`FloatingActionButton`，同时通过`floatingActionButtonLocation`属性来指定其在页面中悬浮的位置，这个比较简单，不再赘述。
 
-## 5.8.5  底部Tab导航栏
+## 5.7.5  底部Tab导航栏
 
-我们可以通过`Scaffold`的`bottomNavigationBar`属性来设置底部导航，如本节开始示例所示，我们通过Material组件库提供的`BottomNavigationBar`和`BottomNavigationBarItem`两种组件来实现Material风格的底部导航栏。可以看到上面的实现代码非常简单，所以不再赘述，但是如果我们想实现如图5-23所示效果的底部导航栏应该怎么做呢？
+我们可以通过`Scaffold`的`bottomNavigationBar`属性来设置底部导航，如本节开始示例所示，我们通过Material组件库提供的`BottomNavigationBar`和`BottomNavigationBarItem`两种组件来实现Material风格的底部导航栏。可以看到上面的实现代码非常简单，所以不再赘述，但是如果我们想实现如图5-21所示效果的底部导航栏应该怎么做呢？
 
-![图5-23](../imgs/5-23.png)
+![图5-21](../imgs/5-21.png)
 
 Material组件库中提供了一个`BottomAppBar` 组件，它可以和`FloatingActionButton`配合实现这种“打洞”效果，源码如下：
 
@@ -230,6 +230,6 @@ floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
 `BottomAppBar`的`shape`属性决定洞的外形，`CircularNotchedRectangle`实现了一个圆形的外形，我们也可以自定义外形，比如，Flutter Gallery示例中就有一个“钻石”形状的示例，读者感兴趣可以自行查看。
 
-## 页面 body
+## 5.7.6 页面 body
 
 最后就是页面的 Body 部分了，Scaffold 有一个 `body ` 属性，接收一个 Widget，我们可以传任意的 Widget ，在下一章中，我们会介绍 TabBarView，它是一个可以进行页面切换的组件，在多 Tab 的 App 中，一般都会将 TabBarView 作为 Scaffold 的 Body。

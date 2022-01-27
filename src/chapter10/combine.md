@@ -12,7 +12,7 @@ Flutter Material组件库中的按钮默认不支持渐变背景，为了实现�
 
 我们先来看看最终要实现的效果（图10-1）：
 
-![gradient-button](../imgs/10-1.png)
+![图10-1](../imgs/10-1.png)
 
 我们`DecoratedBox`可以支持背景色渐变和圆角，`InkWell`在手指按下有涟漪效果，所以我们可以通过组合`DecoratedBox`和`InkWell`来实现`GradientButton`，代码如下：
 

@@ -43,7 +43,9 @@ void main() {
 }
 ```
 
-![在main函数中直接绘制](../imgs/draw-in-main.png)
+运行效果如图14-9：
+
+![图14-9](../imgs/14-9.png)
 
 ## 14.5.2 Picture
 

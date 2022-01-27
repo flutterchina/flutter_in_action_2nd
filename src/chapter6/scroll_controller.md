@@ -102,9 +102,9 @@ class ScrollControllerTestRouteState extends State<ScrollControllerTestRoute> {
 }
 ```
 
-代码说明已经包含在注释里，下面我们看看运行效果：
+代码说明已经包含在注释里，运行效果如图6-10、6-11所示：
 
-![图6-14](../imgs/6-14.png)![图6-15](../imgs/6-15.png)
+![图6-10](../imgs/6-10.png)![图6-11](../imgs/6-11.png)
 
 由于列表项高度为 50 像素，当滑动到第 20 个列表项后，右下角 “返回顶部” 按钮会显示，点击该按钮，ListView 会在返回顶部的过程中执行一个滚动动画，动画时间是 200 毫秒，动画曲线是 `Curves.ease`，关于动画的详细内容我们将在后面“动画”一章中详细介绍。
 
@@ -237,9 +237,9 @@ class _ScrollNotificationTestRouteState
 }
 ```
 
-运行结果如图6-16所示：
+运行结果如图6-12所示：
 
-![图6-16](../imgs/6-16.png)
+![图6-12](../imgs/6-12.png)
 
 在接收到滚动事件时，参数类型为`ScrollNotification`，它包括一个`metrics`属性，它的类型是`ScrollMetrics`，该属性包含当前ViewPort及滚动位置等信息：
 

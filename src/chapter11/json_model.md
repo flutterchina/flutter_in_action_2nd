@@ -1,5 +1,7 @@
 # 11.7 Json转Dart Model类
 
+## 11.7.1 Json转Dart类 
+
 在实战中，后台接口往往会返回一些结构化数据，如 JSON、XML 等，如之前我们请求 Github API 的示例，它返回的数据就是 JSON 格式的字符串，为了方便我们在代码中操作 JSON，我们先将 JSON 格式的字符串转为 Dart 对象，这个可以通过 `dart:convert` 中内置的 JSON 解码器` json.decode() `来实现，该方法可以根据 JSON 字符串具体内容将其转为 List 或 Map，这样我们就可以通过他们来查找所需的值，如：
 
 ```dart
@@ -142,7 +144,7 @@ final int registrationDateMillis;
 
 `json_serializable`第一次创建类时，您会看到与图11-4类似的错误。
 
-![ide_warning](../imgs/11-4.png)
+![图11-4](../imgs/11-4.png)
 
 这些错误是完全正常的，这是因为Model类的生成代码还不存在。为了解决这个问题，我们必须运行代码生成器来为我们生成序列化模板。有两种运行代码生成器的方法：
 
@@ -164,7 +166,7 @@ flutter packages pub run build_runner build
 
 
 
-## 自动化生成模板
+## 11.7.2 自动化生成模板
 
 上面的方法有一个最大的问题就是要为每一个json写模板，这是比较枯燥的。如果有一个工具可以直接根据JSON文本生成模板，那我们就能彻底解放双手了。笔者自己用dart实现了一个脚本，它可以自动生成模板，并直接将JSON转为Model类，下面我们看看怎么做：
 

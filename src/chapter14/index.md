@@ -8,5 +8,4 @@
 * [14.6：Flutter 绘制（二）组件树绘制流程](paint.md)
 * [14.7：Flutter 绘制（三）Layer实例](layer.md)
 * [14.8：Flutter 绘制（四）Compositing](compositing.md)
-* [14.9：Flutter 图片加载与缓存](../todo.md)
-* [14.10：Flutter 性能优化建议](../todo.md) 
+

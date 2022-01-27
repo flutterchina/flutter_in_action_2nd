@@ -39,9 +39,9 @@ class _SwitchAndCheckBoxTestRouteState extends State<SwitchAndCheckBoxTestRoute>
 }
 ```
 
-上面代码中，由于需要维护`Switch`和`Checkbox`的选中状态，所以`SwitchAndCheckBoxTestRoute`继承自`StatefulWidget` 。在其`build`方法中分别构建了一个`Switch`和`Checkbox`，初始状态都为选中状态，当用户点击时，会将状态置反，然后回调用`setState()`通知 Flutter 框架重新构建UI。
+上面代码中，由于需要维护`Switch`和`Checkbox`的选中状态，所以`SwitchAndCheckBoxTestRoute`继承自`StatefulWidget` 。在其`build`方法中分别构建了一个`Switch`和`Checkbox`，初始状态都为选中状态，当用户点击时，会将状态置反，然后回调用`setState()`通知 Flutter 框架重新构建UI，效果如图3-17所示：
 
-![图3-23](../imgs/3-23.png)
+![图3-17](../imgs/3-17.png)
 
 
 

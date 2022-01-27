@@ -82,7 +82,7 @@ var paint = Paint() //创建一个画笔并配置其属性
 
 下面我们通过一个五子棋游戏中棋盘和棋子的绘制来演示自绘UI的过程，首先我们看一下我们的目标效果，如图10-3所示：
 
-![CustomPaint](../imgs/custompaint.png)
+![图10-3](../imgs/10-3.png)
 
 代码：
 
@@ -197,11 +197,9 @@ class CustomPaintRoute extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          RepaintBoundary(
-            child: CustomPaint(
-              size: Size(300, 300), //指定画布大小
-              painter: MyPainter(),
-            ),
+          CustomPaint(
+            size: Size(300, 300), //指定画布大小
+            painter: MyPainter(),
           ),
           //添加一个刷新button
           ElevatedButton(onPressed: () {}, child: Text("刷新"))
@@ -212,11 +210,11 @@ class CustomPaintRoute extends StatelessWidget {
 }
 ```
 
-运行后我们点击“刷新”按钮：
+运行后我们点击“刷新”按钮，运行后如图10-4所示：
 
-![CustomPaint 重绘](../imgs/custompaint-repaint.png)
+![图10-4](../imgs/10-4.png)
 
-发现日志面板输出了很多 “paint”，也就是说在点击按钮的时候发生了多次重绘。奇怪，`shouldRepaint` 我们返回的是false，并且点击刷新按钮也不会触发页面重新构建，那是什么导致的重绘呢？要彻底弄清楚这个问题得等到第十四章中介绍 Flutter 绘制原理时才行，现在读者可以简单认为，刷新按钮的画布和CustomPaint的画布是同一个，刷新按钮点击时会执行一个水波动画，水波动画执行过程中画布会不停的刷新，所以就导致了CustomPaint 不停的重绘。要解决这个问题的方案很简单，给刷新按钮 或 CustomPaint 任意一个添加一个 RepaintBoundary 父组件即可，它可以将生成一个新画布:
+发现日志面板输出了很多 “paint”，也就是说在点击按钮的时候发生了多次重绘。奇怪，`shouldRepaint` 我们返回的是false，并且点击刷新按钮也不会触发页面重新构建，那是什么导致的重绘呢？要彻底弄清楚这个问题得等到第十四章中介绍 Flutter 绘制原理时才行，现在读者可以简单认为，刷新按钮的画布和CustomPaint的画布是同一个，刷新按钮点击时会执行一个水波动画，水波动画执行过程中画布会不停的刷新，所以就导致了CustomPaint 不停的重绘。要解决这个问题的方案很简单，给刷新按钮 或 CustomPaint 任意一个添加一个 RepaintBoundary 父组件即可，现在可以先简单认为这样做可以生成一个新的画布:
 
 ```dart
 RepaintBoundary(
@@ -228,6 +226,8 @@ RepaintBoundary(
 // 或者给刷新按钮添加RepaintBoundary
 // RepaintBoundary(child: ElevatedButton(onPressed: () {}, child: Text("刷新")))
 ```
+
+> RepaintBoundary 的具体原理我们将在第十四章中详细介绍。
 
 ### 总结
 

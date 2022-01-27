@@ -89,9 +89,9 @@ if (color != null)
   current = ColoredBox(color: color!, child: current);
 ```
 
-而 Image 内部会通过 RawImage 来渲染图片、Text 内部会通过 RichText 来渲染文本，所以最终的 Widget树、Element 树、渲染树结构如下：
+而 Image 内部会通过 RawImage 来渲染图片、Text 内部会通过 RichText 来渲染文本，所以最终的 Widget树、Element 树、渲染树结构如图2-2所示：
 
-![图3-1](../imgs/trees.png)
+![图2-2](../imgs/2-2.png)
 
 这里需要注意：
 
@@ -148,9 +148,9 @@ class Echo extends StatelessWidget  {
 }
 ```
 
-运行后效果如图3-1所示：
+运行后效果如图2-3所示：
 
-![图3-1](../imgs/3-1.png)
+![图2-3](../imgs/2-3.png)
 
 ### Context
 
@@ -177,9 +177,9 @@ class ContextRoute extends StatelessWidget  {
 }
 ```
 
-运行后效果如图3-1-1所示：
+运行后效果如图2-4所示：
 
-![图3-1-1](../imgs/3-1-1.png)
+![图2-4](../imgs/2-4.png)
 
 >**注意**：对于`BuildContext`读者现在可以先作了解，随着本书后面内容的展开，也会用到 Context 的一些方法，读者可以通过具体的场景对其有个直观的认识。关于`BuildContext`更多的内容，我们也将在后面高级部分再深入介绍。
 
@@ -354,7 +354,7 @@ I/flutter ( 5436): dispose
 下面我们来看看各个回调函数：
 
 - `initState`：当 widget 第一次插入到 widget 树时会被调用，对于每一个State对象，Flutter 框架只会调用一次该回调，所以，通常在该回调中做一些一次性的操作，如状态初始化、订阅子树的事件通知等。不能在该回调中调用`BuildContext.dependOnInheritedWidgetOfExactType`（该方法用于在 widget 树上获取离当前 widget 最近的一个父级`InheritedWidget`，关于`InheritedWidget`我们将在后面章节介绍），原因是在初始化完成后， widget 树中的`InheritFrom widget `也可能会发生变化，所以正确的做法应该在在`build（）`方法或`didChangeDependencies()`中调用它。
-- `didChangeDependencies()`：当State对象的依赖发生变化时会被调用；例如：在之前`build()` 中包含了一个`InheritedWidget `，然后在之后的`build()` 中`Inherited widget `发生了变化，那么此时`Inherited widget `的子 widget 的`didChangeDependencies()`回调都会被调用。典型的场景是当系统语言 Locale 或应用主题改变时，Flutter 框架会通知 widget 调用此回调。
+- `didChangeDependencies()`：当State对象的依赖发生变化时会被调用；例如：在之前`build()` 中包含了一个`InheritedWidget ` （第七章介绍），然后在之后的`build()` 中`Inherited widget `发生了变化，那么此时`InheritedWidget `的子 widget 的`didChangeDependencies()`回调都会被调用。典型的场景是当系统语言 Locale 或应用主题改变时，Flutter 框架会通知 widget 调用此回调。需要注意，组件第一次被创建后挂载的时候（包括重创建）对应的`didChangeDependencies`也会被调用。
 - `build()`：此回调读者现在应该已经相当熟悉了，它主要是用于构建 widget 子树的，会在如下场景被调用：
 
   1. 在调用`initState()`之后。
@@ -367,9 +367,9 @@ I/flutter ( 5436): dispose
 - `deactivate()`：当 State 对象从树中被移除时，会调用此回调。在一些场景下，Flutter 框架会将 State 对象重新插到树中，如包含此 State 对象的子树在树的一个位置移动到另一个位置时（可以通过GlobalKey 来实现）。如果移除后没有重新插入到树中则紧接着会调用`dispose()`方法。
 - `dispose()`：当 State 对象从树中被永久移除时调用；通常在此回调中释放资源。
 
-StatefulWidget 生命周期如图3-2所示：
+StatefulWidget 生命周期如图2-5所示：
 
-![图3-2](../imgs/3-2.jpg)
+![图2-5](../imgs/2-5.jpg)
 
 
 
@@ -495,9 +495,9 @@ Builder(builder: (context) {
 }),
 ```
 
-上面示例运行后，点击”显示SnackBar“，效果如下图所示：
+上面示例运行后，点击”显示SnackBar“，效果如图2-6所示：
 
-![图3-1-2](../imgs/3-1-2.png)
+![图2-6](../imgs/2-6.png)
 
 ### 通过GlobalKey
 
@@ -629,9 +629,9 @@ class CupertinoTestRoute extends StatelessWidget  {
 }
 ```
 
-下面（图3-3）是在iPhoneX上页面效果截图：
+下面（图2-7）是在iPhoneX上页面效果截图：
 
-![图3-3](../imgs/3-3.png)
+![图2-7](../imgs/2-7.png)
 
 
 

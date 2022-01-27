@@ -49,7 +49,7 @@ class _PointerMoveIndicatorState extends State<PointerMoveIndicator> {
 }
 ```
 
-运行后效果如图所示：
+运行后效果如图8-1所示：
 
 ![图8-1](../imgs/8-1.png)
 

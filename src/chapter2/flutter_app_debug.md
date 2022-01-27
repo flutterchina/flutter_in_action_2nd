@@ -34,9 +34,9 @@ Flutter框架中的许多类都有`toString`实现。按照惯例，这些输出
 
 ### 断点
 
-开发过程中，断点是最实用的调试工具之一，我们以 Android Studio 为例，如下图：
+开发过程中，断点是最实用的调试工具之一，我们以 Android Studio 为例，如图2-19：
 
-![as-debug](../imgs/as-debug.png)
+![2-19](../imgs/2-19.png)
 
 我们在 93 行打了一个断点，一旦代码执行到这一行就会暂停，这时我们可以看到当前上下文所有变量的值，然后可以选择一步一步的执行代码。关于如果通过 IDE 来打断点，网上教程很多，读者可以自行搜索。
 
@@ -260,6 +260,6 @@ Timeline.finishSync();
 
 ## DevTools
 
-Flutter DevTools 是 Flutter 可视化调试工具，如下图。它将各种调试工具和能力集成在一起，并提供可视化调试界面，它的功能很强大，掌握它会对我们开发和优化 Flutter 应用有很大帮助。由于 Flutter DevTools 功能很多，短篇幅是讲不完的，本书不做专门介绍，Flutter 官网对 DevTools 有详细的介绍，读者可以去官网查看相关教程。
+Flutter DevTools 是 Flutter 可视化调试工具，如图2-20。它将各种调试工具和能力集成在一起，并提供可视化调试界面，它的功能很强大，掌握它会对我们开发和优化 Flutter 应用有很大帮助。由于 Flutter DevTools 功能很多，短篇幅是讲不完的，本书不做专门介绍，Flutter 官网对 DevTools 有详细的介绍，读者可以去官网查看相关教程。
 
-![devtools](../imgs/devtools.png)
+![2-20](../imgs/2-20.png)

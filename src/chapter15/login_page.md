@@ -7,6 +7,8 @@
 3. 用户名或密码字段在调用登录接口前有本地合法性校验（比如不能为空）。
 4. 登录成功后需更新用户信息。
 
+> 注意：Github 官方为了保证安全，现在已经不允许直接使用密码登录，取而代之的是用户需要去Github上生成一个登录token，然后通过账号+token登录，如何创建token请参考[Github官方指南](https://docs.github.com/cn/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)。为了便于描述，本实例中的文案“密码”一次特指用户token。
+
 实现代码如下：
 
 ```dart
@@ -18,17 +20,17 @@ class LoginRoute extends StatefulWidget {
 }
 
 class _LoginRouteState extends State<LoginRoute> {
-  TextEditingController _unameController = TextEditingController();
-  TextEditingController _pwdController = TextEditingController();
-  bool pwdShow = false; //密码是否显示明文
-  GlobalKey _formKey = GlobalKey<FormState>();
+  TextEditingController _unameController = new TextEditingController();
+  TextEditingController _pwdController = new TextEditingController();
+  bool pwdShow = false;
+  GlobalKey _formKey = new GlobalKey<FormState>();
   bool _nameAutoFocus = true;
 
   @override
   void initState() {
     // 自动填充上次登录的用户名，填充后将焦点定位到密码输入框
-    _unameController.text = Global.profile.lastLogin;
-    if (_unameController.text != null) {
+    _unameController.text = Global.profile.lastLogin ?? "";
+    if (_unameController.text.isNotEmpty) {
       _nameAutoFocus = false;
     }
     super.initState();
@@ -43,7 +45,7 @@ class _LoginRouteState extends State<LoginRoute> {
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
-          autovalidate: true,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             children: <Widget>[
               TextFormField(
@@ -51,12 +53,12 @@ class _LoginRouteState extends State<LoginRoute> {
                   controller: _unameController,
                   decoration: InputDecoration(
                     labelText: gm.userName,
-                    hintText: gm.userNameOrEmail,
+                    hintText: gm.userName,
                     prefixIcon: Icon(Icons.person),
                   ),
                   // 校验用户名（不能为空）
                   validator: (v) {
-                    return v.trim().isNotEmpty ? null : gm.userNameRequired;
+                    return v==null||v.trim().isNotEmpty ? null : gm.userNameRequired;
                   }),
               TextFormField(
                 controller: _pwdController,
@@ -77,7 +79,7 @@ class _LoginRouteState extends State<LoginRoute> {
                 obscureText: !pwdShow,
                 //校验密码（不能为空）
                 validator: (v) {
-                  return v.trim().isNotEmpty ? null : gm.passwordRequired;
+                  return v==null||v.trim().isNotEmpty ? null : gm.passwordRequired;
                 },
               ),
               Padding(
@@ -85,9 +87,9 @@ class _LoginRouteState extends State<LoginRoute> {
                 child: ConstrainedBox(
                   constraints: BoxConstraints.expand(height: 55.0),
                   child: ElevatedButton(
-                    color: Theme.of(context).primaryColor,
+                   // color: Theme.of(context).primaryColor,
                     onPressed: _onLogin,
-                    textColor: Colors.white,
+                   // textColor: Colors.white,
                     child: Text(gm.login),
                   ),
                 ),
@@ -100,15 +102,16 @@ class _LoginRouteState extends State<LoginRoute> {
   }
 
   void _onLogin() async {
-    // 提交前，先验证各个表单字段是否合法
+    // 先验证各个表单字段是否合法
     if ((_formKey.currentState as FormState).validate()) {
       showLoading(context);
-      User user;
+      User? user;
       try {
-        user = await Git(context).login(_unameController.text, _pwdController.text);
+        user = await Git(context)
+            .login(_unameController.text, _pwdController.text);
         // 因为登录页返回后，首页会build，所以我们传false，更新user后不触发更新
         Provider.of<UserModel>(context, listen: false).user = user;
-      } catch (e) {
+      } on DioError catch( e) {
         //登录失败则提示
         if (e.response?.statusCode == 401) {
           showToast(GmLocalizations.of(context).userNameOrPasswordWrong);
@@ -119,8 +122,8 @@ class _LoginRouteState extends State<LoginRoute> {
         // 隐藏loading框
         Navigator.of(context).pop();
       }
+      //登录成功则返回
       if (user != null) {
-        // 返回
         Navigator.of(context).pop();
       }
     }

@@ -25,9 +25,9 @@ Flutter 中的可滚动主要由三个角色组成：Scrollable、Viewport 和 S
 2. Viewport 将当前视口信息和配置信息通过 SliverConstraints 传递给 Sliver。
 3. Sliver 中对子组件（RenderBox）按需进行构建和布局，然后确认自身的位置、绘制等信息，保存在 geometry 中（一个 SliverGeometry 类型的对象）。
 
-比如有一个 ListView，大小撑满屏幕，假设它有 100 个列表项（都是RenderBox）且每个列表项高度相同，结构如下：
+比如有一个 ListView，大小撑满屏幕，假设它有 100 个列表项（都是RenderBox）且每个列表项高度相同，结构如图6-1所示：
 
-![image-20210823113123105](../imgs/image-20210823113123105.png)
+![图6-1](../imgs/6-1.png)
 
 图中白色区域为设备屏幕，也是 Scrollable 、 Viewport  和 Sliver 所占用的空间，三者所占用的空间重合，父子关系为：Sliver 父组件为 Viewport，Viewport的 父组件为 Scrollable 。注意ListView 中只有一个 Sliver，在 Sliver 中实现了子组件的按需加载。
 

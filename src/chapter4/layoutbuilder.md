@@ -110,9 +110,9 @@ flutter: Text("xx"): BoxConstraints(0.0<=w<=428.0, 0.0<=h<=823.0)
 
 > 注意！我们的大前提是盒模型布局，如果是Sliver 布局，可以使用 SliverLayoutBuiler 来打印。
 
-完整的示例运行后效果如下：
+完整的示例运行后效果如图4-23：
 
-![layoutbuilder](../imgs/layoutbuilder.png)
+![4-23](../imgs/4-23.png)
 
 
 
@@ -276,9 +276,9 @@ class _AfterLayoutRouteState extends State<AfterLayoutRoute> {
 }
 ```
 
-运行后效果如下图所示：
+运行后效果如图4-24所示：
 
-![afterlayout](../imgs/afterlayout.png)
+![图4-24](../imgs/4-24.png)
 
 运行后点击 Text1 就可以在日志面板看到它的大小。点击 “追加字符串” 按钮，字符串大小变化后，屏幕上上也会显示（按钮上方挨着）。
 

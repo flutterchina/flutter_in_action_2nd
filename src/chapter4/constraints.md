@@ -68,9 +68,9 @@ ConstrainedBox(
 )
 ```
 
-运行效果如图5-2所示：
+运行效果如图4-1所示：
 
-![图5-2](../imgs/5-2.png)
+![图4-1](../imgs/4-1.png)
 
 可以看到，我们虽然将Container的高度设置为5像素，但是最终却是50像素，这正是ConstrainedBox的最小高度限制生效了。如果将Container的高度设置为80像素，那么最终红色区域的高度也会是80像素，因为在此示例中，ConstrainedBox只限制了最小高度，并未限制最大高度。
 
@@ -85,9 +85,9 @@ SizedBox(
   child: redBox
 )
 ```
-运行效果如图5-3所示：
+运行效果如图4-2所示：
 
-![图5-3](../imgs/5-3.png)
+![图4-2](../imgs/4-2.png)
 
 实际上`SizedBox`只是`ConstrainedBox`的一个定制，上面代码等价于：
 
@@ -132,9 +132,9 @@ ConstrainedBox(
 )
 ```
 
-上面我们有父子两个`ConstrainedBox`，他们的约束条件不同，运行后效果如图5-4所示：
+上面我们有父子两个`ConstrainedBox`，他们的约束条件不同，运行后效果如图4-3所示：
 
-![图5-4](../imgs/5-4.png)
+![图4-3](../imgs/4-3.png)
 
 最终显示效果是宽90，高60，也就是说是子`ConstrainedBox`的`minWidth`生效，而`minHeight`是父`ConstrainedBox`生效。单凭这个例子，我们还总结不出什么规律，我们将上例中父子约束条件换一下：
 
@@ -148,9 +148,9 @@ ConstrainedBox(
 )
 ```
 
-运行效果如图5-5所示：
+运行效果如图4-4所示：
 
-![图5-5](../imgs/5-5.png)
+![图4-4](../imgs/4-4.png)
 
 最终的显示效果仍然是90，高60，效果相同，但意义不同，因为此时`minWidth`生效的是父`ConstrainedBox`，而`minHeight`是子`ConstrainedBox`生效。
 
@@ -182,9 +182,9 @@ ConstrainedBox(
 )
 ```
 
-上面代码中，如果没有中间的`UnconstrainedBox`，那么根据上面所述的多重限制规则，那么最终将显示一个90×100的红色框。但是由于` UnconstrainedBox` “去除”了父`ConstrainedBox`的限制，则最终会按照子`ConstrainedBox`的限制来绘制`redBox`，即90×20：
+上面代码中，如果没有中间的`UnconstrainedBox`，那么根据上面所述的多重限制规则，那么最终将显示一个90×100的红色框。但是由于` UnconstrainedBox` “去除”了父`ConstrainedBox`的限制，则最终会按照子`ConstrainedBox`的限制来绘制`redBox`，即90×20，如图4-5所示：
 
-![图5-6](../imgs/5-6.png)
+![图4-5](../imgs/4-5.png)
 
 但是，读者请注意，`UnconstrainedBox`对父组件限制的“去除”并非是真正的去除：上面例子中虽然红色区域大小是90×20，但上方仍然有80的空白空间。也就是说父限制的`minHeight`(100.0)仍然是生效的，只不过它不影响最终子元素`redBox`的大小，但仍然还是占有相应的空间，可以认为此时的父`ConstrainedBox`是作用于子`UnconstrainedBox`上，而`redBox`只受子`ConstrainedBox`限制，这一点请读者务必注意。
 
@@ -208,9 +208,9 @@ ConstrainedBox(
 )
 ```
 
-上面代码运行后，效果如图5-7所示：
+上面代码运行后，效果如图4-6所示：
 
-![图5-6](../imgs/5-7.png)
+![图4-6](../imgs/4-6.png)
 
 我们会发现右侧loading按钮大小并没有发生变化！这正是因为`AppBar`中已经指定了`actions`按钮的约束条件，所以我们要自定义loading按钮大小，就必须通过`UnconstrainedBox`来 “去除” 父元素的限制，代码如下：
 
@@ -232,9 +232,9 @@ AppBar(
 )
 ```
 
-运行后效果如图5-8所示：
+运行后效果如图4-7所示：
 
-![图5-8](../imgs/5-8.png)
+![图4-7](../imgs/4-7.png)
 
 生效了！实际上将 UnconstrainedBox 换成  Center 或者 Align 也是可以的，至于为什么，我们会在本书后面布局原理相关的章节中解释。
 
@@ -253,9 +253,9 @@ Column(
  ]
 ```
 
-运行效果如下：
+运行效果如图4-8：
 
-![溢出](../imgs/overflow.png)
+![图4-8](../imgs/4-8.png)
 
 文本已经超过屏幕宽度，溢出了。
 

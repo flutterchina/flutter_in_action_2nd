@@ -211,9 +211,9 @@ class RenderLeftRight extends RenderBox
 
 ### 布局边界（relayoutBoundary）
 
-假如有一个页面的组件树结构如下：
+假如有一个页面的组件树结构如图14-5所示：
 
-![image-20210816134038482](../imgs/image-20210816134038482.png)
+![图14-5](../imgs/14-5.png)
 
 假如 Text3 的文本长度发生变化，则会导致 Text4 的位置和 Column2 的大小也会变化；又因为 Column2 的父组件 SizedBox 已经限定了大小，所以 SizedBox 的大小和位置都不会变化。所以最终我们需要进行 relayout 的组件是：Text3、Column2，这里需要注意：
 
@@ -399,9 +399,9 @@ Flutter 中的 SizedBox 组件会将其父组件的约束传递给其子组件�
  )
 ```
 
-实际结果是：
+实际结果如图14-6：
 
-![示例图 ](../imgs/5-7.png)
+![图14-6](../imgs/14-6.png)
 
 
 
@@ -518,9 +518,9 @@ class AccurateSizedBoxRoute extends StatelessWidget {
 }
 ```
 
-运行结果如下：
+运行效果如图14-7：
 
-![示例图 ](../imgs/accurate-sized-box.png)
+![图14-7](../imgs/14-7.png)
 
 可以发现，当父组件约束子组件大小宽高是100时，我们通过 SizedBox 指定 Container 大小是为 50×50 是不能成功的， 而通过 AccurateSized 时成功了。
 
@@ -665,9 +665,9 @@ Align 会遵守 RenderView 的约束，让自身撑满屏幕，然后会给子�
 
 ## 14.4.8 总结
 
-通过本节，相信你已经对 flutter 的布局流程熟悉了，现在我们看一张 flutter 官网的图：
+通过本节，相信你已经对 flutter 的布局流程熟悉了，现在我们看一张 flutter 官网的图（图14-8）：
 
-![示例图 ](../imgs/constraints-sizes.png)
+![图14-8](../imgs/14-8.png)
 
 现在我们再来看一下官网关于Flutter布局的解释：
 

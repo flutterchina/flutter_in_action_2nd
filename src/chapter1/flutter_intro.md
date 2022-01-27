@@ -106,11 +106,7 @@ Embedder，即嵌入层。Flutter 最终渲染、交互是要依赖其所在平�
 - **Github**：如果遇到的问题在StackOverflow上也没有找到答案，可以去 Github flutter 项目下提 issue。
 - **Gallery源码**：Gallery 是 Flutter 官方示例 APP，里面有丰富的示例，读者可以在网上下载安装。Gallery 的源码在 Flutter 源码 “examples” 目录下。
 
-### 社区
-
 - **StackOverflow**： StackOverflow 是目前全球最大的程序员问答社区，现在也是活跃度最高的 Flutter 问答社区。StackOverflow 上面除了世界各地的 Flutter开发者会在上面交流之外，Flutter 开发团队的成员也经常会在上面回答问题。
-- **Flutter中文网社区**：Flutter中文网（https://flutterchina.club）是笔者维护中文网站，也是国内最早的中文资源社区，上面提供了本书的电子版、开源项目、案例，还有申请加入组织的入口哦。
-- **博客**：随着Flutter技术的推广，相信很快网上将会有很多Flutter相关的文章、博客，读者可以多去浏览、阅读。
 
 ### 总结
 

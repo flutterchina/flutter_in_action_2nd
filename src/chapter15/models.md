@@ -1,6 +1,6 @@
 # 15.3 Model类定义
 
-本节我们先梳理一下APP中将用到的数据，然后生成相应的Dart Model类。Json文件转Dart Model的方案采用前面介绍过的 json_model 包方案
+本节我们先梳理一下APP中将用到的数据，然后生成相应的Dart Model类。Json文件转Dart Model的方案采用前面介绍过的 json_model 包方案，因此在生成Model类之前，会修改部分json字段，比如添加“?”表示该字段可空，关于  json_model 更多信息请参考其文档。
 
 ### Github账号信息
 
@@ -11,13 +11,13 @@
   "login": "octocat", //用户登录名
   "avatar_url": "https://github.com/images/error/octocat_happy.gif", //用户头像地址
   "type": "User", //用户类型，可能是组织
-  "name": "monalisa octocat", //用户名字
-  "company": "GitHub", //公司
-  "blog": "https://github.com/blog", //博客地址
-  "location": "San Francisco", // 用户所处地理位置
-  "email": "octocat@github.com", // 邮箱
-  "hireable": false,
-  "bio": "There once was...", // 用户简介
+  "name?": "monalisa octocat", //用户名字
+  "company?": "GitHub", //公司
+  "blog?": "https://github.com/blog", //博客地址
+  "location?": "San Francisco", // 用户所处地理位置
+  "email?": "octocat@github.com", // 邮箱
+  "hireable?": false,
+  "bio?": "There once was...", // 用户简介
   "public_repos": 2, // 公开项目数
   "followers": 20, //关注该用户的人数
   "following": 0, // 该用户关注的人数
@@ -59,12 +59,12 @@
 
 ```json
 {
-  "user":"$user", //Github账号信息，结构见"user.json"
-  "token":"", // 登录用户的token(oauth)或密码
-  "theme":5678, //主题色值
-  "cache":"$cacheConfig", // 缓存策略信息，结构见"cacheConfig.json"
-  "lastLogin":"", //最近一次的注销登录的用户名
-  "locale":"" // APP语言信息
+  "user?":"$user", //Github账号信息，结构见"user.json"
+  "token?":"", // 登录用户的token(oauth)或密码
+  "theme":0, //主题索引
+  "cache?":"$cacheConfig", // 缓存策略信息，结构见"cacheConfig.json"
+  "lastLogin?":"", //最近一次的注销登录的用户名
+  "locale?":"" // APP语言信息
 }
 ```
 
@@ -78,11 +78,11 @@
   "name": "Hello-World", //项目名称
   "full_name": "octocat/Hello-World", //项目完整名称
   "owner": "$user", // 项目拥有者，结构见"user.json"
-  "parent":"$repo", // 如果是fork的项目，则此字段表示fork的父项目信息
+  "parent?":"$repo", // 如果是fork的项目，则此字段表示fork的父项目信息
   "private": false, // 是否私有项目
   "description": "This your first repo!", //项目描述
   "fork": false, // 该项目是否为fork的项目
-  "language": "JavaScript",//该项目的主要编程语言
+  "language?": "JavaScript",//该项目的主要编程语言
   "forks_count": 9, // fork了该项目的数量
   "stargazers_count": 80, //该项目的star数量
   "size": 108, // 项目占用的存储大小
@@ -91,8 +91,8 @@
   "pushed_at": "2011-01-26T19:06:43Z",
   "created_at": "2011-01-26T19:01:12Z",
   "updated_at": "2011-01-26T19:14:43Z",
-  "subscribers_count": 42, //订阅（关注）该项目的人数
-  "license": { // 该项目的开源许可证
+  "subscribers_count?": 42, //订阅（关注）该项目的人数
+  "license?": { // 该项目的开源许可证
     "key": "mit",
     "name": "MIT License",
     "spdx_id": "MIT",

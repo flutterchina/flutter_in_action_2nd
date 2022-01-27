@@ -2,9 +2,9 @@
 
 上一节中我们通过 CustomCheckbox 演示了如何通过自定义 RenderObject 的方式来进行UI绘制、动画调度和事件处理。本节再通过一个实例来巩固换一下。
 
-本节的我们将实现一个 DoneWidget，它可以在创建时执行一个打勾动画，效果如下：
+本节的我们将实现一个 DoneWidget，它可以在创建时执行一个打勾动画，效果如图10-8：
 
-![DoneWidget](../imgs/done.gif)
+![图10-8](../imgs/10-8.gif)
 
 todo补图：
 

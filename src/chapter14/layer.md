@@ -128,9 +128,9 @@
    }
    ```
    
-   点击按钮后:发现，棋盘、棋子都可以正常显示：
+   点击按钮后:发现，棋盘、棋子都可以正常显示，如图14-16：
    
-   ![ChessWidget测试](../imgs/layer-chess.png)
+   ![图14-16](../imgs/14-16.png)
    
    同时日志面板输出了很多"paint pieces"，并没有"paint chessboard"，可见棋盘缓存生效了。
 

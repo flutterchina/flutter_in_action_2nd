@@ -168,9 +168,9 @@ Flutter依赖于Android Studio的全量安装。Android Studio不仅可以管理
 
 #### 安装 Xcode
 
-要为iOS开发Flutter应用程序，您需要Xcode 9.0或更高版本:
+要为iOS开发Flutter应用程序，您需要Xcode最新版本:
 
-1. 安装Xcode 9.0或更新版本(通过[链接下载](https://developer.apple.com/xcode/)或[苹果应用商店](https://itunes.apple.com/us/app/xcode/id497799835)).
+1. 安装Xcode最新版本。
 2. 配置Xcode命令行工具以使用新安装的Xcode版本 `sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer` 对于大多数情况，当您想要使用最新版本的Xcode时，这是正确的路径。如果您需要使用不同的版本，请指定相应路径。
 3. 确保Xcode许可协议是通过打开一次Xcode或通过命令`sudo xcodebuild -license`同意过了.
 
@@ -250,17 +250,17 @@ flutter upgrade
 
 #### 运行应用程序
 
-1. 定位到Android Studio工具栏，如图1-3所示：
+1. 定位到Android Studio工具栏，如图1-2所示：
 
-   ![图1-3](../imgs/1-3.png)
+   ![图1-3](../imgs/1-2.png)
 
 2. 在 **target selector** 中, 选择一个运行该应用的Android设备。如果没有列出可用，请选择 **Tools>Android>AVD Manager** 并在那里创建一个。
 
 3. 在工具栏中点击 **Run图标**。
 
-4. 如果一切正常, 您应该在您的设备或模拟器上会看到启动的应用程序：
+4. 如果一切正常, 您应该在您的设备或模拟器上会看到启动的应用程序，如图1-3：
 
-   ![图1-4](../imgs/1-4.png)
+   ![图1-4](../imgs/1-3.png)
 
 
 #### 体验热重载
@@ -390,21 +390,21 @@ Window下只支持为Android设备构建并运行Flutter应用，而macOS同时�
 
    * 在`Runner` target设置页面中，确保在 **General > Signing > Team** 下选择了你的开发团队。当你选择一个团队时，Xcode会创建并下载开发证书，向你的设备注册你的帐户，并创建和下载配置文件（如果需要）。
 
-   * 要开始您的第一个iOS开发项目，您可能需要使用您的Apple ID登录Xcode，如图1-5：
+   * 要开始您的第一个iOS开发项目，您可能需要使用您的Apple ID登录Xcode，如图1-4：
 
-     ![图1-5](../imgs/1-5.png)
+     ![图1-4](../imgs/1-4.png)
 
      任何Apple ID都支持开发和测试，但若想将应用分发到App Store，就必须注册Apple开发者计划，有关详情读者可以自行了解。
 
-   4. 当您第一次attach真机设备进行iOS开发时，需要同时信任你的Mac和该设备上的开发证书。首次将iOS设备连接到Mac时，请在对话框中选择 `Trust`。 
+   4. 当您第一次attach真机设备进行iOS开发时，需要同时信任你的Mac和该设备上的开发证书。首次将iOS设备连接到Mac时，请在对话框中选择 `Trust`，如图1-5： 
 
-      ![添加信任](../imgs/1-6.png)
+      ![添加信任](../imgs/1-5.png)
 
       然后，转到iOS设备上的**设置**菜单，选择 **常规>设备管理** 并信任您的证书。
 
-   5. 如果Xcode中的自动签名失败，请验证项目的 **General > Identity > Bundle Identifier** 值是否唯一，如图1-7所示：
+   5. 如果Xcode中的自动签名失败，请验证项目的 **General > Identity > Bundle Identifier** 值是否唯一，如图1-6所示：
 
-      ![验证bundle id是否唯一](../imgs/1-7.png)
+      ![验证bundle id是否唯一](../imgs/1-6.png)
 
    6. 运行 `flutter run`启动flutter应用程序。
    
@@ -415,19 +415,19 @@ Window下只支持为Android设备构建并运行Flutter应用，而macOS同时�
 
 #### 缺少依赖库问题
 
-上手安卓最常遇见的问题之一，错误如图1-8所示，此时点击超链接即可自动跳转到安装页面
+上手安卓最常遇见的问题之一，错误如图1-7所示，此时点击超链接即可自动跳转到安装页面
 
-![图1-8](../imgs/1-8.png)
+![图1-7](../imgs/1-7.png)
 
-安装之后重新运行即可，如图1-9：
+安装之后重新运行即可，如图1-8：
 
-![install_request_components.png](../imgs/1-9.png)
+![install_request_components.png](../imgs/1-8.png)
 
 #### 连接不上Android Repository
 
-这也是最常见的问题之一，当你发现自己无法下载部分依赖的时候，请优先考虑这种情况。进入 `File` -> `Settings` -> `Appearance & Behavior` -> `System Settings` -> `Android SDK` -> `SDK Update Sites` 列表，可以看到此时的 `Android Repository` 无法连接，如图1-10所示：
+这也是最常见的问题之一，当你发现自己无法下载部分依赖的时候，请优先考虑这种情况。进入 `File` -> `Settings` -> `Appearance & Behavior` -> `System Settings` -> `Android SDK` -> `SDK Update Sites` 列表，可以看到此时的 `Android Repository` 无法连接，如图1-9所示：
 
-![下载依赖失败](../imgs/1-10.png)
+![下载依赖失败](../imgs/1-9.png)
 
 这是由于要去Google下载Android SDK，但在国内目前无法访问Google所致，因此，我们可以配置代理或使用vpn。
 

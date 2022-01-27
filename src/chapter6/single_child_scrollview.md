@@ -46,9 +46,7 @@ class SingleChildScrollViewTestRoute extends StatelessWidget {
 }
 ```
 
+运行效果如图6-2所示：
 
-
-运行效果如图6-1所示：
-
-![图6-1](../imgs/6-1.png)
+![图6-2](../imgs/6-2.png)
 

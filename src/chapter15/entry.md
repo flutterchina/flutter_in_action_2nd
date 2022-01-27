@@ -14,17 +14,16 @@ void main() => Global.init().then((e) => runApp(MyApp()));
 
 ```dart
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: <SingleChildCloneableWidget>[
+      providers: [
         ChangeNotifierProvider.value(value: ThemeModel()),
         ChangeNotifierProvider.value(value: UserModel()),
         ChangeNotifierProvider.value(value: LocaleModel()),
       ],
       child: Consumer2<ThemeModel, LocaleModel>(
-        builder: (BuildContext context, themeModel, localeModel, Widget child) {
+        builder: (BuildContext context, themeModel, localeModel, child) {
           return MaterialApp(
             theme: ThemeData(
               primarySwatch: themeModel.theme,
@@ -32,7 +31,7 @@ class MyApp extends StatelessWidget {
             onGenerateTitle: (context){
               return GmLocalizations.of(context).title;
             },
-            home: HomeRoute(), //应用主页
+            home: HomeRoute(),
             locale: localeModel.getLocale(),
             //我们只支持美国英语和中文简体
             supportedLocales: [
@@ -46,25 +45,23 @@ class MyApp extends StatelessWidget {
               GlobalWidgetsLocalizations.delegate,
               GmLocalizationsDelegate()
             ],
-            localeResolutionCallback:
-                (Locale _locale, Iterable<Locale> supportedLocales) {
+            localeResolutionCallback: (_locale, supportedLocales) {
               if (localeModel.getLocale() != null) {
                 //如果已经选定语言，则不跟随系统
                 return localeModel.getLocale();
               } else {
-         
+                //跟随系统
                 Locale locale;
-                //APP语言跟随系统语言，如果系统语言不是中文简体或美国英语，
-                //则默认使用美国英语
                 if (supportedLocales.contains(_locale)) {
-                  locale= _locale;
+                  locale= _locale!;
                 } else {
+                  //如果系统语言不是中文简体或美国英语，则默认使用美国英语
                   locale= Locale('en', 'US');
                 }
                 return locale;
               }
             },
-            // 注册命名路由表
+            // 注册路由表
             routes: <String, WidgetBuilder>{
               "login": (context) => LoginRoute(),
               "themes": (context) => ThemeChangeRoute(),
@@ -101,6 +98,11 @@ class HomeRoute extends StatefulWidget {
 }
 
 class _HomeRouteState extends State<HomeRoute> {
+  static const loadingTag = "##loading##"; //表尾标记
+  var _items = <Repo>[Repo()..name = loadingTag];
+  bool hasMore = true; //是否还有数据
+  int page = 1; //当前请求的是第几页
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,40 +133,71 @@ class _HomeRouteState extends State<HomeRoute> {
         ),
       );
     } else {
-      //已登录，则展示项目列表
-      return InfiniteListView<Repo>(
-        onRetrieveData: (int page, List<Repo> items, bool refresh) async {
-          var data = await Git(context).getRepos(
-            refresh: refresh,
-            queryParameters: {
-              'page': page,
-              'page_size': 20,
-            },
-          );
-          //把请求到的新数据添加到items中
-          items.addAll(data); 
-          // 如果接口返回的数量等于'page_size'，则认为还有数据，反之则认为最后一页
-          return data.length==20;
+      //已登录，则显示项目列表
+      return ListView.separated(
+        itemCount: _items.length,
+        itemBuilder: (context, index) {
+          //如果到了表尾
+          if (_items[index].name == loadingTag) {
+            //不足100条，继续获取数据
+            if (hasMore) {
+              //获取数据
+              _retrieveData();
+              //加载时显示loading
+              return Container(
+                padding: const EdgeInsets.all(16.0),
+                alignment: Alignment.center,
+                child: SizedBox(
+                  width: 24.0,
+                  height: 24.0,
+                  child: CircularProgressIndicator(strokeWidth: 2.0),
+                ),
+              );
+            } else {
+              //已经加载了100条数据，不再获取数据。
+              return Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  "没有更多了",
+                  style: TextStyle(color: Colors.grey),
+                ),
+              );
+            }
+          }
+          //显示单词列表项
+          return RepoItem(_items[index]);
         },
-        itemBuilder: (List list, int index, BuildContext ctx) {
-          // 项目信息列表项
-          return RepoItem(list[index]);
-        },
+        separatorBuilder: (context, index) => Divider(height: .0),
       );
     }
   }
+```
+
+上面代码注释很清楚：如果用户未登录，显示登录按钮；如果用户已登录，则展示项目列表。
+
+`_retrieveData()` 方法用于获取项目列表，具体逻辑是：每次请求获取20条，当获取成功时，先判断是否还有数据（根据本次请求的项目条数是否等于期望的20条来判断还有没有更多的数据），然后将新获取的数据添加到`_items`中，然后更新状态，具体代码如下：
+
+```dart
+//请求数据
+void _retrieveData() async {
+  var data = await Git(context).getRepos(
+    queryParameters: {
+      'page': page,
+      'page_size': 20,
+    },
+  );
+  //如果返回的数据小于指定的条数，则表示没有更多数据，反之则否
+  hasMore = data.length > 0 && data.length % 20 == 0;
+  //把请求到的新数据添加到items中
+  setState(() {
+    _items.insertAll(_items.length - 1, data);
+    page++;
+  });
 }
 ```
 
-上面代码注释很清楚：如果用户未登录，显示登录按钮；如果用户已登录，则展示项目列表。这里项目列表使用了`InfiniteListView` Widget，它是flukit package中提供的。`InfiniteListView`同时支持了下拉刷新和上拉加载更多两种功能。`onRetrieveData` 为数据获取回调，该回调函数接收三个参数：
-
-| 参数名  | 类型          | 解释                   |
-| ------- | ------------- | ---------------------- |
-| page    | int           | 当前页号               |
-| items   | List&lt;T&gt; | 保存当前列表数据的List |
-| refresh | bool          | 是否是下拉刷新触发     |
-
-返回值类型为`bool`，为`true`时表示还有数据，为`false`时则表示后续没有数据了。`onRetrieveData` 回调中我们调用`Git(context).getRepos(...)`来获取用户项目列表，同时指定每次请求获取20条。当获取成功时，首先要将新获取的项目数据添加到`items`中，然后根据本次请求的项目条数是否等于期望的20条来判断还有没有更多的数据。在此需要注意，`Git(context).getRepos(…)`方法中需要`refresh`参数来判断是否使用缓存。
+在此需要注意，`Git(context).getRepos(…)`方法中需要`refresh`参数来判断是否使用缓存。
 
 `itemBuilder`为列表项的builder，我们需要在该回调中构建每一个列表项Widget。由于列表项构建逻辑较复杂，我们单独封装一个`RepoItem` Widget 专门用于构建列表项UI。`RepoItem` 实现如下：
 
@@ -213,7 +246,7 @@ class _RepoItemState extends State<RepoItem> {
                   textScaleFactor: .9,
                 ),
                 subtitle: subtitle,
-                trailing: Text(widget.repo.language ?? ""),
+                trailing: Text(widget.repo.language??'--'),
               ),
               // 构建项目标题和简介
               Padding(
@@ -243,7 +276,7 @@ class _RepoItemState extends State<RepoItem> {
                                   color: Colors.grey[700]),
                             )
                           : Text(
-                              widget.repo.description,
+                              widget.repo.description!,
                               maxLines: 3,
                               style: TextStyle(
                                 height: 1.15,
@@ -310,6 +343,7 @@ class _RepoItemState extends State<RepoItem> {
     );
   }
 }
+
 ```
 
 上面代码有两点需要注意：
@@ -319,18 +353,18 @@ class _RepoItemState extends State<RepoItem> {
    ```dart
    Widget gmAvatar(String url, {
      double width = 30,
-     double height,
-     BoxFit fit,
-     BorderRadius borderRadius,
+     double? height,
+     BoxFit? fit,
+     BorderRadius? borderRadius,
    }) {
      var placeholder = Image.asset(
-         "imgs/avatar-default.png", //头像占位图，加载过程中显示
+         "imgs/avatar-default.png", //头像占位图
          width: width,
          height: height
      );
      return ClipRRect(
        borderRadius: borderRadius ?? BorderRadius.circular(2),
-       child: CachedNetworkImage( 
+       child: CachedNetworkImage(
          imageUrl: url,
          width: width,
          height: height,
@@ -357,15 +391,15 @@ class _RepoItemState extends State<RepoItem> {
 ```dart
 class MyDrawer extends StatelessWidget {
   const MyDrawer({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      //移除顶部padding
       child: MediaQuery.removePadding(
         context: context,
+        // DrawerHeader consumes top MediaQuery padding.
         removeTop: true,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -380,7 +414,7 @@ class MyDrawer extends StatelessWidget {
 
   Widget _buildHeader() {
     return Consumer<UserModel>(
-      builder: (BuildContext context, UserModel value, Widget child) {
+      builder: (BuildContext context, UserModel value, Widget? child) {
         return GestureDetector(
           child: Container(
             color: Theme.of(context).primaryColor,
@@ -392,7 +426,7 @@ class MyDrawer extends StatelessWidget {
                   child: ClipOval(
                     // 如果已登录，则显示用户头像；若未登录，则显示默认头像
                     child: value.isLogin
-                        ? gmAvatar(value.user.avatar_url, width: 80)
+                        ? gmAvatar(value.user!.avatar_url, width: 80)
                         : Image.asset(
                             "imgs/avatar-default.png",
                             width: 80,
@@ -401,7 +435,7 @@ class MyDrawer extends StatelessWidget {
                 ),
                 Text(
                   value.isLogin
-                      ? value.user.login
+                      ? value.user!.login
                       : GmLocalizations.of(context).login,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -422,7 +456,7 @@ class MyDrawer extends StatelessWidget {
   // 构建菜单项
   Widget _buildMenus() {
     return Consumer<UserModel>(
-      builder: (BuildContext context, UserModel userModel, Widget child) {
+      builder: (BuildContext context, UserModel userModel, Widget? child) {
         var gm = GmLocalizations.of(context);
         return ListView(
           children: <Widget>[
@@ -436,35 +470,36 @@ class MyDrawer extends StatelessWidget {
               title: Text(gm.language),
               onTap: () => Navigator.pushNamed(context, "language"),
             ),
-            if(userModel.isLogin) ListTile(
-              leading: const Icon(Icons.power_settings_new),
-              title: Text(gm.logout),
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (ctx) {
-                    //退出账号前先弹二次确认窗
-                    return AlertDialog(
-                      content: Text(gm.logoutTip),
-                      actions: <Widget>[
-                        FlatButton(
-                          child: Text(gm.cancel),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                        FlatButton(
-                          child: Text(gm.yes),
-                          onPressed: () {
-                            //该赋值语句会触发MaterialApp rebuild
-                            userModel.user = null;
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                );
-              },
-            ),
+            if (userModel.isLogin)
+              ListTile(
+                leading: const Icon(Icons.power_settings_new),
+                title: Text(gm.logout),
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (ctx) {
+                      //退出账号前先弹二次确认窗
+                      return AlertDialog(
+                        content: Text(gm.logoutTip),
+                        actions: <Widget>[
+                          TextButton(
+                            child: Text(gm.cancel),
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                          TextButton(
+                            child: Text(gm.yes),
+                            onPressed: () {
+                              //该赋值语句会触发MaterialApp rebuild
+                              userModel.user = null;
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              ),
           ],
         );
       },

@@ -96,9 +96,9 @@ class CustomRotatedBoxTest extends StatelessWidget {
 }
 ```
 
-看看效果，成功放倒：
+运行效果如图14-17，A被成功放倒了：
 
-![A被放倒了](../imgs/a-rotate.png)
+![图14-17](../imgs/14-17.png)
 
 现在我们给 CustomRotatedBox 添加一个 RepaintBoundary 再试试：
 
@@ -118,15 +118,15 @@ Widget build(BuildContext context) {
 }
 ```
 
-咦，怎么又站起来了！
+运行后如图14-18。咦，A怎么又站起来了！
 
-![A没有被放倒了](../imgs/a.png)
+![图14-18](../imgs/14-18.png)
 
 结合图说明！
 
-我们来分析一下原因：根据上一节的知识，我们可以很容易画出添加 RepaintBoundary 前和后的 Layer 树结构，如下图：
+我们来分析一下原因：根据上一节的知识，我们可以很容易画出添加 RepaintBoundary 前和后的 Layer 树结构，如图14-19：
 
-![image-20210812151151399](../imgs/image-20210812151151399.png)
+![图14-19](../imgs/14-19.png)
 
 添加 RepaintBoundary 后，CustomRotatedBox 中的持有的还是 OffsetLayer1 ：
 
@@ -150,9 +150,11 @@ Widget build(BuildContext context) {
 1. 创建一个TransformLayer（记为 TransformLayer1） 添加到 Layer树中，接着创建一个新的 PaintingContext 和 TransformLayer1绑定。
 2. 子节点通过这个新的 PaintingContext 去绘制。
 
-完成上述操作之后，后代节点绘制所在的 PictureLayer 都会是 TransformLayer 的子节点，因此我们可以通过 TransformLayer 对所有子节点整体做变换。下图是添加是 TransformLayer1前、后的 Layer 树结构。![image-20210812153400687](../imgs/image-20210812153400687.png)
+完成上述操作之后，后代节点绘制所在的 PictureLayer 都会是 TransformLayer 的子节点，因此我们可以通过 TransformLayer 对所有子节点整体做变换。图14-20是添加是 TransformLayer1前、后的 Layer 树结构。
 
-这其实就是一个重新**Layer 合成（layer compositing）**的过程：创建一个新的 ContainerLayer，然后将该ContainerLayer 传递给子节点，这样后代节点的Layer必然属于ContainerLayer ，那么给这个 ContainerLayer 做变换就会对其全部的子孙节点生效。因为 “Layer 合成” 在不同的语境会有不同的指代，为了便于描述，本节中 “layer 合成” 或 “合成 layer” 就特指上述过程。
+![图14-20](../imgs/14-20.png)
+
+这其实就是一个重新 **Layer 合成（layer compositing）** 的过程：创建一个新的 ContainerLayer，然后将该ContainerLayer 传递给子节点，这样后代节点的Layer必然属于ContainerLayer ，那么给这个 ContainerLayer 做变换就会对其全部的子孙节点生效。因为 “Layer 合成” 在不同的语境会有不同的指代，为了便于描述，本节中 “layer 合成” 或 “合成 layer” 就特指上述过程。
 
 > “Layer 合成” 在不同的语境会有不同的指代，比如 skia 最终渲染时也是将一个个 layer 渲染出来，这个过程也可以认为是多个 layer 上的绘制信息合成为最终的位图信息；另外 canvas 中也有 layer 的概念（canvas.save 方法生成新的layer），对应的将所有layer 绘制结果最后叠加在一起的过程也可以成为 layer 合成。
 
@@ -289,13 +291,9 @@ void paint(PaintingContext context, Offset offset) {
 }
 ```
 
-是不是清晰多了，现在我们重新运行一下示例：
+是不是清晰多了，现在我们重新运行一下示例，效果和图14-17一样，A被成功放倒了！
 
-![A被放倒了](../imgs/a-rotate.png)
-
-
-
-成功放倒了！
+![图14-17](../imgs/14-17.png)
 
 需要说明的是，其实 PaintingContext 已经帮我们封装好了 pushTransform 方法，我们可以直接使用它：
 
@@ -352,9 +350,9 @@ Widget build(BuildContext context) {
 }
 ```
 
-因为 CustomRotatedBox 中只判断了其直接子节点的`child!.isRepaintBoundary` 为 true时，才会进行 layer 合成，而现在它的直接子节点是Center，所以该判断会是false，则不会进行层 layer 合成。但是根据我们上面得出的结论，RepaintBoundary 作为CustomRotatedBox 的后代节点且会向 layer 树中添加新 layer 时就需要进行 layer合成，该合成时没有合成，所以预期是不能将 "A" 放倒的。现在我们运行看看效果：
+因为 CustomRotatedBox 中只判断了其直接子节点的`child!.isRepaintBoundary` 为 true时，才会进行 layer 合成，而现在它的直接子节点是Center，所以该判断会是false，则不会进行层 layer 合成。但是根据我们上面得出的结论，RepaintBoundary 作为CustomRotatedBox 的后代节点且会向 layer 树中添加新 layer 时就需要进行 layer合成，该合成时没有合成，所以预期是不能将 "A" 放倒的，运行后发现效果和之前的图14-18相同：
 
-![A没有被放倒](../imgs/a.png)
+![图14-18](../imgs/14-18.png)
 
 果然  ”A“ 并没有被放倒！看来我们的 CustomRotatedBox 还是需要继续修改。解决这个问题并不难，我们在判断是否需要进行 Layer 合成时，要去遍历整个子树，看看否存在绘制边界节点，如果是则合成，反之则否。为此，我们新定义一个在子树上查找是否存在绘制边界节点的 `needCompositing() ` 方法：
 
@@ -396,9 +394,9 @@ void paint(PaintingContext context, Offset offset) {
 }
 ```
 
-现在，我们再来运行一下demo：
+现在，我们再来运行一下demo，运行后效果和图14-17相同：
 
-![A被放倒了](../imgs/a-rotate.png)
+![图14-17](../imgs/14-17.png)
 
 又成功放倒了！但还有问题，我们继续往下看。
 

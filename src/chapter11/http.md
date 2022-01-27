@@ -169,11 +169,9 @@ I/flutter (18545): tracecode: 00525262401065761290103018, 00522983
 
 #### HTTP请求认证
 
-Http协议的认证（Authentication）机制可以用于保护非公开资源。如果Http服务器开启了认证，那么用户在发起请求时就需要携带用户凭据，如果你在浏览器中访问了启用Basic认证的资源时，浏览就会弹出一个登录框，如：
+Http协议的认证（Authentication）机制可以用于保护非公开资源。如果Http服务器开启了认证，那么用户在发起请求时就需要携带用户凭据，如果你在浏览器中访问了启用Basic认证的资源时，浏览就会弹出一个登录框，如图11-2：
 
-![image-20181031114207514](https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20181031114207514.png)
-
-
+![图11-2](../imgs/11-2.png)
 
 我们先看看Basic认证的基本过程：
 

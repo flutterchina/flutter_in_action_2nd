@@ -29,9 +29,9 @@ class _PageState extends State<Page> with AutomaticKeepAliveClientMixin {
 }
 ```
 
-代码很简单，我们只需要提供一个 `wantKeepAlive `，它会表示 AutomaticKeepAlive 是否需要缓存当前列表项；另外我们必须在 build 方法中调用一下 `super.build(context)`，该方法实现在 AutomaticKeepAliveClientMixin 中，功能就是根据当前 `wantKeepAlive` 的值给 AutomaticKeepAlive 发送消息，AutomaticKeepAlive 收到消息后就会开始工作。
+代码很简单，我们只需要提供一个 `wantKeepAlive `，它会表示 AutomaticKeepAlive 是否需要缓存当前列表项；另外我们必须在 build 方法中调用一下 `super.build(context)`，该方法实现在 AutomaticKeepAliveClientMixin 中，功能就是根据当前 `wantKeepAlive` 的值给 AutomaticKeepAlive 发送消息，AutomaticKeepAlive 收到消息后就会开始工作，如图6-17所示：
 
-![AutomaticKeepAlive](../imgs/autokeepalive.png)
+![图6-17](../imgs/6-17.png)
 
 现在我们重新运行一下示例，发现每个 Page 页只会 build 一次，缓存成功了。需要注意，如果我们采用 PageView.custom 构建页面时没有给列表项包装 AutomaticKeepAlive 父组件，则上述方案不能正常工作，因为此时Client 发出消息后，找不到 Server，404 了，😀。
 
@@ -131,12 +131,12 @@ class _ListItemState extends State<ListItem> {
 }
 ```
 
-因为每一个列表项都被缓存了，所以运行后滑动列表预期日志面板不会有任何日志，显示如下：
+因为每一个列表项都被缓存了，所以运行后滑动列表预期日志面板不会有任何日志，如图6-18所示：
 
-![KeepAlive](../imgs/keepalive.png)
+![图6-18](../imgs/6-18.png)
 
-好我们预期一致，日志面板没有日志。如果我们将   keepAlive 设为 false，则当列表项滑出预渲染区域后则会销毁，日志面板将有输出：
+好我们预期一致，日志面板没有日志。如果我们将   keepAlive 设为 false，则当列表项滑出预渲染区域后则会销毁，日志面板将有输出，如图6-19所示：
 
-![KeepAlive false](../imgs/none-keepalive.png)
+![图6-19](../imgs/6-19.png)
 
 可见我们封装的 KeepAliveWrapper 能够正常工作，笔者将 KeepAliveWrapper 添加到了 flukit 组件库，如果读者需要可以在 flukit 组件库中找到它。

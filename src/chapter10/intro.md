@@ -2,9 +2,9 @@
 
 当Flutter提供的现有组件无法满足我们的需求，或者我们为了共享代码需要封装一些通用组件，这时我们就需要自定义组件。在Flutter中自定义组件有三种方式：通过组合其它组件、自绘和实现RenderObject。本节我们先分别介绍一下这三种方式的特点，后面章节中则详细介绍它们的细节。
 
-### 组合其它Widget
+### 组合多个Widget
 
-这种方式是通过拼装其它组件来组合成一个新的组件。例如我们之前介绍的`Container`就是一个组合组件，它是由`DecoratedBox`、`ConstrainedBox`、`Transform`、`Padding`、`Align`等组件组成。
+这种方式是通过拼装多个组件来组合成一个新的组件。例如我们之前介绍的`Container`就是一个组合组件，它是由`DecoratedBox`、`ConstrainedBox`、`Transform`、`Padding`、`Align`等组件组成。
 
 在Flutter中，组合的思想非常重要，Flutter提供了非常多的基础组件，而我们的界面开发其实就是按照需要组合这些组件来实现各种不同的布局而已。 
 

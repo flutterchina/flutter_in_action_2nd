@@ -66,9 +66,9 @@ Widget build(BuildContext context) {
 }
 ```
 
-运行结果如图7-8、7-9所示：
+运行结果如图7-9、7-10所示：
 
-![图7-8](../imgs/7-8.png)![图7-9](../imgs/7-9.png)
+![图7-9](../imgs/7-9.png)![图7-10](../imgs/7-10.png)
 
 
 

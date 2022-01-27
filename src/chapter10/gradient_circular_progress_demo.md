@@ -166,9 +166,9 @@ class _GradientCircularProgressPainter extends CustomPainter {
 }
 ```
 
-下面我们来测试一下，为了尽可能多的展示`GradientCircularProgressIndicator`的不同外观和用途，这个示例代码会比较长，并且添加了动画，建议读者将此示例运行起来观看实际效果，我们先看看其中的一帧动画的截图：
+下面我们来测试一下，为了尽可能多的展示`GradientCircularProgressIndicator`的不同外观和用途，这个示例代码会比较长，并且添加了动画，建议读者将此示例运行起来观看实际效果，我们先看看其中一帧动画的截图（图10-5）：
 
-![gradient_circular_progress](../imgs/gradient_circular_progress.png)
+![图10-5](../imgs/10-5.png)
 
 示例代码：
 

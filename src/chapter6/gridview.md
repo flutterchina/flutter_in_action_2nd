@@ -1,4 +1,5 @@
 # 6.6 GridView
+## 6.6.1 默认构造函数
 
 `GridView`可以构建一个二维网格列表，其默认构造函数定义如下：
 
@@ -64,29 +65,9 @@ GridView(
 );
 ```
 
-![图6-9](../imgs/6-9.png)
+运行效果如图6-14所示：
 
-
-
-#### GridView.count
-
-`GridView.count`构造函数内部使用了`SliverGridDelegateWithFixedCrossAxisCount`，我们通过它可以快速的创建横轴固定数量子元素的`GridView`，上面的示例代码等价于：
-
-```dart
-GridView.count( 
-  crossAxisCount: 3,
-  childAspectRatio: 1.0,
-  children: <Widget>[
-    Icon(Icons.ac_unit),
-    Icon(Icons.airport_shuttle),
-    Icon(Icons.all_inclusive),
-    Icon(Icons.beach_access),
-    Icon(Icons.cake),
-    Icon(Icons.free_breakfast),
-  ],
-);
-```
-
+![图6-14](../imgs/6-14.png)
 
 
 ### SliverGridDelegateWithMaxCrossAxisExtent
@@ -124,9 +105,31 @@ GridView(
 );
 ```
 
-![图6-10](../imgs/6-10.png)
+运行效果如图6-15所示：
 
-#### GridView.extent
+![图6-15](../imgs/6-15.png)
+
+
+## 6.6.2 GridView.count
+
+`GridView.count`构造函数内部使用了`SliverGridDelegateWithFixedCrossAxisCount`，我们通过它可以快速的创建横轴固定数量子元素的`GridView`，我们可以通过以下代码实现和上面例子相同的效果等：
+
+```dart
+GridView.count( 
+  crossAxisCount: 3,
+  childAspectRatio: 1.0,
+  children: <Widget>[
+    Icon(Icons.ac_unit),
+    Icon(Icons.airport_shuttle),
+    Icon(Icons.all_inclusive),
+    Icon(Icons.beach_access),
+    Icon(Icons.cake),
+    Icon(Icons.free_breakfast),
+  ],
+);
+```
+
+## 6.6.3 GridView.extent
 
 GridView.extent构造函数内部使用了SliverGridDelegateWithMaxCrossAxisExtent，我们通过它可以快速的创建纵轴子元素为固定最大长度的的GridView，上面的示例代码等价于：
 
@@ -147,7 +150,7 @@ GridView.extent(
 
 
 
-### GridView.builder
+## 6.6.4 GridView.builder
 
 上面我们介绍的GridView都需要一个widget数组作为其子元素，这些方式都会提前将所有子widget都构建好，所以只适用于子widget数量比较少时，当子widget比较多时，我们可以通过`GridView.builder`来动态创建子widget。`GridView.builder` 必须指定的参数有两个：
 
@@ -161,7 +164,7 @@ GridView.builder(
 
 其中`itemBuilder`为子widget构建器。
 
-#### 示例
+### 示例
 
 假设我们需要从一个异步数据源（如网络）分批获取一些`Icon`，然后用`GridView`来展示：
 

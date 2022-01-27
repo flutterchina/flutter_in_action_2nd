@@ -82,9 +82,9 @@ const SliverGeometry({
 
 ## 6.11.2 SliverFlexibleHeader
 
-我们实现一个类似微信朋友圈顶部头图的功能：即默认情况下顶部图片只显示一部分，当用户向下拽时图片的剩余部分会逐渐显示。如下图所示，左边为初始状态，右面为下拉时的状态。
+我们实现一个类似旧版本微信朋友圈顶部头图的功能：即默认情况下顶部图片只显示一部分，当用户向下拽时图片的剩余部分会逐渐显示。如图6-28所示，左边为初始状态，右面为下拉时的状态。
 
-![SliverFlexibleHeader](../imgs/sliverflexibleheader.gif)
+![6-28](../imgs/6-28.gif)
 
 我们的思路是实现一个 Sliver，将它作为 CustomScrollView 的第一孩子，然后根据用户的滑动来动态调整 Sliver 的布局和显示。下面我们来实现一个 SliverFlexibleHeader，它会结合 CustomScrollView 实现上述效果。我们先看一下页面的整体实现代码：
 
@@ -388,9 +388,9 @@ if (constraints.userScrollDirection == ScrollDirection.idle) {
 
 ### 高度修正 scrollOffsetCorrection
 
-如果 visibleExtent 变化时，我们看看效果：
+如果 visibleExtent 变化时，我们看看效果，如图6-29所示：
 
-![突兀跳一下](../imgs/suddenly-jump.gif)
+![图6-29](../imgs/6-29.gif)
 
 可以看到有一个突兀地跳动，这是因为 visibleExtent 变化时会导致 layoutExtent 发生变化，也就是说 SliverFlexibleHeader 在屏幕中所占的布局高度会发生变化，所以列表就出现跳动。但这个跳动效果太突兀了，我们知道每一个 Sliver 的高度是通过 scrollExtent 属性预估出来的，因此我们需要修正一下 scrollExtent，但是我们不能直接修改 scrollExtent 的值，直接修改不会有任何动画效果，仍然会跳动，为此，SliverGeometry 提供了一个 scrollOffsetCorrection 属性，它专门用于修正 scrollExtent ，我们只需要将要修正差值传给scrollOffsetCorrection，然后 Sliver 会自动执行一个动画效果过渡到我们期望的高度。
 
@@ -426,9 +426,9 @@ if (constraints.userScrollDirection == ScrollDirection.idle) {
   } 
 ```
 
-运行后效果如下（动图可能太快，可以直接运行示例查看效果）：
+运行后效果如图6-30（动图可能太快，可以直接运行示例查看效果）：
 
-![突兀跳一下](../imgs/scrolloffset-correction.gif)
+![图6-30](../imgs/6-30.gif)
 
 ### 边界
 
@@ -623,9 +623,9 @@ class SliverPersistentHeaderToBoxRoute extends StatelessWidget {
 }
 ```
 
-运行效果如图：
+运行效果如图6-31：
 
-![SliverPersistentHeaderToBox](../imgs/sliverpersistentheadertobox.gif)
+![图6-31](../imgs/6-31.gif)
 
 我们实现的  SliverPersistentHeaderToBox 不仅不需要显式指定高度，而且它的 builder 函数的第三个参数值也正常了（和SliverPersistentHeaderToBox 数量无关）。
 

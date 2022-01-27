@@ -78,7 +78,7 @@ class _ScaleAnimationRouteState extends State<ScaleAnimationRoute>
   }
 ```
 
-运行后效果如下：
+运行后效果如图9-1所示：
 
 ![图9-1](../imgs/9-1.gif)
 

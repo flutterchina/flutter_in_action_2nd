@@ -66,9 +66,9 @@ Widget build(BuildContext context) {
 }
 ```
 
-运行后，可以左右滑动来切换页面了：
+运行后就可以左右滑动来切换页面了，效果如图6-16所示：
 
-![PageView](../imgs/pageview.gif)
+![图6-16](../imgs/6-16.gif)
 
 如果将 PageView 的滑动方向指定为垂直方向（上面代码中注释部分），则会变为上下滑动切换页面。
 

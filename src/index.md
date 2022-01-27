@@ -103,13 +103,14 @@
 * [第十一章：文件操作与网络请求](chapter11/index.md)
     * [11.1：文件操作](chapter11/file_operation.md)
     * [11.2：Http请求-HttpClient](chapter11/http.md)
-    * [11.3：*Http请求封装](todo.md) 
+    * [11.3：Http请求库-dio](chapter11/dio.md) 
     * [11.5：WebSocket](chapter11/websocket.md) 
     * [11.6：使用Socket API](chapter11/socket.md) 
     * [11.7：Json转Dart Model类](chapter11/json_model.md) 
     
-* [第十二章：包与插件](chapter13/index.md)
-    ...
+* [第十二章：Flutter 扩展](chapter12/index.md)
+    * [12.1：包和插件](chapter12/package_and_plugin.md) 
+    * [12.2：Flutter Web](chapter12/flutter_web.md) 
 
 * [第十三章：国际化](chapter13/index.md)
     * [13.1：让App支持多语言](chapter13/multi_languages_support.md)
