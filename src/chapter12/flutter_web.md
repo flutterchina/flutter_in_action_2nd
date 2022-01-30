@@ -53,7 +53,7 @@ flutter build web --web-renderer canvaskit
 
 如果运行/构建目标是非浏览器设备（即移动设备或桌面设备），这个选项会被忽略。
 
-##12.2.5 Flutter Web 使用场景
+## 12.2.5 Flutter Web 使用场景
 
 Web 开发已有完整且强大的开发及生态体系，Flutter Web并不适用Web开发的所有场景，目前Flutter Web 主要关注以下三个应用场景：
 
