@@ -372,7 +372,7 @@ class PersistentHeaderRoute extends StatelessWidget {
 ```
 运行后效果如图6-27所示:
 
-![PersistentHeader](../imgs/6-27.gif)
+![图6-27](../imgs/6-27.gif)
 
 
 

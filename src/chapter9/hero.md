@@ -189,10 +189,14 @@ A：包含一个用户头像，圆形，点击后跳到B路由，可以查看大
 
 B：显示用户头像原图，矩形。
 
-在AB两个路由之间跳转的时候，用户头像会逐渐过渡到目标路由页的头像上，接下来我们先看看代码，然后再解析：
+在AB两个路由之间跳转的时候，用户头像会逐渐过渡到目标路由页的头像上，接下来我们先看看代码，然后再解析。
+
+路由A：
 
 ```dart
-class HeroAnimationRoute extends StatelessWidget {
+class HeroAnimationRouteA extends StatelessWidget {
+  const HeroAnimationRouteA({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -221,17 +225,17 @@ class HeroAnimationRoute extends StatelessWidget {
                     opacity: animation,
                     child: Scaffold(
                       appBar: AppBar(
-                        title: Text("原图"),
+                        title: const Text("原图"),
                       ),
-                      body: HeroAnimationRouteB(),
+                      body: const HeroAnimationRouteB(),
                     ),
                   );
                 },
               ));
             },
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
+          const Padding(
+            padding: EdgeInsets.only(top: 8.0),
             child: Text("点击头像"),
           )
         ],
@@ -241,7 +245,7 @@ class HeroAnimationRoute extends StatelessWidget {
 }
 ```
 
-路由B:
+路由B：
 
 ```dart
 class HeroAnimationRouteB extends StatelessWidget {

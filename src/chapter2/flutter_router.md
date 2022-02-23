@@ -311,7 +311,7 @@ MaterialApp(
   ... //省略无关代码
   routes: {
    "tip2": (context){
-     return TipRoute(text: ModalRoute.of(context).settings.arguments);
+     return TipRoute(text: ModalRoute.of(context)!.settings.arguments);
    },
  }, 
 );

@@ -3,3 +3,5 @@ node_modules/
 .packages
 .dart_tool/
 .idea/
+docxs/
+_src/

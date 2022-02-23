@@ -148,9 +148,7 @@ Flutter 应用执行过程简单来讲分为 idle 和 frame 两种状态，idle 
 
 #### frame 处理流程
 
-当有新的 frame 到来时，开始调用 `SchedulerBinding.handleDrawFrame` 来处理 frame，具体处理过程就是依次执行四个任务队列：transientCallbacks、midFrameMicrotasks、persistentCallbacks、postFrameCallbacks，当四个任务队列执行完毕后当前 frame 结束。
-
-综上，Flutter 将整个生命周期分为五种状态，通过 SchedulerPhase 枚举类来表示它们：
+当有新的 frame 到来时，具体处理过程就是依次执行四个任务队列：transientCallbacks、midFrameMicrotasks、persistentCallbacks、postFrameCallbacks，当四个任务队列执行完毕后当前 frame 结束。综上，Flutter 将整个生命周期分为五种状态，通过 SchedulerPhase 枚举类来表示它们：
 
 ```dart
 enum SchedulerPhase {

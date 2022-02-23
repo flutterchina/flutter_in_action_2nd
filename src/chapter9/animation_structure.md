@@ -10,6 +10,8 @@
 
 ```dart
 class ScaleAnimationRoute extends StatefulWidget {
+  const ScaleAnimationRoute({Key? key}) : super(key: key);
+  
   @override
   _ScaleAnimationRouteState createState() => _ScaleAnimationRouteState();
 }
@@ -19,7 +21,8 @@ class _ScaleAnimationRouteState extends State<ScaleAnimationRoute>
     with SingleTickerProviderStateMixin {
   late Animation<double> animation;
   late AnimationController controller;
-
+  
+  @override
   initState() {
     super.initState();
     controller = AnimationController(
@@ -48,7 +51,8 @@ class _ScaleAnimationRouteState extends State<ScaleAnimationRoute>
       ),
     );
   }
-
+  
+  @override
   dispose() {
     //路由销毁时需要释放动画资源
     controller.dispose();
@@ -62,7 +66,8 @@ class _ScaleAnimationRouteState extends State<ScaleAnimationRoute>
 上面的例子中并没有指定Curve，所以放大的过程是线性的（匀速），下面我们指定一个Curve，来实现一个类似于弹簧效果的动画过程，我们只需要将`initState`中的代码改为下面这样即可：
 
 ```dart
-  initState() {
+@override
+initState() {
     super.initState();
     controller = AnimationController(
         duration: const Duration(seconds: 3), vsync: this);
@@ -90,11 +95,12 @@ class _ScaleAnimationRouteState extends State<ScaleAnimationRoute>
 import 'package:flutter/material.dart';
 
 class AnimatedImage extends AnimatedWidget {
-  AnimatedImage({
+  const AnimatedImage({
     Key? key,
     required Animation<double> animation,
   }) : super(key: key, listenable: animation);
 
+  @override
   Widget build(BuildContext context) {
     final animation = listenable as Animation<double>;
     return  Center(
@@ -108,6 +114,8 @@ class AnimatedImage extends AnimatedWidget {
 }
 
 class ScaleAnimationRoute1 extends StatefulWidget {
+  const ScaleAnimationRoute1({Key? key}) : super(key: key);
+
   @override
   _ScaleAnimationRouteState createState() =>  _ScaleAnimationRouteState();
 }
@@ -117,6 +125,7 @@ class _ScaleAnimationRouteState extends State<ScaleAnimationRoute1>
   late Animation<double> animation;
   late AnimationController controller;
 
+  @override
   initState() {
     super.initState();
     controller =  AnimationController(
@@ -134,6 +143,7 @@ class _ScaleAnimationRouteState extends State<ScaleAnimationRoute1>
     );
   }
 
+  @override
   dispose() {
     //路由销毁时需要释放动画资源
     controller.dispose();
@@ -157,7 +167,7 @@ Widget build(BuildContext context) {
       child: Image.asset("imgs/avatar.png"),
       builder: (BuildContext ctx, child) {
         return  Center(
-          child: Container(
+          child: SizedBox(
             height: animation.value,
             width: animation.value,
             child: child,
@@ -180,20 +190,21 @@ Widget build(BuildContext context) {
 
    ```dart
    class GrowTransition extends StatelessWidget {
-     GrowTransition({
+     const GrowTransition({Key? key,
        required this.animation,
        this.child,
-     });
+     }) : super(key: key);
    
      final Widget? child;
      final Animation<double> animation;
    
+     @override
      Widget build(BuildContext context) {
        return Center(
          child: AnimatedBuilder(
            animation: animation,
            builder: (BuildContext context, child) {
-             return Container(
+             return SizedBox(
                height: animation.value,
                width: animation.value,
                child: child,

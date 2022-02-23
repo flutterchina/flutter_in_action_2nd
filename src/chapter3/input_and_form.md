@@ -483,7 +483,7 @@ class _FormTestRouteState extends State<FormTestRoute> {
             ),
             // 校验用户名
             validator: (v) {
-              return v!.trim().length > 0 ? null : "用户名不能为空";
+              return v!.trim().isNotEmpty ? null : "用户名不能为空";
             },
           ),
           TextFormField(
