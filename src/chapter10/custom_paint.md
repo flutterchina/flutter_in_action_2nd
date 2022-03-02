@@ -91,6 +91,8 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 class CustomPaintRoute extends StatelessWidget {
+  const CustomPaintRoute({Key? key}) : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -191,6 +193,8 @@ void drawPieces(Canvas canvas, Rect rect) {
 
 ```dart
 class CustomPaintRoute extends StatelessWidget {
+  const CustomPaintRoute({Key? key}) : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
     return Center(

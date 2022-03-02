@@ -54,7 +54,7 @@ abstract class Widget extends DiagnosticableTree {
 - `Key`: 这个`key`属性类似于 React/Vue 中的`key`，主要的作用是决定是否在下一次`build`时复用旧的 widget ，决定的条件在`canUpdate()`方法中。
 - `createElement()`：正如前文所述“一个 widget 可以对应多个`Element`”；Flutter 框架在构建UI树时，会先调用此方法生成对应节点的`Element`对象。此方法是 Flutter 框架隐式调用的，在我们开发过程中基本不会调用到。
 - `debugFillProperties(...)` 复写父类的方法，主要是设置诊断树的一些特性。
-- `canUpdate(...)`是一个静态方法，它主要用于在 widget 树重新`build`时复用旧的  widget ，其实具体来说，应该是：是否用新的 widget 对象去更新旧UI树上所对应的`Element`对象的配置；通过其源码我们可以看到，只要`new widget `与`old widget `的`runtimeType`和`key`同时相等时就会用`new widget `去更新`Element`对象的配置，否则就会创建新的`Element`。
+- `canUpdate(...)`是一个静态方法，它主要用于在 widget 树重新`build`时复用旧的  widget ，其实具体来说，应该是：是否用新的 widget 对象去更新旧UI树上所对应的`Element`对象的配置；通过其源码我们可以看到，只要`newWidget `与`oldWidget `的`runtimeType`和`key`同时相等时就会用`new widget `去更新`Element`对象的配置，否则就会创建新的`Element`。
 
 有关 Key 和 widget 复用的细节将会在本书后面高级部分深入讨论，读者现在只需知道，为 widget 显式添加 key 的话可能（但不一定）会使UI在重新构建时变的高效，读者目前可以先忽略此参数，本书后面在用到时会详细解释 。
 
@@ -373,7 +373,7 @@ StatefulWidget 生命周期如图2-5所示：
 
 
 
-> **注意**：在继承`StatefulWidget`重写其方法时，对于包含`@mustCallSuper`标注的父类方法，都要在子类方法中先调用父类方法。
+> **注意**：在继承`StatefulWidget`重写其方法时，对于包含`@mustCallSuper`标注的父类方法，都要在子类方法中调用父类方法。
 
 
 ### 为什么要将 build 方法放在 State 中，而不是放在 StatefulWidget 中？

@@ -8,14 +8,14 @@
 
 ```dart
 class AnimatedDecoratedBox1 extends StatefulWidget {
-  AnimatedDecoratedBox1({
+  const AnimatedDecoratedBox1({
     Key? key,
     required this.decoration,
     required this.child,
     this.curve = Curves.linear,
     required this.duration,
     this.reverseDuration,
-  });
+  }) : super(key: key);
 
   final BoxDecoration decoration;
   final Widget child;
@@ -33,7 +33,6 @@ class _AnimatedDecoratedBox1State extends State<AnimatedDecoratedBox1>
   AnimationController get controller => _controller;
   late AnimationController _controller;
 
-  /// The animation driving this widget's implicit animations.
   Animation<double> get animation => _animation;
   late Animation<double> _animation;
 
@@ -110,7 +109,7 @@ AnimatedDecoratedBox1(
         _decorationColor = Colors.red;
       });
     },
-    child: Text(
+    child: const Text(
       "AnimatedDecoratedBox",
       style: TextStyle(color: Colors.white),
     ),
@@ -132,7 +131,7 @@ AnimatedDecoratedBox1(
 
    ```dart
    class AnimatedDecoratedBox extends ImplicitlyAnimatedWidget {
-     AnimatedDecoratedBox({
+     const AnimatedDecoratedBox({
        Key? key,
        required this.decoration,
        required this.child,
@@ -160,7 +159,7 @@ AnimatedDecoratedBox1(
    ```dart
    class _AnimatedDecoratedBoxState
        extends AnimatedWidgetBaseState<AnimatedDecoratedBox> {
-     var _decoration; //定义一个Tween
+     late DecorationTween _decoration;
    
      @override
      Widget build(BuildContext context) {
@@ -171,13 +170,12 @@ AnimatedDecoratedBox1(
      }
    
      @override
-     void forEachTween(visitor) {
-       // 在需要更新Tween时，基类会调用此方法
+     void forEachTween(TweenVisitor<dynamic> visitor) {
        _decoration = visitor(
          _decoration,
          widget.decoration,
          (value) => DecorationTween(begin: value),
-       );
+       ) as DecorationTween;
      }
    }
    ```
@@ -222,6 +220,8 @@ Flutter SDK中也预置了很多动画过渡组件，实现方式和大都和`An
 import 'package:flutter/material.dart';
 
 class AnimatedWidgetsTest extends StatefulWidget {
+  const AnimatedWidgetsTest({Key? key}) : super(key: key);
+
   @override
   _AnimatedWidgetsTestState createState() => _AnimatedWidgetsTestState();
 }
@@ -232,12 +232,13 @@ class _AnimatedWidgetsTestState extends State<AnimatedWidgetsTest> {
   double _height = 100;
   double _left = 0;
   Color _color = Colors.red;
-  TextStyle _style = TextStyle(color: Colors.black);
+  TextStyle _style = const TextStyle(color: Colors.black);
   Color _decorationColor = Colors.blue;
+  double _opacity = 1;
 
   @override
   Widget build(BuildContext context) {
-    var duration = Duration(seconds: 5);
+    var duration = const Duration(milliseconds: 400);
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
@@ -250,7 +251,7 @@ class _AnimatedWidgetsTestState extends State<AnimatedWidgetsTest> {
             child: AnimatedPadding(
               duration: duration,
               padding: EdgeInsets.all(_padding),
-              child: Text("AnimatedPadding"),
+              child: const Text("AnimatedPadding"),
             ),
           ),
           SizedBox(
@@ -266,7 +267,7 @@ class _AnimatedWidgetsTestState extends State<AnimatedWidgetsTest> {
                         _left = 100;
                       });
                     },
-                    child: Text("AnimatedPositioned"),
+                    child: const Text("AnimatedPositioned"),
                   ),
                 )
               ],
@@ -284,7 +285,7 @@ class _AnimatedWidgetsTestState extends State<AnimatedWidgetsTest> {
                     _align = Alignment.center;
                   });
                 },
-                child: Text("AnimatedAlign"),
+                child: const Text("AnimatedAlign"),
               ),
             ),
           ),
@@ -299,7 +300,7 @@ class _AnimatedWidgetsTestState extends State<AnimatedWidgetsTest> {
                   _color = Colors.blue;
                 });
               },
-              child: Text(
+              child: const Text(
                 "AnimatedContainer",
                 style: TextStyle(color: Colors.white),
               ),
@@ -307,10 +308,10 @@ class _AnimatedWidgetsTestState extends State<AnimatedWidgetsTest> {
           ),
           AnimatedDefaultTextStyle(
             child: GestureDetector(
-              child: Text("hello world"),
+              child: const Text("hello world"),
               onTap: () {
                 setState(() {
-                  _style = TextStyle(
+                  _style = const TextStyle(
                     color: Colors.blue,
                     decorationStyle: TextDecorationStyle.solid,
                     decorationColor: Colors.blue,
@@ -321,24 +322,46 @@ class _AnimatedWidgetsTestState extends State<AnimatedWidgetsTest> {
             style: _style,
             duration: duration,
           ),
-          AnimatedDecoratedBox(
+          AnimatedOpacity(
+            opacity: _opacity,
             duration: duration,
-            decoration: BoxDecoration(color: _decorationColor),
             child: TextButton(
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.blue)),
               onPressed: () {
                 setState(() {
-                  _decorationColor = Colors.red;
+                  _opacity = 0.2;
                 });
               },
-              child: Text(
-                "AnimatedDecoratedBox",
+              child: const Text(
+                "AnimatedOpacity",
                 style: TextStyle(color: Colors.white),
               ),
             ),
+          ),
+          AnimatedDecoratedBox1(
+            duration: Duration(
+                milliseconds: _decorationColor == Colors.red ? 400 : 2000),
+            decoration: BoxDecoration(color: _decorationColor),
+            child: Builder(builder: (context) {
+              return TextButton(
+                onPressed: () {
+                  setState(() {
+                    _decorationColor = _decorationColor == Colors.blue
+                        ? Colors.red
+                        : Colors.blue;
+                  });
+                },
+                child: const Text(
+                  "AnimatedDecoratedBox toggle",
+                  style: TextStyle(color: Colors.white),
+                ),
+              );
+            }),
           )
         ].map((e) {
           return Padding(
-            padding: EdgeInsets.symmetric(vertical: 16),
+            padding: const EdgeInsets.symmetric(vertical: 16),
             child: e,
           );
         }).toList(),

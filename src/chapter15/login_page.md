@@ -20,10 +20,10 @@ class LoginRoute extends StatefulWidget {
 }
 
 class _LoginRouteState extends State<LoginRoute> {
-  TextEditingController _unameController = new TextEditingController();
-  TextEditingController _pwdController = new TextEditingController();
+  TextEditingController _unameController = TextEditingController();
+  TextEditingController _pwdController = TextEditingController();
   bool pwdShow = false;
-  GlobalKey _formKey = new GlobalKey<FormState>();
+  GlobalKey _formKey = GlobalKey<FormState>();
   bool _nameAutoFocus = true;
 
   @override

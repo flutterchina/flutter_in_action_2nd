@@ -256,8 +256,8 @@ if (!parentUsesSize || sizedByParent || constraints.isTight || parent is! Render
 ```dart
 void markNeedsLayout() {
    _needsLayout = true;
-  if (_relayoutBoundary != this) { // 如果是布局边界节点
-    markParentNeedsLayout(); // 递归将当前节点到其布局边界节点的所有节点标记为
+  if (_relayoutBoundary != this) { // 如果不是布局边界节点
+    markParentNeedsLayout(); // 递归调用前节点到其布局边界节点路径上所有节点的方法 markNeedsLayout
   } else {// 如果是布局边界节点 
     if (owner != null) {
       // 将布局边界节点加入到 piplineOwner._nodesNeedingLayout 列表中
@@ -270,7 +270,7 @@ void markNeedsLayout() {
 
 ### flushLayout()
 
-markNeedsLayout 执行完毕后，就会将其 relayoutBoundary  节点添加到 `piplineOwner._nodesNeedingLayout` 列表中，然后请求新的 frame，新的 frame 到来时就会执行 `piplineOwner.drawFrame` 方法：
+markNeedsLayout 执行完毕后，就会将其 relayoutBoundary  节点添加到 `piplineOwner._nodesNeedingLayout` 列表中，然后请求新的 frame，新的 frame 到来时就会执行 `drawFrame` 方法（可以参考上一节）：
 
 ```dart
 void drawFrame() {

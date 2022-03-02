@@ -343,7 +343,7 @@ showCustomDialog<bool>(
 
 ## 7.7.3 对话框实现原理
 
-我们已经知道对话框最终都是由`showGeneralDialog`方法打开的，我们来看看它的具体实现：
+我们以`showGeneralDialog`方法为例来看看它的具体实现：
 
 ```dart
 Future<T?> showGeneralDialog<T extends Object?>({

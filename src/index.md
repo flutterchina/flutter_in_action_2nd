@@ -90,7 +90,7 @@
     * [9.6：通用“动画切换”组件（AnimatedSwitcher）](chapter9/animated_switcher.md) 
     * [9.7：动画过渡组件](chapter9/animated_widgets.md)  
     
-* [第十章：自定义组件](todo.md)
+* [第十章：自定义组件](chapter10/intro.md)
     * [10.1：自定义组件方法简介](chapter10/intro.md)
     * [10.2：组合现有组件](chapter10/combine.md)
     * [10.3：组合实例：TurnBox](chapter10/turn_box.md)
@@ -127,8 +127,6 @@
     * [14.6：Flutter 绘制（二）组件树绘制流程](chapter14/paint.md)
     * [14.7：Flutter 绘制（三）Layer实例](chapter14/layer.md)
     * [14.8：Flutter 绘制（四）Compositing](chapter14/compositing.md)
-    * [14.9：Flutter 图片加载与缓存](todo.md)
-    * [14.10：Flutter 性能优化建议](todo.md)  
 
 ## 实例篇
 

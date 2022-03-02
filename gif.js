@@ -2,7 +2,6 @@ const qr = require('qr-image');
 const {Image, createCanvas} = require('canvas')
 const fs = require('fs')
 let data = fs.readFileSync(__dirname + '/src/imgs/gif.txt')
-console.log(data.toString().split("\n"))
 let images = data.toString().split("\n");
 images.forEach((e) => {
   if (e.trim()) {
@@ -13,7 +12,7 @@ images.forEach((e) => {
 
 
 function createQRcode(str) {
-  let svg_string = qr.imageSync(`https://github.com/flutterchina/flutter_in_action_2nd/blob/main/src/imgs/${str}`, {type: 'png'});
+  let svg_string = qr.imageSync(`https://github.com/flutterchina/flutter_in_action_2nd/blob/main/src/imgs/${str}.gif`, {type: 'png'});
   const canvas = createCanvas(200, 240)
   const ctx = canvas.getContext('2d')
   ctx.fillStyle = '#fff'
@@ -28,9 +27,8 @@ function createQRcode(str) {
   let text = ctx.measureText(_str)
   ctx.fillText(_str, (200 - text.width) / 2, 215)
 
-  const out = fs.createWriteStream(__dirname + `/src/gifs/${str}.jpeg`)
+  const out = fs.createWriteStream(__dirname + `/src/imgs/${str}.jpeg`)
   const stream = canvas.createJPEGStream()
   stream.pipe(out)
-  console.log(__dirname + `/src/imgs/${str}.jpeg`);
 }
 

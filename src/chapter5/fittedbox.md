@@ -103,7 +103,7 @@ Widget wContainer(BoxFit boxFit) {
           wRow(' 90000000000000000 '),
           FittedBox(child: wRow(' 90000000000000000 ')),
           wRow(' 800 '),
-          FittedBox(child: wRow1(' 800 ')),
+          FittedBox(child: wRow(' 800 ')),
     		]
         .map((e) => Padding(
               padding: EdgeInsets.symmetric(vertical: 20),
