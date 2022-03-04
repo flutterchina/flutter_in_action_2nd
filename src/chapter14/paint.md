@@ -12,7 +12,7 @@ Flutter中和绘制相关的对象有三个，分别是Canvas、Layer 和 Scene�
 
 Flutter 绘制流程：
 
-1. 构建一个 Canvas，用于绘制；同时还需要创建一个绘制指令记录器，因为绘制指令最终是要传递给 Skia 的，而 Canvas 可能会连续发起多条绘制指令，指令记录器用于收集 Canvas 在一段时间内所有的绘制质量，因此Canvas 构造函数第一个参数必须传递一个 PictureRecorder 实例。
+1. 构建一个 Canvas，用于绘制；同时还需要创建一个绘制指令记录器，因为绘制指令最终是要传递给 Skia 的，而 Canvas 可能会连续发起多条绘制指令，指令记录器用于收集 Canvas 在一段时间内所有的绘制指令，因此Canvas 构造函数第一个参数必须传递一个 PictureRecorder 实例。
 2. Canvas 绘制完成后，通过 PictureRecorder 获取绘制产物，然后将其保存在 Layer 中。
 3. 构建 Scene 对象，将 layer 的绘制产物和 Scene 关联起来。
 4. 上屏；调用window.render API 将Scene上的绘制产物发送给GPU。
