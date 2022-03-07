@@ -5,17 +5,17 @@ Layout（布局）过程主要是确定每一个组件的布局信息（大小�
 1. 父节点向子节点传递约束（constraints）信息，限制子节点的最大和最小宽高。
 2. 子节点根据约束信息确定自己的大小（size）。
 3. 父节点根据特定布局规则（不同布局组件会有不同的布局算法）确定每一个子节点在父节点布局空间中的位置，用偏移 offset 表示。
-4. 递归整个过程，确定出每一个节点的位置的大小和位置。
+4. 递归整个过程，确定出每一个节点的大小和位置。
 
 可以看到，组件的大小是由自身决定的，而组件的位置是由父组件决定的。
 
-Flutter 中的布局类组件很多，根据孩子数量可以分为单子组件和多子组件，下面我们先通过分别自定义一个单子组件和多子组件来深入理解一下Flutter的布局过程，之后会讲一下布局更新过程和 Flutter 中的 Constraints（约束）。
+Flutter 中的布局类组件很多，根据孩子数量可以分为单子组件和多子组件，下面我们先通过分别自定义一个单子组件和多子组件来直观理解一下Flutter的布局过程，之后会介绍一下布局更新过程和 Flutter 中的 Constraints（约束）。
 
 ## 14.4.1 单子组件布局示例（CustomCenter）
 
 我们实现一个单子组件 CustomCenter，功能基本和 Center 组件对齐，通过这个实例我们演示一下布局的主要流程。
 
-首先，我们定义组件，为了展示原理，我们不采用组合的方式来实现组件，而是直接通过定制 RenderObject 的方式来实现。因为居中组件需要包含一个子节点，所以我们直接继承 SingleChildRenderObjectWidget。
+首先，我们定义组件，为了介绍布局原理，我们不采用组合的方式来实现组件，而是直接通过定制 RenderObject 的方式来实现。因为居中组件需要包含一个子节点，所以我们直接继承 SingleChildRenderObjectWidget。
 
 ```dart
 class CustomCenter extends SingleChildRenderObjectWidget {
@@ -97,7 +97,7 @@ class RenderCustomCenter extends RenderShiftedBox {
 
 ### performLayout 流程
 
-可以看到，布局的逻辑实在 performLayout 方法中实现，我们总结一下  performLayout 中具体做的事：
+可以看到，布局的逻辑是在 performLayout 方法中实现的。我们梳理一下  performLayout 中具体做的事：
 
 1. 如果有子组件，则对子组件进行递归布局。
 2. 确定当前组件的大小（size），通常会依赖子组件的大小。
@@ -197,17 +197,17 @@ class RenderLeftRight extends RenderBox
 }
 ```
 
-可以看到，实际布局流程和单子节点并没有太大区别，只不过多子组件需要同时对多个子节点进行布局。另外和RenderCustomCenter 不同的是，RenderLeftRight是直接继承自 RenderBox，同时混入了ContainerRenderObjectMixin 和 RenderBoxContainerDefaultsMixin 两个 mixin，这两个 mixin 中帮我们实现了默认的绘制和事件处理相关逻辑（现在先不用关注，后面章节会讲）。
+可以看到，实际布局流程和单子节点并没有太大区别，只不过多子组件需要同时对多个子节点进行布局。另外和RenderCustomCenter 不同的是，RenderLeftRight是直接继承自 RenderBox，同时混入了ContainerRenderObjectMixin 和 RenderBoxContainerDefaultsMixin 两个 mixin，这两个 mixin 实现了通用的绘制和事件处理相关逻辑（现在先不用关注，后面章节会讲）。
 
 ## 14.4.3 关于ParentData
 
-上面两个例子中我们在实现相应的 RenderObject 时都用到了子节点的 parentData 对象(将子节点的offset信息保存其中)，可以看到 parentData 虽然属于child的属性，但它从设置（包括初始化）到使用都在父节点中，这也是为什么起名叫“parentData”，实际上Flutter框架中这个属性主要就是为了在layout阶段保存自身布局信息而设计的。
+上面两个例子中我们在实现相应的 RenderObject 时都用到了子节点的 parentData 对象(将子节点的offset信息保存其中)，可以看到 parentData 虽然属于child的属性，但它从设置（包括初始化）到使用都在父节点中，这也是为什么起名叫“parentData”。实际上Flutter框架中，parentData 这个属性主要就是为了在 layout 阶段保存组件布局信息而设计的。
 
-另外，“ParentData 保存节点的布局信息” 只是一个约定，我们定义组件时完全可以将子节点的布局信息保存在任意地方，也可以保存非布局信息。但是，还是强烈建议大家遵循Flutter的规范，这样我们的代码会更容易被他人看懂，也会更容易维护。
+需要注意：“parentData 用于保存节点的布局信息” 只是一个约定，我们定义组件时完全可以将子节点的布局信息保存在任意地方，也可以保存非布局信息。但是，还是强烈建议大家遵循Flutter的规范，这样我们的代码会更容易被他人看懂，也会更容易维护。
 
 ## 14.4.4 布局更新
 
-理论上，某个组件的布局变化后，会影响其它组件的布局，所以当有组件布局发生变化后，最笨的办法是对整棵组件树 relayout（重新布局）！但是对所有组件进行 relayout 的成本还是太大，所以我们需要探索一下降低 relayout 成本的方案。实际上，在一些特定场景下，组件发生变化后我们只需要对部分组件进行重新布局即可（而无需对整棵树 relayout ）。
+理论上，某个组件的布局变化后，就可能会影响其它组件的布局，所以当有组件布局发生变化后，最笨的办法是对整棵组件树 relayout（重新布局）！但是对所有组件进行 relayout 的成本还是太大，所以我们需要探索一下降低 relayout 成本的方案。实际上，在一些特定场景下，组件发生变化后我们只需要对部分组件进行重新布局即可（而无需对整棵树 relayout ）。
 
 ### 布局边界（relayoutBoundary）
 
@@ -220,7 +220,7 @@ class RenderLeftRight extends RenderBox
 1. Text4 是不需要重新布局的，因为 Text4 的大小没有发生变化，只是位置发生变化，而它的位置是在父组件 Column2 布局时确定的。
 2. 很容易发现：假如 Text3 和 Column2 之间还有其它组件，则这些组件也都是需要 relayout 的。
 
-在本例中，Column2 就是 Text3 的 relayoutBoundary （重新布局的边界节点）。每个组件的 renderObject 中都有一个 `_relayoutBoundary` 属性指向自身的布局，如果当前节点布局发生变化后，自身到  `_relayoutBoundary` 路径上的所有的节点都需要 relayout。
+在本例中，Column2 就是 Text3 的 relayoutBoundary （重新布局的边界节点）。每个组件的 renderObject 中都有一个 `_relayoutBoundary` 属性指向自身的布局边界节点，如果当前节点布局发生变化后，自身到其布局边界节点路径上的所有的节点都需要 relayout。
 
 那么，一个组件是否是 relayoutBoundary 的条件是什么呢？这里有一个原则和四个场景，原则是“组件自身的大小变化不会影响父组件”，如果一个组件满足以下四种情况之一，则它便是 relayoutBoundary ：
 
@@ -235,6 +235,7 @@ class RenderLeftRight extends RenderBox
 对应的代码实现是：
 
 ```dart
+// parent is! RenderObject 为 true 时则表示当前组件是根组件，因为只有根组件没有父组件。
 if (!parentUsesSize || sizedByParent || constraints.isTight || parent is! RenderObject) {
   _relayoutBoundary = this;
 } else {
@@ -528,7 +529,7 @@ class AccurateSizedBoxRoute extends StatelessWidget {
 
 ## 14.4.6 AfterLayout 
 
-我们在第四章中介绍过 AfterLayout ，然后再介绍 Hero 动画原理时也使用过它，现在我们就来看看它的实现原理。
+我们在第四章中介绍过 AfterLayout （在 9.4节 - Hero 动画 一节中也使用过它），现在我们就来看看它的实现原理。
 
 AfterLayout 可以在布局结束后拿到子组件的代理渲染对象 （RenderAfterLayout）， RenderAfterLayout 对象会代理子组件渲染对象 ，因此，通过RenderAfterLayout 对象也就可以获取到子组件渲染对象上的属性，比如件大小、位置等。
 

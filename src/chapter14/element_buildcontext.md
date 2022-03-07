@@ -71,7 +71,7 @@ class Element extends DiagnosticableTree implements BuildContext {
 
 ### 进阶
 
-我们可以看到Element是Flutter UI框架内部连接widget和`RenderObject`的纽带，大多数时候开发者只需要关注widget层即可，但是widget层有时候并不能完全屏蔽`Element`细节，所以Framework在`StatelessWidget`和`StatefulWidget`中通过`build`方法参数又将`Element`对象也传递给了开发者，这样一来，开发者便可以在需要时直接操作`Element`对象。那么现在笔者提一个问题：
+我们可以看到Element是Flutter UI框架内部连接widget和`RenderObject`的纽带，大多数时候开发者只需要关注widget层即可，但是widget层有时候并不能完全屏蔽`Element`细节，所以Framework在`StatelessWidget`和`StatefulWidget`中通过`build`方法参数又将`Element`对象也传递给了开发者，这样一来，开发者便可以在需要时直接操作`Element`对象。那么现在笔者提两个问题：
 
 1. 如果没有widget层，单靠`Element`层是否可以搭建起一个可用的UI框架？如果可以应该是什么样子？
 2. Flutter UI框架能不做成响应式吗？
@@ -134,11 +134,11 @@ class CustomHome extends Widget {
 
 `RenderObject`就是渲染树中的一个对象，它主要的作用是实现事件响应以及渲染管线中除过 build 的部分（build 部分由 element 实现），即包括：布局、绘制、层合成以及上屏，这些我们将在后面章节介绍。
 
-`RenderObject`拥有一个`parent`和一个`parentData` 插槽（slot），所谓插槽，就是指预留的一个接口或位置，这个接口和位置是由其它对象来接入或占据的，这个接口或位置在软件中通常用预留变量来表示，而`parentData`正是一个预留变量，它正是由`parent` 来赋值的，`parent`通常会通过子`RenderObject`的`parentData`存储一些和子元素相关的数据，如在Stack布局中，`RenderStack`就会将子元素的偏移数据存储在子元素的`parentData`中（具体可以查看`Positioned`实现）。
+`RenderObject`拥有一个`parent`和一个`parentData` 属性，`parent`指向渲染树中自己的父节点，而`parentData`是一个预留变量，在父组件的布局过程，会确定其所有子组件布局信息（如位置信息，即相对于父组件的偏移），而这些布局信息需要在布局阶段保存起来，因为布局信息在后续的绘制阶段还需要被使用（用于确定组件的绘制位置），而`parentData`属性的主要作用就是保存布局信息，比如在 Stack 布局中，`RenderStack`就会将子元素的偏移数据存储在子元素的`parentData`中（具体可以查看`Positioned`实现）。
 
-`RenderObject`类本身实现了一套基础的layout和绘制协议，但是并没有定义子节点模型（如一个节点可以有几个子节点，没有子节点？一个？两个？或者更多？）。 它也没有定义坐标系统（如子节点定位是在笛卡尔坐标中还是极坐标？）和具体的布局协议（是通过宽高还是通过constraint和size?，或者是否由父节点在子节点布局之前或之后设置子节点的大小和位置等）。
+`RenderObject`类本身实现了一套基础的布局和绘制协议，但是并没有定义子节点模型（如一个节点可以有几个子节点，没有子节点？一个？两个？或者更多？）。 它也没有定义坐标系统（如子节点定位是在笛卡尔坐标中还是极坐标？）和具体的布局协议（是通过宽高还是通过constraint和size?，或者是否由父节点在子节点布局之前或之后设置子节点的大小和位置等）。
 
-为此，Flutter框架提供了一个`RenderBox`和一个 `RenderSliver`类，它们都是继承自`RenderObject`，布局坐标系统采用笛卡尔坐标系，这和Android和iOS原生坐标系是一致的，都是屏幕的top、left是原点，然后分宽高两个轴，大多数情况下。而 Flutter 基于这两个类分别实现了基于 RenderBox 的盒模型布局和基于 Sliver 的按需加载模型，这个我们已经在前面章节介绍过。
+为此，Flutter框架提供了一个`RenderBox`和一个 `RenderSliver`类，它们都是继承自`RenderObject`，布局坐标系统采用笛卡尔坐标系，屏幕的(top, left)是原点。而 Flutter 基于这两个类分别实现了基于 RenderBox 的盒模型布局和基于 Sliver 的按需加载模型，这个我们已经在前面章节介绍过。
 
 ## 总结
 
