@@ -14,8 +14,13 @@ Flutter 自带的 Checkbox 组件是不能自由指定大小的，本节我们�
 CustomCheckbox 定义如下：
 
 ```dart
+import 'dart:math';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/scheduler.dart';
+
 class CustomCheckbox extends LeafRenderObjectWidget {
-  CustomCheckbox({
+  const CustomCheckbox({
     Key? key,
     this.strokeWidth = 2.0,
     this.value = false,
@@ -27,7 +32,7 @@ class CustomCheckbox extends LeafRenderObjectWidget {
 
   final double strokeWidth; // “勾”的线条宽度
   final Color strokeColor; // “勾”的线条宽度
-  final Color? fillColor; // 背景填充颜色
+  final Color? fillColor; // 填充颜色
   final bool value; //选中状态
   final double radius; // 圆角
   final ValueChanged<bool>? onChanged; // 选中状态发生改变后的回调
@@ -37,7 +42,7 @@ class CustomCheckbox extends LeafRenderObjectWidget {
     return RenderCustomCheckbox(
       strokeWidth,
       strokeColor,
-      fillColor ?? Theme.of(context).primaryColor, // 填充颜色如果未指定则使用主题色
+      fillColor ?? Theme.of(context).primaryColor,
       value,
       radius,
       onChanged,
@@ -47,7 +52,6 @@ class CustomCheckbox extends LeafRenderObjectWidget {
   @override
   void updateRenderObject(context, RenderCustomCheckbox renderObject) {
     if (renderObject.value != value) {
-      //选中状态发生了变化，则需要调整动画状态以执行过渡动画
       renderObject.animationStatus =
           value ? AnimationStatus.forward : AnimationStatus.reverse;
     }
@@ -272,6 +276,7 @@ void _scheduleAnimation() {
 
 ```dart
 // 必须置为true，确保能通过命中测试
+@override
 bool hitTestSelf(Offset position) => true;
 
 // 只有通过命中测试，才会调用本方法，我们在手指抬起时触发事件即可
@@ -294,8 +299,6 @@ void handleEvent(PointerEvent event, covariant BoxHitTestEntry entry) {
 mixin RenderObjectAnimationMixin on RenderObject {
   double _progress = 0;
   int? _lastTimeStamp;
-
-
 
   // 动画时长，子类可以重写
   Duration get duration => const Duration(milliseconds: 200);
@@ -361,7 +364,7 @@ mixin RenderObjectAnimationMixin on RenderObject {
 
 ```dart
 class CustomCheckbox extends LeafRenderObjectWidget {
-  CustomCheckbox({
+  const CustomCheckbox({
     Key? key,
     this.strokeWidth = 2.0,
     this.value = false,
@@ -405,7 +408,7 @@ class CustomCheckbox extends LeafRenderObjectWidget {
       ..onChanged = onChanged;
   }
 }
-// 动画调度相关逻辑直接 with  RenderObjectAnimationMixin即可
+
 class RenderCustomCheckbox extends RenderBox with RenderObjectAnimationMixin {
   bool value;
   int pointerId = -1;
@@ -415,7 +418,7 @@ class RenderCustomCheckbox extends RenderBox with RenderObjectAnimationMixin {
   double radius;
   ValueChanged<bool>? onChanged;
 
-  RenderCustomCheckbox2(this.strokeWidth, this.strokeColor, this.fillColor,
+  RenderCustomCheckbox(this.strokeWidth, this.strokeColor, this.fillColor,
       this.value, this.radius, this.onChanged) {
     progress = value ? 1 : 0;
   }
@@ -501,11 +504,12 @@ class RenderCustomCheckbox extends RenderBox with RenderObjectAnimationMixin {
   void performLayout() {
     // 如果父组件指定了固定宽高，则使用父组件指定的，否则宽高默认置为 25
     size = constraints.constrain(
-      constraints.isTight ? Size.infinite : Size(25, 25),
+      constraints.isTight ? Size.infinite : const Size(25, 25),
     );
   }
 
   // 必须置为true，否则不可以响应事件
+  @override
   bool hitTestSelf(Offset position) => true;
 
   // 只有通过点击测试的组件才会调用本方法

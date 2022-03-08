@@ -1,6 +1,6 @@
 // .vuepress/config.js
 module.exports = {
-  title:'《Flutter实战·第二版》- Preview',
+  title:'《Flutter实战·第二版》',
   dest:'docs',
   markdown: {
    lineNumbers: true

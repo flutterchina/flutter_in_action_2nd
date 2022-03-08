@@ -115,7 +115,7 @@ class AnimatedSwitcherCounterRoute extends StatefulWidget {
 我们可以通过继承 StatefulWidget 来实现`AnimatedSwitcher`，具体做法是在`didUpdateWidget` 回调中判断其新旧 child 是否发生变化，如果发生变化，则对旧 child 执行反向退场（reverse）动画，对新child执行正向（forward）入场动画即可。下面是`AnimatedSwitcher`实现的部分核心伪代码：
 
 ```dart
-Widget _widget; //
+Widget _widget; 
 void didUpdateWidget(AnimatedSwitcher oldWidget) {
   super.didUpdateWidget(oldWidget);
   // 检查新旧child是否发生变化(key和类型同时相等则返回true，认为没变化)
@@ -179,25 +179,23 @@ AnimatedSwitcher(
 
 ```dart
 class MySlideTransition extends AnimatedWidget {
-  MySlideTransition({
-    Key key,
+  const MySlideTransition({
+    Key? key,
     required Animation<Offset> position,
     this.transformHitTests = true,
-    this.child,
-  })
-      : assert(position != null),
-        super(key: key, listenable: position) ;
+    required this.child,
+  }) : super(key: key, listenable: position);
 
-  Animation<Offset> get position => listenable;
   final bool transformHitTests;
+
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    Offset offset=position.value;
-    //动画反向执行时，调整x偏移，实现“从左边滑出隐藏”
+    final position = listenable as Animation<Offset>;
+    Offset offset = position.value;
     if (position.status == AnimationStatus.reverse) {
-         offset = Offset(-offset.dx, offset.dy);
+      offset = Offset(-offset.dx, offset.dy);
     }
     return FractionalTranslation(
       translation: offset,
@@ -237,45 +235,39 @@ AnimatedSwitcher(
 ```dart
 class SlideTransitionX extends AnimatedWidget {
   SlideTransitionX({
-    Key key,
+    Key? key,
     required Animation<double> position,
     this.transformHitTests = true,
     this.direction = AxisDirection.down,
-    this.child,
-  })
-      : assert(position != null),
-        super(key: key, listenable: position) {
-    // 偏移在内部处理      
+    required this.child,
+  }) : super(key: key, listenable: position) {
     switch (direction) {
       case AxisDirection.up:
-        _tween = Tween(begin: Offset(0, 1), end: Offset(0, 0));
+        _tween = Tween(begin: const Offset(0, 1), end: const Offset(0, 0));
         break;
       case AxisDirection.right:
-        _tween = Tween(begin: Offset(-1, 0), end: Offset(0, 0));
+        _tween = Tween(begin: const Offset(-1, 0), end: const Offset(0, 0));
         break;
       case AxisDirection.down:
-        _tween = Tween(begin: Offset(0, -1), end: Offset(0, 0));
+        _tween = Tween(begin: const Offset(0, -1), end: const Offset(0, 0));
         break;
       case AxisDirection.left:
-        _tween = Tween(begin: Offset(1, 0), end: Offset(0, 0));
+        _tween = Tween(begin: const Offset(1, 0), end: const Offset(0, 0));
         break;
     }
   }
-
-
-  Animation<double> get position => listenable;
 
   final bool transformHitTests;
 
   final Widget child;
 
-  //退场（出）方向
   final AxisDirection direction;
 
   late final Tween<Offset> _tween;
 
   @override
   Widget build(BuildContext context) {
+    final position = listenable as Animation<double>;
     Offset offset = _tween.evaluate(position);
     if (position.status == AnimationStatus.reverse) {
       switch (direction) {

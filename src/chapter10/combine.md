@@ -20,40 +20,41 @@ Flutter Material组件库中的按钮默认不支持渐变背景，为了实现�
 import 'package:flutter/material.dart';
 
 class GradientButton extends StatelessWidget {
-  GradientButton({
+  const GradientButton({Key? key, 
     this.colors,
     this.width,
     this.height,
     this.onPressed,
     this.borderRadius,
-    @required this.child,
-  });
+    required this.child,
+  }) : super(key: key);
 
   // 渐变色数组
-  final List<Color> colors;
+  final List<Color>? colors;
 
   // 按钮宽高
-  final double width;
-  final double height;
-
-  final Widget child;
-  final BorderRadius borderRadius;
+  final double? width;
+  final double? height;
+  final BorderRadius? borderRadius;
 
   //点击回调
-  final GestureTapCallback onPressed;
+  final GestureTapCallback? onPressed;
+
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
 
     //确保colors数组不空
-    List<Color> _colors = colors ??
-        [theme.primaryColor, theme.primaryColorDark ?? theme.primaryColor];
+    List<Color> _colors =
+        colors ?? [theme.primaryColor, theme.primaryColorDark];
 
     return DecoratedBox(
       decoration: BoxDecoration(
         gradient: LinearGradient(colors: _colors),
         borderRadius: borderRadius,
+        //border: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       ),
       child: Material(
         type: MaterialType.transparency,
@@ -68,7 +69,7 @@ class GradientButton extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: DefaultTextStyle(
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                   child: child,
                 ),
               ),
@@ -81,7 +82,7 @@ class GradientButton extends StatelessWidget {
 }
 ```
 
-可以看到`GradientButton`是由`DecoratedBox`、`Padding`、`Center`、`InkWell`等组件组合而成。当然上面的代码只是一个示例，作为一个按钮它还并不完整，比如没有禁用状态，读者可以根据实际需要来完善。
+可以看到`GradientButton`是由`DecoratedBox`、`Padding`、`Center`、`InkWell`等组件组合而成。当然上面的代码只是一个示例，作为一个按钮它还并不完整，比如没有禁用状态，读者可以根据实际需要来完善，为了使用方便，笔者封装了一个功能更加完整的GradientButton，并将它添加到了flukit组件库中，读者可以引入flukit库后就可以直接使用了。
 
 #### 使用GradientButton
 
@@ -90,6 +91,8 @@ import 'package:flutter/material.dart';
 import '../widgets/index.dart';
 
 class GradientButtonRoute extends StatefulWidget {
+  const GradientButtonRoute({Key? key}) : super(key: key);
+
   @override
   _GradientButtonRouteState createState() => _GradientButtonRouteState();
 }
@@ -97,29 +100,29 @@ class GradientButtonRoute extends StatefulWidget {
 class _GradientButtonRouteState extends State<GradientButtonRoute> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          GradientButton(
-            colors: [Colors.orange, Colors.red],
-            height: 50.0,
-            child: Text("Submit"),
-            onPressed: onTap,
-          ),
-          GradientButton(
-            height: 50.0,
-            colors: [Colors.lightGreen, Colors.green[700]],
-            child: Text("Submit"),
-            onPressed: onTap,
-          ),
-          GradientButton(
-            height: 50.0,
-            colors: [Colors.lightBlue[300], Colors.blueAccent],
-            child: Text("Submit"),
-            onPressed: onTap,
-          ),
-        ],
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        GradientButton(
+          colors: const [Colors.orange, Colors.red],
+          height: 50.0,
+          child: const Text("Submit"),
+          onPressed: onTap,
+        ),
+        GradientButton(
+          height: 50.0,
+          colors: [Colors.lightGreen, Colors.green.shade700],
+          child: const Text("Submit"),
+          onPressed: onTap,
+        ),
+        GradientButton(
+          height: 50.0,
+          //borderRadius: const BorderRadius.all(Radius.circular(5)),
+          colors: [Colors.lightBlue.shade300, Colors.blueAccent],
+          child: const Text("Submit"),
+          onPressed: onTap,
+        ),
+      ],
     );
   }
   onTap() {
@@ -128,6 +131,8 @@ class _GradientButtonRouteState extends State<GradientButtonRoute> {
 }
 ```
 
+
+
 ### 总结
 
-通过组合的方式定义组件和我们之前写界面并无差异，不过在抽离出单独的组件时我们要考虑代码规范性，如必要参数要用`@required` 标注，对于可选参数在特定场景需要判空或设置默认值等。这是由于使用者大多时候可能不了解组件的内部细节，所以为了保证代码健壮性，我们需要在用户错误地使用组件时能够兼容或报错提示（使用`assert`断言函数）。
+通过组合的方式定义组件和我们之前写界面并无差异，不过在抽离出单独的组件时我们要考虑代码规范性，如必要参数要用`required`关键词标注，对于可选参数在特定场景需要判空或设置默认值等。这是由于使用者大多时候可能不了解组件的内部细节，所以为了保证代码健壮性，我们需要在用户错误地使用组件时能够兼容或报错提示（使用`assert`断言函数）。

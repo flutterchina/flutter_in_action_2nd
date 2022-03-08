@@ -20,15 +20,18 @@
 
 ```dart
 class StaggerAnimation extends StatelessWidget {
-  StaggerAnimation({ Key key, this.controller }): super(key: key){
+  StaggerAnimation({
+    Key? key,
+    required this.controller,
+  }) : super(key: key) {
     //高度动画
     height = Tween<double>(
-      begin:.0 ,
+      begin: .0,
       end: 300.0,
     ).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Interval(
+        curve: const Interval(
           0.0, 0.6, //间隔，前60%的动画时间
           curve: Curves.ease,
         ),
@@ -36,25 +39,25 @@ class StaggerAnimation extends StatelessWidget {
     );
 
     color = ColorTween(
-      begin:Colors.green ,
-      end:Colors.red,
+      begin: Colors.green,
+      end: Colors.red,
     ).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Interval(
-          0.0, 0.6,//间隔，前60%的动画时间
+        curve: const Interval(
+          0.0, 0.6, //间隔，前60%的动画时间
           curve: Curves.ease,
         ),
       ),
     );
 
     padding = Tween<EdgeInsets>(
-      begin:EdgeInsets.only(left: .0),
-      end:EdgeInsets.only(left: 100.0),
+      begin: const EdgeInsets.only(left: .0),
+      end: const EdgeInsets.only(left: 100.0),
     ).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Interval(
+        curve: const Interval(
           0.6, 1.0, //间隔，后40%的动画时间
           curve: Curves.ease,
         ),
@@ -62,16 +65,15 @@ class StaggerAnimation extends StatelessWidget {
     );
   }
 
+  late final Animation<double> controller;
+  late final Animation<double> height;
+  late final Animation<EdgeInsets> padding;
+  late final Animation<Color?> color;
 
-  final Animation<double> controller;
-  Animation<double> height;
-  Animation<EdgeInsets> padding;
-  Animation<Color> color;
-
-  Widget _buildAnimation(BuildContext context, Widget child) {
+  Widget _buildAnimation(BuildContext context, child) {
     return Container(
       alignment: Alignment.bottomCenter,
-      padding:padding.value ,
+      padding: padding.value,
       child: Container(
         color: color.value,
         width: 50.0,
