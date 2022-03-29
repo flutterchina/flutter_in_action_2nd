@@ -150,7 +150,9 @@ class _ProgressRouteState extends State<ProgressRoute>
   void initState() {
     //动画执行时间3秒  
     _animationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 3));
+        AnimationController(
+         vsync: this, // 注意需要混入 with SingleTickerProviderStateMixin
+	    duration: Duration(seconds: 3));
     _animationController.forward();
     _animationController.addListener(() => setState(() => {}));
     super.initState();
