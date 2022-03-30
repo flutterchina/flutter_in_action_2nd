@@ -70,7 +70,7 @@ Widget buildTwoSliverList() {
 | SliverAnimatedList        | 添加/删除列表项可以执行动画        | AnimatedList                     |
 | SliverGrid                | 网格                               | GridView                         |
 | SliverPrototypeExtentList | 根据原型生成高度固定的列表         | ListView，指定`prototypeItem` 时 |
-| SliverFillViewport        | 包含多给子组件，每个都可以填满屏幕 | PageView                         |
+| SliverFillViewport        | 包含多个子组件，每个都可以填满屏幕 | PageView                         |
 
 除了和列表对应的 Sliver 之外还有一些用于对 Sliver 进行布局、装饰的组件，**它们的子组件必须是 Sliver**，我们列举几个常用的：
 
