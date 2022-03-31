@@ -180,7 +180,7 @@ enum SchedulerPhase {
 
 需要注意，我们接下来要重点介绍的渲染管线就是在 persistentCallbacks 中执行的。
 
-### 渲染管线（rendering pipline）
+### 渲染管线（rendering pipeline）
 
 当新的 frame 到来时，调用到 WidgetsBinding 的 `drawFrame()` 方法，我们来看看它的实现：
 
@@ -220,14 +220,14 @@ void drawFrame() {
 4. 重绘。
 5. 上屏：将绘制的产物显示在屏幕上
 
-我们称上面的5步为  rendering pipline，中文翻译为 “渲染流水线” 或 “渲染管线”。而渲染管线的这 5 个步骤的具体过程便是本章重点要介绍的。下面我们以 setState 的执行更新的流程为例先对整个更新流程有一个大概的影响
+我们称上面的5步为  rendering pipeline，中文翻译为 “渲染流水线” 或 “渲染管线”。而渲染管线的这 5 个步骤的具体过程便是本章重点要介绍的。下面我们以 setState 的执行更新的流程为例先对整个更新流程有一个大概的影响
 
 ### setState 执行流
 
 setState 调用后：
 
 1. 首先调用当前 element 的 markNeedsBuild 方法，将当前 element标记为 dirty 。
-2. 接着调用 scheduleBuildFor，将当前 element 添加到piplineOwner的 dirtyElements 列表。
+2. 接着调用 scheduleBuildFor，将当前 element 添加到pipelineOwner的 dirtyElements 列表。
 3. 最后请求一个新的 frame，随后会绘制新的 frame：onBuildScheduled->ensureVisualUpdate->scheduleFrame() 。当新的 frame 到来时执行渲染管线
 
 ```dart

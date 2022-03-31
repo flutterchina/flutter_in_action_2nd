@@ -182,7 +182,7 @@ Dart是一种真正的面向对象的语言，所以即使是函数也是对象�
    包装一组函数参数，用[]标记为可选的位置参数，并放在参数列表的最后面：
 
    ```dart
-   String say(String from, String msg, [String device]) {
+   String say(String from, String msg, [String? device]) {
      var result = '$from says $msg';
      if (device != null) {
        result = '$result with a $device';

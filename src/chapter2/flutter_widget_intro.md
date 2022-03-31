@@ -125,7 +125,7 @@ class Echo extends StatelessWidget  {
   final Color backgroundColor;
 
   @override
-  widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Center(
       child: Container(
         color: backgroundColor,

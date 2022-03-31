@@ -261,7 +261,7 @@ void markNeedsLayout() {
     markParentNeedsLayout(); // 递归调用前节点到其布局边界节点路径上所有节点的方法 markNeedsLayout
   } else {// 如果是布局边界节点 
     if (owner != null) {
-      // 将布局边界节点加入到 piplineOwner._nodesNeedingLayout 列表中
+      // 将布局边界节点加入到 pipelineOwner._nodesNeedingLayout 列表中
       owner!._nodesNeedingLayout.add(this); 
       owner!.requestVisualUpdate();//该函数最终会请求新的 frame
     }
@@ -271,7 +271,7 @@ void markNeedsLayout() {
 
 ### flushLayout()
 
-markNeedsLayout 执行完毕后，就会将其 relayoutBoundary  节点添加到 `piplineOwner._nodesNeedingLayout` 列表中，然后请求新的 frame，新的 frame 到来时就会执行 `drawFrame` 方法（可以参考上一节）：
+markNeedsLayout 执行完毕后，就会将其 relayoutBoundary  节点添加到 `pipelineOwner._nodesNeedingLayout` 列表中，然后请求新的 frame，新的 frame 到来时就会执行 `drawFrame` 方法（可以参考上一节）：
 
 ```dart
 void drawFrame() {
