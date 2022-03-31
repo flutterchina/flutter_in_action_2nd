@@ -58,7 +58,7 @@ class _PointerMoveIndicatorState extends State<PointerMoveIndicator> {
 如：
 
 - `position`：它是指针相对于当对于全局坐标的偏移。
-- `localPosition`: 它是指针相对于当对于全局坐标的偏移
+- `localPosition`: 它是指针相对于当对于本身布局坐标的偏移。
 - `delta`：两次指针移动事件（`PointerMoveEvent`）的距离。
 - `pressure`：按压力度，如果手机屏幕支持压力传感器(如iPhone的3D Touch)，此属性会更有意义，如果手机不支持，则始终为1。
 - `orientation`：指针移动方向，是一个角度值。

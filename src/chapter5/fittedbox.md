@@ -134,7 +134,7 @@ Widget wContainer(BoxFit boxFit) {
 
 回示例中，当 Row 没有被 FittedBox 包裹时，此时父组件传给 Row 的约束的 maxWidth 为屏幕宽度，此时，Row 的宽度也就是屏幕宽度，而当被FittedBox 包裹时，FittedBox  传给 Row 的约束的 maxWidth 为无限大（double.infinity），因此Row 的最终宽度就是子组件的宽度之和。
 
-父组件传递个子组件的约束可以用我们上一章中封装的 LayoutLogPrint 来打印出来：
+父组件传递给子组件的约束可以用我们上一章中封装的 LayoutLogPrint 来打印出来：
 
 ```dart
 LayoutLogPrint(tag: 1, child: wRow(' 800 ')),
