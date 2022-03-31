@@ -164,7 +164,7 @@ class ThemeTestRoute extends StatefulWidget {
 }
 
 class _ThemeTestRouteState extends State<ThemeTestRoute> {
-  Color _themeColor = Colors.teal; //当前路由主题色
+  var _themeColor = Colors.teal; //当前路由主题色
 
   @override
   Widget build(BuildContext context) {

@@ -27,7 +27,7 @@ Align({
 Container(
   height: 120.0,
   width: 120.0,
-  color: Colors.shade50,
+  color: Colors.bule.shade50,
   child: Align(
     alignment: Alignment.topRight,
     child: FlutterLogo(
