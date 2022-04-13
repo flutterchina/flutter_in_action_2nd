@@ -1,142 +1,67 @@
-# Summary
+# 第二版序
 
-* [第二版序](preface.md)
+> 本书是[Flutter中国开源项目](https://github.com/flutterchina)发起人杜文（网名wendux） 创作的一本系统介绍Flutter技术的中文书籍，旨在帮助开发者入门，系统地、循序渐进的了解Flutter。
 
 
-## 入门篇
+转眼间从本书第一版电子版发布到现在已经接近两年时间，这两年中，本书实体书出版并成为Flutter技术类畅销书之一，本书电子版官网UV 超 60 万，日访问人数长期稳定在3500。当然，本书取得如此成绩最主要的一个因素是这两年 Flutter 技术热度持续提高，整个 Flutter 生态和社区也发生了翻天覆地的变化，主要体现在：
 
-* [第一章：起步](chapter1/index.md)
-    * [1.1：移动开发技术简介](chapter1/mobile_development_intro.md)
-    * [1.2：初识Flutter](chapter1/flutter_intro.md)   
-    * [1.3：安装 Flutter](chapter1/install_flutter.md)   
-    * [1.4：Dart语言简介](chapter1/dart.md)    
+- Flutter 稳定版发布到了2.10，现在已经支持移动端、Web端和PC端，通过Flutter 开发的应用程序能够轻松的在各个平台迁移并获得很好的性能。
+- Flutter 在 Github Star 数上排名已经进入了前20，在跨端框架中已经成为稳稳的第一。
+- 全球很多公司都已经在商业项目中使用 Flutter，比如Google、微软、阿里、字节、百度、京东等，已经有很多成功案例。
+- Flutter 第三方库数量持续保持高速增长，有越来越多的人为Flutter生态贡献代码。Flutter 相关的教程、书籍数量也在高速增长。
 
-* [第二章：第一个Flutter应用](chapter2/index.md)
-    * [2.1：计数器示例](chapter2/first_flutter_app.md) 
-    * [2.2：Widget简介](chapter2/flutter_widget_intro.md)
-    * [2.3：状态管理](chapter2/state_manage.md)
-    * [2.4：路由管理](chapter2/flutter_router.md)    
-    * [2.5：包管理](chapter2/flutter_package_mgr.md)        
-    * [2.6：资源管理](chapter2/flutter_assets_mgr.md) 
-    * [2.7：调试](chapter2/flutter_app_debug.md) 
-    * [2.8：异常捕获与上报](chapter2/thread_model_and_error_report.md)
+综上，可以看见Flutter 技术从第一个测试版发布到现在短短 3 年多时间获得了巨大的成功。而之所以能获得成功的主要原因是：Flutter 既能保持很高的开发效率的又能获得丝滑的性能。根据近几年实践统计，Flutter 相比原生开发，人效能提高近一倍，而性能可以接近原生。
 
-* [第三章：基础组件](chapter3/index.md)
-    * [3.1：文本、字体样式](chapter3/text.md)
-    * [3.2：按钮](chapter3/buttons.md)      
-    * [3.3：图片和Icon](chapter3/img_and_icon.md)   
-    * [3.4：单选框和复选框](chapter3/radio_and_checkbox.md)   
-    * [3.5：输入框和表单](chapter3/input_and_form.md) 
-    * [3.6：进度指示器](chapter3/progress.md)     
-    
-* [第四章：布局类组件](chapter4/index.md)
-    * [4.1：布局类组件简介](chapter4/intro.md)
-    * [4.2：布局原理与约束（constraints）](chapter4/constraints.md)
-    * [4.3：线性布局（Row、Column）](chapter4/row_and_column.md)
-    * [4.4：弹性布局（Flex）](chapter4/flex.md)
-    * [4.5：流式布局（Wrap、Flow）](chapter4/wrap_and_flow.md)      
-    * [4.6：层叠布局（Stack、Positioned）](chapter4/stack.md)
-    * [4.7：对齐与相对定位（Align）](chapter4/alignment.md)    
-    * [4.8：LayoutBuilder、AfterLayout](chapter4/layoutbuilder.md)    
+正是因为Flutter 技术发展太快，本书第一版中的部分内容已经过时，在读者们的催促下，才有了第二版的更新。目前第二版处于草稿阶段，尚未正式完成，处于预览阶段，大家如有内容上的建议可以直接在 github 上提 issue。
 
-* [第五章：容器类组件](chapter5/index.md)
-    * [5.1：填充（Padding）](chapter5/padding.md)
-    * [5.2：装饰容器（DecoratedBox）](chapter5/decoratedbox.md)      
-    * [5.3：变换（Transform）](chapter5/transform.md) 
-    * [5.4：Container容器](chapter5/container.md) 
-    * [5.5：剪裁（Clip）](chapter5/clip.md) 
-    * [5.6：空间适配FittedBox](chapter5/fittedbox.md)
-    * [5.7：页面骨架Scaffold](chapter5/material_scaffold.md) 
-    
-## 进阶篇
+## 第二版变化
 
-* [第六章：可滚动组件](chapter6/index.md)
-    * [6.1：可滚动组件简介](chapter6/intro.md)
-    * [6.2：SingleChildScrollView](chapter6/single_child_scrollview.md)
-    * [6.3：ListView](chapter6/listview.md)
-    * [6.4：滚动监听及控制（ScrollController）](chapter6/scroll_controller.md) 
-    * [6.5：AnimatedList](chapter6/animatedlist.md) 
-    * [6.6：GridView](chapter6/gridview.md)    
-    * [6.7：PageView与页面缓存](chapter6/pageview.md) 
-    * [6.8：可滚动组件子项缓存](chapter6/keepalive.md)   
-    * [6.9：TabBarView](chapter6/tabview.md)         
-    * [6.10：CustomScrollView与Slivers](chapter6/custom_scrollview.md) 
-    * [6.11：自定义Sliver](chapter6/sliver.md) 
-    * [6.12：NestedScrollView](chapter6/nestedscrollview.md) 
+主要有以下变化：
 
-* [第七章：功能型组件](chapter7/index.md)
-    * [7.1：导航返回拦截（WillPopScope）](chapter7/willpopscope.md)
-    * [7.2：数据共享（InheritedWidget）](chapter7/inherited_widget.md)
-    * [7.3：跨组件状态共享（Provider）](chapter7/provider.md)
-    * [7.4：颜色和主题（Theme）](chapter7/theme.md) 
-    * [7.5：ValueListenableBuilder](chapter7/value_listenable_builder.md) 
-    * [7.6：异步UI更新（FutureBuilder、StreamBuilder）](chapter7/futurebuilder_and_streambuilder.md)
-    * [7.7：对话框详解](chapter7/dailog.md)  
-    
-* [第八章：事件处理与通知](chapter8/index.md)
-    * [8.1：原始指针事件处理](chapter8/listener.md)
-    * [8.2：手势识别](chapter8/gesture.md)
-    * [8.3：Flutter事件机制](chapter8/hittest.md)
-    * [8.4：手势原理与手势冲突](chapter8/gesture_conflict.md)
-    * [8.5：全局事件总线](chapter8/eventbus.md) 
-    * [8.6：通知(Notification)](chapter8/notification.md)     
-    
-* [第九章：动画](chapter9/index.md)
-    * [9.1：Flutter动画简介](chapter9/intro.md)
-    * [9.2：动画结构](chapter9/animation_structure.md)
-    * [9.3：自定义路由过渡动画](chapter9/route_transition.md) 
-    * [9.4：Hero动画](chapter9/hero.md) 
-    * [9.5：交织动画](chapter9/stagger_animation.md) 
-    * [9.6：通用“动画切换”组件（AnimatedSwitcher）](chapter9/animated_switcher.md) 
-    * [9.7：动画过渡组件](chapter9/animated_widgets.md)  
-    
-* [第十章：自定义组件](chapter10/intro.md)
-    * [10.1：自定义组件方法简介](chapter10/intro.md)
-    * [10.2：组合现有组件](chapter10/combine.md)
-    * [10.3：组合实例：TurnBox](chapter10/turn_box.md)
-    * [10.4：CustomPaint与Canvas](chapter10/custom_paint.md) 
-    * [10.5：自绘实例：圆形渐变进度条](chapter10/gradient_circular_progress_demo.md) 
-    * [10.6：自绘组件：CustomCheckbox](chapter10/custom_checkbox.md)
-    * [10.7：自绘组件：DoneWidget](chapter10/done_widget.md)
-    * [10.8：水印组件实例：文本绘制与离屏渲染](chapter10/watermark.md)
-    
-* [第十一章：文件操作与网络请求](chapter11/index.md)
-    * [11.1：文件操作](chapter11/file_operation.md)
-    * [11.2：Http请求-HttpClient](chapter11/http.md)
-    * [11.3：Http请求库-dio](chapter11/dio.md) 
-    * [11.5：WebSocket](chapter11/websocket.md) 
-    * [11.6：使用Socket API](chapter11/socket.md) 
-    * [11.7：Json转Dart Model类](chapter11/json_model.md) 
-    
-* [第十二章：Flutter 扩展](chapter12/index.md)
-    * [12.1：包和插件](chapter12/package_and_plugin.md) 
-    * [12.2：Flutter Web](chapter12/flutter_web.md) 
+- 基于最新（2022.2）的 Flutter/Dart 版本（Flutter 2.10），对于书中依赖的第三方库都会升级到最新版本。
+- 有 60% 的内容进行了修改和重构，添加了更多的示例，对部分章节的顺序进行了调整，使学习的梯度更加合理，以期能够循序渐进的帮助读者了解Flutter。
+- 进阶篇中对Flutter中相对较深但很重要的内容进行了深入介绍，比如可Sliver布局协议、渲染相关的 Layer 以及通过定义 RenderObject 的方式来定义组件。
+- Flutter 核心原理一章进行了重写，不再只是停留在文字介绍，同时添加了很多实例来辅助理解Flutter 的布局、绘制等原理。
+- 本书内容更聚焦于flutter技术本身，删除了一些和具体平台相关的内容，比如Android和iOS的插件开发，以及如何进行原生+flutter混合开发等，这些内容读者可以去flutter官网查找相应教程。
+- 电子版添加了一些动图。
+- 修改了第一版中的一些错误。
 
-* [第十三章：国际化](chapter13/index.md)
-    * [13.1：让App支持多语言](chapter13/multi_languages_support.md)
-    * [13.2：实现Localizations](chapter13/locallization_implement.md) 
-    * [13.3：使用Intl包](chapter13/intl.md) 
-    * [13.4：国际化常见问题](chapter13/faq.md) 
-    
-* [第十四章：Flutter核心原理](chapter14/index.md)
-    * [14.1：Flutter UI框架（Framework）](chapter14/flutter_ui_system.md)
-    * [14.2：Element、BuildContext和RenderObject](chapter14/element_buildcontext.md)
-    * [14.3：Flutter启动流程和渲染管线](chapter14/flutter_app_startup.md)
-    * [14.4：Flutter 布局（Layout）过程](chapter14/layout.md)
-    * [14.5：Flutter 绘制（一）绘制原理及Layer](chapter14/paint.md)
-    * [14.6：Flutter 绘制（二）组件树绘制流程](chapter14/paint.md)
-    * [14.7：Flutter 绘制（三）Layer实例](chapter14/layer.md)
-    * [14.8：Flutter 绘制（四）Compositing](chapter14/compositing.md)
+## 本书组织结构
 
-## 实例篇
+本书采用由浅入深的方式介绍Flutter技术原理，分为三篇，总计15章，各篇的主要内容如下。
 
-* [第十五章：一个完整的Flutter应用](chapter15/intro.md)
-    * [15.1：应用简介](chapter15/intro.md)    
-    * [15.2：APP代码结构](chapter15/code_structure.md) 
-    * [15.3：Model类定义](chapter15/models.md) 
-    * [15.4：全局变量及共享状态](chapter15/globals.md)  
-    * [15.5：网络请求封装](chapter15/network.md) 
-    * [15.6：App入口及首页](chapter15/entry.md) 
-    * [15.7：登录页](chapter15/login_page.md) 
-    * [15.8：多语言和多主题](chapter15/language_and_theme_setting.md)      
+- 第一篇，入门篇（第1章~第5章），包括Flutter技术的出现背景和简介、Flutter的各种类型的Widget以及如何构建UI。通过学习本章，读者可以掌握如何使用Flutter来构建UI界面。
+- 第二篇，进阶篇（第6章~第14章），包括可滚动组件、事件机制、动画、自定义组件、文件和网络、国际化以及Flutter核心原理等。通过本章内容，读者可以对Flutter整体构建及原理有一个深入的认识。
+- 第三篇，实例篇（第15章），本章主要通过一个简版的Github APP来将前面介绍的内容串起来，让开发者对一个完整的Flutter APP开发流有个了解。
+
+由于Flutter的很多知识点是相互交织的，很难将它们彻底划分开，所以本书中也难免会出现一些在前面章节会使用在后面章节的场景，比如我们在入门篇介绍进度指示器时会用到在进阶篇中才介绍的动画相关知识。本书中对于这种情况会在相应的章节进行说明。读者可以直接跳到后面相应知识点章节阅读后再返回，也可以先有个印象，待学习到后面相关章节后再回头来看。
+
+## 本书特色
+
+笔者在大学时读过候捷（真名侯俊杰）写的一些 C++ 相关书籍，在他的《深入浅出MFC》一书中，有一句话我印象非常深 “唯有深入，方能浅出”。我非常认同这句话，对于一门技术，只有了解的深入，才能用最浅显、通俗的话语描述出。我在写作本书时，深入浅出就是一个主要目标。所以，本书的目标不仅是想告诉读者如何使用Flutter，而且也非常关注各个知识点的底层实现以及设计思想。从本书章节划分上来看，入门篇为“浅出”，进阶篇则是“深入”。另外由于PC客户端开发、移动开发、Web开发这些经验我都有，而Flutter本质上是一个UI系统，而UI系统的设计和实现在”大前端“下有很多相通之处，所以在本书中的一些知识点我也会对比一些其他UI系统（主要是 Android 或 Web）相应的实现，便于有相关开发经验的读者对比理解。
+
+## 本书读者对象
+
+- 读者至少熟悉一种编程语言。
+- 读者最好接触过PC客户端、移动开发或Web前端开发中的一种。
+- 本书不适合做为编程的入门读物。
+
+## 关于随书源码
+
+由于当前处于草稿阶段，待本书正式发布后会上传随书源码。
+
+
+## 权益
+
+最后，知识是应该付费的，创作不易，开源不等于免费，如果您是本书读者并手头宽裕，可以点击下面打赏按钮打赏；当然，如果您囊中羞涩，您也可以阅读本书，但我对您有个小小的要求，希望您在阅读的过程中能积极参与到本书的纠错以及未完成内容的创作上来，也算是有所付出。
+
+近来在网上发现很多**原封不动复制本书**的镜像网站和大量复制或**引用了本书但未注明出处**的博客、文章甚至书籍；对此，笔者在此声明，本书著作权归wendux所有，任何组织或个人在未经授权的情况下复制、拷贝、抄袭本书用于商业目的，笔者保留追究其法律责任的权利。如果是非商业目的的转载和引用，请注明出处并附上本书网址。
+
+### 勘误
+
+由于Flutter SDK在不断更新，本书中的部分内容（如类的继承关系、参数等）可能会和新版本的Flutter不一致，读者以最新的Flutter SDK为准。另外，由于时间仓促，书中难免有错误之处，如果发现错误，可以在本书Github项目issue列表中去反馈，地址是https://github.com/flutterchina/flutter-in-action-2nd/issues 。另外你也可以关注本书电子版官网（https://book.flutterchina.club），电子版会定期修正错误及更新内容。
+
+### 致谢
+
+感谢一直以来支持Flutter中文网、Flutter开源项目的人以及所有对本书提过PR的同学；感谢请作者喝过咖啡的同学；感谢第一版的读者，正是因为有你们天天督促我更新我才有动力；最后感谢所有支持我的人。
 
