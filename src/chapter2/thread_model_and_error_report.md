@@ -159,7 +159,7 @@ void main() {
   runZoned(
   () => runApp(MyApp()),
   zoneSpecification: ZoneSpecification(
-    // 拦截print 蜀西湖
+    // 拦截print
     print: (Zone self, ZoneDelegate parent, Zone zone, String line) {
       collectLog(line);
       parent.print(zone, "Interceptor: $line");
