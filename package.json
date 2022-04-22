@@ -6,12 +6,17 @@
   "scripts": {
     "dev": "vuepress dev src",
     "build": "vuepress build src",
-    "gif": "node gif.js"
+    "gif": "node gif.js",
+    "start": "node app.js",
+    "gzip":"cd docs && gzip -rk * "
   },
   "author": "wendux",
   "license": "ISC",
   "dependencies": {
-    "@antv/g2": "^4.0.6"
+    "@antv/g2": "^4.0.6",
+    "koa": "^2.13.4",
+    "koa-router": "^10.1.1",
+    "koa-static": "^5.0.0"
   },
   "devDependencies": {
     "canvas": "^2.8.0",
