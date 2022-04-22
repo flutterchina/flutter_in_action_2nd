@@ -2,4 +2,4 @@
 #git commit --allow-empty -m "Trigger rebuild"
 # git push web main -f
 
-git push gitee master -f
+git push gitee main -f

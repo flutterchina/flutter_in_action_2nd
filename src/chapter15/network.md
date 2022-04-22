@@ -129,10 +129,10 @@ class NetCache extends Interceptor {
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:dio/dio.dart';
 import 'package:dio/adapter.dart';
-import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 import '../index.dart';
+export 'package:dio/dio.dart' show DioError;
 
 class Git {
   // 在网络请求过程中可能会需要使用当前的context信息，比如在请求失败时
@@ -141,9 +141,9 @@ class Git {
     _options = Options(extra: {"context": context});
   }
 
-  BuildContext context;
-  Options _options;
-  static Dio dio = Dio(BaseOptions(
+  BuildContext? context;
+  late Options _options;
+  static Dio dio = new Dio(BaseOptions(
     baseUrl: 'https://api.github.com/',
     headers: {
       HttpHeaders.acceptHeader: "application/vnd.github.squirrel-girl-preview,"
@@ -161,7 +161,6 @@ class Git {
     if (!Global.isRelease) {
       (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
           (client) {
-        // 设置代理抓包，调试用
         // client.findProxy = (uri) {
         //   return 'PROXY 192.168.50.154:8888';
         // };
@@ -177,7 +176,7 @@ class Git {
     String basic = 'Basic ' + base64.encode(utf8.encode('$login:$pwd'));
     var r = await dio.get(
       "/user",
-      options: _options.merge(headers: {
+      options: _options.copyWith(headers: {
         HttpHeaders.authorizationHeader: basic
       }, extra: {
         "noCache": true, //本接口禁用缓存
@@ -193,19 +192,20 @@ class Git {
   }
 
   //获取用户项目列表
-  Future<List<Repo>> getRepos(
-      {Map<String, dynamic> queryParameters, //query参数，用于接收分页信息
-      refresh = false}) async {
+  Future<List<Repo>> getRepos({
+    Map<String, dynamic>? queryParameters, //query参数，用于接收分页信息
+    refresh = false,
+  }) async {
     if (refresh) {
       // 列表下拉刷新，需要删除缓存（拦截器中会读取这些信息）
-      _options.extra.addAll({"refresh": true, "list": true});
+      _options.extra!.addAll({"refresh": true, "list": true});
     }
     var r = await dio.get<List>(
       "user/repos",
       queryParameters: queryParameters,
       options: _options,
     );
-    return r.data.map((e) => Repo.fromJson(e)).toList();
+    return r.data!.map((e) => Repo.fromJson(e)).toList();
   }
 }
 ```
