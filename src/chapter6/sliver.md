@@ -147,7 +147,7 @@ class _SliverFlexibleHeader extends SingleChildRenderObjectWidget {
 
 这里我们继承的既不是 StatelessWidget，也不是 StatefulWidget，这是因为这两个组件主要的作用是组合 Widget，而我们要自定义 RenderObject，则需要继承 RenderObjectWidget，考虑到_SliverFlexibleHeader 有一个子节点，我们可以直接继承 SingleChildRenderObjectWidget 类，这样我们可以省去一些和布局无关的代码，比如绘制和事件的点击测试，这些功能 SingleChildRenderObjectWidget  中已经帮我们处理了。
 
-下面我们实现 _CustomHeaderRenderSliver，核心代码就在 performLayout 中，读者可参考注释：
+下面我们实现 _FlexibleHeaderRenderSliver，核心代码就在 performLayout 中，读者可参考注释：
 
 ```dart
 class _FlexibleHeaderRenderSliver extends RenderSliverSingleBoxAdapter {
