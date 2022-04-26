@@ -2,13 +2,18 @@
 module.exports = {
   title:'《Flutter实战·第二版》',
   dest:'docs',
-  base:'https://guphit.github.io/',
   markdown: {
    lineNumbers: true
   },
   head: [
     ['link', { rel: 'icon', href: '/logo.png' }]
   ],
+  configureWebpack: (config, isServer) => {
+    if (!isServer) {
+      // 修改客户端的 webpack 配置
+      config.output.publicPath="//guphit.github.io/";
+    }
+  },
   sidebarDepth: 2,
   themeConfig: {
     logo:'/logo.png',
