@@ -8,7 +8,7 @@
     "build": "vuepress build src",
     "gif": "node gif.js",
     "start": "node app.js",
-    "gzip":"cd docs && gzip -rk * "
+    "gzip": "cd docs && gzip -rk * "
   },
   "author": "wendux",
   "license": "ISC",
@@ -23,6 +23,6 @@
     "html-minifier": "^3.5.21",
     "qr-image": "^3.2.0",
     "shelljs": "^0.8.5",
-    "vuepress": "^1.8.2"
+    "vuepress": "^1.9.7"
   }
 }

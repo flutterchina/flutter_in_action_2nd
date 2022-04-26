@@ -25,7 +25,7 @@ module.exports = {
       },
       {
         title:"第一章：起步",
-        path:"/chapter1/index",
+        path:"chapter1/index",
         collapsable: false,
         children:[
           '/chapter1/mobile_development_intro',
