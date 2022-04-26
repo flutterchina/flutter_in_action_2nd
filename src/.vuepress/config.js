@@ -2,6 +2,7 @@
 module.exports = {
   title:'《Flutter实战·第二版》',
   dest:'docs',
+  base:'https://guphit.github.io/',
   markdown: {
    lineNumbers: true
   },
