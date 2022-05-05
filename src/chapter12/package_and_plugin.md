@@ -59,7 +59,7 @@ debugDefaultTargetPlatformOverride=TargetPlatform.iOS;
 print(defaultTargetPlatform); // 会输出TargetPlatform.iOS
 ```
 
-上面代码即在Android中运行后，Flutter APP就会认为是当前系统是iOS，Material组件库中所有组件交互方式都会和iOS平台对齐，`defaultTargetPlatform`的值也会变为`TargetPlatform.iOS`。
+上面代码即在Android中运行后，Flutter APP也会认为是当前系统是iOS，Material组件库中所有组件交互方式都会和iOS平台对齐，`defaultTargetPlatform`的值也会变为`TargetPlatform.iOS`。
 
 ### 常用的插件
 
