@@ -289,7 +289,7 @@ Positioned(
 1. 使用 Listener。这相当于跳出了手势识别那套规则。
 2. 自定义手势手势识别器（ Recognizer）。
 
-### 通过 Listener 解决手势冲突
+### 1. 通过 Listener 解决手势冲突
 
 通过 Listener 解决手势冲突的原因是竞争只是针对手势的，而 Listener 是监听原始指针事件，原始指针事件并非语义话的手势，所以根本不会走手势竞争的逻辑，所以也就不会相互影响。拿上面两个 Container 嵌套的例子来说，通过Listener的解决方式为：
 
@@ -315,7 +315,7 @@ Listener(  // 将 GestureDetector 换位 Listener 即可
 
 代码很简单，只需将 GestureDetector 换位 Listener 即可，可以两个都换，也可以只换一个。可以看见，通过`Listener`直接识别原始指针事件来解决冲突的方法很简单，因此，当遇到手势冲突时，我们应该优先考虑 Listener 。
 
-### 通过自定义 Recognizer 解决手势冲突
+### 2. 通过自定义 Recognizer 解决手势冲突
 
 自定义手势识别器的方式比较麻烦，原理时当确定手势竞争胜出者时，会调用胜出者的`acceptGesture` 方法，表示“宣布成功”，然后会调用其它手势识别其的` rejectGesture` 方法，表示“宣布失败”。既然如此，我们可以自定义手势识别器（Recognizer），然后去重写它的` rejectGesture` 方法：在里面调用`acceptGesture`  方法，这就相当于它失败是强制将它也变成竞争的成功者了，这样它的回调也就会执行。
 

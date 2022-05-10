@@ -128,7 +128,7 @@ class CustomHome extends Widget {
 
 对于问题2，答案当然也是肯定的，Flutter 引擎提供的 API是原始且独立的，这个与操作系统提供的API类似，上层UI框架设计成什么样完全取决于设计者，完全可以将UI框架设计成 Android 风格或 iOS 风格，但这些事Google不会再去做，我们也没必要再去搞这一套，这是因为响应式的思想本身是很棒的，之所以提出这个问题，是因为笔者认为做与不做是一回事，但知道能不能做是另一回事，这能反映出我们对知识的理解程度。
 
-## RenderObject
+## 14.2.3 RenderObject
 
 在上一节我们说过每个`Element`都对应一个`RenderObject`，我们可以通过`Element.renderObject` 来获取。并且我们也说过`RenderObject`的主要职责是Layout和绘制，所有的`RenderObject`会组成一棵渲染树Render Tree。本节我们将重点介绍一下`RenderObject`的作用。
 
@@ -140,7 +140,7 @@ class CustomHome extends Widget {
 
 为此，Flutter框架提供了一个`RenderBox`和一个 `RenderSliver`类，它们都是继承自`RenderObject`，布局坐标系统采用笛卡尔坐标系，屏幕的(top, left)是原点。而 Flutter 基于这两个类分别实现了基于 RenderBox 的盒模型布局和基于 Sliver 的按需加载模型，这个我们已经在前面章节介绍过。
 
-## 总结
+## 14.2.4 总结
 
 本节详细的介绍了`Element`的生命周期，以及它Widget、BuildContext的关系，最后介绍了 Flutter UI框架中另一个重要的角色RenderObject，下一节我们将重点介绍一下 Flutter 渲染管线中的布局流程。
 

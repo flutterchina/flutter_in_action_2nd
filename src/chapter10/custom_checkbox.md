@@ -126,7 +126,7 @@ class RenderCustomCheckbox extends RenderBox {
 }
 ```
 
-### 实现布局算法
+### 1. 实现布局算法
 
 为了使用户可以自定义宽高，我们的布局策略是：如果父组件指定了固定宽高，则使用父组件指定的，否则宽高默认置为 25：
 
@@ -139,14 +139,14 @@ void performLayout() {
 }
 ```
 
-### 绘制 CustomCheckbox
+### 2. 绘制 CustomCheckbox
 
 记下来重点就是绘制 CustomCheckbox 了，为了清洗起见，我们将绘制分为背景（矩形）和 前景（打勾）两部分，先画背景，再绘制'勾'，这里需要注意两点：
 
 1. 我们绘制的是动画执行过程中的一帧，所以需要通过动画执行的进度（progress）来计算每一帧要绘制的样子。
 2. 当 CustomCheckbox 从未选中变为选中时，我们执行正向动画，progress 的值会从 0 逐渐变为 1，因为 CustomCheckbox 的背景和前景（'勾'）的颜色要有对比，所以我们在背景绘制完之后再绘制前景。因此，我们将动画分割为两端，前 40% 的时间画背景，后 60%的时间画'勾'。
 
-#### 绘制背景
+#### 1）绘制背景
 
 下面结合图10-7，我们先看看如何绘制背景：
 
@@ -185,7 +185,7 @@ void _drawBackground(PaintingContext context, Rect rect) {
 }
 ```
 
-#### 绘制前景
+#### 2）绘制前景
 
 前景是一个"勾"，它有三个点的连线构成，为了简单起见，我们将起始点和中点拐点的位置根据 Checkbox 的大小算出固定的坐标，然后我们在每一帧中动态调整第三个点的位置就可以实现打勾动画：
 
@@ -230,9 +230,9 @@ void _drawCheckMark(PaintingContext context, Rect rect) {
 }
 ```
 
-### 调度动画
+### 3. 实现动画
 
-最后，我们需要让UI动起来，这时我们回想一下前面动画一章中的内容，会意识到 Flutter 的动画框架是依赖于 StatefulWidget 的，即当状态改变时显式或隐式的去调用 setState 触发更新。但是我们直接通过定义 RenderObject 的方式来实现的 CustomCheckbox，并不是基于 StatefulWidget ，那该怎么来调度动画呢？有两种办法：
+最后，我们需要让UI动起来，这时我们回想一下前面动画一章中的内容，会意识到 Flutter 的动画框架是依赖于 StatefulWidget 的，即当状态改变时显式或隐式的去调用 `setState` 触发更新。但是我们直接通过定义 RenderObject 的方式来实现的 CustomCheckbox，并不是基于 StatefulWidget ，那该怎么来调度动画呢？有两种办法：
 
 1. 将 CustomCheckbox 用一个 StatefulWidget 包装起来，这样就可以复用之前介绍的执行动画的方法。
 2. 自定义动画调度。
@@ -270,7 +270,7 @@ void _scheduleAnimation() {
 }
 ```
 
-### 响应点击事件
+### 4. 响应点击事件
 
 根据之前事件处理相关章节的介绍，如果我们要让渲染对象能处理事件，则它必须能通过命中测试，之后才能在 handleEvent 方法中处理事件，所以我们需要添加如下代码：
 
@@ -358,7 +358,7 @@ mixin RenderObjectAnimationMixin on RenderObject {
 }
 ```
 
-## CustomCheckbox 的完整源码
+## 10.6.3 CustomCheckbox 的完整源码
 
 则最终 CustomCheckbox 的完整源码为
 
@@ -583,7 +583,7 @@ class _CustomCheckboxTestState extends State<CustomCheckboxTest> {
 }
 ```
 
-## 10.6.3总结
+## 10.6.4 总结
 
 本节演示了如何通过自定义 RenderObject 的方式来进行UI绘制、动画调度和事件处理，可以看到通过 RenderObject 来自定义组件会比组合的方式更复杂一些，但这种方式会更接近 Flutter 组件的本质。
 

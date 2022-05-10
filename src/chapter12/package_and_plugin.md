@@ -18,7 +18,7 @@ Flutter 包分为两类：
 
 Flutter 本质上只是一个 UI 框架，运行在宿主平台之上，Flutter 本身是无法提供一些系统能力，比如使用蓝牙、相机、GPS等，因此要在 Flutter 中调用这些能力就必须和原生平台进行通信。目前Flutter 已经支持 iOS、Android、Web、macOS、Windows、Linux等众多平台，要调用特定平台 API 就需要写插件。插件是一种特殊的包，和纯 dart 包主要区别是插件中除了dart代码，还包括特定平台的代码，比如 image_picker 插件可以在 iOS 和 Android 设备上访问相册和摄像头。
 
-### 插件实现原理
+### 1. 插件实现原理
 
 我们知道一个完整的Flutter应用程序实际上包括原生代码和Flutter代码两部分。Flutter 中提供了平台通道（platform channel）用于Flutter和原生平台的通信，平台通道正是Flutter和原生之间通信的桥梁，它也是Flutter插件的底层基础设施。
 
@@ -29,7 +29,7 @@ Flutter与原生之间的通信本质上是一个远程调用（RPC），通过�
 
 由于插件编写涉及具体平台的开发知识，比如 image_picker 插件需要开发者在 iOS 和 Android 平台上分别实现图片选取和拍摄的功能，因此需要开发者熟悉原生开发，而本书主要聚焦 Flutter ，因此不做过多介绍，不过插件的开发也并不复杂，感兴趣的读者可以查看官方的[插件开发示例](https://flutter.cn/docs/development/packages-and-plugins/developing-packages)。
 
-### 如何获取平台信息
+### 2. 如何获取平台信息
 
 有时，在 Flutter 中我们想根据宿主平台添加一些差异化的功能，因此 Flutter 中提供了一个全局变量 `defaultTargetPlatform` 来获取当前应用的平台信息，`defaultTargetPlatform`定义在"platform.dart"中，它的类型是`TargetPlatform`，这是一个枚举类，定义如下：
 
@@ -61,7 +61,7 @@ print(defaultTargetPlatform); // 会输出TargetPlatform.iOS
 
 上面代码即在Android中运行后，Flutter APP就会认为是当前系统是iOS，Material组件库中所有组件交互方式都会和iOS平台对齐，`defaultTargetPlatform`的值也会变为`TargetPlatform.iOS`。
 
-### 常用的插件
+### 3. 常用的插件
 
 Flutter 官方提供了一系列常用的插件，如访问相机/相册、本地存储、播放视频等，完整列表见：https://github.com/flutter/plugins/tree/master/packages 读者可以自行查看。除了官方维护的插件，Flutter 社区也有不少现成插件，具体读者可以在 https://pub.dev/ 上查找。
 

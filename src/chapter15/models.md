@@ -2,7 +2,7 @@
 
 本节我们先梳理一下APP中将用到的数据，然后生成相应的Dart Model类。Json文件转Dart Model的方案采用前面介绍过的 json_model 包方案，因此在生成Model类之前，会修改部分json字段，比如添加“?”表示该字段可空，关于  json_model 更多信息请参考其文档。
 
-### Github账号信息
+## 15.3.1 Github账号信息
 
 登录Github后，我们需要获取当前登录者的Github账号信息，Github API接口返回Json结构如下：
 
@@ -31,7 +31,7 @@
 
 我们在“jsons”目录下创建一个“user.json”文件保存上述信息。
 
-### API缓存策略信息
+## 15.3.2 API缓存策略信息
 
 由于Github服务器在国内访问速度较慢，我们对Github API应用一些简单的缓存策略。我们在“jsons”目录下创建一个“cacheConfig.json”文件缓存策略信息，定义如下：
 
@@ -43,7 +43,7 @@
 }
 ```
 
-### 用户信息
+## 15.3.3 用户信息
 
 用户信息(Profile)应包括如下信息：
 
@@ -68,7 +68,7 @@
 }
 ```
 
-### 项目信息
+## 15.3.3 项目信息
 
 由于APP主页要显示其所有项目信息，我们在“jsons”目录下创建一个“repo.json”文件保存项目信息。通过参考Github 获取项目信息的API文档，定义出最终的“repo.json”文件结构，如下：
 
@@ -103,7 +103,7 @@
 }
 ```
 
-### 生成Dart Model类
+## 15.3.4 生成Dart Model类
 
 现在，我们需要的Json数据已经定义完毕，现在只需要运行json_model package提供的命令来通过json文件生成相应的Dart类：
 
@@ -127,6 +127,6 @@ flutter packages pub run json_model
 
 ```
 
-### 数据持久化
+## 15.3.5 数据持久化
 
 我们使用shared_preferences包来对登录用户的Profile信息进行持久化。shared_preferences是一个Flutter插件，它通过Android和iOS平台提供的机制来实现数据持久化。由于shared_preferences的使用非常简单，读者可以自行查看其文档，在此不再赘述。

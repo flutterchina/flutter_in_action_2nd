@@ -2,7 +2,9 @@
 
 在Flutter中页面UI通常都是由一些低级别组件组合而成，当我们需要封装一些通用组件时，应该首先考虑是否可以通过组合其它组件来实现，如果可以，则应优先使用组合，因为直接通过现有组件拼装会非常简单、灵活、高效。
 
-### 示例：自定义渐变按钮
+## 10.2.1 实例：自定义渐变按钮
+
+### 1. 实现GradientButton
 
 Flutter Material组件库中的按钮默认不支持渐变背景，为了实现渐变背景按钮，我们自定义一个`GradientButton `组件，它需要支持一下功能：
 
@@ -84,7 +86,7 @@ class GradientButton extends StatelessWidget {
 
 可以看到`GradientButton`是由`DecoratedBox`、`Padding`、`Center`、`InkWell`等组件组合而成。当然上面的代码只是一个示例，作为一个按钮它还并不完整，比如没有禁用状态，读者可以根据实际需要来完善，为了使用方便，笔者封装了一个功能更加完整的GradientButton，并将它添加到了flukit组件库中，读者可以引入flukit库后就可以直接使用了。
 
-#### 使用GradientButton
+### 2. 使用GradientButton
 
 ```dart
 import 'package:flutter/material.dart';
@@ -133,6 +135,6 @@ class _GradientButtonRouteState extends State<GradientButtonRoute> {
 
 
 
-### 总结
+## 10.2.2 总结
 
 通过组合的方式定义组件和我们之前写界面并无差异，不过在抽离出单独的组件时我们要考虑代码规范性，如必要参数要用`required`关键词标注，对于可选参数在特定场景需要判空或设置默认值等。这是由于使用者大多时候可能不了解组件的内部细节，所以为了保证代码健壮性，我们需要在用户错误地使用组件时能够兼容或报错提示（使用`assert`断言函数）。

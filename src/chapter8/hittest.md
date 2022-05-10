@@ -42,9 +42,11 @@ void _handlePointerEventImmediately(PointerEvent event) {
 
 上面代码只是核心代码，完整的代码位于GestureBinding 实现中。下面我们分别来介绍一些命中测试和事件分发过程。
 
-## 8.3.2 命中测试
+## 8.3.2 命中测试详解
 
-一个对象是否可以响应事件，取决于在其对命中测试过程中是否被添加到了 HitTestResult 列表 ，如果没有被添加进去，则后续的事件分发将不会分发给自己。下面我们看一下命中测试的过程：当发生用户事件时，Flutter 会从根节点（`RenderView`）开始调用它`hitTest()` ；
+### 1. 命中测试的起点
+
+一个对象是否可以响应事件，取决于在其对命中测试过程中是否被添加到了 HitTestResult 列表 ，如果没有被添加进去，则后续的事件分发将不会分发给自己。下面我们看一下命中测试的过程：当发生用户事件时，Flutter 会从根节点（`RenderView`）开始调用它`hitTest()` 。
 
 ```dart
 @override
@@ -64,7 +66,7 @@ void hitTest(HitTestResult result, Offset position) {
 
 第二步：渲染树命中测试完毕后，会调用 GestureBinding 的 hitTest 方法，该方法主要用于处理手势，我们会在后面介绍。
 
-### 渲染树的命中测试过程
+### 2. 渲染树命中测试过程
 
 渲染树的命中测试流程就是父节点 hitTest 方法中不断调用子节点 hitTest 方法的递归过程。下面是`RenderView`的`hitTest()`源码：
 
@@ -191,6 +193,8 @@ void dispatchEvent(PointerEvent event, HitTestResult? hitTestResult) {
 
 ## 8.3.5 HitTestBehavior 
 
+### 1. HitTestBehavior简介
+
 我们先来实现一个能够监听 PointerDownEvent 的组件：
 
 ```dart
@@ -299,7 +303,7 @@ enum HitTestBehavior {
 
 注意，behavior 为 opaque 和 translucent 时当前组件都会通过命中测试，它们的区别是 hitTest() 的返回值（hitTarget ）可能不同，所以它们的区别就看 hitTest() 的返回值会影响什么，这个我们已经在上面详细介绍过了，下面我们通过一个实例来理解一下。
 
-### 实例：实现 App 水印
+### 2. 实例：实现 App 水印
 
 效果如图8-6所示：
 
@@ -444,7 +448,7 @@ class AllChildrenCanResponseEvent extends StatelessWidget {
 
 虽然我们在子节点中通过监听了 Container 的事件，但是子节点是在 IgnorePointer 中的，所以子节点是没有机会参与命中测试的，所以不会响应任何事件。看来没有现成的组件可以满足要求，那我们就自己动手实现一个组件然后来定制它的 hitTest 来满足我们的要求即可。
 
-### HitTestBlocker 
+### 3. HitTestBlocker 
 
 下面我们定义一个可以拦截 hitTest 各个过程的 HitTestBlocker 组件。
 
@@ -536,7 +540,7 @@ Widget build(BuildContext context) {
 
 HitTestBlocker 是一个非常灵活的类，它可以拦截命中测试的各个阶段，通过 HitTestBlocker 完全可以实现IgnorePointer 和 AbsorbPointer 的功能， 比如当 HitTestBlocker  的 up 和 down 都为 true 时，功能和 IgnorePointer 相同。
 
-### 手势存在的情况
+### 4. 手势存在的情况
 
 我们稍微修改一下上面的代码，将 将 Listener 换为 GestureDetector， 代码如下：
 

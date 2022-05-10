@@ -143,6 +143,8 @@
 6-30 SliverFlexibleHeader示例3
 6-31 SliverPersistentHeaderToBox示例
 6-32 嵌套可滚动组件
+6-33 NestedScrollView结构
+6-34 SliverAppBar示例图
 
 
 7-1  InheritedWidget版的计数器示例

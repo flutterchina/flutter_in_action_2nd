@@ -4,11 +4,11 @@
 
 所谓线性布局，即指沿水平或垂直方向排列子组件。Flutter 中通过`Row`和`Column`来实现线性布局，类似于Android 中的`LinearLayout`控件。`Row`和`Column`都继承自`Flex`，我们将在弹性布局一节中详细介绍`Flex`。
 
-### 主轴和纵轴
+## 4.3.1 主轴和纵轴
 
 对于线性布局，有主轴和纵轴之分，如果布局是沿水平方向，那么主轴就是指水平方向，而纵轴即垂直方向；如果布局沿垂直方向，那么主轴就是指垂直方向，而纵轴就是水平方向。在线性布局中，有两个定义对齐方式的枚举类`MainAxisAlignment`和`CrossAxisAlignment`，分别代表主轴对齐和纵轴对齐。
 
-### Row
+## 4.3.2 Row
 
 Row可以沿水平方向排列其子widget。定义如下：
 
@@ -82,7 +82,7 @@ Column(
 
 解释：第一个`Row`很简单，默认为居中对齐；第二个`Row`，由于`mainAxisSize`值为`MainAxisSize.min`，`Row`的宽度等于两个`Text`的宽度和，所以对齐是无意义的，所以会从左往右显示；第三个`Row`设置`textDirection`值为`TextDirection.rtl`，所以子组件会从右向左的顺序排列，而此时`MainAxisAlignment.end`表示左对齐，所以最终显示结果就是图中第三行的样子；第四个 Row 测试的是纵轴的对齐方式，由于两个子 Text 字体不一样，所以其高度也不同，我们指定了`verticalDirection`值为`VerticalDirection.up`，即从低向顶排列，而此时`crossAxisAlignment`值为`CrossAxisAlignment.start`表示底对齐。
 
-### Column
+## 4.3.3 Column
 
 `Column`可以在垂直方向排列其子组件。参数和`Row`一样，不同的是布局方向为垂直，主轴纵轴正好相反，读者可类比`Row`来理解，下面看一个例子：
 
@@ -137,7 +137,7 @@ class CenterColumnRoute extends StatelessWidget {
 
 
 
-### 特殊情况
+## 4.3.4 特殊情况
 
 如果`Row`里面嵌套`Row`，或者`Column`里面再嵌套`Column`，那么只有最外面的`Row`或`Column`会占用尽可能大的空间，里面`Row`或`Column`所占用的空间为实际大小，下面以`Column`为例说明：
 

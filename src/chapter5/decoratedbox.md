@@ -1,4 +1,6 @@
-# 5.2 装饰容器DecoratedBox
+# 5.2 装饰容器（DecoratedBox）
+
+## 5.2.1 DecoratedBox
 
 `DecoratedBox`可以在其子组件绘制前(或后)绘制一些装饰（Decoration），如背景、边框、渐变等。`DecoratedBox`定义如下：
 
@@ -15,7 +17,7 @@ const DecoratedBox({
   - `background`：在子组件之后绘制，即背景装饰。
   - `foreground`：在子组件之上绘制，即前景。
 
-### BoxDecoration
+## 5.2.2 BoxDecoration
 
 我们通常会直接使用`BoxDecoration`类，它是一个Decoration的子类，实现了常用的装饰元素的绘制。
 
@@ -32,7 +34,11 @@ BoxDecoration({
 })
 ```
 
-各个属性名都是自解释的，详情读者可以查看API文档。下面我们实现一个带阴影的背景色渐变的按钮：
+各个属性名都是自解释的，详情读者可以查看API文档。
+
+## 5.2.3 实例
+
+下面我们实现一个带阴影的背景色渐变的按钮：
 
 ```dart
  DecoratedBox(

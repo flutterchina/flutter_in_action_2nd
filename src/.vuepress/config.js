@@ -1,38 +1,37 @@
 // .vuepress/config.js
 module.exports = {
-  title:'《Flutter实战·第二版》',
-  dest:'docs',
+  title: '《Flutter实战·第二版》',
+  dest: 'docs',
   markdown: {
-   lineNumbers: true
+    lineNumbers: true
   },
   head: [
-    ['link', { rel: 'icon', href: '/logo.png' }]
+    ['link', {rel: 'icon', href: '/logo.png'}]
   ],
   configureWebpack: (config, isServer) => {
-    if (!isServer) {
-      // 修改客户端的 webpack 配置
-      config.output.publicPath="//guphit.github.io/";
+    if (config.mode === 'production') {
+      config.output.publicPath = "//guphit.github.io/";
     }
   },
   sidebarDepth: 2,
   themeConfig: {
-    logo:'/logo.png',
+    logo: '/logo.png',
     nav: [
       // { text: '和作者做同事', link: '/join_us' },
-      { text: 'Flukit组件库', link: 'https://github.com/flutterchina/flukit' },
-      { text: 'Flutter中国', link: 'https://github.com/flutterchina' },
-      { text: 'Github', link: 'https://github.com/flutterchina/flutter_in_action_2nd' },
+      {text: 'Flukit组件库', link: 'https://github.com/flutterchina/flukit'},
+      {text: 'Flutter中国', link: 'https://github.com/flutterchina'},
+      {text: 'Github', link: 'https://github.com/flutterchina/flutter_in_action_2nd'},
     ],
     sidebar: [
       {
-        title:"第二版序",
-        path:"/preface"
+        title: "第二版序",
+        path: "/preface"
       },
       {
-        title:"第一章：起步",
-        path:"chapter1/index",
+        title: "第一章：起步",
+        path: "chapter1/index",
         collapsable: false,
-        children:[
+        children: [
           '/chapter1/mobile_development_intro',
           '/chapter1/flutter_intro',
           '/chapter1/install_flutter',
@@ -40,10 +39,10 @@ module.exports = {
         ]
       },
       {
-        title:"第二章：第一个Flutter应用",
-        path:"/chapter2/index",
+        title: "第二章：第一个Flutter应用",
+        path: "/chapter2/index",
         collapsable: false,
-        children:[
+        children: [
           '/chapter2/first_flutter_app',
           '/chapter2/flutter_widget_intro',
           '/chapter2/state_manage',
@@ -55,10 +54,10 @@ module.exports = {
         ]
       },
       {
-        title:"第三章：基础组件",
-        path:"/chapter3/index",
+        title: "第三章：基础组件",
+        path: "/chapter3/index",
         collapsable: false,
-        children:[
+        children: [
           '/chapter3/text',
           '/chapter3/buttons',
           '/chapter3/img_and_icon',
@@ -68,10 +67,10 @@ module.exports = {
         ]
       },
       {
-        title:'第四章：布局类组件',
-        path:"chapter4/index.md",
+        title: '第四章：布局类组件',
+        path: "chapter4/index.md",
         collapsable: false,
-        children:[
+        children: [
           '/chapter4/intro',
           'chapter4/constraints',
           '/chapter4/row_and_column',
@@ -83,10 +82,10 @@ module.exports = {
         ]
       },
       {
-        title:"第五章：容器类组件",
-        path:"/chapter5/index",
+        title: "第五章：容器类组件",
+        path: "/chapter5/index",
         collapsable: false,
-        children:[
+        children: [
           '/chapter5/padding',
           '/chapter5/decoratedbox',
           '/chapter5/transform',
@@ -98,10 +97,10 @@ module.exports = {
         ]
       },
       {
-        title:"第六章：可滚动组件",
-        path:"/chapter6/index",
+        title: "第六章：可滚动组件",
+        path: "/chapter6/index",
         collapsable: false,
-        children:[
+        children: [
           '/chapter6/intro',
           '/chapter6/single_child_scrollview',
           '/chapter6/listview',
@@ -118,10 +117,10 @@ module.exports = {
         ]
       },
       {
-        title:"第七章：功能型组件",
-        path:"/chapter7/index",
+        title: "第七章：功能型组件",
+        path: "/chapter7/index",
         collapsable: false,
-        children:[
+        children: [
           '/chapter7/willpopscope',
           '/chapter7/inherited_widget',
           '/chapter7/provider',
@@ -132,10 +131,10 @@ module.exports = {
         ]
       },
       {
-        title:"第八章：事件处理与通知",
-        path:"/chapter8/index",
+        title: "第八章：事件处理与通知",
+        path: "/chapter8/index",
         collapsable: false,
-        children:[
+        children: [
           '/chapter8/listener',
           '/chapter8/gesture',
           '/chapter8/hittest',
@@ -145,10 +144,10 @@ module.exports = {
         ]
       },
       {
-        title:"第九章：动画",
-        path:"/chapter9/index",
+        title: "第九章：动画",
+        path: "/chapter9/index",
         collapsable: false,
-        children:[
+        children: [
           '/chapter9/intro',
           '/chapter9/animation_structure',
           '/chapter9/route_transition',
@@ -159,10 +158,10 @@ module.exports = {
         ]
       },
       {
-        title:"第十章：自定义组件",
-        path:"/chapter10/index",
+        title: "第十章：自定义组件",
+        path: "/chapter10/index",
         collapsable: false,
-        children:[
+        children: [
           '/chapter10/intro',
           '/chapter10/combine',
           '/chapter10/turn_box',
@@ -174,10 +173,10 @@ module.exports = {
         ]
       },
       {
-        title:"第十一章：文件操作与网络请求",
-        path:"/chapter11/index",
+        title: "第十一章：文件操作与网络请求",
+        path: "/chapter11/index",
         collapsable: false,
-        children:[
+        children: [
           '/chapter11/file_operation',
           '/chapter11/http',
           '/chapter11/dio',
@@ -188,19 +187,19 @@ module.exports = {
         ]
       },
       {
-        title:"第十二章：Flutter 扩展",
-        path:"/chapter12/index",
+        title: "第十二章：Flutter 扩展",
+        path: "/chapter12/index",
         collapsable: false,
-        children:[
+        children: [
           '/chapter12/package_and_plugin',
           '/chapter12/flutter_web',
         ]
       },
       {
-        title:"第十三章：国际化",
-        path:"/chapter13/index",
+        title: "第十三章：国际化",
+        path: "/chapter13/index",
         collapsable: false,
-        children:[
+        children: [
           '/chapter13/multi_languages_support',
           '/chapter13/locallization_implement',
           '/chapter13/intl',
@@ -208,10 +207,10 @@ module.exports = {
         ]
       },
       {
-        title:"第十四章：Flutter核心原理",
-        path:"/chapter14/index",
+        title: "第十四章：Flutter核心原理",
+        path: "/chapter14/index",
         collapsable: false,
-        children:[
+        children: [
           '/chapter14/flutter_ui_system',
           '/chapter14/element_buildcontext',
           '/chapter14/flutter_app_startup',
@@ -223,9 +222,9 @@ module.exports = {
         ]
       },
       {
-        title:"第十五章：一个完整的Flutter应用",
+        title: "第十五章：一个完整的Flutter应用",
         collapsable: false,
-        children:[
+        children: [
           '/chapter15/intro',
           '/chapter15/code_structure',
           '/chapter15/models',

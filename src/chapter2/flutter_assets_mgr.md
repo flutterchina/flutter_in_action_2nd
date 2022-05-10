@@ -2,7 +2,7 @@
 
 Flutter APP 安装包中会包含代码和 assets（资源）两部分。Assets 是会打包到程序安装包中的，可在运行时访问。常见类型的 assets 包括静态数据（例如JSON文件）、配置文件、图标和图片等。
 
-## 指定 assets
+## 2.6.1 指定 assets
 
 和包管理一样，Flutter 也使用[`pubspec.yaml`](https://www.dartlang.org/tools/pub/pubspec)文件来管理应用程序所需的资源，举个例子:
 
@@ -17,7 +17,7 @@ flutter:
 
 在构建期间，Flutter 将 asset 放置到称为 *asset bundle* 的特殊存档中，应用程序可以在运行时读取它们（但不能修改）。
 
-## Asset 变体（variant）
+## 2.6.2 Asset 变体（variant）
 
 构建过程支持“asset变体”的概念：不同版本的 asset 可能会显示在不同的上下文中。 在`pubspec.yaml`的assets 部分中指定 asset 路径时，构建过程中，会在相邻子目录中查找具有相同名称的任何文件。这些文件随后会与指定的 asset 一起被包含在 asset bundle 中。
 
@@ -41,11 +41,11 @@ flutter:
 
 在选择匹配当前设备分辨率的图片时，Flutter会使用到 asset 变体（见下文）。
 
-## 加载 assets
+## 2.6.3 加载 assets
 
 您的应用可以通过[`AssetBundle`](https://docs.flutter.io/flutter/services/AssetBundle-class.html)对象访问其 asset 。有两种主要方法允许从 Asset bundle 中加载字符串或图片（二进制）文件。
 
-### 加载文本assets
+### 1. 加载文本assets
 
 - 通过[`rootBundle`](https://docs.flutter.io/flutter/services/rootBundle.html) 对象加载：每个Flutter应用程序都有一个[`rootBundle`](https://docs.flutter.io/flutter/services/rootBundle.html)对象， 通过它可以轻松访问主资源包，直接使用`package:flutter/services.dart`中全局静态的`rootBundle`对象来加载asset即可。
 - 通过 [`DefaultAssetBundle`](https://docs.flutter.io/flutter/widgets/DefaultAssetBundle-class.html) 加载：建议使用 [`DefaultAssetBundle`](https://docs.flutter.io/flutter/widgets/DefaultAssetBundle-class.html) 来获取当前 BuildContext 的AssetBundle。 这种方法不是使用应用程序构建的默认 asset bundle，而是使父级 widget 在运行时动态替换的不同的 AssetBundle，这对于本地化或测试场景很有用。
@@ -61,11 +61,11 @@ Future<String> loadAsset() async {
 }
 ```
 
-### 加载图片
+### 2. 加载图片
 
 类似于原生开发，Flutter也可以为当前设备加载适合其分辨率的图像。
 
-#### 声明分辨率相关的图片 assets
+#### 1）声明分辨率相关的图片 assets
 
 [`AssetImage`](https://docs.flutter.io/flutter/painting/AssetImage-class.html) 可以将asset的请求逻辑映射到最接近当前设备像素比例（dpi）的asset。为了使这种映射起作用，必须根据特定的目录结构来保存asset：
 
@@ -88,7 +88,7 @@ Future<String> loadAsset() async {
 
 `pubspec.yaml`中asset部分中的每一项都应与实际文件相对应，但主资源项除外。当主资源缺少某个资源时，会按分辨率从低到高的顺序去选择 ，也就是说1x中没有的话会在2x中找，2x中还没有的话就在3x中找。
 
-#### 加载图片
+#### 2）加载图片
 
 要加载图片，可以使用 [`AssetImage`](https://docs.flutter.io/flutter/painting/AssetImage-class.html)类。例如，我们可以从上面的asset声明中加载背景图片：
 
@@ -114,7 +114,7 @@ Widget build(BuildContext context) {
 
 使用默认的 asset bundle 加载资源时，内部会自动处理分辨率等，这些处理对开发者来说是无感知的。 (如果使用一些更低级别的类，如 [`ImageStream`](https://docs.flutter.io/flutter/painting/ImageStream-class.html)或 [`ImageCache`](https://docs.flutter.io/flutter/painting/ImageCache-class.html) 时你会注意到有与缩放相关的参数)
 
-#### 依赖包中的资源图片
+#### 3）依赖包中的资源图片
 
 要加载依赖包中的图像，必须给`AssetImage`提供`package`参数。
 
@@ -138,11 +138,9 @@ AssetImage('icons/heart.png', package: 'my_icons')
 Image.asset('icons/heart.png', package: 'my_icons')
 ```
 
-**注意：包在使用本身的资源时也应该加上`package`参数来获取**。
+> 注意：包在使用本身的资源时也应该加上`package`参数来获取。
 
-
-
-##### 打包包中的 assets
+**打包包中的 assets**
 
 如果在`pubspec.yaml`文件中声明了期望的资源，它将会打包到相应的package中。特别是，包本身使用的资源必须在`pubspec.yaml`中指定。
 
@@ -162,11 +160,13 @@ flutter:
 
 `lib/`是隐含的，所以它不应该包含在资产路径中。
 
-### 特定平台 assets
+
+
+### 3. 特定平台 assets
 
 上面的资源都是flutter应用中的，这些资源只有在Flutter框架运行之后才能使用，如果要给我们的应用设置APP图标或者添加启动图，那我们必须使用特定平台的assets。
 
-#### 设置APP图标
+#### 1）设置APP图标
 
 更新Flutter应用程序启动图标的方式与在本机Android或iOS应用程序中更新启动图标的方式相同。
 
@@ -186,7 +186,7 @@ flutter:
 
    
 
-#### 更新启动页
+#### 2）更新启动页
 
 ![图2-17](../imgs/2-17.png)
 
@@ -194,15 +194,21 @@ flutter:
 
 > **注意:** 这意味着如果您不在应用程序的`main()`方法中调用[runApp](https://docs.flutter.io/flutter/widgets/runApp.html) 函数 （或者更具体地说，如果您不调用[`window.render`](https://docs.flutter.io/flutter/dart-ui/Window/render.html)去响应[`window.onDrawFrame`](https://docs.flutter.io/flutter/dart-ui/Window/onDrawFrame.html)）的话， 启动屏幕将永远持续显示。
 
-##### Android
+- Android
 
 要将启动屏幕（splash screen）添加到您的Flutter应用程序， 请导航至`.../android/app/src/main`。在`res/drawable/launch_background.xml`，通过自定义drawable来实现自定义启动界面（你也可以直接换一张图片）。
 
-##### iOS
+- iOS
 
 要将图片添加到启动屏幕（splash screen）的中心，请导航至`.../ios/Runner`。在`Assets.xcassets/LaunchImage.imageset`， 拖入图片，并命名为`LaunchImage.png`、`LaunchImage@2x.png`、`LaunchImage@3x.png`。 如果你使用不同的文件名，那您还必须更新同一目录中的`Contents.json`文件，图片的具体尺寸可以查看苹果官方的标准。
 
 您也可以通过打开Xcode完全自定义storyboard。在Project Navigator中导航到`Runner/Runner`然后通过打开`Assets.xcassets`拖入图片，或者通过在LaunchScreen.storyboard中使用Interface Builder进行自定义，如图2-18所示。
 
 ![图2-18](../imgs/2-18.png)
+
+## 2.6.4 平台共享 assets
+
+如果我们采用的是Flutter+原生的开发模式，那么可能会存Flutter和原生需要共享资源的情况，比如Flutter项目中已经有了一张图片A，如果原生代码中也要使用A，我们可以将A拷贝一份到原生项目的特定目录，这样的话虽然功能可以实现，但是最终的应用程序包会变大，因为包含了重复的资源，为了解决这个问题，Flutter 提供了一种Flutter和原生之间共享资源的方式，由于实现上需要涉及平台相关的原生代码，故本书不做展开，读者有需要可以自行查阅[官方文档](https://flutter.cn/docs/development/ui/assets-and-images#sharing-assets-with-the-underlying-platform)。
+
+
 

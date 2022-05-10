@@ -1,4 +1,7 @@
 # 6.6 GridView
+
+网格布局是一种常见的布局类型，GridView 组件正是实现了网格布局的组件，本节重点介绍一下它的用法。
+
 ## 6.6.1 默认构造函数
 
 `GridView`可以构建一个二维网格列表，其默认构造函数定义如下：
@@ -26,7 +29,7 @@
 
 `SliverGridDelegate`是一个抽象类，定义了`GridView` Layout相关接口，子类需要通过实现它们来实现具体的布局算法。Flutter中提供了两个`SliverGridDelegate`的子类`SliverGridDelegateWithFixedCrossAxisCount`和`SliverGridDelegateWithMaxCrossAxisExtent`，我们可以直接使用，下面我们分别来介绍一下它们。
 
-### SliverGridDelegateWithFixedCrossAxisCount
+### 1. SliverGridDelegateWithFixedCrossAxisCount
 
 该子类实现了一个横轴为固定数量子元素的layout算法，其构造函数为：
 
@@ -70,7 +73,7 @@ GridView(
 ![图6-14](../imgs/6-14.png)
 
 
-### SliverGridDelegateWithMaxCrossAxisExtent
+### 2. SliverGridDelegateWithMaxCrossAxisExtent
 
 该子类实现了一个横轴子元素为固定最大长度的layout算法，其构造函数为：
 

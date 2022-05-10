@@ -102,6 +102,8 @@ if (color != null)
 
 ## 2.2.4 StatelessWidget 
 
+### 1. 简介
+
 在之前的章节中，我们已经简单介绍过`StatelessWidget `，`StatelessWidget `相对比较简单，它继承自` widget `类，重写了`createElement() `方法：
 
 ```dart
@@ -152,7 +154,7 @@ class Echo extends StatelessWidget  {
 
 ![图2-3](../imgs/2-3.png)
 
-### Context
+### 2. Context
 
 `build`方法有一个`context`参数，它是`BuildContext`类的一个实例，表示当前 widget 在 widget 树中的上下文，每一个 widget 都会对应一个 context 对象（因为每一个 widget 都是 widget 树上的一个节点）。实际上，`context`是当前 widget 在 widget 树中位置中执行”相关操作“的一个句柄(handle)，比如它提供了从当前 widget 开始向上遍历 widget 树以及按照 widget 类型查找父级 widget 的方法。下面是在子树中获取父级 widget 的一个示例：
 
@@ -209,6 +211,8 @@ abstract class StatefulWidget extends Widget {
 
 ## 2.2.6 State
 
+### 1. 简介
+
 一个 StatefulWidget 类会对应一个 State 类，State表示与其对应的 StatefulWidget 要维护的状态，State 中的保存的状态信息可以：
 
 1. 在 widget  构建时可以被同步读取。
@@ -220,7 +224,7 @@ State 中有两个常用属性：
 
 2. `context`。StatefulWidget对应的 BuildContext，作用同StatelessWidget 的BuildContext。
 
-#### State生命周期
+### 2. State生命周期
 
 理解State的生命周期对flutter开发非常重要，为了加深读者印象，本节我们通过一个实例来演示一下 State 的生命周期。在接下来的示例中，我们仍然以计数器功能为例，实现一个计数器 CounterWidget 组件 ，点击它可以使计数器加1，由于要保存计数器的数值状态，所以我们应继承StatefulWidget，代码如下：
 
@@ -381,7 +385,7 @@ StatefulWidget 生命周期如图2-5所示：
 
 由于 StatefulWidget 的的具体逻辑都在其 State 中，所以很多时候，我们需要获取 StatefulWidget 对应的State 对象来调用一些方法，比如`Scaffold`组件对应的状态类`ScaffoldState`中就定义了打开 SnackBar（路由页底部提示条）的方法。我们有两种方法在子 widget 树中获取父级 StatefulWidget 的State 对象。
 
-### 通过Context获取
+### 1. 通过Context获取
 
 `context`对象有一个`findAncestorStateOfType()`方法，该方法可以从当前节点沿着 widget 树向上查找指定类型的 StatefulWidget 对应的 State 对象。下面是实现打开 SnackBar 的示例：
 
@@ -458,7 +462,7 @@ Builder(builder: (context) {
 
 ![图2-6](../imgs/2-6.png)
 
-### 通过GlobalKey
+### 2. 通过GlobalKey
 
 Flutter还有一种通用的获取`State`对象的方法——通过GlobalKey来获取！ 步骤分两步：
 
@@ -545,23 +549,23 @@ import 'package:flutter/widgets.dart';
 
 下面我们介绍一下常用的组件。
 
-#### 基础组件
+### 1. 基础组件
 
-- [`Text`](https://docs.flutter.io/flutter/widgets/Text-class.html)：该组件可让您创建一个带格式的文本。
-- [`Row`](https://docs.flutter.io/flutter/widgets/Row-class.html)、 [`Column`](https://docs.flutter.io/flutter/widgets/Column-class.html)： 这些具有弹性空间的布局类 widget 可让您在水平（Row）和垂直（Column）方向上创建灵活的布局。其设计是基于 Web 开发中的 Flexbox 布局模型。
-- [`Stack`](https://docs.flutter.io/flutter/widgets/Stack-class.html)： 取代线性布局 (译者语：和 Android 中的`FrameLayout`相似)，[`Stack`](https://docs.flutter.io/flutter/ widgets/Stack-class.html)允许子 widget 堆叠， 你可以使用 [`Positioned`](https://docs.flutter.io/flutter/widgets/Positioned-class.html) 来定位他们相对于`Stack`的上下左右四条边的位置。Stacks是基于Web开发中的绝对定位（absolute positioning )布局模型设计的。
-- [`Container`](https://docs.flutter.io/flutter/widgets/Container-class.html)： [`Container`](https://docs.flutter.io/flutter/widgets/Container-class.html) 可让您创建矩形视觉元素。Container 可以装饰一个[`BoxDecoration`](https://docs.flutter.io/flutter/painting/BoxDecoration-class.html), 如 background、一个边框、或者一个阴影。 [`Container`](https://docs.flutter.io/flutter/widgets/Container-class.html) 也可以具有边距（margins）、填充(padding)和应用于其大小的约束(constraints)。另外， [`Container`](https://docs.flutter.io/flutter/widgets/Container-class.html)可以使用矩阵在三维空间中对其进行变换。
+- [`Text`](https://docs.flutter.dev/flutter/widgets/Text-class.html)：该组件可让您创建一个带格式的文本。
+- [`Row`](https://docs.flutter.dev/flutter/widgets/Row-class.html)、 [`Column`](https://docs.flutter.dev/flutter/widgets/Column-class.html)： 这些具有弹性空间的布局类 widget 可让您在水平（Row）和垂直（Column）方向上创建灵活的布局。其设计是基于 Web 开发中的 Flexbox 布局模型。
+- [`Stack`](https://docs.flutter.dev/flutter/widgets/Stack-class.html)： 取代线性布局 (译者语：和 Android 中的`FrameLayout`相似)，[`Stack`](https://docs.flutter.dev/flutter/ widgets/Stack-class.html)允许子 widget 堆叠， 你可以使用 [`Positioned`](https://docs.flutter.dev/flutter/widgets/Positioned-class.html) 来定位他们相对于`Stack`的上下左右四条边的位置。Stacks是基于Web开发中的绝对定位（absolute positioning )布局模型设计的。
+- [`Container`](https://docs.flutter.dev/flutter/widgets/Container-class.html)： [`Container`](https://docs.flutter.dev/flutter/widgets/Container-class.html) 可让您创建矩形视觉元素。Container 可以装饰一个[`BoxDecoration`](https://docs.flutter.dev/flutter/painting/BoxDecoration-class.html), 如 background、一个边框、或者一个阴影。 [`Container`](https://docs.flutter.dev/flutter/widgets/Container-class.html) 也可以具有边距（margins）、填充(padding)和应用于其大小的约束(constraints)。另外， [`Container`](https://docs.flutter.dev/flutter/widgets/Container-class.html)可以使用矩阵在三维空间中对其进行变换。
 
 
-#### Material组件
+### 2. Material组件
 
-Flutter 提供了一套丰富 的Material 组件，它可以帮助我们构建遵循 Material Design 设计规范的应用程序。Material 应用程序以[`MaterialApp`](https://docs.flutter.io/flutter/material/MaterialApp-class.html) 组件开始， 该组件在应用程序的根部创建了一些必要的组件，比如`Theme`组件，它用于配置应用的主题。 是否使用[`MaterialApp`](https://docs.flutter.io/flutter/material/MaterialApp-class.html)完全是可选的，但是使用它是一个很好的做法。在之前的示例中，我们已经使用过多个 Material 组件了，如：`Scaffold`、`AppBar`、`TextButton`等。要使用 Material 组件，需要先引入它：
+Flutter 提供了一套丰富 的Material 组件，它可以帮助我们构建遵循 Material Design 设计规范的应用程序。Material 应用程序以[`MaterialApp`](https://docs.flutter.dev/flutter/material/MaterialApp-class.html) 组件开始， 该组件在应用程序的根部创建了一些必要的组件，比如`Theme`组件，它用于配置应用的主题。 是否使用[`MaterialApp`](https://docs.flutter.dev/flutter/material/MaterialApp-class.html)完全是可选的，但是使用它是一个很好的做法。在之前的示例中，我们已经使用过多个 Material 组件了，如：`Scaffold`、`AppBar`、`TextButton`等。要使用 Material 组件，需要先引入它：
 
 ```dart
 import 'package:flutter/material.dart';
 ```
 
-#### Cupertino组件
+### 3. Cupertino组件
 
 Flutter 也提供了一套丰富的 Cupertino 风格的组件，尽管目前还没有 Material 组件那么丰富，但是它仍在不断的完善中。值得一提的是在 Material 组件库中有一些组件可以根据实际运行平台来切换表现风格，比如`MaterialPageRoute`，在路由切换时，如果是 Android 系统，它将会使用 Android 系统默认的页面切换动画(从底向上)；如果是 iOS 系统，它会使用 iOS 系统默认的页面切换动画（从右向左）。由于在前面的示例中还没有Cupertino组件的示例，下面我们实现一个简单的 Cupertino 组件风格的页面：
 
@@ -594,10 +598,10 @@ class CupertinoTestRoute extends StatelessWidget  {
 
 
 
-### 关于示例
+## 2.2.10 总结
 
-本章后面章节的示例中会使用一些布局类组件，如`Scaffold`、`Row`、`Column`等，这些组件将在后面“布局类组件”一章中详细介绍，读者可以先不用关注。
+Flutter 的 widget 类型分为`StatefulWidget` 和 `StatelessWidget` 两种，读者需要深入理解它们的区别，widget 将是我们构建Flutter应用的基石。
 
-### 总结
+Flutter 提供了丰富的组件，在实际的开发中我们可以根据需要随意使用它们，而不必担心引入过多组件库会让你的应用安装包变大，这不是 web 开发，dart 在编译时只会编译你使用了的代码。由于 Material 和 Cupertino 都是在基础组件库之上的，所以如果我们的应用中引入了这两者之一，则不需要再引入`flutter/ widgets.dart`了，因为它们内部已经引入过了。
 
-Flutter 提供了丰富的组件，在实际的开发中我们可以根据需要随意使用它们，而不必担心引入过多组件库会让你的应用安装包变大，这不是 web 开发，dart 在编译时只会编译你使用了的代码。由于 Material 和Cupertino 都是在基础组件库之上的，所以如果我们的应用中引入了这两者之一，则不需要再引入`flutter/ widgets.dart`了，因为它们内部已经引入过了。
+另外需要说明一点，本章后面章节的示例中会使用一些布局类组件，如`Scaffold`、`Row`、`Column`等，这些组件将在后面“布局类组件”一章中详细介绍，读者可以先不用关注。

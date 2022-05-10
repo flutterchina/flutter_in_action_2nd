@@ -4,9 +4,9 @@
 
 通过上一节介绍，我们可以发现直接使用HttpClient发起网络请求是比较麻烦的，很多事情得我们手动处理，如果再涉及到文件上传/下载、Cookie管理等就会非常繁琐。幸运的是，Dart社区有一些第三方http请求库，用它们来发起http请求将会简单的多，本节我们介绍一下目前人气较高的[dio](https://github.com/flutterchina/dio)库。
 
->  dio是一个强大的Dart Http请求库，支持Restful API、FormData、拦截器、请求取消、Cookie管理、文件上传/下载、超时等。dio的使用方式随着其版本升级可能会发生变化，如果本节所述内容和dio官方有差异，请以dio官方文档为准。
+>  dio是笔者维护的一个强大的Dart Http请求库，支持Restful API、FormData、拦截器、请求取消、Cookie管理、文件上传/下载、超时等。dio的使用方式随着其版本升级可能会发生变化，如果本节所述内容和最新dio功能有差异，请以最新的dio文档为准。
 
-### 引入
+## 11.3.1 引入dio
 
 引入dio:
 
@@ -24,7 +24,7 @@ Dio dio =  Dio();
 
 接下来就可以通过 dio实例来发起网络请求了，注意，一个dio实例可以发起多个http请求，一般来说，APP只有一个http数据源时，dio应该使用单例模式。
 
-### 示例
+## 11.3.2 通过dio发起请求
 
 发起 `GET` 请求 :
 
@@ -110,7 +110,7 @@ response = await dio.post("/info", data: formData)
 
 怎么样，是不是很简单，除了这些基本的用法，dio还支持请求配置、拦截器等，官方资料比较详细，故本书不再赘述，详情可以参考dio主页：https://github.com/flutterchina/dio 。 下一节我们将使用dio实现一个分块下载器。
 
-### 实例
+## 11.3.3 实例
 
 我们通过Github开放的API来请求flutterchina组织下的所有公开的开源项目，实现：
 

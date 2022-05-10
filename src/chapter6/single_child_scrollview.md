@@ -1,5 +1,6 @@
-
 # 6.2 SingleChildScrollView
+
+## 6.2.1 简介
 
 `SingleChildScrollView`类似于Android中的`ScrollView`，它只能接收一个子组件，定义如下：
 
@@ -19,7 +20,7 @@ SingleChildScrollView({
 
 需要注意的是，**通常`SingleChildScrollView`只应在期望的内容不会超过屏幕太多时使用**，这是因为`SingleChildScrollView`不支持基于 Sliver 的延迟加载模型，所以如果预计视口可能包含超出屏幕尺寸太多的内容时，那么使用`SingleChildScrollView`将会非常昂贵（性能差），此时应该使用一些支持Sliver延迟加载的可滚动组件，如`ListView`。
 
-### 示例
+## 6.2.2 实例
 
 下面是一个将大写字母 A-Z 沿垂直方向显示的例子，由于垂直方向空间会超过屏幕视口高度，所以我们使用`SingleChildScrollView`：
 

@@ -2,7 +2,7 @@
 
 本节我们会先介绍一下Flutter的启动流程，然后再介绍一下 Flutter 的 rendering pipeline (渲染管线)。
 
-## 14.3.1 启动
+## 14.3.1 应用启动
 
 Flutter的入口在"lib/main.dart"的`main()`函数中，它是Dart应用程序的起点。在Flutter应用中，`main()`函数最简单的实现如下：
 
@@ -133,7 +133,7 @@ RenderObjectToWidgetElement<T> attachToRenderTree(BuildOwner owner, [RenderObjec
 
 ## 14.3.2 渲染管线
 
-### Frame
+### 1. Frame
 
 一次绘制过程，我们称其为一帧（frame）。我们之前说的 Flutter 可以实现60fps（Frame Per-Second）就是指一秒钟最多可以触发 60 次重绘，FPS 值越大，界面就越流畅。这里需要说明的是 Flutter中 的 frame 概念并不等同于屏幕刷新帧（frame），因为Flutter UI 框架的 frame 并不是每次屏幕刷新都会触发，这是因为，如果 UI 在一段时间不变，那么每次屏幕刷新都重新走一遍渲染流程是不必要的，因此，Flutter 在第一帧渲染结束后会采取一种主动请求 frame 的方式来实现只有当UI可能会改变时才会重新走渲染流程。
 
@@ -142,7 +142,7 @@ RenderObjectToWidgetElement<T> attachToRenderTree(BuildOwner owner, [RenderObjec
 
 可以看见，只有主动调用`scheduleFrame() `，才会执行 `drawFrame`。所以，**我们在Flutter 中的提到 frame 时，如无特别说明，则是和 `drawFrame()` 的调用对应，而不是和屏幕的刷新频率对应**。
 
-### Flutter 调度过程 SchedulerPhase
+### 2. Flutter 调度过程 SchedulerPhase
 
 Flutter 应用执行过程简单来讲分为 idle 和 frame 两种状态，idle 状态代表没有 frame 处理，如果应用状态改变需要刷新 UI，则需要通过`scheduleFrame()`去请求新的 frame，当 frame 到来时，就进入了frame状态，整个Flutter应用生命周期就是在 idle 和 frame 两种状态间切换。
 
@@ -180,7 +180,7 @@ enum SchedulerPhase {
 
 需要注意，我们接下来要重点介绍的渲染管线就是在 persistentCallbacks 中执行的。
 
-### 渲染管线（rendering pipeline）
+### 3. 渲染管线（rendering pipeline）
 
 当新的 frame 到来时，调用到 WidgetsBinding 的 `drawFrame()` 方法，我们来看看它的实现：
 
@@ -222,7 +222,7 @@ void drawFrame() {
 
 我们称上面的5步为  rendering pipeline，中文翻译为 “渲染流水线” 或 “渲染管线”。而渲染管线的这 5 个步骤的具体过程便是本章重点要介绍的。下面我们以 setState 的执行更新的流程为例先对整个更新流程有一个大概的影响
 
-### setState 执行流
+### 4. setState 执行流
 
 setState 调用后：
 
@@ -252,7 +252,7 @@ void drawFrame() {
 
 以上，便是setState调用到UI更的大概更新过程，实际的流程会更复杂一些，比如在build过程中是不允许再调用setState的，框架需要做一些检查。又比如在frame中会涉及到动画的的调度、在上屏时会将所有的Layer添加到场景（Scene）对象后，再渲染Scene。上面的流程读者先有个映像即可，我们将在后面的小节中详细介绍。
 
-### setState 执行时机问题
+### 5. setState 执行时机问题
 
 setState 会触发 build，而 build 是在执行 `persistentCallbacks` 阶段执行的，因此只要不是在该阶段执行 setState 就绝对安全，但是这样的粒度太粗，比如在transientCallbacks 和 midFrameMicrotasks 阶段，如果应用状态发生变化，最好的方式是只将组件标记为 dirty，而不用再去请求新的 frame ，因为当前frame 还没有执行到 `persistentCallbacks`，因此后面执行到后就会在当前帧渲染管线中刷新UI。因此，setState 在标记完 dirty 后会先判断一下调度状态，如果是 idle 或 执行 postFrameCallbacks 阶段才会去请求新的 frame :
 
@@ -353,7 +353,7 @@ void update(VoidCallback fn) {
 
 我们并没有直接调用 markNeedsPaint()，而原因正如上面所述。
 
-### 总结
+## 14.3.3 总结
 
 本节介绍了Flutter App 从启动到显示到屏幕上的主流程，重点是 Flutter 的渲染流程，如图14-4：![图14-4](../imgs/14-4.png)
 

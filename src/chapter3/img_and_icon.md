@@ -1,18 +1,18 @@
-## 3.3 图片及ICON
+# 3.3 图片及ICON
 
 ## 3.3.1 图片
 
 Flutter 中，我们可以通过`Image`组件来加载并显示图片，`Image`的数据源可以是asset、文件、内存以及网络。
 
-### ImageProvider
+### 1. ImageProvider
 
 `ImageProvider` 是一个抽象类，主要定义了图片数据获取的接口`load()`，从不同的数据源获取图片需要实现不同的`ImageProvider` ，如`AssetImage`是实现了从Asset中加载图片的 ImageProvider，而`NetworkImage` 实现了从网络加载图片的 ImageProvider。
 
-### Image
+### 2. Image
 
 `Image` widget 有一个必选的`image`参数，它对应一个 ImageProvider。下面我们分别演示一下如何从 asset 和网络加载图片。
 
-#### 从asset中加载图片
+#### 1）从asset中加载图片
 
 1. 在工程根目录下创建一个`images目录`，并将图片 avatar.png 拷贝到该目录。
 
@@ -42,7 +42,7 @@ Flutter 中，我们可以通过`Image`组件来加载并显示图片，`Image`�
 
 
 
-#### 从网络加载图片
+#### 2）从网络加载图片
 
 ```dart
 Image(
@@ -67,7 +67,7 @@ Image.network(
 
 
 
-#### 参数
+#### 3）参数
 
 `Image`在显示图片时定义了一系列参数，通过这些参数我们可以控制图片的显示外观、大小、混合效果等。我们看一下 Image 的主要参数：
 
@@ -218,7 +218,7 @@ class ImageAndIconRoute extends StatelessWidget {
 }
 ```
 
-### Image缓存
+### 3. Image缓存
 
 Flutter框架对加载过的图片是有缓存的（内存），关于Image的详细内容及原理我们将会在后面进阶部分深入介绍。
 
@@ -235,7 +235,7 @@ Flutter 中，可以像Web开发一样使用 iconfont，iconfont 即“字体图
 3. 可以应用文本样式：可以像文本一样改变字体图标的颜色、大小对齐等。
 4. 可以通过TextSpan和文本混用。
 
-##### 使用Material Design字体图标
+### 1. 使用Material Design字体图标
 
 Flutter默认包含了一套Material Design的字体图标，在`pubspec.yaml`文件中的配置如下
 
@@ -286,9 +286,7 @@ Row(
 
 `Icons`类中包含了所有Material Design图标的`IconData`静态变量定义。
 
-
-
-#### 使用自定义字体图标
+### 2. 使用自定义字体图标
 
 我们也可以使用自定义字体图标。iconfont.cn上有很多字体图标素材，我们可以选择自己需要的图标打包下载后，会生成一些不同格式的字体文件，在Flutter中，我们使用ttf格式即可。
 

@@ -22,7 +22,7 @@ ScrollController({
 
 `ScrollController`还有一些属性和方法，我们将在后面原理部分解释。
 
-#### 滚动监听
+### 1. 滚动监听
 
 `ScrollController`间接继承自`Listenable`，我们可以根据`ScrollController`来监听滚动事件，如：
 
@@ -30,7 +30,7 @@ ScrollController({
 controller.addListener(()=>print(controller.offset))
 ```
 
-### 示例
+### 2. 实例
 
 我们创建一个`ListView`，当滚动位置发生变化时，我们先打印出当前滚动位置，然后判断当前位置是否超过1000像素，如果超过则在屏幕右下角显示一个“返回顶部”的按钮，该按钮点击后可以使ListView恢复到初始位置；如果没有超过1000像素，则隐藏“返回顶部”按钮。代码如下：
 
@@ -108,7 +108,7 @@ class ScrollControllerTestRouteState extends State<ScrollControllerTestRoute> {
 
 由于列表项高度为 50 像素，当滑动到第 20 个列表项后，右下角 “返回顶部” 按钮会显示，点击该按钮，ListView 会在返回顶部的过程中执行一个滚动动画，动画时间是 200 毫秒，动画曲线是 `Curves.ease`，关于动画的详细内容我们将在后面“动画”一章中详细介绍。
 
-### 滚动位置恢复
+### 3. 滚动位置恢复
 
 `PageStorage`是一个用于保存页面(路由)相关数据的组件，它并不会影响子树的UI外观，其实，`PageStorage`是一个功能型组件，它拥有一个存储桶（bucket），子树中的Widget可以通过指定不同的`PageStorageKey`来存储各自的数据或状态。
 
@@ -126,9 +126,7 @@ ListView(key: PageStorageKey(2), ... );
 
 > 注意：一个路由中包含多个可滚动组件时，如果要分别跟踪它们的滚动位置，并非一定就得给他们分别提供`PageStorageKey`。这是因为Scrollable本身是一个StatefulWidget，它的状态中也会保存当前滚动位置，所以，只要可滚动组件本身没有被从树上detach掉，那么其State就不会销毁(dispose)，滚动位置就不会丢失。只有当Widget发生结构变化，导致可滚动组件的State销毁或重新构建时才会丢失状态，这种情况就需要显式指定`PageStorageKey`，通过`PageStorage`来存储滚动位置，一个典型的场景是在使用`TabBarView`时，在Tab发生切换时，Tab页中的可滚动组件的State就会销毁，这时如果想恢复滚动位置就需要指定`PageStorageKey`。
 
-
-
-### ScrollPosition
+### 4. ScrollPosition
 
 ScrollPosition是用来保存可滚动组件的滚动位置的。一个`ScrollController`对象可以同时被多个可滚动组件使用，`ScrollController`会为每一个可滚动组件创建一个`ScrollPosition`对象，这些`ScrollPosition`保存在`ScrollController`的`positions`属性中（`List<ScrollPosition>`）。`ScrollPosition`是真正保存滑动位置信息的对象，`offset`只是一个便捷属性：
 
@@ -151,7 +149,7 @@ controller.positions.elementAt(1).pixels
 
 `ScrollPosition`有两个常用方法：`animateTo()` 和 `jumpTo()`，它们是真正来控制跳转滚动位置的方法，`ScrollController`的这两个同名方法，内部最终都会调用`ScrollPosition`的。
 
-### ScrollController控制原理
+### 5. ScrollController控制原理
 
 我们来介绍一下`ScrollController`的另外三个方法：
 
@@ -174,6 +172,8 @@ void detach(ScrollPosition position) ;
 
 ## 6.4.2 滚动监听
 
+### 1. 滚动通知
+
 Flutter Widget树中子Widget可以通过发送通知（Notification）与父(包括祖先)Widget通信。父级组件可以通过`NotificationListener`组件来监听自己关注的通知，这种通信方式类似于Web开发中浏览器的事件冒泡，我们在Flutter中沿用“冒泡”这个术语，关于通知冒泡我们将在后面“事件处理与通知”一章中详细介绍。
 
 可滚动组件在滚动时会发送`ScrollNotification`类型的通知，`ScrollBar`正是通过监听滚动通知来实现的。通过`NotificationListener`监听滚动事件和通过`ScrollController`有两个主要的不同：
@@ -181,7 +181,7 @@ Flutter Widget树中子Widget可以通过发送通知（Notification）与父(�
 1. 通过NotificationListener可以在从可滚动组件到widget树根之间任意位置都能监听。而`ScrollController`只能和具体的可滚动组件关联后才可以。
 2. 收到滚动事件后获得的信息不同；`NotificationListener`在收到滚动事件时，通知中会携带当前滚动位置和ViewPort的一些信息，而`ScrollController`只能获取当前滚动位置。
 
-### 示例
+### 2. 实例
 
 下面，我们监听`ListView`的滚动通知，然后显示当前滚动进度百分比：
 

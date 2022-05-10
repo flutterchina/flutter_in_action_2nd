@@ -2,7 +2,9 @@
 
 通知（Notification）是Flutter中一个重要的机制，在widget树中，每一个节点都可以分发通知，通知会沿着当前节点向上传递，所有父节点都可以通过`NotificationListener`来监听通知。Flutter中将这种由子向父的传递通知的机制称为**通知冒泡**（Notification Bubbling）。通知冒泡和用户触摸事件冒泡是相似的，但有一点不同：通知冒泡可以中止，但用户触摸事件不行。
 
-> 通知冒泡和Web开发中浏览器事件冒泡原理是相似的，都是事件从出发源逐层向上传递，我们可以在上层节点任意位置来监听通知/事件，也可以终止冒泡过程，终止冒泡后，通知将不会再向上传递。
+> 注意：通知冒泡和Web开发中浏览器事件冒泡原理是相似的，都是事件从出发源逐层向上传递，我们可以在上层节点任意位置来监听通知/事件，也可以终止冒泡过程，终止冒泡后，通知将不会再向上传递。
+
+## 8.6.1 监听通知
 
 Flutter中很多地方使用了通知，如前面介绍的 Scrollable 组件，它在滑动时就会分发**滚动通知**（ScrollNotification），而 Scrollbar 正是通过监听 ScrollNotification 来确定滚动条位置的。
 
@@ -76,7 +78,7 @@ class NotificationListener<T extends Notification> extends StatelessWidget {
 
 Flutter的UI框架实现中，除了在可滚动组件在滚动过程中会发出`ScrollNotification`之外，还有一些其它的通知，如`SizeChangedLayoutNotification`、`KeepAliveNotification` 、`LayoutChangedNotification`等，Flutter正是通过这种通知机制来使父元素可以在一些特定时机来做一些事情。
 
-#### 自定义通知
+## 8.6.2 自定义通知
 
 除了 Flutter 内部通知，我们也可以自定义通知，下面我们看看如何实现自定义通知：
 
@@ -154,7 +156,7 @@ class MyNotification extends Notification {
 
 ![图8-7](../imgs/8-7.png)
 
-### 阻止冒泡
+## 8.6.3 阻止通知冒泡
 
 我们将上面的例子改为：
 
@@ -185,7 +187,7 @@ class NotificationRouteState extends State<NotificationRoute> {
 
 上列中两个`NotificationListener`进行了嵌套，子`NotificationListener`的`onNotification`回调返回了`false`，表示不阻止冒泡，所以父`NotificationListener`仍然会受到通知，所以控制台会打印出通知信息；如果将子`NotificationListener`的`onNotification`回调的返回值改为`true`，则父`NotificationListener`便不会再打印通知了，因为子`NotificationListener`已经终止通知冒泡了。
 
-### 冒泡原理
+## 8.6.4 冒泡原理
 
 我们在上面介绍了通知冒泡的现象及使用，现在我们更深入一些，介绍一下Flutter框架中是如何实现通知冒泡的。为了搞清楚这个问题，就必须看一下源码，我们从通知分发的的源头出发，然后再顺藤摸瓜。由于通知是通过`Notification`的`dispatch(context)`方法发出的，那我们先看看`dispatch(context)`方法中做了什么，下面是相关源码：
 
@@ -238,6 +240,6 @@ bool visitAncestor(Element element) {
 1. `Context`上也提供了遍历Element树的方法。
 2. 我们可以通过`Element.widget`得到`element`节点对应的widget；我们已经反复讲过 Widget 和Element的对应关系，读者通过这些源码来加深理解。
 
-### 总结
+## 8.6.5 总结
 
 Flutter 中通过通知冒泡实现了一套自低向上的消息传递机制，这个和 Web 开发中浏览器的事件冒泡原理类似，Web 开发者可以类比学习。另外我们通过源码了解了 Flutter 通知冒泡的流程和原理，便于读者加深理解和学习 Flutter 的框架设计思想，在此，再次建议读者在平时学习中能多看看源码，定会受益匪浅。

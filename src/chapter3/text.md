@@ -1,6 +1,6 @@
-## 3.1 文本及样式
+# 3.1 文本及样式
 
-### 3.1.1 Text
+## 3.1.1 Text
 
 `Text` 用于显示简单样式文本，它包含一些控制文本显示样式的一些属性，一个简单的例子如下：
 
@@ -39,7 +39,7 @@ Text("Hello world",
 - `maxLines`、`overflow`：指定文本显示的最大行数，默认情况下，文本是自动折行的，如果指定此参数，则文本最多不会超过指定的行。如果有多余的文本，可以通过`overflow`来指定截断方式，默认是直接截断，本例中指定的截断方式`TextOverflow.ellipsis`，它会将多余文本截断后以省略符“...”表示；TextOverflow 的其它截断方式请参考 SDK 文档。
 - `textScaleFactor`：代表文本相对于当前字体大小的缩放因子，相对于去设置文本的样式`style`属性的`fontSize`，它是调整字体大小的一个快捷方式。该属性的默认值可以通过`MediaQueryData.textScaleFactor`获得，如果没有`MediaQuery`，那么会默认值将为1.0。
 
-### 3.1.2 TextStyle
+## 3.1.2 TextStyle
 
 `TextStyle`用于指定文本显示的样式如颜色、字体、粗细、背景等。我们看一个示例：
 
@@ -71,7 +71,7 @@ Text("Hello world",
   - `fontSize`可以精确指定字体大小，而`textScaleFactor`只能通过缩放比例来控制。
   - `textScaleFactor`主要是用于系统字体大小设置改变时对 Flutter 应用字体进行全局调整，而`fontSize`通常用于单个文本，字体大小不会跟随系统字体大小变化。
 
-### 3.1.3 TextSpan
+## 3.1.3 TextSpan
 
 在上面的例子中，Text 的所有文本内容只能按同一种样式，如果我们需要对一个 Text 内容的不同部分按照不同的样式显示，这时就可以使用`TextSpan`，它代表文本的一个“片段”。我们看看 TextSpan 的定义:
 
@@ -110,7 +110,7 @@ Text.rich(TextSpan(
 - 上面代码中，我们通过 TextSpan 实现了一个基础文本片段和一个链接片段，然后通过`Text.rich ` 方法将`TextSpan` 添加到 Text 中，之所以可以这样做，是因为 Text 其实就是 RichText 的一个包装，而RichText 是可以显示多种样式(富文本)的 widget。
 - `_tapRecognizer`，它是点击链接后的一个处理器（代码已省略），关于手势识别的更多内容我们将在后面单独介绍。
 
-### 3.1.4 DefaultTextStyle
+## 3.1.4 DefaultTextStyle
 
 在 Widget 树中，文本的样式默认是可以被继承的（子类文本类组件未指定具体样式时可以使用 Widget 树中父级设置的默认样式），因此，如果在 Widget 树的某一个节点处设置一个默认的文本样式，那么该节点的子树中所有文本都会默认使用这个样式，而`DefaultTextStyle`正是用于设置默认文本样式的。下面我们看一个例子：
 
@@ -142,13 +142,13 @@ DefaultTextStyle(
 
 ![3-5](../imgs/3-5.png)
 
-### 3.1.5 字体
+## 3.1.5 字体
 
 可以在 Flutter 应用程序中使用不同的字体。例如，我们可能会使用设计人员创建的自定义字体，或者其它第三方的字体，如 [Google Fonts](https://fonts.google.com/) 中的字体。本节将介绍如何为 Flutter 应用配置字体，并在渲染文本时使用它们。
 
 在 Flutter 中使用字体分两步完成。首先在`pubspec.yaml`中声明它们，以确保它们会打包到应用程序中。然后通过[`TextStyle`](https://docs.flutter.io/flutter/painting/TextStyle-class.html)属性使用字体。
 
-#### 在asset中声明
+### 1. 在asset中声明
 
 要将字体文件打包到应用中，和使用其它资源一样，要先在`pubspec.yaml`中声明它。然后将字体文件复制到在`pubspec.yaml`中指定的位置，如：
 
@@ -167,7 +167,7 @@ flutter:
         - asset: assets/fonts/abrilfatface/AbrilFatface-Regular.ttf
 ```
 
-#### 使用字体
+### 2. 使用字体
 
 ```dart
 // 声明文本样式
@@ -182,7 +182,7 @@ var buttonText = const Text(
 );
 ```
 
-#### Package中的字体
+### 3. Package中的字体
 
 要使用 Package 中定义的字体，**必须提供`package`参数**。例如，假设上面的字体声明位于`my_package`包中。然后创建 TextStyle 的过程如下：
 

@@ -5,7 +5,7 @@ Material 组件库中提供了多种按钮组件如`ElevatedButton`、`TextButto
 1. 按下时都会有“水波动画”（又称“涟漪动画”，就是点击时按钮上会出现水波扩散的动画）。
 2. 有一个`onPressed`属性来设置点击回调，当按钮按下时会执行该回调，如果不提供该回调则按钮会处于禁用状态，禁用状态不响应用户点击。
 
-### ElevatedButton
+## 3.2.1 ElevatedButton
 
 `ElevatedButton` 即"漂浮"按钮，它默认带有阴影和灰色背景。按下后，阴影会变大，如图3-6所示：
 
@@ -20,7 +20,7 @@ ElevatedButton(
 );
 ```
 
-### TextButton
+## 3.2.2 TextButton
 
 `TextButton`即文本按钮，默认背景透明并不带阴影。按下后，会有背景色，如图3-7所示：
 
@@ -35,7 +35,7 @@ TextButton(
 )
 ```
 
-### OutlineButton
+## 3.2.3 OutlineButton
 
 `OutlineButton`默认有一个边框，不带阴影且背景透明。按下后，边框颜色会变亮、同时出现背景和阴影(较弱)，如图 3-8 所示：
 
@@ -50,7 +50,7 @@ OutlineButton(
 )
 ```
 
-### IconButton
+## 3.2.4 IconButton
 
 `IconButton`是一个可点击的Icon，不包括文字，默认没有背景，点击后会出现背景，如图3-9所示：
 
@@ -67,7 +67,7 @@ IconButton(
 
 
 
-### 带图标的按钮
+## 3.2.5 带图标的按钮
 
 `ElevatedButton`、`TextButton`、`OutlineButton`都有一个`icon` 构造函数，通过它可以轻松创建带图标的按钮，如图3-10所示：
 

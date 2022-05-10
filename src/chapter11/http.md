@@ -60,7 +60,7 @@ Dart IO库中提供了用于发起Http请求的一些类，我们可以直接使
 
     关闭client后，通过该client发起的所有请求都会中止。
 
-#### 示例
+## 11.2.1 示例
 
 我们实现一个获取百度首页html的例子，示例效果如图11-1所示：
 
@@ -153,7 +153,7 @@ I/flutter (18545): content-type: text/html;charset=utf-8
 I/flutter (18545): tracecode: 00525262401065761290103018, 00522983
 ```
 
-#### HttpClient配置
+## 11.2.2 HttpClient配置
 
 `HttpClient`有很多属性可以配置，常用的属性列表如下：
 
@@ -167,7 +167,7 @@ I/flutter (18545): tracecode: 00525262401065761290103018, 00522983
 
 可以发现，有些属性只是为了更方便的设置请求头，对于这些属性，你完全可以通过`HttpClientRequest`直接设置header，不同的是通过`HttpClient`设置的对整个`httpClient`都生效，而通过`HttpClientRequest`设置的只对当前请求生效。
 
-#### HTTP请求认证
+## 11.2.3 HTTP请求认证
 
 Http协议的认证（Authentication）机制可以用于保护非公开资源。如果Http服务器开启了认证，那么用户在发起请求时就需要携带用户凭据，如果你在浏览器中访问了启用Basic认证的资源时，浏览就会弹出一个登录框，如图11-2：
 
@@ -230,7 +230,7 @@ Http协议的认证（Authentication）机制可以用于保护非公开资源�
 
    一个建议是，如果所有请求都需要认证，那么应该在HttpClient初始化时就调用`addCredentials()`来添加全局凭证，而不是去动态添加。
 
-#### 代理
+## 11.2.4 代理
 
 可以通过`findProxy`来设置代理策略，例如，我们要将所有请求通过代理服务器（192.168.1.2:8888）发送出去：
 
@@ -256,7 +256,7 @@ void addProxyCredentials(
 
 他们的使用方法和上面“HTTP请求认证”一节中介绍的`addCredentials`和`authenticate` 相同，故不再赘述。
 
-#### 证书校验
+## 11.2.5 证书校验
 
 Https中为了防止通过伪造证书而发起的中间人攻击，客户端应该对自签名或非CA颁发的证书进行校验。`HttpClient`对证书校验的逻辑如下：
 
@@ -295,7 +295,7 @@ HttpClient httpClient = HttpClient(context: sc);
 
 注意，通过`setTrustedCertificates()`设置的证书格式必须为 PEM 或 PKCS12，如果证书格式为PKCS12，则需将证书密码传入，这样则会在代码中暴露证书密码，所以客户端证书校验不建议使用 PKCS12 格式的证书。
 
-#### 总结
+## 11.2.6 总结
 
-值得注意的是，`HttpClient`提供的这些属性和方法最终都会作用在请求header里，我们完全可以通过手动去设置header来实现，之所以提供这些方法，只是为了方便开发者而已。另外，Http协议是一个非常重要的、使用最多的网络协议，每一个开发者都应该对 http 协议非常熟悉。
+本节介绍了如果使用 Dart:io 库的 HttpClient来发起Http请求，以及相关的请求配置、代理设置以及证书校验等，可以发现直接通过HttpClient发起网络请求还是比较麻烦的，下一节我们将会介绍一下dio网络库，通过它。值得注意的是，`HttpClient`提供的大所数属性和方法最终会作用在请求的header里，我们完全可以通过手动去设置header来实现，之所以提供这些方法，只是为了方便开发者而已。另外，Http协议是一个非常重要的、使用最多的网络协议，每一个开发者都应该对 http 协议非常熟悉。
 

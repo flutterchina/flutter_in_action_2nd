@@ -4,6 +4,8 @@
 
 ## 9.6.1 AnimatedSwitcher
 
+### 1. 简介
+
 `AnimatedSwitcher` 可以同时对其新、旧子元素添加显示、隐藏动画。也就是说在`AnimatedSwitcher`的子元素发生变化时，会对其旧元素和新元素做动画，我们先看看`AnimatedSwitcher` 的定义：
 
 ```dart
@@ -44,9 +46,9 @@ Widget defaultTransitionBuilder(Widget child, Animation<double> animation) {
 
 可以看到，返回了`FadeTransition`对象，也就是说默认情况，`AnimatedSwitcher`会对新旧child执行“渐隐”和“渐显”动画。
 
-### 例子
+### 2. 示例
 
-下面我们看一个列子：实现一个计数器，然后在每一次自增的过程中，旧数字执行缩小动画隐藏，新数字执行放大动画显示，代码如下：
+下面我们看一个例子：实现一个计数器，然后在每一次自增的过程中，旧数字执行缩小动画隐藏，新数字执行放大动画显示，代码如下：
 
 ```dart
 import 'package:flutter/material.dart';
@@ -103,7 +105,7 @@ class AnimatedSwitcherCounterRoute extends StatefulWidget {
 
 > 注意：AnimatedSwitcher的新旧child，如果类型相同，则Key必须不相等。
 
-### AnimatedSwitcher实现原理
+### 3. AnimatedSwitcher实现原理
 
 实际上，`AnimatedSwitcher`的实现原理是比较简单的，我们根据`AnimatedSwitcher`的使用方式也可以猜个大概。要想实现新旧 child 切换动画，只需要明确两个问题：
 
@@ -228,7 +230,7 @@ AnimatedSwitcher(
 
 上图中“0”从左侧滑出，而“1”从右侧滑入。可以看到，我们通过这种巧妙的方式实现了类似路由进场切换的动画，实际上Flutter路由切换也正是通过`AnimatedSwitcher`来实现的。
 
-## SlideTransitionX
+## 9.6.3 SlideTransitionX
 
 上面的示例我们实现了“左出右入”的动画，那如果要实现“左入右出”、“上入下出”或者 “下入上出”怎么办？当然，我们可以分别修改上面的代码，但是这样每种动画都得单独定义一个“Transition”，这很麻烦。本节将封装一个通用的`SlideTransitionX` 来实现这种“出入动画”，代码如下：
 
@@ -317,7 +319,7 @@ AnimatedSwitcher(
 
 上图中“0”从底部滑出，而“1”从顶部滑入。读者可以尝试给`SlideTransitionX`的`direction`取不同的值来查看运行效果。
 
-## 总结
+## 9.6.4 总结
 
 本节我们学习了`AnimatedSwitcher`的详细用法，同时也介绍了打破`AnimatedSwitcher`动画对称性的方法。我们可以发现：在需要切换新旧UI元素的场景，`AnimatedSwitcher`将十分实用。
 

@@ -1,6 +1,8 @@
 
 
-## 5.1 填充（Padding）
+# 5.1 填充（Padding）
+
+## 5.1.1 Padding
 
 `Padding`可以给其子节点添加填充（留白），和边距效果类似。我们在前面很多示例中都已经使用过它了，现在来看看它的定义：
 
@@ -14,7 +16,7 @@ Padding({
 
 `EdgeInsetsGeometry`是一个抽象类，开发中，我们一般都使用`EdgeInsets`类，它是`EdgeInsetsGeometry`的一个子类，定义了一些设置填充的便捷方法。
 
-### EdgeInsets
+## 5.1.2 EdgeInsets
 
 我们看看`EdgeInsets`提供的便捷方法：
 
@@ -23,7 +25,7 @@ Padding({
 - `only({left, top, right ,bottom })`：可以设置具体某个方向的填充(可以同时指定多个方向)。
 - `symmetric({  vertical, horizontal })`：用于设置对称方向的填充，`vertical`指`top`和`bottom`，`horizontal`指`left`和`right`。
 
-### 示例
+## 5.1.3 示例
 
 下面的示例主要展示了`EdgeInsets`的不同用法，比较简单，源码如下：
 

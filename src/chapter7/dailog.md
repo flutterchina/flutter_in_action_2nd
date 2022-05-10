@@ -6,7 +6,7 @@
 
 对话框本质上也是UI布局，通常一个对话框会包含标题、内容，以及一些操作按钮，为此，Material库中提供了一些现成的对话框组件来用于快速的构建出一个完整的对话框。
 
-### AlertDialog
+### 1. AlertDialog
 
 下面我们主要介绍一下Material库中的`AlertDialog`组件，它的构造函数定义如下：
 
@@ -114,7 +114,7 @@ Future<bool?> showDeleteConfirmDialog1() {
 
 > 注意：如果`AlertDialog`的内容过长，内容将会溢出，这在很多时候可能不是我们期望的，所以如果对话框内容过长时，可以用`SingleChildScrollView`将内容包裹起来。
 
-### SimpleDialog
+### 2. SimpleDialog
 
 `SimpleDialog`也是Material组件库提供的对话框，它会展示一个列表，用于列表选择的场景。下面是一个选择APP语言的示例，运行结果如图7-12。
 
@@ -162,7 +162,7 @@ Future<void> changeLanguage() async {
 
 列表项组件我们使用了`SimpleDialogOption`组件来包装了一下，它相当于一个TextButton，只不过按钮文案是左对齐的，并且padding较小。上面示例运行后，用户选择一种语言后，控制台就会打印出它。
 
-### Dialog
+### 3. Dialog
 
 实际上`AlertDialog`和`SimpleDialog`都使用了`Dialog`类。由于`AlertDialog`和`SimpleDialog`中使用了`IntrinsicWidth`来尝试通过子组件的实际尺寸来调整自身尺寸，这就导致他们的子组件不能是延迟加载模型的组件（如`ListView`、`GridView` 、 `CustomScrollView`等），如下面的代码运行后会报错。
 
@@ -455,7 +455,7 @@ class _DialogRouteState extends State<DialogRoute> {
 
 然后，当我们运行上面的代码时我们会发现复选框根本选不中！为什么会这样呢？其实原因很简单，我们知道`setState`方法只会针对当前context的子树重新build，但是我们的对话框并不是在`_DialogRouteState`的`build` 方法中构建的，而是通过`showDialog`单独构建的，所以在`_DialogRouteState`的context中调用`setState`是无法影响通过`showDialog`构建的UI的。另外，我们可以从另外一个角度来理解这个现象，前面说过对话框也是通过路由的方式来实现的，那么上面的代码实际上就等同于企图在父路由中调用`setState`来让子路由更新，这显然是不行的！简尔言之，根本原因就是context不对。那如何让复选框可点击呢？通常有如下三种方法：
 
-### 单独抽离出StatefulWidget
+### 1. 单独抽离出StatefulWidget
 
 既然是context不对，那么直接的思路就是将复选框的选中逻辑单独封装成一个`StatefulWidget`，然后在其内部管理复选状态。我们先来看看这种方法，下面是实现代码：
 
@@ -572,7 +572,7 @@ ElevatedButton(
 
 可见复选框能选中了，点击“取消”或“删除”后，控制台就会打印出最终的确认状态。
 
-### 使用StatefulBuilder方法
+### 2. 使用StatefulBuilder方法
 
 上面的方法虽然能解决对话框状态更新的问题，但是有一个明显的缺点——对话框上所有可能会改变状态的组件都得单独封装在一个在内部管理状态的`StatefulWidget`中，这样不仅麻烦，而且复用性不大。因此，我们来想想能不能找到一种更简单的方法？上面的方法本质上就是将对话框的状态置于一个`StatefulWidget`的上下文中，由`StatefulWidget`在内部管理，那么我们有没有办法在不需要单独抽离组件的情况下创建一个`StatefulWidget`的上下文呢？想到这里，我们可以从`Builder`组件的实现获得灵感。在前面介绍过`Builder`组件可以获得组件所在位置的真正的Context，那它是怎么实现的呢，我们看看它的源码：
 
@@ -641,7 +641,7 @@ Row(
 
 实际上，这种方法本质上就是子组件通知父组件（StatefulWidget）重新build子组件本身来实现UI更新的，读者可以对比代码理解。实际上`StatefulBuilder`正是Flutter SDK中提供的一个类，它和`Builder`的原理是一样的，在此，提醒读者一定要将`StatefulBuilder`和`Builder`理解透彻，因为它们在Flutter中是非常实用的。
 
-### 精妙的解法
+### 3. 精妙的解法
 
 是否还有更简单的解决方案呢？要确认这个问题，我们就得先搞清楚UI是怎么更新的，我们知道在调用`setState`方法后`StatefulWidget`就会重新build，那`setState`方法做了什么呢？我们能不能从中找到方法？顺着这个思路，我们就得看一下`setState`的核心源码：
 
@@ -728,7 +728,7 @@ Row(
 
 ## 7.7.5 其它类型的对话框
 
-### 底部菜单列表
+### 1. 底部菜单列表
 
 `showModalBottomSheet`方法可以弹出一个Material风格的底部菜单列表模态对话框，示例如下：
 
@@ -770,7 +770,7 @@ ElevatedButton(
 
 
 
-### Loading框
+### 2. Loading框
 
 其实Loading框可以直接通过`showDialog`+`AlertDialog`来自定义：
 
@@ -829,7 +829,7 @@ UnconstrainedBox(
 
 ![图7-19](../imgs/7-19.png)
 
-### 日历选择
+### 3. 日历选择器
 
 我们先看一下Material风格的日历选择器，如图7-20所示：
 

@@ -1,6 +1,6 @@
-# 6.8 可滚动组件子项缓存 KeepAlive
+# 6.8 可滚动组件子项缓存 
 
-本节将介绍一种在可滚动组件中缓存指定子项的通用方案。
+本节将介绍可滚动组件中缓存指定子项的通用方案。
 
 首先回想一下，在介绍 ListView 时，有一个`addAutomaticKeepAlives` 属性我们并没有介绍，如果`addAutomaticKeepAlives` 为 `true`，则 ListView 会为每一个列表项添加一个 AutomaticKeepAlive 父组件。虽然 PageView 的默认构造函数和 PageView.builder 构造函数中没有该参数，但它们最终都会生成一个 SliverChildDelegate 来负责列表项的按需加载，而在 SliverChildDelegate 中每当列表项构建完成后，SliverChildDelegate 都会为其添加一个 AutomaticKeepAlive 父组件。下面我们就先介绍一下 AutomaticKeepAlive 组件。
 
@@ -33,7 +33,9 @@ class _PageState extends State<Page> with AutomaticKeepAliveClientMixin {
 
 ![图6-17](../imgs/6-17.png)
 
-现在我们重新运行一下示例，发现每个 Page 页只会 build 一次，缓存成功了。需要注意，如果我们采用 PageView.custom 构建页面时没有给列表项包装 AutomaticKeepAlive 父组件，则上述方案不能正常工作，因为此时Client 发出消息后，找不到 Server，404 了，😀。
+现在我们重新运行一下示例，发现每个 Page 页只会 build 一次，缓存成功了。
+
+需要注意，如果我们采用 PageView.custom 构建页面时没有给列表项包装 AutomaticKeepAlive 父组件，则上述方案不能正常工作，因为此时Client 发出消息后，找不到 Server，404 了，😀。
 
 ## 6.8.2 KeepAliveWrapper
 

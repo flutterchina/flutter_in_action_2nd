@@ -8,7 +8,7 @@
 
 > 注意：本节介绍的安装方式随着Flutter的升级可能会发生变化，如果下面介绍的内容在您安装Flutter时已经失效，请访问Flutter官网，按照官网最新的安装教程安装。
 
-### 使用镜像
+### 1. 使用镜像
 
 由于在国内访问Flutter有时可能会受到限制，Flutter官方为中国开发者搭建了临时镜像，大家可以将如下环境变量加入到用户环境变量中：
 
@@ -19,9 +19,9 @@ export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 
 **注意：** 此镜像为临时镜像，并不能保证一直可用，读者可以参考https://flutter.dev/community/china 以获得有关镜像服务器的最新动态。
 
-### 在Windows上搭建Flutter开发环境
+### 2. 在Windows上搭建Flutter开发环境
 
-#### 系统要求
+#### 1）系统要求
 
 要安装并运行Flutter，您的开发环境必须满足以下最低要求:
 
@@ -37,7 +37,7 @@ export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 
   如果已安装Git for Windows，请确保可以在命令提示符或PowerShell中运行 git 命令
 
-#### 获取Flutter SDK
+#### 2）获取Flutter SDK
 
 1. 去flutter官网下载其最新可用的安装包，下载地址：https://flutter.dev/docs/development/tools/sdk/releases 。
 
@@ -80,7 +80,7 @@ flutter doctor
 
 第一次运行flutter命令（如`flutter doctor`）时，它会下载它自己的依赖项并自行编译。以后再运行就会快得多。缺失的依赖需要安装一下，安装完成后再运行`flutter doctor`命令来验证是否安装成功。
 
-#### Android设置
+#### 3）Android设置
 
 Flutter依赖于Android Studio的全量安装。Android Studio不仅可以管理Android 平台依赖、SDK版本等，而且它也是Flutter开发推荐的IDE之一（当然，你也可以使用其它编辑器或IDE，我们将会在后面讨论）。
 
@@ -89,17 +89,17 @@ Flutter依赖于Android Studio的全量安装。Android Studio不仅可以管理
 1. 下载并安装 Android Studio，下载地址：https://developer.android.com/studio/index.html 。
 2. 启动Android Studio，然后执行“Android Studio安装向导”。这将安装最新的Android SDK、Android SDK平台工具和Android SDK构建工具，这些是用Flutter进行Android开发所需要的。
 
-#### 安装遇到问题？
+#### 4）安装遇到问题？
 
 如果在安装过程中遇到问题，可以先去flutter官网查看一下安装方式是否发生变化，或者在网上搜索一下解决方案。
 
 
 
-### 在macOS上搭建Flutter开发环境
+### 3. 在macOS上搭建Flutter开发环境
 
 在masOS下可以同时进行Android和iOS设备的测试。
 
-#### 系统要求
+#### 1）系统要求
 
 要安装并运行Flutter，您的开发环境必须满足以下最低要求:
 
@@ -108,7 +108,7 @@ Flutter依赖于Android Studio的全量安装。Android Studio不仅可以管理
 - 工具: Flutter 依赖下面这些命令行工具.
   * `bash、mkdir、rm、git、curl、unzip、which`
 
-#### 获取Flutter SDK
+#### 2）获取Flutter SDK
 
 1. 去flutter官网下载其最新可用的安装包，官网地址：https://flutter.dev/sdk-archive/#macos
 
@@ -166,7 +166,7 @@ Flutter依赖于Android Studio的全量安装。Android Studio不仅可以管理
 
 
 
-#### 安装 Xcode
+#### 3）安装 Xcode
 
 要为iOS开发Flutter应用程序，您需要Xcode最新版本:
 
@@ -176,13 +176,13 @@ Flutter依赖于Android Studio的全量安装。Android Studio不仅可以管理
 
 使用Xcode，您可以在iOS设备或模拟器上运行Flutter应用程序。
 
-#### 安装Android Studio
+#### 4）安装Android Studio
 
 和Window一样，要在Android设备上构建并运行Flutter程序都需要先安装Android Studio，读者可以先自行下载并安装Android Studio，在此不再赘述。
 
-### 升级 Flutter
+### 4. 升级 Flutter
 
-#### Flutter SDK分支
+#### 1) Flutter SDK分支
 
 Flutter SDK有多个分支，如beta、dev、master、stable，其中stable分支为稳定分支（日后有新的稳定版本发布后可能也会有新的稳定分支，如1.0.0），dev和master为开发分支，安装flutter后，你可以运行`flutter channel`查看所有分支，如笔者本地运行后，结果如下：
 
@@ -195,7 +195,7 @@ Flutter channels:
 
 带"*"号的分支即你本地的Flutter SDK 跟踪的分支，要切换分支，可以使用`flutter channel beta` 或 `flutter channel master`，Flutter官方建议跟踪稳定分支，但你也可以跟踪`master`分支，这样可以查看最新的变化，但这样稳定性要低的多。
 
-#### 升级Flutter SDK和依赖包
+#### 2) 升级Flutter SDK和依赖包
 
 要升级flutter sdk，只需一句命令：
 
@@ -208,19 +208,17 @@ flutter upgrade
 - `flutter packages get`获取项目所有的依赖包。
 - `flutter packages upgrade` 获取项目所有依赖包的最新版本。
 
-#### 
-
 
 
 ## 1.3.2 IDE配置与使用
 
 理论上可以使用任何文本编辑器与命令行工具来构建Flutter应用程序。 不过，Flutter官方建议使用Android Studio和VS Code之一以获得更好的开发体验。Flutter官方提供了这两款编辑器插件，通过IDE和插件可获得代码补全、语法高亮、widget编辑辅助、运行和调试支持等功能，可以帮助我们极大的提高开发效率。下面我们分别介绍一下Android Studio和VS Code的配置及使用（Android Studio和VS Code读者可以在其官网获得最新的安装，由于安装比较简单，故不再赘述）。
 
-### Android Studio 配置与使用
+### 1. Android Studio 配置与使用
 
 由于Android Studio是基于IntelliJ IDEA开发的，所以读者也可以使用IntelliJ IDEA。
 
-#### 安装Flutter和Dart插件
+#### 1）安装Flutter和Dart插件
 
 需要安装两个插件:
 
@@ -236,7 +234,7 @@ flutter upgrade
 
 接下来，让我们用Android Studio创建一个Flutter项目，然后运行它，并体验“热重载”。
 
-#### 创建Flutter应用
+#### 2）创建Flutter应用
 
 1. 选择 **File>New Flutter Project** 。
 2. 选择 **Flutter application** 作为 project 类型, 然后点击 Next。
@@ -248,7 +246,7 @@ flutter upgrade
 
 在项目目录中，您应用程序的代码位于 `lib/main.dart`。
 
-#### 运行应用程序
+#### 3）运行应用程序
 
 1. 定位到Android Studio工具栏，如图1-2所示：
 
@@ -263,7 +261,7 @@ flutter upgrade
    ![图1-4](../imgs/1-3.png)
 
 
-#### 体验热重载
+#### 4）体验热重载
 
 Flutter 可以通过 *热重载（hot reload）* 实现快速的开发周期，热重载就是无需重启应用程序就能实时加载修改后的代码，并且不会丢失状态。简单的对代码进行更改，然后告诉IDE或命令行工具你需要重新加载（点击reload按钮），你就会在你的设备或模拟器上看到更改。
 
@@ -276,11 +274,11 @@ Flutter 可以通过 *热重载（hot reload）* 实现快速的开发周期，�
 
    你会立即在运行的应用程序中看到更新的字符串。
 
-### VS Code的配置与使用
+### 2. VS Code的配置与使用
 
 VS Code是一个轻量级编辑器，支持Flutter运行和调试。
 
-#### 安装flutter插件
+#### 1）安装flutter插件
 
 1. 启动 VS Code。
 2. 调用 **View>Command Palette…**。
@@ -292,7 +290,7 @@ VS Code是一个轻量级编辑器，支持Flutter运行和调试。
    * 输入 ‘doctor’, 然后选择 **‘Flutter: Run Flutter Doctor’** action。
    * 查看“OUTPUT”窗口中的输出是否有问题
 
-#### 创建Flutter应用
+#### 2）创建Flutter应用
 
 1. 启动 VS Code
 2. 调用 **View>Command Palette…**
@@ -301,7 +299,7 @@ VS Code是一个轻量级编辑器，支持Flutter运行和调试。
 5. 指定放置项目的位置，然后按蓝色的确定按钮
 6. 等待项目创建继续，并显示main.dart文件
 
-#### 体验热重载
+#### 3）体验热重载
 
 1. 打开`lib/main.dart`文件。
 2. 将字符串
@@ -318,7 +316,7 @@ VS Code是一个轻量级编辑器，支持Flutter运行和调试。
 
 Window下只支持为Android设备构建并运行Flutter应用，而macOS同时支持iOS和Android设备。下面分别介绍如何连接Android和iOS设备来运行flutter应用。
 
-### 连接Android模拟器
+### 1. 连接Android模拟器
 
 要准备在Android模拟器上运行并测试Flutter应用，请按照以下步骤操作：
 
@@ -338,7 +336,7 @@ Window下只支持为Android设备构建并运行Flutter应用，而macOS同时�
 
 7. 运行 `flutter run` 启动您的设备。 连接的设备名是 `Android SDK built for <platform>`，其中 *platform* 是芯片系列，如 x86。
 
-### 连接Android真机设备
+### 2. 连接Android真机设备
 
 要准备在Android设备上运行并测试Flutter应用，需要Android 4.1（API level 16）或更高版本的Android设备.
 
@@ -349,7 +347,7 @@ Window下只支持为Android设备构建并运行Flutter应用，而macOS同时�
 
 默认情况下，Flutter使用的Android SDK版本是基于你的 `adb` 工具版本。 如果想让Flutter使用不同版本的Android SDK，则必须将该 `ANDROID_HOME` 环境变量设置为相应的SDK安装目录。
 
-### 连接iOS模拟器
+### 3. 连接iOS模拟器
 
 要准备在iOS模拟器上运行并测试Flutter应用，请按以下步骤操作：
 
@@ -365,7 +363,7 @@ Window下只支持为Android设备构建并运行Flutter应用，而macOS同时�
 
 4. 运行 `flutter run`启动flutter应用程序。
 
-### 连接iOS真机设备
+### 4. 连接iOS真机设备
 
 要将Flutter应用安装到iOS真机设备，需要一些额外的工具和一个Apple帐户，还需要在Xcode中进行一些设置。
 
@@ -411,9 +409,9 @@ Window下只支持为Android设备构建并运行Flutter应用，而macOS同时�
 
 ## 1.3.4 常见配置问题
 
-### Android Studio问题
+### 1. Android Studio问题
 
-#### 缺少依赖库问题
+#### 1）缺少依赖库问题
 
 上手安卓最常遇见的问题之一，错误如图1-7所示，此时点击超链接即可自动跳转到安装页面
 
@@ -423,7 +421,7 @@ Window下只支持为Android设备构建并运行Flutter应用，而macOS同时�
 
 ![install_request_components.png](../imgs/1-8.png)
 
-#### 连接不上Android Repository
+#### 2）连接不上Android Repository
 
 这也是最常见的问题之一，当你发现自己无法下载部分依赖的时候，请优先考虑这种情况。进入 `File` -> `Settings` -> `Appearance & Behavior` -> `System Settings` -> `Android SDK` -> `SDK Update Sites` 列表，可以看到此时的 `Android Repository` 无法连接，如图1-9所示：
 
@@ -431,7 +429,7 @@ Window下只支持为Android设备构建并运行Flutter应用，而macOS同时�
 
 这是由于要去Google下载Android SDK，但在国内目前无法访问Google所致，因此，我们可以配置代理或使用vpn。
 
-#### 安卓包配置问题
+#### 3）安卓包配置问题
 
 一般格式为
 
@@ -464,7 +462,7 @@ Could not Get **
 
    > **注意：**存在这样的一种情况，当你根据上述步骤设置了之后，依旧无法解决这个问题，并有类似于 `Could not HEAD maven.aliyun.com` 的报错信息，请检查 `C:\Users\{user_name}\.gradle\gradle.properties` 是否有设置代理。删除后问题即可解决。
 
-#### Hot Reload 热重载失效问题
+#### 4）Hot Reload 热重载失效问题
 
 在给 `Terminal` 之类的终端模拟器设置代理之后，会导致“Hot Reload”重载失效，此时调用 **Save** (`cmd-s` / `ctrl-s`)将不会进行热重载，**热重载按钮** (带有闪电⚡️图标的按钮)也不会显示，将代理移除即可解决。
 

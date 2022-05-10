@@ -22,13 +22,13 @@ Flutter 目前已经支持macOS、Windows、Linux、Android、iOS、Web等多个
 
 Flutter 中提供了两种不同的渲染器来运行和构建 Web 应用，分别是 html 渲染器和 CanvasKit 渲染器。
 
-### Html渲染器
+### 1. Html渲染器
 
 由于浏览器有一套自身的布局标准（ html+css ），Flutter在生成Web应用时可以编译为符合浏览器标准的文件，包括使用 HTML，CSS，Canvas 和 SVG 元素来渲染。
 
 使用Html渲染器的优点是应用体积相对较小，缺点是使用Html渲染器时大多数 UI 并不是 Flutter 引擎绘制的，所以可能会存在跨浏览器跨时UI出现不一致的情况。
 
-### CanvasKit 渲染器
+### 2. CanvasKit 渲染器
 
 我们知道 Flutter 的优势是提供一套自绘的UI框架，可以保证多端UI的一致性。Flutter 在支持其它平台时，都是将引擎的C++代码编译为相应平台的代码来实现移植的（运行在操作系统之上）。但是在 Web 平台，Web 应用是运行在浏览器之上，而现代浏览器都实现了对 WebAssembly 的支持，简单来讲，在之前W3C规范中只要求浏览器能够支持 JavaScript 语言，这样的话很多其它语言的代码想在浏览器中运行就必须改写为 JavaScript，而 WebAssembly 是一种标准的、可移植的二进制文件格式规范，文件扩展名为 .wasm，现在浏览器都支持 WebAssembly ，这也就意味着其它语言按照 WebAssembly 规范编译的  .wasm 可以在浏览器中运行！因此，Flutter 将引擎编译成 WebAssembly 格式，并使用 WebGL 渲染，这种渲染方式的渲染器官方称为 CanvasKit 渲染器。
 
@@ -61,7 +61,7 @@ Web 开发已有完整且强大的开发及生态体系，Flutter Web并不适�
 - 单页应用 (Single page apps, SPA)，一般一个应用只有一个html文件，不同页面是通过。
 - 将现有 Flutter 移动应用拓展到 Web，在两个平台共享代码。
 
-> PWA 和 SPA 应用在 Web开发中是两种基本的应用类型，Web开发者会比较熟悉，如果读者不了解可以自行百度，不再赘述。
+> 注意：PWA 和 SPA 应用在 Web开发中是两种基本的应用类型，Web开发者会比较熟悉，如果读者不了解可以自行百度，不再赘述。
 
 现在阶段，Flutter 对于富文本和瀑布流类型的 Web 页面并不是很适合，例如博客，它是典型的“以文档为中心”的模式，而不是像 Flutter 这样的 UI 框架可以提供的“以应用为中心”的服务。以文档为中心的应用通常各个页面之间相互独立，很少有关联，也就不需要跨页面的状态共享，而以应用为中心的服务，通常各个页面之间是有状态关联，不同页面组成一个完整的功能。
 

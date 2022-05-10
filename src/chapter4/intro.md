@@ -1,14 +1,14 @@
 # 4.1 布局类组件简介
 
-## 简介
-
-布局类组件都会包含一个或多个子组件，不同的布局类组件对子组件排列（layout）方式不同。
+布局类组件都会包含一个或多个子组件，不同的布局类组件对子组件排列（layout）方式不同，如表4-1所示：
 
 | Widget                        | 说明             | 用途                                                         |
 | ----------------------------- | ---------------- | ------------------------------------------------------------ |
 | LeafRenderObjectWidget        | 非容器类组件基类 | Widget树的叶子节点，用于没有子节点的widget，通常基础组件都属于这一类，如Image。 |
 | SingleChildRenderObjectWidget | 单子组件基类     | 包含一个子Widget，如：ConstrainedBox、DecoratedBox等         |
 | MultiChildRenderObjectWidget  | 多子组件基类     | 包含多个子Widget，一般都有一个children参数，接受一个Widget数组。如Row、Column、Stack等 |
+
+​																						表4-1
 
 布局类组件就是指直接或间接继承(包含)`SingleChildRenderObjectWidget` 和`MultiChildRenderObjectWidget`的Widget，它们一般都会有一个`child`或`children`属性用于接收子 Widget。我们看一下继承关系 Widget > RenderObjectWidget > (Leaf/SingleChild/MultiChild)RenderObjectWidget 。
 

@@ -2,6 +2,8 @@
 
 尺寸限制类容器用于限制容器大小，Flutter中提供了多种这样的容器，如`ConstrainedBox`、`SizedBox`、`UnconstrainedBox`、`AspectRatio` 等，本节将介绍一些常用的。
 
+## 4.2.1 Flutter布局模型
+
 Flutter 中有两种布局模型：
 
 - 基于 RenderBox 的盒模型布局。
@@ -20,7 +22,7 @@ Flutter 中有两种布局模型：
 1. 组件对应的渲染对象都继承自 RenderBox 类。在本书后面文章中如果提到某个组件是  RenderBox，则指它是基于盒模型布局的，而不是说组件是 RenderBox 类的实例。
 2. 在布局过程中父级传递给子级的约束信息由 BoxConstraints  描述。
 
-## 4.2.1 BoxConstraints
+## 4.2.2 BoxConstraints
 
 BoxConstraints 是盒模型布局过程中父渲染对象传递给子渲染对象的约束信息，包含最大宽高信息，子组件大小需要在约束的范围内，BoxConstraints  默认的构造函数如下：
 
@@ -39,11 +41,11 @@ const BoxConstraints({
 
 下面我们介绍一些常用的通过约束限制子组件大小的组件。
 
-## 4.2.2 ConstrainedBox
+## 4.2.3 ConstrainedBox
 
 `ConstrainedBox`用于对子组件添加额外的约束。例如，如果你想让子组件的最小高度是80像素，你可以使用`const BoxConstraints(minHeight: 80.0)`作为子组件的约束。
 
-#### 示例
+### 示例
 
 我们先定义一个`redBox`，它是一个背景颜色为红色的盒子，不指定它的宽度和高度：
 
@@ -74,7 +76,7 @@ ConstrainedBox(
 
 可以看到，我们虽然将Container的高度设置为5像素，但是最终却是50像素，这正是ConstrainedBox的最小高度限制生效了。如果将Container的高度设置为80像素，那么最终红色区域的高度也会是80像素，因为在此示例中，ConstrainedBox只限制了最小高度，并未限制最大高度。
 
-## 4.2.3 SizedBox
+## 4.2.4 SizedBox
 
 `SizedBox`用于给子元素指定固定的宽高，如：
 
@@ -118,7 +120,7 @@ RenderConstrainedBox createRenderObject(BuildContext context) {
 
 
 
-## 4.2.4 多重限制
+## 4.2.5 多重限制
 
 如果某一个组件有多个父级`ConstrainedBox`限制，那么最终会是哪个生效？我们看一个例子：
 
@@ -160,7 +162,7 @@ ConstrainedBox(
 
 
 
-## 4.2.5 UnconstrainedBox
+## 4.2.6 UnconstrainedBox
 
 虽然任何时候子组件都必须遵守其父组件的约束，但前提条件是它们必须是父子关系，假如有一个组件 A，它的子组件是B，B 的子组件是 C，则 C 必须遵守 B 的约束，同时 B 必须遵守 A 的约束，但是 A 的约束不会直接约束到 C，除非B将A对它自己的约束透传给了C。 利用这个原理，就可以实现一个这样的 B 组件：
 
@@ -261,6 +263,6 @@ Column(
 
 
 
-## 4.2.6 其它约束类容器
+## 4.2.7 其它约束类容器
 
 除了上面介绍的这些常用的尺寸限制类容器外，还有一些其他的尺寸限制类容器，比如`AspectRatio`，它可以指定子组件的长宽比、`LimitedBox` 用于指定最大宽高、`FractionallySizedBox` 可以根据父容器宽高的百分比来设置子组件宽高等，由于这些容器使用起来都比较简单，我们便不再赘述，读者可以自行了解。

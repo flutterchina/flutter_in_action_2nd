@@ -593,7 +593,7 @@ Widget wStaggerTextWaterMark() {
 
 既然如此，那如果能让 WaterMark 的绘制区域超过屏幕宽度 30 像素，这样平移后不就可以了么？这个思路是对的，我们知道 WaterMark 中是通过 DecoratedBox 去绘制的背景，但我们不能去修改 DecoratedBox 的绘制逻辑，如果将 DecoratedBox 相关代码拷贝一份出来修改，这样后期的维护成本就很大，所以直接修改 DecoratedBox 的方法不可取。
 
-### 方案一：使用可滚动组件来应用偏移
+### 1. 方案一：使用可滚动组件来应用偏移
 
 我们知道大多数组件的绘制区域是和自身布局大小是相同的，那么我们能不能强制让 WaterMark 的宽度超出屏幕宽度30 像素呢？当然可以，可滚动组件不都是这个原理么！那么肯定有一个方法能行的通，即强制指定WaterMark的宽度比屏幕宽度大30，然后用一个 SingleChildScrollView包裹：
 
@@ -640,7 +640,7 @@ Widget wTextWaterMarkWithOffset() {
 
 我们知道 SingleChildScrollView 内部要创建Scrollable 和 Viewport 对象，而在这个场景下  SingleChildScrollView  是不会响应事件的，所以创建 Scrollable 就属于多余的开销，我们需要探索一种更优的方案。
 
-### 方案二：使用 FittedBox 来应用偏移
+### 2. 方案二：使用 FittedBox 来应用偏移
 
 我们能否先通过 UnconstrainedBox 取消父组件对子组件大小的约束，然后通过 SizedBox 指定 WaterMark 宽度比屏幕长 30 像素 来实现，比如：
 
@@ -709,7 +709,7 @@ assert(() {
 
 FittedBox 主要的使用场景是对子组件进行一些缩放、拉升等以适配父组件的空间，而在本例的场景中我们并没有用到这个功能（适配方式制定了 BoxFit.none ），还是有点杀鸡用牛刀的感觉，那还有其它更合适的组件来解决这个问题吗？答案是有，OverflowBox ！
 
-### 方案三：使用 OverflowBox 来应用偏移
+### 3. 方案三：使用 OverflowBox 来应用偏移
 
 OverflowBox 和 UnconstrainedBox 相同的是可以取消父组件对子组件的约束，但不同的是 **OverflowBox 自身大小不会随着子组件大小而变化**，它的大小只取决于其父组件的约束，为（constraints.biggest），即在满足父组件约束的前提下会尽可能大。我们封装一个 TranslateWithExpandedPaintingArea 组件来包裹 WaterMark 组件：
 
@@ -797,7 +797,7 @@ Widget wTextWaterMarkWithOffset2() {
 1. 水印组件的实现思路以及如何定义单元水印画笔。
 2. 如何绘制文本以及如何进行离屏渲染。
 3. 如何对水印整体应用偏移。
-4. 笔者已经将本章封装的水印组件和水印画笔添加到了 flukit 组件库，完整实现代码可在 flukit 库中找到。
+4. 笔者已经将本章封装的水印组件和水印画笔添加到了 flukit 组件库，完整代码可在 flukit 库中找到。
 
 
 

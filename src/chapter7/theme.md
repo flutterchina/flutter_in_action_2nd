@@ -15,7 +15,7 @@
 
 上面表格中的的字段在 Color 类中都有对应的属性，而Color中的众多方法也就是操作这些属性的，由于大多比较简单，读者可以查看类定义了解。在此我们主要讨论两点：色值转换和亮度。
 
-### **如何将颜色字符串转成 Color 对象**
+### 1. 如何将颜色字符串转成 Color 对象
 
 如 Web 开发中的色值通常是一个字符串如"#dc380d"，它是一个 RGB 值，我们可以通过下面这些方法将其转为Color类：
 
@@ -27,7 +27,7 @@ Color(int.parse(c,radix:16)|0xFF000000) //通过位运算符将Alpha设置为FF
 Color(int.parse(c,radix:16)).withAlpha(255)  //通过方法将Alpha设置为FF
 ```
 
-### 颜色亮度
+### 2. 颜色亮度
 
 假如，我们要实现一个背景颜色和Title可以自定义的导航栏，并且背景色为深色时我们应该让Title显示为浅色；背景色为浅色时，Title 显示为深色。要实现这个功能，我们就需要来计算背景色的亮度，然后动态来确定Title的颜色。Color 类中提供了一个`computeLuminance()`方法，它可以返回一个[0-1]的一个值，数字越大颜色就越浅，我们可以根据它来动态确定Title的颜色，下面是导航栏NavBar的简单实现：
 
@@ -91,7 +91,7 @@ Column(
 
 ![NavBar](../imgs/7-4.png)
 
-### MaterialColor
+### 3. MaterialColor
 
 `MaterialColor`是实现Material Design中的颜色的类，它包含一种颜色的10个级别的渐变色。`MaterialColor`通过"[]"运算符的索引值来代表颜色的深度，有效的索引有：50，100，200，…，900，数字越大，颜色越深。`MaterialColor`的默认值为索引等于500的颜色。举个例子，`Colors.blue`是预定义的一个`MaterialColor`类对象，定义如下：
 
@@ -120,11 +120,11 @@ static const int _bluePrimaryValue = 0xFF2196F3;
 
 
 
-## 7.4.2 Theme
+## 7.4.2 主题（Theme）
 
 `Theme`组件可以为Material APP定义主题数据（ThemeData）。Material组件库里很多组件都使用了主题数据，如导航栏颜色、标题字体、Icon样式等。`Theme`内会使用`InheritedWidget`来为其子树共享样式数据。
 
-### ThemeData
+### 1. ThemeData
 
 `ThemeData`用于保存是Material 组件库的主题数据，Material组件需要遵守相应的设计规范，而这些规范可自定义部分都定义在ThemeData中了，所以我们可以通过ThemeData来自定义应用主题。在子组件中，我们可以通过`Theme.of`方法来获取当前的`ThemeData`。
 
@@ -152,7 +152,7 @@ ThemeData({
 
 上面只是`ThemeData`的一小部分属性，完整的数据定义读者可以查看SDK。上面属性中需要说明的是`primarySwatch`，它是主题颜色的一个"样本色"，通过这个样本色可以在一些条件下生成一些其它的属性，例如，如果没有指定`primaryColor`，并且当前主题不是深色主题，那么`primaryColor`就会默认为`primarySwatch`指定的颜色，还有一些相似的属性如`indicatorColor`也会受`primarySwatch`影响。
 
-### 示例
+### 2. 实例
 
 我们实现一个路由换肤功能：
 

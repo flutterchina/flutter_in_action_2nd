@@ -2,13 +2,13 @@
 
 # 7.2 数据共享（InheritedWidget）
 
+## 7.2.1 InheritedWidget 
+
+### 1. 简介
+
 `InheritedWidget `是 Flutter 中非常重要的一个功能型组件，它提供了一种在 widget 树中从上到下共享数据的方式，比如我们在应用的根 widget 中通过`InheritedWidget`共享了一个数据，那么我们便可以在任意子widget 中来获取该共享的数据！这个特性在一些需要在整个 widget 树中共享数据的场景中非常方便！如Flutter SDK中正是通过 InheritedWidget 来共享应用主题（`Theme`）和 Locale (当前语言环境)信息的。
 
 > `InheritedWidget`和 React 中的 context 功能类似，和逐级传递数据相比，它们能实现组件跨级传递数据。`InheritedWidget`的在 widget 树中数据传递方向是从上到下的，这和通知`Notification`（将在下一章中介绍）的传递方向正好相反。
-
-### didChangeDependencies
-
-在之前介绍`StatefulWidget`时，我们提到`State`对象有一个`didChangeDependencies`回调，它会在“依赖”发生变化时被Flutter 框架调用。而这个“依赖”指的就是子 widget 是否使用了父 widget 中`InheritedWidget`的数据！如果使用了，则代表子 widget 有依赖；如果没有使用则代表没有依赖。这种机制可以使子组件在所依赖的`InheritedWidget`变化时来更新自身！比如当主题、locale(语言)等发生变化时，依赖其的子 widget 的`didChangeDependencies`方法将会被调用。
 
 下面我们看一下之前“计数器”示例应用程序的`InheritedWidget`版本。需要说明的是，本示例主要是为了演示`InheritedWidget`的功能特性，并不是计数器的推荐实现方式。
 
@@ -52,7 +52,7 @@ class __TestWidgetState extends State<_TestWidget> {
     return Text(ShareDataWidget.of(context)!.data.toString());
   }
 
-  @override
+  @override //下文会详细介绍。
   void didChangeDependencies() {
     super.didChangeDependencies();
     //父或祖先widget中的InheritedWidget改变(updateShouldNotify返回true)时会被调用。
@@ -61,6 +61,10 @@ class __TestWidgetState extends State<_TestWidget> {
   }
 }
 ```
+
+### 2. didChangeDependencies
+
+在之前介绍`StatefulWidget`时，我们提到`State`对象有一个`didChangeDependencies`回调，它会在“依赖”发生变化时被Flutter 框架调用。而这个“依赖”指的就是子 widget 是否使用了父 widget 中`InheritedWidget`的数据！如果使用了，则代表子 widget 有依赖；如果没有使用则代表没有依赖。这种机制可以使子组件在所依赖的`InheritedWidget`变化时来更新自身！比如当主题、locale(语言)等发生变化时，依赖其的子 widget 的`didChangeDependencies`方法将会被调用。
 
 最后，我们创建一个按钮，每点击一次，就将`ShareDataWidget`的值自增：
 
@@ -136,9 +140,9 @@ class __TestWidgetState extends State<_TestWidget> {
 
 一般来说，子 widget 很少会重写此方法，因为在依赖改变后 Flutter 框架也都会调用`build()`方法重新构建组件树。但是，如果你需要在依赖改变后执行一些昂贵的操作，比如网络请求，这时最好的方式就是在此方法中执行，这样可以避免每次`build()`都执行这些昂贵操作。
 
-### 深入了解InheritedWidget
+## 7.2.2 深入了解InheritedWidget
 
-现在来思考一下，如果我们只想在`__TestWidgetState`中引用`ShareDataWidget`数据，但却不希望在`ShareDataWidget`发生变化时调用`__TestWidgetState`的`didChangeDependencies()`方法应该怎么办？其实答案很简单，我们只需要将`ShareDataWidget.of()`的实现改一下即可：
+现在来思考一下，在上面的例子中，如果我们只想在`__TestWidgetState`中引用`ShareDataWidget`数据，但却不希望在`ShareDataWidget`发生变化时调用`__TestWidgetState`的`didChangeDependencies()`方法应该怎么办？其实答案很简单，我们只需要将`ShareDataWidget.of()`的实现改一下即可：
 
 ```dart
 //定义一个便捷方法，方便子树中的widget获取共享数据

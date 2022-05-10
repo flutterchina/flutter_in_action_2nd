@@ -4,7 +4,7 @@
 
 几乎所有的UI系统都会提供一个自绘UI的接口，这个接口通常会提供一块2D画布`Canvas`，`Canvas`内部封装了一些基本绘制的API，开发者可以通过`Canvas`绘制各种自定义图形。在Flutter中，提供了一个`CustomPaint` 组件，它可以结合画笔`CustomPainter`来实现自定义图形绘制。
 
-### CustomPaint
+## 10.4.1 CustomPaint
 
 我们看看`CustomPaint`构造函数：
 
@@ -28,7 +28,7 @@ CustomPaint({
 
 可以看到，绘制时我们需要提供前景或背景画笔，两者也可以同时提供。我们的画笔需要继承`CustomPainter`类，我们在画笔类中实现真正的绘制逻辑。
 
-#### 注意
+### 1. 绘制边界 RepaintBoundary
 
 如果`CustomPaint`有子节点，为了避免子节点不必要的重绘并提高性能，通常情况下都会将子节点包裹在`RepaintBoundary `组件中，这样会在绘制时就会创建一个新的绘制层（Layer），其子组件将在新的Layer上绘制，而父组件将在原来Layer上绘制，也就是说`RepaintBoundary` 子组件的绘制将独立于父组件的绘制，`RepaintBoundary`会隔离其子节点和`CustomPaint`本身的绘制边界。示例如下：
 
@@ -40,7 +40,7 @@ CustomPaint(
 )
 ```
 
-### CustomPainter
+### 2. CustomPainter与Canvas
 
 `CustomPainter`中提定义了一个虚函数`paint`：
 
@@ -65,7 +65,7 @@ void paint(Canvas canvas, Size size);
 
 - `Size`：当前绘制区域大小。
 
-### 画笔Paint
+### 3. 画笔Paint
 
 现在画布有了，我们最后还缺一个画笔，Flutter提供了`Paint`类来实现画笔。在`Paint`中，我们可以配置画笔的各种属性如粗细、颜色、样式等。如：
 
@@ -78,7 +78,9 @@ var paint = Paint() //创建一个画笔并配置其属性
 
 更多的配置属性读者可以参考Paint类定义。
 
-### 示例：五子棋/盘
+## 10.4.2 实例：五子棋/盘
+
+### 1. 绘制棋盘、棋子
 
 下面我们通过一个五子棋游戏中棋盘和棋子的绘制来演示自绘UI的过程，首先我们看一下我们的目标效果，如图10-3所示：
 
@@ -179,7 +181,7 @@ void drawPieces(Canvas canvas, Rect rect) {
 }
 ```
 
-### 性能
+### 2. 绘制性能
 
 绘制是比较昂贵的操作，所以我们在实现自绘控件时应该考虑到性能开销，下面是两条关于性能优化的建议：
 
@@ -187,7 +189,7 @@ void drawPieces(Canvas canvas, Rect rect) {
 
 - 绘制尽可能多的分层；在上面五子棋的示例中，我们将棋盘和棋子的绘制放在了一起，这样会有一个问题：由于棋盘始终是不变的，用户每次落子时变的只是棋子，但是如果按照上面的代码来实现，每次绘制棋子时都要重新绘制一次棋盘，这是没必要的。优化的方法就是将棋盘单独抽为一个组件，并设置其`shouldRepaint`回调值为`false`，然后将棋盘组件作为背景。然后将棋子的绘制放到另一个组件中，这样每次落子时只需要绘制棋子。
 
-### 防止意外重绘
+### 3. 防止意外重绘
 
 我们在上例的基础上添加一个 ElevatedButton，点击后什么也不做：
 
@@ -231,9 +233,9 @@ RepaintBoundary(
 // RepaintBoundary(child: ElevatedButton(onPressed: () {}, child: Text("刷新")))
 ```
 
-> RepaintBoundary 的具体原理我们将在第十四章中详细介绍。
+> 注意：RepaintBoundary 的具体原理我们将在第十四章中详细介绍。
 
-### 总结
+## 10.4.3 总结
 
 自绘控件非常强大，理论上可以实现任何2D图形外观，实际上Flutter提供的所有组件最终都是通过调用Canvas绘制出来的，只不过绘制的逻辑被封装起来了，读者有兴趣可以查看具有外观样式的组件源码，找到其对应的`RenderObject`对象，如`Text`对应的`RenderParagraph`对象最终会通过`Canvas`实现文本绘制逻辑。下一节我们会再通过一个自绘的圆形背景渐变进度条的实例来帮助读者加深印象。
 

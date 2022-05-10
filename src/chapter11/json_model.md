@@ -1,6 +1,8 @@
-# 11.7 Json转Dart Model类
+# 11.7 JSON转Dart Model类
 
-## 11.7.1 Json转Dart类 
+## 11.7.1 JSON转Dart类 
+
+### 1. 简介
 
 在实战中，后台接口往往会返回一些结构化数据，如 JSON、XML 等，如之前我们请求 Github API 的示例，它返回的数据就是 JSON 格式的字符串，为了方便我们在代码中操作 JSON，我们先将 JSON 格式的字符串转为 Dart 对象，这个可以通过 `dart:convert` 中内置的 JSON 解码器` json.decode() `来实现，该方法可以根据 JSON 字符串具体内容将其转为 List 或 Map，这样我们就可以通过他们来查找所需的值，如：
 
@@ -83,11 +85,11 @@ String json = json.encode(user);
 
 另外，实际场景中，JSON对象很少会这么简单，嵌套的JSON对象并不罕见，如果有什么能为我们自动处理JSON序列化，那将会非常好。幸运的是，有！
 
-### 自动生成Model
+### 2. 自动生成Model
 
 尽管还有其他库可用，但在本书中，我们介绍一下官方推荐的[json_serializable package](https://pub.dartlang.org/packages/json_serializable)包。 它是一个自动化的源代码生成器，可以在开发阶段为我们生成 JSON 序列化模板，这样一来，由于序列化代码不再由我们手写和维护，我们将运行时产生 JSON 序列化异常的风险降至最低。
 
-### 在项目中设置 json_serializable
+#### 1）在项目中设置 json_serializable
 
 要包含`json_serializable`到我们的项目中，我们需要一个常规和两个**开发依赖**项。简而言之，**开发依赖项**是不包含在我们的应用程序源代码中的依赖项，它是开发过程中的一些辅助工具、脚本，和 node 中的开发依赖项相似。
 
@@ -104,7 +106,7 @@ dev_dependencies:
 
 在您的项目根文件夹中运行 `flutter packages get` (或者在编辑器中点击 “Packages Get”) 以在项目中使用这些新的依赖项.
 
-### 以json_serializable的方式创建model类
+#### 2）以json_serializable的方式创建model类
 
 让我们看看如何将我们的`User`类转换为一个`json_serializable`。为了简单起见，我们使用前面示例中的简化JSON model。
 
@@ -140,7 +142,7 @@ class User{
 final int registrationDateMillis;
 ```
 
-### 运行代码生成程序
+#### 3）运行代码生成程序
 
 `json_serializable`第一次创建类时，您会看到与图11-4类似的错误。
 
@@ -148,7 +150,7 @@ final int registrationDateMillis;
 
 这些错误是完全正常的，这是因为Model类的生成代码还不存在。为了解决这个问题，我们必须运行代码生成器来为我们生成序列化模板。有两种运行代码生成器的方法：
 
-#### 一次性生成
+- 一次性生成
 
 通过在我们的项目根目录下运行:
 
@@ -160,13 +162,13 @@ flutter packages pub run build_runner build
 
 虽然这非常方便，但如果我们不需要每次在Model类中进行更改时都要手动运行构建命令的话会更好。
 
-#### 持续生成
+- 持续生成
 
 使用_watcher_可以使我们的源代码生成的过程更加方便。它会监视我们项目中文件的变化，并在需要时自动构建必要的文件，我们可以通过`flutter packages pub run build_runner watch`在项目根目录下运行来启动_watcher_。只需启动一次观察器，然后它就会在后台运行，这是安全的。
 
+## 11.7.2 一句命令实现JSON转dart类
 
-
-## 11.7.2 自动化生成模板
+### 1. 实现
 
 上面的方法有一个最大的问题就是要为每一个json写模板，这是比较枯燥的。如果有一个工具可以直接根据JSON文本生成模板，那我们就能彻底解放双手了。笔者自己用dart实现了一个脚本，它可以自动生成模板，并直接将JSON转为Model类，下面我们看看怎么做：
 
@@ -326,7 +328,7 @@ flutter packages pub run build_runner build
 
 运行后，一切都将自动执行，现在好多了。但是上面脚本只是处理简单 JSON 的情况，还不能很好处理 JSON 嵌套和数组。
 
-#### 嵌套JSON
+### 2. 嵌套JSON处理
 
 我们定义一个person.json内容修改为：
 
@@ -414,7 +416,7 @@ class User {
 ```
 可以看到，`boss`字段已自动添加，并自动导入了“person.dart”。
 
-### Json_model 包
+### 3. Json_model 包
 
 我们上面实现的脚本只是一个乞丐版，还有很多功能不支持，比如默认生成的变量都是可空类型、不支持导入其它的dart文件、不支持生成注释等等，为此，笔者专门发布了一个功能完成的 [Json_model](https://github.com/flutterchina/json_model)包，具备灵活的的配置和自定义功能，开发者把该包加入开发依赖后，便可以用一条命令，根据Json文件生成Dart类，下面是一个简单的功能演示：
 
@@ -467,15 +469,15 @@ class User {
 }
 ```
 
-### 使用IDE插件生成model
+## 11.7.3 使用IDE插件生成model
 
-目前Android Studio(或IntelliJ)有几个插件，可以将json文件转成Model类，但插件质量参差不齐，甚至还有一些沾染上了抄袭风波，故笔者在此不做优先推荐，读者有兴趣可以自行了解。但是，我们还是要了解一下IDE插件和[Json_model](https://link.juejin.im?target=https%3A%2F%2Fgithub.com%2Fflutterchina%2Fjson_model)的优劣：
+目前Android Studio(或IntelliJ)有几个插件，可以将json文件转成Model类，但插件质量参差不齐，甚至还有一些沾染上了抄袭风波，故笔者在此不做优先推荐，读者有兴趣可以自行了解。但是，我们还是要了解一下IDE插件和[Json_model](https://github.com/flutterchina/json_model)的优劣：
 
-1. [Json_model](https://link.juejin.im?target=https%3A%2F%2Fgithub.com%2Fflutterchina%2Fjson_model)需要单独维护一个存放Json文件的文件夹，如果有改动，只需修改Json文件便可重新生成Model类；而IDE插件一般需要用户手动将Json内容拷贝复制到一个输入框中，这样生成之后Json文件没有存档的化，之后要改动就需要手动。
-2. [Json_model](https://link.juejin.im?target=https%3A%2F%2Fgithub.com%2Fflutterchina%2Fjson_model)可以手动指定某个字段引用的其它Model类，可以避免生成重复的类；而IDE插件一般会为每一个Json文件中所有嵌套对象都单独生成一个Model类，即使这些嵌套对象可能在其它Model类中已经生成过。
-3. [Json_model](https://link.juejin.im?target=https%3A%2F%2Fgithub.com%2Fflutterchina%2Fjson_model) 提供了命令行转化方式，可以方便集成到CI等非UI环境的场景。
+1. [Json_model](https://github.com/flutterchina/json_model)需要单独维护一个存放Json文件的文件夹，如果有改动，只需修改Json文件便可重新生成Model类；而IDE插件一般需要用户手动将Json内容拷贝复制到一个输入框中，这样生成之后Json文件没有存档的化，之后要改动就需要手动。
+2. [Json_model](https://github.com/flutterchina/json_model)可以手动指定某个字段引用的其它Model类，可以避免生成重复的类；而IDE插件一般会为每一个Json文件中所有嵌套对象都单独生成一个Model类，即使这些嵌套对象可能在其它Model类中已经生成过。
+3. [Json_model](https://github.com/flutterchina/json_model) 提供了命令行转化方式，可以方便集成到CI等非UI环境的场景。
 
-### FAQ
+## 11.7.4 FAQ
 
 很多人可能会问 Flutter 中有没有像 Java 开发中的 Gson/Jackson 一样的Json序列化类库？答案是没有！因为这样的库需要使用运行时反射，这在 Flutter 中是禁用的。运行时反射会干扰 Dart 的 _tree shaking_，使用_tree shaking_，可以在 release 版中“去除”未使用的代码，这可以显著优化应用程序的大小。由于反射会默认应用到所有代码，因此_tree shaking_ 会很难工作，因为在启用反射时很难知道哪些代码未被使用，因此冗余代码很难剥离，所以 Flutter 中禁用了 Dart 的反射功能，而正因如此也就无法实现动态转化 Model 的功能。
 

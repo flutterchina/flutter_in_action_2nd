@@ -2,7 +2,7 @@
 
 Material 组件库中提供了两种进度指示器：`LinearProgressIndicator`和`CircularProgressIndicator`，它们都可以同时用于精确的进度指示和模糊的进度指示。精确进度通常用于任务进度可以计算和预估的情况，比如文件下载；而模糊进度则用户任务进度无法准确获得的情况，如下拉刷新，数据提交等。
 
-### LinearProgressIndicator
+## 3.6.1 LinearProgressIndicator
 
 `LinearProgressIndicator`是一个线性、条状的进度条，定义如下：
 
@@ -41,7 +41,7 @@ LinearProgressIndicator(
 
 第一个进度条在执行循环动画：蓝色条一直在移动，而第二个进度条是静止的，停在50%的位置。
 
-### CircularProgressIndicator
+## 3.6.2 CircularProgressIndicator
 
 `CircularProgressIndicator`是一个圆形进度条，定义如下：
 
@@ -77,7 +77,7 @@ CircularProgressIndicator(
 
 第一个进度条会执行旋转动画，而第二个进度条是静止的，它停在50%的位置。
 
-### 自定义尺寸
+## 3.6.3 自定义尺寸
 
 我们可以发现`LinearProgressIndicator`和`CircularProgressIndicator`，并没有提供设置圆形进度条尺寸的参数；如果我们希望`LinearProgressIndicator`的线细一些，或者希望`CircularProgressIndicator`的圆大一些该怎么做？
 
@@ -128,7 +128,7 @@ SizedBox(
 
 ![3-28](../imgs/3-28.png)
 
-### 进度色动画
+## 3.6.3 进度色动画
 
 前面说过可以通过`valueColor`对进度条颜色做动画，关于动画我们将在后面专门的章节详细介绍，这里先给出一个例子，读者在了解了Flutter动画一章后再回过头来看。
 
@@ -185,7 +185,7 @@ class _ProgressRouteState extends State<ProgressRoute>
 }
 ```
 
-### 自定义进度指示器样式
+## 3.6.4 自定义进度指示器样式
 
 定制进度指示器风格样式，可以通过`CustomPainter` Widget 来自定义绘制逻辑，实际上`LinearProgressIndicator`和`CircularProgressIndicator`也正是通过`CustomPainter`来实现外观绘制的。关于`CustomPainter`，我们将在后面“自定义Widget”一章中详细介绍。
 

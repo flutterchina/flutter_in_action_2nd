@@ -88,17 +88,17 @@
 
 `Navigator`是一个路由管理的组件，它提供了打开和退出路由页方法。`Navigator`通过一个栈来管理活动路由集合。通常当前屏幕显示的页面就是栈顶的路由。`Navigator`提供了一系列方法来管理路由栈，在此我们只介绍其最常用的两个方法：
 
-### Future  push(BuildContext context, Route route)
+### 1. `Future  push(BuildContext context, Route route)`
 
 将给定的路由入栈（即打开新的页面），返回值是一个`Future`对象，用以接收新路由出栈（即关闭）时的返回数据。
 
-### bool  pop(BuildContext context, [ result ])
+### 2. `bool  pop(BuildContext context, [ result ])`
 
 将栈顶路由出栈，`result` 为页面关闭时返回给上一个页面的数据。
 
 `Navigator` 还有很多其它方法，如`Navigator.replace`、`Navigator.popUntil`等，详情请参考API文档或SDK 源码注释，在此不再赘述。下面我们还需要介绍一下路由相关的另一个概念“命名路由”。
 
-### 实例方法
+### 3. 实例方法
 
 Navigator类中第一个参数为context的**静态方法**都对应一个Navigator的**实例方法**， 比如`Navigator.push(BuildContext context, Route route) `等价于`Navigator.of(context).push(Route route)` ，下面命名路由相关的方法也是一样的。
 
@@ -108,9 +108,7 @@ Navigator类中第一个参数为context的**静态方法**都对应一个Naviga
 
 很多时候，在路由跳转时我们需要带一些参数，比如打开商品详情页时，我们需要带一个商品id，这样商品详情页才知道展示哪个商品信息；又比如我们在填写订单时需要选择收货地址，打开地址选择页并选择地址后，可以将用户选择的地址返回到订单页等等。下面我们通过一个简单的示例来演示新旧路由如何传参。
 
-### 示例
-
-我们创建一个`TipRoute`路由，它接受一个提示文本参数，负责将传入它的文本显示在页面上，另外`TipRoute`中我们添加一个“返回”按钮，点击后在返回上一个路由的同时会带上一个返回参数，下面我们看一下实现代码。
+下面我们通过一个例子来演示：创建一个`TipRoute`路由，它接受一个提示文本参数，负责将传入它的文本显示在页面上，另外`TipRoute`中我们添加一个“返回”按钮，点击后在返回上一个路由的同时会带上一个返回参数，下面我们看一下实现代码。
 
 `TipRoute`实现代码：
 
@@ -118,7 +116,7 @@ Navigator类中第一个参数为context的**静态方法**都对应一个Naviga
 class TipRoute extends StatelessWidget {
   TipRoute({
     Key key,
-    @required this.text,  // 接收一个text参数
+    required this.text,  // 接收一个text参数
   }) : super(key: key);
   final String text;
 
@@ -199,7 +197,7 @@ class RouterTestRoute extends StatelessWidget {
 
 所谓“命名路由”（Named Route）即有名字的路由，我们可以先给路由起一个名字，然后就可以通过路由名字直接打开新的路由了，这为路由管理带来了一种直观、简单的方式。
 
-### 路由表
+### 1. 路由表
 
 要想使用命名路由，我们必须先提供并注册一个路由表（routing table），这样应用程序才知道哪个名字与哪个路由组件相对应。其实注册路由表就是给路由起名字，路由表的定义如下：
 
@@ -209,7 +207,7 @@ Map<String, WidgetBuilder> routes;
 
 它是一个`Map`，key为路由的名字，是个字符串；value是个`builder`回调函数，用于生成相应的路由widget。我们在通过路由名字打开新路由时，应用会根据路由名字在路由表中查找到对应的`WidgetBuilder`回调函数，然后调用该回调函数生成路由widget并返回。
 
-### 注册路由表
+### 2. 注册路由表
 
 路由表的注册方式很简单，我们回到之前“计数器”的示例，然后在`MyApp`类的`build`方法中找到`MaterialApp`，添加`routes`属性，代码如下：
 
@@ -247,7 +245,7 @@ MaterialApp(
 
 可以看到，我们只需在路由表中注册一下`MyHomePage`路由，然后将其名字作为`MaterialApp`的`initialRoute`属性值即可，该属性决定应用的初始路由页是哪一个命名路由。
 
-### 通过路由名打开新路由页
+### 3. 通过路由名打开新路由页
 
 要通过路由名称来打开新路由，可以使用`Navigator` 的`pushNamed`方法：
 
@@ -269,7 +267,7 @@ onPressed: () {
 
 热重载应用，再次点击“open new route”按钮，依然可以打开新的路由页。
 
-### 命名路由参数传递
+### 4. 命名路由参数传递
 
 在Flutter最初的版本中，命名路由是不能传递参数的，后来才支持了参数；下面展示命名路由如何传递并获取路由参数：
 
@@ -301,7 +299,7 @@ class EchoRoute extends StatelessWidget {
 Navigator.of(context).pushNamed("new_page", arguments: "hi");
 ```
 
-### 适配
+### 5. 适配
 
 假设我们也想将上面路由传参示例中的`TipRoute`路由页注册到路由表中，以便也可以通过路由名来打开它。但是，由于`TipRoute`接受一个`text` 参数，我们如何在不改变`TipRoute`源码的前提下适配这种情况？其实很简单：
 

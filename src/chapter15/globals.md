@@ -84,7 +84,7 @@ class ProfileChangeNotifier extends ChangeNotifier {
 }
 ```
 
-### 用户状态
+### 1. 用户状态
 
 用户状态在登录状态发生变化时更新、通知其依赖项，我们定义如下：
 
@@ -106,7 +106,7 @@ class UserModel extends ProfileChangeNotifier {
 }
 ```
 
-### APP主题状态
+### 2. APP主题状态
 
 主题状态在用户更换APP主题时更新、通知其依赖项，定义如下：
 
@@ -126,7 +126,7 @@ class ThemeModel extends ProfileChangeNotifier {
 }
 ```
 
-### APP语言状态
+### 3. APP语言状态
 
 当APP语言选为跟随系统（Auto）时，在系通语言改变时，APP语言会更新；当用户在APP中选定了具体语言时（美国英语或中文简体），则APP便会一直使用用户选定的语言，不会再随系统语言而变。语言状态类定义如下：
 

@@ -1,4 +1,6 @@
-# 5.4 Container
+# 5.4 容器组件（Container）
+
+## 5.4.1 Container
 
 我们在前面的章节示例中多次用到过`Container`组件，本节我们就详细介绍一下`Container`组件。`Container`是一个组合类容器，它本身不对应具体的`RenderObject`，它是`DecoratedBox`、`ConstrainedBox、Transform`、`Padding`、`Align`等组件组合的一个多功能容器，所以我们只需通过一个`Container`组件可以实现同时需要装饰、变换、限制的场景。下面是`Container`的定义：
 
@@ -24,7 +26,7 @@ Container({
 - 容器的大小可以通过`width`、`height`属性来指定，也可以通过`constraints`来指定；如果它们同时存在时，`width`、`height`优先。实际上Container内部会根据`width`、`height`来生成一个`constraints`。
 - `color`和`decoration`是互斥的，如果同时设置它们则会报错！实际上，当指定`color`时，`Container`内会自动创建一个`decoration`。
 
-### 实例
+## 5.4.2 实例
 
 我们通过`Container`来实现如图5-9所示的卡片：
 
@@ -66,7 +68,7 @@ Container(
 
 可以看到`Container`具备多种组件的功能，通过查看`Container`源码，我们会很容易发现它正是前面我们介绍过的多种组件组合而成。在Flutter中，`Container`组件也正是组合优先于继承的实例。
 
-### Padding和Margin
+## 5.4.3 Padding和Margin
 
 接下来我们来研究一下`Container`组件`margin`和`padding`属性的区别:
 

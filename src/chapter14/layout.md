@@ -209,7 +209,7 @@ class RenderLeftRight extends RenderBox
 
 理论上，某个组件的布局变化后，就可能会影响其它组件的布局，所以当有组件布局发生变化后，最笨的办法是对整棵组件树 relayout（重新布局）！但是对所有组件进行 relayout 的成本还是太大，所以我们需要探索一下降低 relayout 成本的方案。实际上，在一些特定场景下，组件发生变化后我们只需要对部分组件进行重新布局即可（而无需对整棵树 relayout ）。
 
-### 布局边界（relayoutBoundary）
+### 1. 布局边界（relayoutBoundary）
 
 假如有一个页面的组件树结构如图14-5所示：
 
@@ -245,7 +245,7 @@ if (!parentUsesSize || sizedByParent || constraints.isTight || parent is! Render
 
 代码中 if 里的判断条件和上面的 4 条 一一对应，其中除了第二个条件之外（ sizedByParent 为 true ），其它的都很直观，我们会在后面专门介绍一下第二个条件。
 
-### markNeedsLayout
+### 2. markNeedsLayout
 
 当组件布局发生变化时，它需要调用 `markNeedsLayout` 方法来更新布局，它的功能主要有两个：
 
@@ -269,7 +269,7 @@ void markNeedsLayout() {
 }
 ```
 
-### flushLayout()
+### 3. flushLayout()
 
 markNeedsLayout 执行完毕后，就会将其 relayoutBoundary  节点添加到 `pipelineOwner._nodesNeedingLayout` 列表中，然后请求新的 frame，新的 frame 到来时就会执行 `drawFrame` 方法（可以参考上一节）：
 
@@ -312,7 +312,7 @@ void _layoutWithoutResize() {
 
 > 思考题：为什么 flushLayout() 中刷新布局时要先对dirtyNodes 根据在树中的深度按照从小到大排序？从大到小不行吗？
 
-### Layout流程
+### 4. Layout流程
 
 如果组件有子组件，则在 performLayout 中需要调用子组件的 layout 方法先对子组件进行布局，我们看一下 layout 的核心流程：
 

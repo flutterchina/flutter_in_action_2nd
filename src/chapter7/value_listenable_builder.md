@@ -1,6 +1,8 @@
-# 7.5 ValueListenableBuilder
+# 7.5 按需rebuild（ValueListenableBuilder）
 
-InheritedWidget 提供一种在 widget 树中从上到下共享数据的方式，但是也有很多场景数据流向并非从上到下，比如从下到上或者横向等。为了解决这个问题，Flutter 提供了一个 ValueListenableBuilder 组件，它的功能是监听一个数据源，如果数据源发生变化，则会重新执行其 builder，定义如下：
+## 7.5.1 ValueListenableBuilder
+
+InheritedWidget 提供一种在 widget 树中**从上到下**共享数据的方式，但是也有很多场景数据流向并非从上到下，比如从下到上或者横向等。为了解决这个问题，Flutter 提供了一个 ValueListenableBuilder 组件，它的功能是监听一个数据源，如果数据源发生变化，则会重新执行其 builder，定义如下：
 
 ```dart
 const ValueListenableBuilder({
@@ -17,7 +19,7 @@ const ValueListenableBuilder({
 
 可以发现 ValueListenableBuilder 和数据流向是无关的，只要数据源发生变化它就会重新构建子组件树，因此可以实现任意流向的数据共享。
 
-### 示例
+## 7.5.2 实例
 
 我们依然实现一个计数器，点击
 
@@ -73,9 +75,9 @@ class _ValueListenableState extends State<ValueListenableRoute> {
 
 可以看见，功能正常实现了，同时控制台只在页面打开时 build 了一次，点击 + 按钮的时候只是ValueListenableBuilder 重新构建了子组件树，而整个页面并没有重新 build ，因此日志面板只打印了一次 "build" 。因此我们有一个建议就是：**尽可能让 ValueListenableBuilder 只构建依赖数据源的widget，这样的话可以缩小重新构建的范围，也就是说 ValueListenableBuilder 的拆分粒度应该尽可能细**。
 
-### 总结
+## 7.5.3 总结
 
-关于 ValueListenableBuilder 有两点需要了解：
+关于 ValueListenableBuilder 有两点需要牢记：
 
 1. 和数据流向无关，可以实现任意流向的数据共享。
 2. 实践中，ValueListenableBuilder 的拆分粒度应该尽可能细，可以提高性能。

@@ -19,7 +19,7 @@ Align({
 - `alignment` : 需要一个`AlignmentGeometry`类型的值，表示子组件在父组件中的起始位置。`AlignmentGeometry` 是一个抽象类，它有两个常用的子类：`Alignment`和 `FractionalOffset`，我们将在下面的示例中详细介绍。
 - `widthFactor`和`heightFactor`是用于确定`Align` 组件本身宽高的属性；它们是两个缩放因子，会分别乘以子元素的宽、高，最终的结果就是`Align` 组件的宽高。如果值为`null`，则组件的宽高将会占用尽可能多的空间。
 
-### 示例
+### 1. 示例
 
 我们先来看一个简单的例子：
 
@@ -65,7 +65,7 @@ static const Alignment topRight = Alignment(1.0, -1.0);
 
 可以看到它只是`Alignment`的一个实例，下面我们介绍一下`Alignment`。
 
-### Alignment
+### 2. Alignment
 
 `Alignment`继承自`AlignmentGeometry`，表示矩形内的一个点，他有两个属性`x`、`y`，分别表示在水平和垂直方向的偏移，`Alignment`定义如下：
 
@@ -100,7 +100,7 @@ Alignment(this.x, this.y)
 
 ![图4-20](../imgs/4-20.png)
 
-### FractionalOffset
+### 3. FractionalOffset
 
 `FractionalOffset` 继承自 `Alignment `，它和 `Alignment `唯一的区别就是坐标原点不同！`FractionalOffset` 的坐标原点为矩形的左侧顶点，这和布局系统的一致，所以理解起来会比较容易。`FractionalOffset`的坐标转换公式为：
 
@@ -136,8 +136,6 @@ Container(
 
 1. 定位参考系统不同；`Stack`/`Positioned`定位的的参考系可以是父容器矩形的四个顶点；而`Align`则需要先通过`alignment` 参数来确定坐标原点，不同的`alignment`会对应不同原点，最终的偏移是需要通过`alignment`的转换公式来计算出。
 2. `Stack`可以有多个子元素，并且子元素可以堆叠，而`Align`只能有一个子元素，不存在堆叠。
-
-
 
 ## 4.7.3 Center组件
 
@@ -176,7 +174,7 @@ DecoratedBox(
 
 ![图4-22](../imgs/4-22.png)
 
-## 总结
+## 4.7.4 总结
 
 本节重点介绍了`Align`组件及两种偏移类`Alignment` 和`FractionalOffset`，读者需要理解这两种偏移类的区别及各自的坐标转化公式。另外，在此建议读者在需要制定一些精确的偏移时应优先使用`FractionalOffset`，因为它的坐标原点和布局系统相同，能更容易算出实际偏移。
 

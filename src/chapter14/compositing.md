@@ -326,6 +326,8 @@ void paint(PaintingContext context, Offset offset) {
 
 ## 14.8.2 什么时候需要合成 Layer ？
 
+### 1. 合成 Layer 的原则
+
 通过上面的例子我们知道 CustomRotatedBox 的直接子节点是绘制边界节点时 CustomRotatedBox 中就需要合成 layer。实际上这只是一种特例，还有一些其它情况也需要 CustomRotatedBox 进行 Layer 合成，那什么时候需要 Layer 合成有没有一个一般性的普适原则？答案是：有！ 我们思考一下 CustomRotatedBox 中需要 Layer 合成的根本原因是什么？如果 CustomRotatedBox 的所有后代节点都共享的是同一个PictureLayer，但是，一旦有后代节点创建了新的PictureLayer，则绘制就会脱离了之前PictureLayer，因为不同的PictureLayer上的绘制是相互隔离的，是不能相互影响，所以为了使变换对所有后代节点对应的 PictureLayer 都生效，则我们就需要将所有后代节点的添加到同一个 ContainerLayer 中，所以就需要在 CustomRotatedBox 中先进行 Layer 合成。
 
 综上，一个普适的原则就呼之欲出了：**当后代节点会向 layer 树中添加新的绘制类Layer时，则父级的变换类组件中就需要合成 Layer**。下面我们验证一下：
@@ -400,7 +402,7 @@ void paint(PaintingContext context, Offset offset) {
 
 又成功放倒了！但还有问题，我们继续往下看。
 
-### alwaysNeedsCompositing
+### 2. alwaysNeedsCompositing
 
  我们考虑一下这种情况：如果  CustomRotatedBox 的后代节点中没有绘制边界节点，但是有后代节点向 layer 树中添加了新的 layer。这种情况下，按照我们之前得出的结论 CustomRotatedBox 中也是需要进行 layer 合成的，但  CustomRotatedBox  实际上并没有。问题知道了，但是这个问题却不好解决，原因是我们在 CustomRotatedBox 中遍历后代节点时，是无法知道非绘制边界节点是否往 layer树中添加了新的 layer。怎么办呢？Flutter是通过约定来解决这个问题的：
 
@@ -438,7 +440,7 @@ child.isRepaintBoundary || child.alwaysNeedsCompositing
 
 下面我们看一下 flutter 中  Opacity 组件的实现。
 
-### Opacity 解析
+### 3. Opacity 解析
 
 Opacity 可以对子树进行透明度控制，这个效果通过 canvas 是很难实现的，所以 flutter 中直接使用了 OffsetLayer 合成的方式来实现：
 
@@ -470,7 +472,7 @@ class RenderOpacity extends RenderProxyBox {
 }  
 ```
 
-### 优化
+### 4. 优化
 
 注意，上面我们通过 CustomRotatedBox 演示了变换类组件的核心原理，不过还有一些优化的地方，比如：
 
@@ -594,9 +596,9 @@ class CustomRenderRotatedBox extends RenderBox
 
 另外，flushCompositingBits 的执行过程只是做标记，并没有进行层的合成，真正的合成是在绘制时（组件的 paint 方法中）。
 
-### 14.8.4 总结
+## 14.8.4 总结
 
-1. 首先只有组件树中有变换类容器时，才有可能需要重新合成 layer；如果没有变换类组件，则不需要。
+1. 只有组件树中有变换类容器时，才有可能需要重新合成 layer；如果没有变换类组件，则不需要。
 
 2. 当变换类容器的后代节点会向 layer 树中添加新的绘制类 layer 时，则变换类组件中就需要合成 layer。
 3. 引入 flushCompositingBits 的根本原因是为了减少 layer 的数量。 

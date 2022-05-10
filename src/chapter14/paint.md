@@ -77,14 +77,14 @@ print(pngBytes);
 
 下面我们来研究一下Flutter中Layer具体是怎么工作的，不过在此之前，我们先要补充一些前置知识。
 
-### Layer类型
+### 1. Layer类型
 
 本节开始的示例中，我们定义了两个Layer对象：
 
 1. OffsetLayer：根 Layer，它继承自ContainerLayer，而ContainerLayer继承自 Layer 类，我们将直接继承自ContainerLayer 类的 Layer 称为**容器类Layer**，容器类 Layer 可以添加任意多个子Layer。
 2. PictureLayer：保存绘制产物的 Layer，它直接继承自 Layer 类。我们将可以直接承载（或关联）绘制结果的 Layer 称为**绘制类 Layer**。
 
-### 容器类 Layer
+### 2. 容器类 Layer
 
 上面介绍的容器类 Layer 的概念，那么它的作用和具体使用场景是什么呢？
 
@@ -100,7 +100,7 @@ print(pngBytes);
 
 > 约定：后续我们提到 ContainerLayer 时，如无特别说明，它可以代指任意容器类组件。因为我们基本不会直接创建 ContainerLayer 实例，所以基本不会有歧义。
 
-### 绘制类 Layer
+### 3. 绘制类 Layer
 
 下面我们重点介绍一下 PictureLayer 类，它是 Flutter 中最常用的一种绘制类Layer。
 
@@ -108,7 +108,7 @@ print(pngBytes);
 
 > 探索题：Flutter中还有两个Layer类：TextureLayer 和 PlatformViewLayer，读者可以自己研究一下它们的功能及适用场景。
 
-### 变换效果实现方式的选择
+### 4. 变换效果实现方式的选择
 
 上面说过 ContainerLayer 可以对其子 layer 整体进行一些变换，实际上，在大多数UI系统的 Canvas API 中也都有一些变换相关的 API ，那么也就意味着一些变换效果我们既可以通过 ContainerLayer 来实现，也可以通过 Canvas 来实现。比如，要实现平移变换，我们既可以使用 OffsetLayer ，也可以直接使用 Canva.translate API。既然如此，那我们选择实现方式的原则是什么呢？
 
@@ -133,6 +133,6 @@ OffsetLayer 对其子节点整体做偏移变换的功能是 Skia 中实现支�
 
 那么有什么场景下变换效果通过 Canvas 实现起来会非常困难，需要用 ContainerLayer 来实现 ？一个典型的场景是，我们需要对组件树中的某个子树整体做变换，且子树中的有多个 PictureLayer 时。这是因为一个 Canvas 往往对应一个 PictureLayer，不同 Canvas 之间相互隔离的，只有子树中所有组件都通过同一个 Canvas 绘制时才能通过该 Canvas 对所有子节点进行整体变换，否则就只能通过 ContainerLayer 。那什么时候子节点会复用同一个 PictureLayer，什么时候又会创建新的 PictureLayer，这个我们在下一节介绍。
 
-> 需要注意，Canvas对象中也有名为 ...layer 相关的 API，如 Canvas.saveLayer，它和本节介绍的Layer 含义不同。Canvas对象中的 layer 主要是提供一种在绘制过程中**缓存中间绘制结果**的手段，为了在绘制复杂对象时方便多个绘制元素之间分离绘制而设计的，更多关于Canvas layer相关API读者可以查阅相关文档，我们可以简单认为不管 Canvas 对创建多少个 layer，这些 layer 都是在同一个 PictureLayer 上（当然具体Canvas API底层实现方式还是 Flutter团队说了算，但作为应用开发者，理解到这里就够了）。
+> 注意：Canvas对象中也有名为 ...layer 相关的 API，如 Canvas.saveLayer，它和本节介绍的Layer 含义不同。Canvas对象中的 layer 主要是提供一种在绘制过程中**缓存中间绘制结果**的手段，为了在绘制复杂对象时方便多个绘制元素之间分离绘制而设计的，更多关于Canvas layer相关API读者可以查阅相关文档，我们可以简单认为不管 Canvas 对创建多少个 layer，这些 layer 都是在同一个 PictureLayer 上（当然具体Canvas API底层实现方式还是 Flutter团队说了算，但作为应用开发者，理解到这里就够了）。
 
 好了，有了这些前置知识，下一节我们就可以研究Flutter框架中组件树的绘制流程了。

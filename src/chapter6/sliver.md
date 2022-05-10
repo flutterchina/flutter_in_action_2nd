@@ -80,9 +80,11 @@ const SliverGeometry({
 
  SliverConstraints 和 SliverGeometry 属性比较多，只看的话它们的含义并不好理解，下面我们将通过两个例子，通过实践来理解。
 
-## 6.11.2 SliverFlexibleHeader
+## 6.11.2 自定义 Sliver（一）SliverFlexibleHeader
 
-我们实现一个类似旧版本微信朋友圈顶部头图的功能：即默认情况下顶部图片只显示一部分，当用户向下拽时图片的剩余部分会逐渐显示。如图6-28所示，左边为初始状态，右面为下拉时的状态。
+### 1. SliverFlexibleHeader
+
+我们实现一个类似旧版本微信朋友圈顶部头图的功能：即默认情况下顶部图片只显示一部分，当用户向下拽时图片的剩余部分会逐渐显示，如图6-28所示。
 
 ![6-28](../imgs/6-28.gif)
 
@@ -261,7 +263,7 @@ child!.layout(
 ...
 ```
 
-### 传递额外的布局信息
+### 2. 传递额外的布局信息
 
 在实际使用 SliverFlexibleHeader 时，我们有时在构建子 widget 时可能会依赖当前列表的滑动方向，当然我们可以在 SliverFlexibleHeader 的 builder 中记录前后的 availableHeight 的差来确定滑动方向，但是这样比较麻烦，需要使用者来手动处理。我们知道在滑动时，Sliver 的 SliverConstraints 中已经包含了 `userScrollDirection`，如果我们能将它经过统一的处理然后透传给 LayoutBuilder 的话就非常好好了，这样就不需要开发者在使用时自己维护滑动方向了！按照这个思路我们来实现一下。
 
@@ -386,7 +388,7 @@ if (constraints.userScrollDirection == ScrollDirection.idle) {
 }
 ```
 
-### 高度修正 scrollOffsetCorrection
+### 3. 高度修正 scrollOffsetCorrection
 
 如果 visibleExtent 变化时，我们看看效果，如图6-29所示：
 
@@ -430,7 +432,7 @@ if (constraints.userScrollDirection == ScrollDirection.idle) {
 
 ![图6-30](../imgs/6-30.gif)
 
-### 边界
+### 4. 边界
 
 在 SliverFlexibleHeader 构建子组件时开发者可能会依赖“当前的可用高度是否为0”来做一些特殊处理，比如记录是否子组件已经离开了屏幕。但是根据上面的实现，当用户滑动非常快时，子组件离开屏幕时的最后一次布局时传递的约束的 maxExtent 可能不为 0，而当 constraints.scrollOffset 大于 _visibleExtent 时我们在 performLayout 的一开始就返回了，因此 LayoutBuilder 的 builder 中就有可能收不到 maxExtent 为 0 时的回调。为了解决这个问题，我们只需要在每次 Sliver 离开屏幕时调用一次 child.layout 同时 将maxExtent 指定为 0 即可，为此我们修改一下：
 
@@ -468,9 +470,9 @@ void performLayout() {
 }
 ```
 
-至此大功告成，完整代码见本书附带源码。
+至此大功告成！
 
-## 6.11.3 SliverPersistentHeaderToBox
+## 6.11.3 自定义 Sliver（二）SliverPersistentHeaderToBox
 
 我们在上一节介绍了 SliverPersistentHeader，在使用时需要遵守两个规则 ：
 
@@ -638,4 +640,6 @@ class SliverPersistentHeaderToBoxRoute extends StatelessWidget {
 本节先介绍了 Sliver 布局模型，然后对比了和 盒布局模型的区别，至此 Flutter 中的两种布局模型就都介绍了。然后通过自定义 SliverFlexibleHeader 和 SliverPersistentHeaderToBox 两个 Sliver 来演示了自定义 Sliver 的步骤，同时加深了对 Sliver 布局的理解。
 
 这里需要提醒读者，大多数应用的大多数页面都会涉及到滚动列表，因此理解并掌握可滚动组件和 Sliver 布局协议原理很有必要。
+
+另外，笔者将SliverFlexibleHeader、ExtraInfoBoxConstraints 以及 SliverPersistentHeaderToBox 都收集到了[flukit组件库 ](https://github.com/flutterchina/flukit/blob/main/package_src/lib/src/sliver_flexible_header.dart)中，完整代码读者可以在flukit项目源码中找到。
 

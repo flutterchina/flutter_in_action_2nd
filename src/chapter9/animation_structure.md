@@ -4,7 +4,7 @@
 
 在Flutter中我们可以通过多种方式来实现动画，下面通过一个图片逐渐放大示例的不同实现来演示Flutter中动画的不同实现方式的区别。
 
-### 基础版本
+### 1. 基础版本
 
 下面我们演示一下最基础的动画实现方式：
 
@@ -87,7 +87,7 @@ initState() {
 
 ![图9-1](../imgs/9-1.gif)
 
-### 使用AnimatedWidget简化
+### 2. 使用AnimatedWidget简化
 
 细心的读者可能已经发现上面示例中通过`addListener()`和`setState()` 来更新UI这一步其实是通用的，如果每个动画中都加这么一句是比较繁琐的。`AnimatedWidget`类封装了调用`setState()`的细节，并允许我们将 widget 分离出来，重构后的代码如下：
 
@@ -152,9 +152,7 @@ class _ScaleAnimationRouteState extends State<ScaleAnimationRoute1>
 }
 ```
 
-
-
-### 用AnimatedBuilder重构
+### 3. 用AnimatedBuilder重构
 
 用AnimatedWidget  可以从动画中分离出 widget，而动画的渲染过程（即设置宽高）仍然在AnimatedWidget 中，假设如果我们再添加一个 widget 透明度变化的动画，那么我们需要再实现一个AnimatedWidget，这样不是很优雅，如果我们能把渲染过程也抽象出来，那就会好很多，而AnimatedBuilder正是将渲染逻辑分离出来, 上面的 build 方法中的代码可以改为：
 

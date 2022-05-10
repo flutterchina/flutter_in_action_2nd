@@ -88,9 +88,9 @@ const TextField({
 
 - `cursorWidth`、`cursorRadius`和`cursorColor`：这三个属性是用于自定义输入框光标宽度、圆角和颜色的。
 
-#### 示例：登录输入框
+### 1. 示例：登录输入框
 
-##### 布局
+#### 1）布局
 
 ```dart
 Column(
@@ -119,7 +119,7 @@ Column(
 
 ![图3-19](../imgs/3-19.png)
 
-##### 获取输入内容
+#### 2）获取输入内容
 
 获取输入内容有两种方式：
 
@@ -151,7 +151,7 @@ TextField(
 print(_unameController.text)
 ```
 
-##### 监听文本变化
+#### 3）监听文本变化
 
 监听文本变化也有两种方式：
 
@@ -208,7 +208,7 @@ TextField(
 
 ![图3-20](../imgs/3-20.png)
 
-##### 控制焦点
+#### 4）控制焦点
 
 焦点可以通过`FocusNode`和`FocusScopeNode`来控制，默认情况下，焦点由`FocusScope`来管理，它代表焦点控制范围，可以在这个范围内可以通过`FocusScopeNode`在输入框之间移动焦点、设置默认焦点等。我们可以通过`FocusScope.of(context)` 来获取Widget树中默认的`FocusScopeNode`。下面看一个示例，在此示例中创建两个`TextField`，第一个自动获取焦点，然后创建两个按钮：
 
@@ -288,7 +288,7 @@ class _FocusTestRouteState extends State<FocusTestRoute> {
 
 `FocusNode`和`FocusScopeNode`还有一些其它的方法，详情可以查看API文档。
 
-##### 监听焦点状态改变事件
+#### 5）监听焦点状态改变事件
 
 `FocusNode`继承自`ChangeNotifier`，通过`FocusNode`可以监听焦点的改变事件，如：
 
@@ -308,7 +308,7 @@ focusNode.addListener((){
 
 获得焦点时`focusNode.hasFocus`值为`true`，失去焦点时为`false`。
 
-##### 自定义样式
+#### 6）自定义样式
 
 虽然我们可以通过`decoration`属性来定义输入框样式，下面以自定义输入框下划线颜色为例来介绍一下：
 
@@ -401,7 +401,7 @@ Container(
 
 实际业务中，在正式向服务器提交数据前，都会对各个输入框数据进行合法性校验，但是对每一个`TextField`都分别进行校验将会是一件很麻烦的事。还有，如果用户想清除一组`TextField`的内容，除了一个一个清除有没有什么更好的办法呢？为此，Flutter提供了一个`Form` 组件，它可以对输入框进行分组，然后进行一些统一操作，如输入内容校验、输入框重置以及输入内容保存。
 
-#### Form
+### 1. Form
 
 `Form`继承自`StatefulWidget`对象，它对应的状态类为`FormState`。我们先看看`Form`类的定义：
 
@@ -420,7 +420,7 @@ Form({
 
 
 
-#### FormField
+### 2. FormField
 
 `Form`的子孙元素必须是`FormField`类型，`FormField`是一个抽象类，定义几个属性，`FormState`内部通过它们来完成操作，`FormField`部分定义如下：
 
@@ -436,7 +436,7 @@ const FormField({
 
 为了方便使用，Flutter 提供了一个`TextFormField`组件，它继承自`FormField`类，也是`TextField`的一个包装类，所以除了`FormField`定义的属性之外，它还包括`TextField`的属性。
 
-#### FormState 
+### 3. FormState 
 
 `FormState`为`Form`的`State`类，可以通过`Form.of()`或`GlobalKey`获得。我们可以通过它来对`Form`的子孙`FormField`进行统一操作。我们看看其常用的三个方法：
 
@@ -444,7 +444,7 @@ const FormField({
 - `FormState.save()`：调用此方法后，会调用`Form`子孙`FormField`的`save`回调，用于保存表单内容
 - `FormState.reset()`：调用此方法后，会将子孙`FormField`的内容清空。
 
-#### 示例
+### 4. 示例
 
 我们修改一下上面用户登录的示例，在提交之前校验：
 
