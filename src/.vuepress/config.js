@@ -15,7 +15,7 @@ module.exports = {
   },
   sidebarDepth: 2,
   themeConfig: {
-    logo: '/logo.png',
+    logo: '//guphit.github.io/assets/img/logo.png',
     nav: [
       // { text: '和作者做同事', link: '/join_us' },
       {text: 'Flukit组件库', link: 'https://github.com/flutterchina/flukit'},
