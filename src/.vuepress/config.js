@@ -235,6 +235,10 @@ module.exports = {
           '/chapter15/language_and_theme_setting',
         ]
       },
+      {
+        title: "赞助",
+        path: "/sponsor"
+      },
     ]
   }
 }
