@@ -243,7 +243,7 @@ void _drawCheckMark(PaintingContext context, Rect rect) {
 void _scheduleAnimation() {
   if (_animationStatus != AnimationStatus.completed) {
     // 需要在Flutter 当前frame 结束之前再执行，因为不能在绘制过程中又将组件标记为需要重绘
-    SchedulerBinding.instance!.addPostFrameCallback((Duration timeStamp) {
+    SchedulerBinding.instance.addPostFrameCallback((Duration timeStamp) {
       if (_lastTimeStamp != null) {
         double delta = (timeStamp.inMilliseconds - _lastTimeStamp!) /
           duration.inMilliseconds;
@@ -324,7 +324,7 @@ mixin RenderObjectAnimationMixin on RenderObject {
 
   void _scheduleAnimation() {
     if (_animationStatus != AnimationStatus.completed) {
-      SchedulerBinding.instance!.addPostFrameCallback((Duration timeStamp) {
+      SchedulerBinding.instance.addPostFrameCallback((Duration timeStamp) {
         if (_lastTimeStamp != null) {
           double delta = (timeStamp.inMilliseconds - _lastTimeStamp!) /
               duration.inMilliseconds;

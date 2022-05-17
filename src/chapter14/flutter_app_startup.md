@@ -319,7 +319,7 @@ Widget build(BuildContext context) {
 ```dart
 // 在build、布局、绘制阶段安全更新
 void update(VoidCallback fn) {
-  SchedulerBinding.instance!.addPostFrameCallback((_) {
+  SchedulerBinding.instance.addPostFrameCallback((_) {
     setState(fn);
   });
 }
@@ -329,9 +329,9 @@ void update(VoidCallback fn) {
 
 ```dart
 void update(VoidCallback fn) {
-  final schedulerPhase = SchedulerBinding.instance!.schedulerPhase;
+  final schedulerPhase = SchedulerBinding.instance.schedulerPhase;
   if (schedulerPhase == SchedulerPhase.persistentCallbacks) {
-    SchedulerBinding.instance!.addPostFrameCallback((_) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
       setState(fn);
     });
   } else {
@@ -345,7 +345,7 @@ void update(VoidCallback fn) {
 现在我们回想一下，在第十章 “自绘组件：CustomCheckbox” 一节中，为了执行动画，我们在绘制完成之后通过如下代码请求重绘：
 
 ```dart
- SchedulerBinding.instance!.addPostFrameCallback((_) {
+ SchedulerBinding.instance.addPostFrameCallback((_) {
    ...
    markNeedsPaint();
  });
