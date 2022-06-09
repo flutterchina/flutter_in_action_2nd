@@ -1,4 +1,4 @@
-# 5.6 空间适配 FittedBox
+# 5.6 空间适配（FittedBox）
 
 ## 5.6.1 FittedBox
 

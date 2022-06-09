@@ -43,7 +43,7 @@
       <!--</template>-->
       <template #bottom>
         <div style="text-align: center">
-          <img src="//guphit.github.io/assets/img/pay.a6c3cb25.jpeg" width="200">
+          <img src="/assets/img/pay.a6c3cb25.jpeg" width="200">
           <div> 请作者喝杯咖啡 </div>
         </div>
         <div class='copyright'> 版权所有，禁止私自转发、克隆网站。</div>

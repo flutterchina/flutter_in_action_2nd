@@ -1,4 +1,6 @@
 // .vuepress/config.js
+// var domain="//guphit.github.io/"
+var domain="/"
 module.exports = {
   title: '《Flutter实战·第二版》',
   dest: 'docs',
@@ -6,16 +8,16 @@ module.exports = {
     lineNumbers: true
   },
   head: [
-    ['link', {rel: 'icon', href: '/logo.png'}]
+    ['link', {rel: 'icon', href: domain+'assets/img/logo.png'}]
   ],
   configureWebpack: (config, isServer) => {
     if (config.mode === 'production') {
-      config.output.publicPath = "//guphit.github.io/";
+      config.output.publicPath = domain;
     }
   },
   sidebarDepth: 2,
   themeConfig: {
-    logo: '//guphit.github.io/assets/img/logo.png',
+    logo: domain+'assets/img/logo.png',
     nav: [
       // { text: '和作者做同事', link: '/join_us' },
       {text: 'Flukit组件库', link: 'https://github.com/flutterchina/flukit'},

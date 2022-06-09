@@ -1,4 +1,4 @@
-# 5.7 Scaffold
+# 5.7 页面骨架（Scaffold）
 
 Material 组件库提供了丰富多样的组件，本节介绍一下最常用的 Scaffold 组件，其余的读者可以自行查看文档或 Flutter Gallery 中 Material 组件部分的示例。
 
