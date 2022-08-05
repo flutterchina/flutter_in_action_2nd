@@ -79,7 +79,7 @@ class Window {
   // 平台通道消息处理回调  
   PlatformMessageCallback get onPlatformMessage => _onPlatformMessage;
   
-  ... //其它属性及回调
+  ... //其他属性及回调
    
 }
 ```
@@ -325,7 +325,7 @@ void update(VoidCallback fn) {
 }
 ```
 
-注意，update 函数只应该在 frame 执行 `persistentCallbacks` 时执行，其它阶段直接调用 setState 即可。因为 idle 状态会是一个特例，如果 在idle 状态调用 update 的话，需要手动调用 `scheduleFrame()` 请求新的 frame，否则 postFrameCallbacks 在下一个frame （其它组件请求的 frame ）到来之前不会被执行，因此我们可以将 update 修改一下：
+注意，update 函数只应该在 frame 执行 `persistentCallbacks` 时执行，其他阶段直接调用 setState 即可。因为 idle 状态会是一个特例，如果 在idle 状态调用 update 的话，需要手动调用 `scheduleFrame()` 请求新的 frame，否则 postFrameCallbacks 在下一个frame （其他组件请求的 frame ）到来之前不会被执行，因此我们可以将 update 修改一下：
 
 ```dart
 void update(VoidCallback fn) {

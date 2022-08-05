@@ -207,7 +207,7 @@ class RenderLeftRight extends RenderBox
 
 ## 14.4.4 布局更新
 
-理论上，某个组件的布局变化后，就可能会影响其它组件的布局，所以当有组件布局发生变化后，最笨的办法是对整棵组件树 relayout（重新布局）！但是对所有组件进行 relayout 的成本还是太大，所以我们需要探索一下降低 relayout 成本的方案。实际上，在一些特定场景下，组件发生变化后我们只需要对部分组件进行重新布局即可（而无需对整棵树 relayout ）。
+理论上，某个组件的布局变化后，就可能会影响其他组件的布局，所以当有组件布局发生变化后，最笨的办法是对整棵组件树 relayout（重新布局）！但是对所有组件进行 relayout 的成本还是太大，所以我们需要探索一下降低 relayout 成本的方案。实际上，在一些特定场景下，组件发生变化后我们只需要对部分组件进行重新布局即可（而无需对整棵树 relayout ）。
 
 ### 1. 布局边界（relayoutBoundary）
 
@@ -218,7 +218,7 @@ class RenderLeftRight extends RenderBox
 假如 Text3 的文本长度发生变化，则会导致 Text4 的位置和 Column2 的大小也会变化；又因为 Column2 的父组件 SizedBox 已经限定了大小，所以 SizedBox 的大小和位置都不会变化。所以最终我们需要进行 relayout 的组件是：Text3、Column2，这里需要注意：
 
 1. Text4 是不需要重新布局的，因为 Text4 的大小没有发生变化，只是位置发生变化，而它的位置是在父组件 Column2 布局时确定的。
-2. 很容易发现：假如 Text3 和 Column2 之间还有其它组件，则这些组件也都是需要 relayout 的。
+2. 很容易发现：假如 Text3 和 Column2 之间还有其他组件，则这些组件也都是需要 relayout 的。
 
 在本例中，Column2 就是 Text3 的 relayoutBoundary （重新布局的边界节点）。每个组件的 renderObject 中都有一个 `_relayoutBoundary` 属性指向自身的布局边界节点，如果当前节点布局发生变化后，自身到其布局边界节点路径上的所有的节点都需要 relayout。
 
@@ -243,7 +243,7 @@ if (!parentUsesSize || sizedByParent || constraints.isTight || parent is! Render
 }
 ```
 
-代码中 if 里的判断条件和上面的 4 条 一一对应，其中除了第二个条件之外（ sizedByParent 为 true ），其它的都很直观，我们会在后面专门介绍一下第二个条件。
+代码中 if 里的判断条件和上面的 4 条 一一对应，其中除了第二个条件之外（ sizedByParent 为 true ），其他的都很直观，我们会在后面专门介绍一下第二个条件。
 
 ### 2. markNeedsLayout
 
@@ -565,7 +565,7 @@ class RenderAfterLayout extends RenderProxyBox {
   @override
   void performLayout() {
     super.performLayout();
-    // 不能直接回调callback，原因是当前组件布局完成后可能还有其它组件未完成布局
+    // 不能直接回调callback，原因是当前组件布局完成后可能还有其他组件未完成布局
     // 如果callback中又触发了UI更新（比如调用了 setState）则会报错。因此，我们
     // 在 frame 结束的时候再去触发回调。
     SchedulerBinding.instance
@@ -581,7 +581,7 @@ class RenderAfterLayout extends RenderProxyBox {
 
 上面代码有三点需要注意：
 
-1. callback 调用时机不是在子组件完成布局后就立即调用，原因是子组件布局完成后可能还有其它组件未完成布局，如果此时调用callback，一旦 callback 中存在触发更新的代码（比如调用了 setState）则会报错。因此我们在 frame 结束的时候再去触发回调。
+1. callback 调用时机不是在子组件完成布局后就立即调用，原因是子组件布局完成后可能还有其他组件未完成布局，如果此时调用callback，一旦 callback 中存在触发更新的代码（比如调用了 setState）则会报错。因此我们在 frame 结束的时候再去触发回调。
 
 2. RenderAfterLayout 的布局调用的父类 RenderProxyBox 的 performLayout()：
 
@@ -662,7 +662,7 @@ Widget build(BuildContext context) {
 
 Align 会遵守 RenderView 的约束，让自身撑满屏幕，然后会给子组件传递一个宽松约束（最小宽高为0，最大宽高为200），这样 Container 就可以变成 200 * 200 了。
 
-当然我们还可以使用其它组件来代替 Align，比如 UnconstrainedBox，但原理是相同的，读者可以查看源码验证。
+当然我们还可以使用其他组件来代替 Align，比如 UnconstrainedBox，但原理是相同的，读者可以查看源码验证。
 
 ## 14.4.8 总结
 

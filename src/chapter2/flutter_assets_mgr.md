@@ -50,7 +50,7 @@ flutter:
 - 通过[`rootBundle`](https://docs.flutter.io/flutter/services/rootBundle.html) 对象加载：每个Flutter应用程序都有一个[`rootBundle`](https://docs.flutter.io/flutter/services/rootBundle.html)对象， 通过它可以轻松访问主资源包，直接使用`package:flutter/services.dart`中全局静态的`rootBundle`对象来加载asset即可。
 - 通过 [`DefaultAssetBundle`](https://docs.flutter.io/flutter/widgets/DefaultAssetBundle-class.html) 加载：建议使用 [`DefaultAssetBundle`](https://docs.flutter.io/flutter/widgets/DefaultAssetBundle-class.html) 来获取当前 BuildContext 的AssetBundle。 这种方法不是使用应用程序构建的默认 asset bundle，而是使父级 widget 在运行时动态替换的不同的 AssetBundle，这对于本地化或测试场景很有用。
 
-通常，可以使用`DefaultAssetBundle.of()`在应用运行时来间接加载 asset（例如JSON文件），而在widget 上下文之外，或其它`AssetBundle`句柄不可用时，可以使用`rootBundle`直接加载这些 asset，例如：
+通常，可以使用`DefaultAssetBundle.of()`在应用运行时来间接加载 asset（例如JSON文件），而在widget 上下文之外，或其他`AssetBundle`句柄不可用时，可以使用`rootBundle`直接加载这些 asset，例如：
 
 ```dart
 import 'dart:async' show Future;

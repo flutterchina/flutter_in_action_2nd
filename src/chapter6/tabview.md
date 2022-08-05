@@ -155,7 +155,7 @@ class TabViewRoute2 extends StatelessWidget {
 }
 ```
 
-可以看到我们无需去手动管理 Controller 的生命周期，也不需要提供 SingleTickerProviderStateMixin，同时也没有其它的状态需要管理，也就不需要用 StatefulWidget 了，这样简单很多。
+可以看到我们无需去手动管理 Controller 的生命周期，也不需要提供 SingleTickerProviderStateMixin，同时也没有其他的状态需要管理，也就不需要用 StatefulWidget 了，这样简单很多。
 
 ### 页面缓存
 

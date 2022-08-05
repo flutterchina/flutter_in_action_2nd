@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
             supportedLocales: [
               const Locale('en', 'US'), // 美国英语
               const Locale('zh', 'CN'), // 中文简体
-              //其它Locales
+              //其他Locales
             ],
             localizationsDelegates: [
               // 本地化的代理类

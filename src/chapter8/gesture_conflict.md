@@ -87,7 +87,7 @@ class CustomTapGestureRecognizer1 extends TapGestureRecognizer {
 正常情况下应该是手势直接作用的对象应该来处理手势，所以一个简单的原则就是同一个手势应该只有一个手势识别器生效，为此，手势识别才映入了手势竞技场（Arena）的概念，简单来讲：
 
 1. 每一个手势识别器（GestureRecognizer）都是一个“竞争者”（GestureArenaMember），当发生指针事件时，他们都要在“竞技场”去竞争本次事件的处理权，默认情况最终只有一个“竞争者”会胜出(win)。
-2. GestureRecognizer 的 handleEvent 中会识别手势，如果手势发生了某个手势，竞争者可以宣布自己是否胜出，一旦有一个竞争者胜出，竞技场管理者（GestureArenaManager）就会通知其它竞争者失败。
+2. GestureRecognizer 的 handleEvent 中会识别手势，如果手势发生了某个手势，竞争者可以宣布自己是否胜出，一旦有一个竞争者胜出，竞技场管理者（GestureArenaManager）就会通知其他竞争者失败。
 3. 胜出者的 acceptGesture 会被调用，其余的 rejectGesture 将会被调用。
 
 上一节我们说过命中测试是从  RenderBinding 的 hitTest 开始的：
@@ -131,7 +131,7 @@ void handleEvent(PointerEvent event, HitTestEntry entry) {
 
 gestureArena 是 GestureArenaManager 类实例，负责管理竞技场。
 
-上面关键的代码就是第一行，功能是会调用之前在 pointerRouter 中添加的 GestureRecognizer 的 handleEvent，不同 GestureRecognizer 的 handleEvent 会识别不同的手势，然后它会和 gestureArena 交互（如果当前的 GestureRecognizer 胜出，需要 gestureArena 去通知其它竞争者它们失败了），最终，如果当前GestureRecognizer 胜出，则最终它的 acceptGesture 会被调用，如果失败则其  rejectGesture 将会被调用，因为这部分代码不同的 GestureRecognizer 会不同，知道做了什么就行，读者有兴趣可以自行查看源码。
+上面关键的代码就是第一行，功能是会调用之前在 pointerRouter 中添加的 GestureRecognizer 的 handleEvent，不同 GestureRecognizer 的 handleEvent 会识别不同的手势，然后它会和 gestureArena 交互（如果当前的 GestureRecognizer 胜出，需要 gestureArena 去通知其他竞争者它们失败了），最终，如果当前GestureRecognizer 胜出，则最终它的 acceptGesture 会被调用，如果失败则其  rejectGesture 将会被调用，因为这部分代码不同的 GestureRecognizer 会不同，知道做了什么就行，读者有兴趣可以自行查看源码。
 
 ## 8.4.2 手势竞争
 
@@ -317,7 +317,7 @@ Listener(  // 将 GestureDetector 换位 Listener 即可
 
 ### 2. 通过自定义 Recognizer 解决手势冲突
 
-自定义手势识别器的方式比较麻烦，原理时当确定手势竞争胜出者时，会调用胜出者的`acceptGesture` 方法，表示“宣布成功”，然后会调用其它手势识别其的` rejectGesture` 方法，表示“宣布失败”。既然如此，我们可以自定义手势识别器（Recognizer），然后去重写它的` rejectGesture` 方法：在里面调用`acceptGesture`  方法，这就相当于它失败是强制将它也变成竞争的成功者了，这样它的回调也就会执行。
+自定义手势识别器的方式比较麻烦，原理时当确定手势竞争胜出者时，会调用胜出者的`acceptGesture` 方法，表示“宣布成功”，然后会调用其他手势识别其的` rejectGesture` 方法，表示“宣布失败”。既然如此，我们可以自定义手势识别器（Recognizer），然后去重写它的` rejectGesture` 方法：在里面调用`acceptGesture`  方法，这就相当于它失败是强制将它也变成竞争的成功者了，这样它的回调也就会执行。
 
 我们先自定义tap手势识别器（Recognizer）：
 

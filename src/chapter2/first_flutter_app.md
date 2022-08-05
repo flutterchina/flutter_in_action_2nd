@@ -1,7 +1,7 @@
 
 # 2.1 计数器应用示例
 
-用 Android Studio 和 VS Code 创建的 Flutter 应用模板默认是一个简单的计数器示例。本节先仔细讲解一下这个计数器 Demo 的源码，让读者对 Flutter 应用程序结构有个基本了解，然后在随后的小节中将会基于此示例，一步一步添加一些新的功能来介绍 Flutter 应用的其它概念与技术。
+用 Android Studio 和 VS Code 创建的 Flutter 应用模板默认是一个简单的计数器示例。本节先仔细讲解一下这个计数器 Demo 的源码，让读者对 Flutter 应用程序结构有个基本了解，然后在随后的小节中将会基于此示例，一步一步添加一些新的功能来介绍 Flutter 应用的其他概念与技术。
 
 对于接下来的示例，希望读者可以跟着笔者一起亲自动手来写一下，这样不仅可以加深印象，而且也会对介绍的概念与技术有一个真切的体会。如果你还不是很熟悉 Dart 语言或者没有移动开发经验，不用担心，只要你熟悉面向对象和基本编程概念（如变量、循环和条件控制），则可以完成本示例。
 
@@ -130,7 +130,7 @@ class MyApp extends StatelessWidget {
 
 - 在 Flutter 中，大多数东西都是 widget（后同“组件”或“部件”），包括对齐（Align）、填充（Padding）、手势处理（GestureDetector）等，它们都是以 widget 的形式提供。
 
-- Flutter 在构建页面时，会调用组件的`build`方法，widget 的主要工作是提供一个 build() 方法来描述如何构建 UI 界面（通常是通过组合、拼装其它基础 widget ）。
+- Flutter 在构建页面时，会调用组件的`build`方法，widget 的主要工作是提供一个 build() 方法来描述如何构建 UI 界面（通常是通过组合、拼装其他基础 widget ）。
 
 - `MaterialApp` 是Material 库中提供的 Flutter APP 框架，通过它可以设置应用的名称、主题、语言、首页及路由列表等。`MaterialApp`也是一个 widget。
 

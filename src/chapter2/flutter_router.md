@@ -96,7 +96,7 @@
 
 将栈顶路由出栈，`result` 为页面关闭时返回给上一个页面的数据。
 
-`Navigator` 还有很多其它方法，如`Navigator.replace`、`Navigator.popUntil`等，详情请参考API文档或SDK 源码注释，在此不再赘述。下面我们还需要介绍一下路由相关的另一个概念“命名路由”。
+`Navigator` 还有很多其他方法，如`Navigator.replace`、`Navigator.popUntil`等，详情请参考API文档或SDK 源码注释，在此不再赘述。下面我们还需要介绍一下路由相关的另一个概念“命名路由”。
 
 ### 3. 实例方法
 
@@ -220,7 +220,7 @@ MaterialApp(
   //注册路由表
   routes:{
    "new_page":(context) => NewRoute(),
-    ... // 省略其它路由注册信息
+    ... // 省略其他路由注册信息
   } ,
   home: MyHomePage(title: 'Flutter Demo Home Page'),
 );
@@ -333,7 +333,7 @@ MaterialApp(
 	  return MaterialPageRoute(builder: (context){
 		   String routeName = settings.name;
        // 如果访问的路由页需要登录，但当前未登录，则直接返回登录页路由，
-       // 引导用户登录；其它情况则正常打开路由。
+       // 引导用户登录；其他情况则正常打开路由。
      }
    );
   }

@@ -134,7 +134,7 @@ ScrollPosition是用来保存可滚动组件的滚动位置的。一个`ScrollCo
 double get offset => position.pixels;
 ```
 
-一个`ScrollController`虽然可以对应多个可滚动组件，但是有一些操作，如读取滚动位置`offset`，则需要一对一！但是我们仍然可以在一对多的情况下，通过其它方法读取滚动位置，举个例子，假设一个`ScrollController`同时被两个可滚动组件使用，那么我们可以通过如下方式分别读取他们的滚动位置：
+一个`ScrollController`虽然可以对应多个可滚动组件，但是有一些操作，如读取滚动位置`offset`，则需要一对一！但是我们仍然可以在一对多的情况下，通过其他方法读取滚动位置，举个例子，假设一个`ScrollController`同时被两个可滚动组件使用，那么我们可以通过如下方式分别读取他们的滚动位置：
 
 ```dart
 ...
@@ -250,5 +250,5 @@ class _ScrollNotificationTestRouteState
 - `extentAfter`：列表中未滑入ViewPort部分的长度；此示例中列表底部未显示到屏幕范围部分的长度。
 - `atEdge`：是否滑到了可滚动组件的边界（此示例中相当于列表顶或底部）。
 
-ScrollMetrics还有一些其它属性，读者可以自行查阅API文档。
+ScrollMetrics还有一些其他属性，读者可以自行查阅API文档。
 

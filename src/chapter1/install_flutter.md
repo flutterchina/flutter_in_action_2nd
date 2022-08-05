@@ -60,7 +60,7 @@ export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 
 ##### 运行 flutter doctor命令
 
-在Flutter命令行运行如下命令来查看是否还需要安装其它依赖，如果需要，安装它们：
+在Flutter命令行运行如下命令来查看是否还需要安装其他依赖，如果需要，安装它们：
 
 ```shell
 flutter doctor
@@ -82,7 +82,7 @@ flutter doctor
 
 #### 3）Android设置
 
-Flutter依赖于Android Studio的全量安装。Android Studio不仅可以管理Android 平台依赖、SDK版本等，而且它也是Flutter开发推荐的IDE之一（当然，你也可以使用其它编辑器或IDE，我们将会在后面讨论）。
+Flutter依赖于Android Studio的全量安装。Android Studio不仅可以管理Android 平台依赖、SDK版本等，而且它也是Flutter开发推荐的IDE之一（当然，你也可以使用其他编辑器或IDE，我们将会在后面讨论）。
 
 ##### 安装Android Studio
 

@@ -6,11 +6,11 @@ Flutter 是 Google 推出并开源的移动应用开发框架，主打跨平台�
 
 ### 1. 跨平台自绘引擎
 
-Flutter 与用于构建移动应用程序的其它大多数框架不同，因为 Flutter 既不使用 WebView，也不使用操作系统的原生控件。 相反，Flutter 使用自己的高性能渲染引擎来绘制 Widget（组件）。这样不仅可以保证在 Android 和iOS 上 UI 的一致性，也可以避免对原生控件依赖而带来的限制及高昂的维护成本。
+Flutter 与用于构建移动应用程序的其他大多数框架不同，因为 Flutter 既不使用 WebView，也不使用操作系统的原生控件。 相反，Flutter 使用自己的高性能渲染引擎来绘制 Widget（组件）。这样不仅可以保证在 Android 和iOS 上 UI 的一致性，也可以避免对原生控件依赖而带来的限制及高昂的维护成本。
 
 Flutter 底层使用 Skia 作为其 2D 渲染引擎，Skia 是 Google的一个 2D 图形处理函数库，包含字型、坐标转换，以及点阵图，它们都有高效能且简洁的表现。Skia 是跨平台的，并提供了非常友好的 API，目前 Google Chrome浏览器和 Android 均采用 Skia 作为其 2D 绘图引擎。
 
-目前 Flutter 已经支持 iOS、Android、Web、Windows、macOS、Linux、Fuchsia（Google新的自研操作系统）等众多平台，但本书的示例和介绍主要是基于 iOS 和 Android 平台的，其它平台读者可以自行了解。
+目前 Flutter 已经支持 iOS、Android、Web、Windows、macOS、Linux、Fuchsia（Google新的自研操作系统）等众多平台，但本书的示例和介绍主要是基于 iOS 和 Android 平台的，其他平台读者可以自行了解。
 
 ### 2. 高性能
 
@@ -28,7 +28,7 @@ Flutter 高性能主要靠两点来保证：
 
 AOT 程序的典型代表是用 C/C++ 开发的应用，它们必须在执行前编译成机器码；而JIT的代表则非常多，如JavaScript、python等，事实上，所有脚本语言都支持 JIT 模式。但需要注意的是 JIT 和 AOT 指的是程序运行方式，和编程语言并非强关联的，有些语言既可以以 JIT 方式运行也可以以 AOT 方式运行，如Python，它可以在第一次执行时编译成中间字节码，然后在之后执行时再将字节码实施转为机器码执行。也许有人会说，中间字节码并非机器码，在程序执行时仍然需要动态将字节码转为机器码，这不应该是 JIT 吗 ?  是这样，但通常我们区分是否为AOT 的标准就是看代码在执行之前**是否需要编译**，只要需要编译，无论其编译产物是字节码还是机器码，都属于AOT。在此，读者不必纠结于概念，概念就是为了传达精神而发明的，只要读者能够理解其原理即可，得其神忘其形。
 
-现在我们看看 Flutter 为什么选择 Dart 语言？笔者根据官方解释以及自己对 Flutter 的理解总结了以下几条（由于其它跨平台框架都将 JavaScript 作为其开发语言，所以主要将 Dart 和 JavaScript 做一个对比）：
+现在我们看看 Flutter 为什么选择 Dart 语言？笔者根据官方解释以及自己对 Flutter 的理解总结了以下几条（由于其他跨平台框架都将 JavaScript 作为其开发语言，所以主要将 Dart 和 JavaScript 做一个对比）：
 
 1. **开发效率高**。
 

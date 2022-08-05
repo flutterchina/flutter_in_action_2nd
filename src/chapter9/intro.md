@@ -43,7 +43,7 @@ final CurvedAnimation curve =
 | easeOut    | 开始快，后面慢               |
 | easeInOut  | 开始慢，然后加速，最后再减速 |
 
-除了上面列举的， [Curves](https://docs.flutter.io/flutter/animation/Curves-class.html) 类中还定义了许多其它的曲线，在此便不一一介绍，读者可以自行查看Curves类定义。
+除了上面列举的， [Curves](https://docs.flutter.io/flutter/animation/Curves-class.html) 类中还定义了许多其他的曲线，在此便不一一介绍，读者可以自行查看Curves类定义。
 
 当然我们也可以创建自己Curve，例如我们定义一个正弦曲线：
 
@@ -122,7 +122,7 @@ final Tween colorTween =
 
 
 
-`Tween`对象不存储任何状态，相反，它提供了`evaluate(Animation<double> animation)`方法，它可以获取动画当前映射值。 `Animation`对象的当前值可以通过`value()`方法取到。`evaluate`函数还执行一些其它处理，例如分别确保在动画值为0.0和1.0时返回开始和结束状态。
+`Tween`对象不存储任何状态，相反，它提供了`evaluate(Animation<double> animation)`方法，它可以获取动画当前映射值。 `Animation`对象的当前值可以通过`value()`方法取到。`evaluate`函数还执行一些其他处理，例如分别确保在动画值为0.0和1.0时返回开始和结束状态。
 
 #### 2）Tween.animate
 
@@ -158,7 +158,7 @@ Animation<int> alpha = IntTween(begin: 0, end: 255).animate(curve);
 Color.lerp(a, b, t);
 ```
 
-lerp 的计算一般遵循： 返回值 = a + (b - a) * t，其它拥有 lerp 方法的类：
+lerp 的计算一般遵循： 返回值 = a + (b - a) * t，其他拥有 lerp 方法的类：
 
 ```dart
 // Size.lerp(a, b, t)

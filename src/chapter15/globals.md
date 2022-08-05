@@ -70,7 +70,7 @@ void main() => Global.init().then((e) => runApp(MyApp()));
 
 ## 15.4.2 共享状态
 
-有了全局变量，我们还需要考虑如何跨组件共享状态。当然，如果我们将要共享的状态全部用全局变量替代也是可以的，但是这在Flutter开发中并不是一个好主意，因为组件的状态是和UI相关，而在状态改变时我们会期望依赖该状态的UI组件会自动更新，如果使用全局变量，那么我们必须得去手动处理状态变动通知、接收机制以及变量和组件依赖关系。因此，本实例中，我们使用前面介绍过的Provider包来实现跨组件状态共享，因此我们需要定义相关的Provider。在本实例中，需要共享的状态有登录用户信息、APP主题信息、APP语言信息。由于这些信息改变后都要立即通知其它依赖的该信息的Widget更新，所以我们应该使用`ChangeNotifierProvider`，另外，这些信息改变后都是需要更新Profile信息并进行持久化的。综上所述，我们可以定义一个`ProfileChangeNotifier`基类，然后让需要共享的Model继承自该类即可，`ProfileChangeNotifier`定义如下：
+有了全局变量，我们还需要考虑如何跨组件共享状态。当然，如果我们将要共享的状态全部用全局变量替代也是可以的，但是这在Flutter开发中并不是一个好主意，因为组件的状态是和UI相关，而在状态改变时我们会期望依赖该状态的UI组件会自动更新，如果使用全局变量，那么我们必须得去手动处理状态变动通知、接收机制以及变量和组件依赖关系。因此，本实例中，我们使用前面介绍过的Provider包来实现跨组件状态共享，因此我们需要定义相关的Provider。在本实例中，需要共享的状态有登录用户信息、APP主题信息、APP语言信息。由于这些信息改变后都要立即通知其他依赖的该信息的Widget更新，所以我们应该使用`ChangeNotifierProvider`，另外，这些信息改变后都是需要更新Profile信息并进行持久化的。综上所述，我们可以定义一个`ProfileChangeNotifier`基类，然后让需要共享的Model继承自该类即可，`ProfileChangeNotifier`定义如下：
 
 ```dart
 class ProfileChangeNotifier extends ChangeNotifier {

@@ -20,7 +20,7 @@ class DemoLocalizations {
   String get title {
     return isZh ? "Flutter应用" : "Flutter APP";
   }
-  //... 其它的值  
+  //... 其他的值  
 }
 ```
 

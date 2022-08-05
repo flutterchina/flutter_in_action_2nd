@@ -15,7 +15,7 @@ List items=json.decode(jsonStr);
 print(items[0]["name"]);
 ```
 
-通过`json.decode()` 将 JSON 字符串转为 List/Map 的方法比较简单，它没有外部依赖或其它的设置，对于小项目很方便。但当项目变大时，这种手动编写序列化逻辑可能变得难以管理且容易出错，例如有如下JSON：
+通过`json.decode()` 将 JSON 字符串转为 List/Map 的方法比较简单，它没有外部依赖或其他的设置，对于小项目很方便。但当项目变大时，这种手动编写序列化逻辑可能变得难以管理且容易出错，例如有如下JSON：
 
 ```json
 {
@@ -384,7 +384,7 @@ class Person {
 }
 ```
 
-我们使用美元符“$”作为特殊标志符(如果与内容冲突，可以修改mo.dart中的`TAG`常量，自定义标志符)，脚本在遇到特殊标志符后会先把相应字段转为相应的对象或对象数组，对象数组需要在标志符后面添加数组符“[]”，符号后面接具体的类型名，此例中是person。其它类型同理，加入我们给User添加一个Person类型的 `boss`字段：
+我们使用美元符“$”作为特殊标志符(如果与内容冲突，可以修改mo.dart中的`TAG`常量，自定义标志符)，脚本在遇到特殊标志符后会先把相应字段转为相应的对象或对象数组，对象数组需要在标志符后面添加数组符“[]”，符号后面接具体的类型名，此例中是person。其他类型同理，加入我们给User添加一个Person类型的 `boss`字段：
 
 ```json
 {
@@ -418,7 +418,7 @@ class User {
 
 ### 3. Json_model 包
 
-我们上面实现的脚本只是一个乞丐版，还有很多功能不支持，比如默认生成的变量都是可空类型、不支持导入其它的dart文件、不支持生成注释等等，为此，笔者专门发布了一个功能完成的 [Json_model](https://github.com/flutterchina/json_model)包，具备灵活的的配置和自定义功能，开发者把该包加入开发依赖后，便可以用一条命令，根据Json文件生成Dart类，下面是一个简单的功能演示：
+我们上面实现的脚本只是一个乞丐版，还有很多功能不支持，比如默认生成的变量都是可空类型、不支持导入其他的dart文件、不支持生成注释等等，为此，笔者专门发布了一个功能完成的 [Json_model](https://github.com/flutterchina/json_model)包，具备灵活的的配置和自定义功能，开发者把该包加入开发依赖后，便可以用一条命令，根据Json文件生成Dart类，下面是一个简单的功能演示：
 
 JSON  文件如下：
 
@@ -426,7 +426,7 @@ JSON  文件如下：
 {
   "@meta": { // @meta 可以定制单个 json 的生成规则，默认使用全局配置
     "import": [
-      "test_dir/profile.dart" // 导入其它文件
+      "test_dir/profile.dart" // 导入其他文件
     ],
     "comments": {
       "name": "名字" // 给 "name" 字段添加注释
@@ -474,7 +474,7 @@ class User {
 目前Android Studio(或IntelliJ)有几个插件，可以将json文件转成Model类，但插件质量参差不齐，甚至还有一些沾染上了抄袭风波，故笔者在此不做优先推荐，读者有兴趣可以自行了解。但是，我们还是要了解一下IDE插件和[Json_model](https://github.com/flutterchina/json_model)的优劣：
 
 1. [Json_model](https://github.com/flutterchina/json_model)需要单独维护一个存放Json文件的文件夹，如果有改动，只需修改Json文件便可重新生成Model类；而IDE插件一般需要用户手动将Json内容拷贝复制到一个输入框中，这样生成之后Json文件没有存档的化，之后要改动就需要手动。
-2. [Json_model](https://github.com/flutterchina/json_model)可以手动指定某个字段引用的其它Model类，可以避免生成重复的类；而IDE插件一般会为每一个Json文件中所有嵌套对象都单独生成一个Model类，即使这些嵌套对象可能在其它Model类中已经生成过。
+2. [Json_model](https://github.com/flutterchina/json_model)可以手动指定某个字段引用的其他Model类，可以避免生成重复的类；而IDE插件一般会为每一个Json文件中所有嵌套对象都单独生成一个Model类，即使这些嵌套对象可能在其他Model类中已经生成过。
 3. [Json_model](https://github.com/flutterchina/json_model) 提供了命令行转化方式，可以方便集成到CI等非UI环境的场景。
 
 ## 11.7.4 FAQ

@@ -36,7 +36,7 @@ Text("Hello world",
 
 ​      字符串内容超过一行，Text 宽度等于屏幕宽度，第二行文本便会居中显示。
 
-- `maxLines`、`overflow`：指定文本显示的最大行数，默认情况下，文本是自动折行的，如果指定此参数，则文本最多不会超过指定的行。如果有多余的文本，可以通过`overflow`来指定截断方式，默认是直接截断，本例中指定的截断方式`TextOverflow.ellipsis`，它会将多余文本截断后以省略符“...”表示；TextOverflow 的其它截断方式请参考 SDK 文档。
+- `maxLines`、`overflow`：指定文本显示的最大行数，默认情况下，文本是自动折行的，如果指定此参数，则文本最多不会超过指定的行。如果有多余的文本，可以通过`overflow`来指定截断方式，默认是直接截断，本例中指定的截断方式`TextOverflow.ellipsis`，它会将多余文本截断后以省略符“...”表示；TextOverflow 的其他截断方式请参考 SDK 文档。
 - `textScaleFactor`：代表文本相对于当前字体大小的缩放因子，相对于去设置文本的样式`style`属性的`fontSize`，它是调整字体大小的一个快捷方式。该属性的默认值可以通过`MediaQueryData.textScaleFactor`获得，如果没有`MediaQuery`，那么会默认值将为1.0。
 
 ## 3.1.2 TextStyle
@@ -61,7 +61,7 @@ Text("Hello world",
 
 ![3-3](../imgs/3-3.png)
 
-此示例只展示了 TextStyle 的部分属性，它还有一些其它属性，属性名基本都是自解释的，在此不再赘述，读者可以查阅SDK文档。值得注意的是：
+此示例只展示了 TextStyle 的部分属性，它还有一些其他属性，属性名基本都是自解释的，在此不再赘述，读者可以查阅SDK文档。值得注意的是：
 
 - `height`：该属性用于指定行高，但它并不是一个绝对值，而是一个因子，具体的行高等于`fontSize`*`height`。
 
@@ -144,13 +144,13 @@ DefaultTextStyle(
 
 ## 3.1.5 字体
 
-可以在 Flutter 应用程序中使用不同的字体。例如，我们可能会使用设计人员创建的自定义字体，或者其它第三方的字体，如 [Google Fonts](https://fonts.google.com/) 中的字体。本节将介绍如何为 Flutter 应用配置字体，并在渲染文本时使用它们。
+可以在 Flutter 应用程序中使用不同的字体。例如，我们可能会使用设计人员创建的自定义字体，或者其他第三方的字体，如 [Google Fonts](https://fonts.google.com/) 中的字体。本节将介绍如何为 Flutter 应用配置字体，并在渲染文本时使用它们。
 
 在 Flutter 中使用字体分两步完成。首先在`pubspec.yaml`中声明它们，以确保它们会打包到应用程序中。然后通过[`TextStyle`](https://docs.flutter.io/flutter/painting/TextStyle-class.html)属性使用字体。
 
 ### 1. 在asset中声明
 
-要将字体文件打包到应用中，和使用其它资源一样，要先在`pubspec.yaml`中声明它。然后将字体文件复制到在`pubspec.yaml`中指定的位置，如：
+要将字体文件打包到应用中，和使用其他资源一样，要先在`pubspec.yaml`中声明它。然后将字体文件复制到在`pubspec.yaml`中指定的位置，如：
 
 ```yaml
 flutter:

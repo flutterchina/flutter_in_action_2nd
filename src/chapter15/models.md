@@ -23,9 +23,9 @@
   "following": 0, // 该用户关注的人数
   "created_at": "2008-01-14T04:33:35Z", // 账号创建时间
   "updated_at": "2008-01-14T04:33:35Z", // 账号信息更新时间
-  "total_private_repos": 100, //该用户总的私有项目数(包括参与的其它组织的私有项目)
+  "total_private_repos": 100, //该用户总的私有项目数(包括参与的其他组织的私有项目)
   "owned_private_repos": 100 //该用户自己的私有项目数
-  ... //省略其它字段
+  ... //省略其他字段
 }
 ```
 
@@ -99,7 +99,7 @@
     "url": "https://api.github.com/licenses/mit",
     "node_id": "MDc6TGljZW5zZW1pdA=="
   }
-  ...//省略其它字段
+  ...//省略其他字段
 }
 ```
 

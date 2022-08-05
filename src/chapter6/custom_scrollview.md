@@ -81,7 +81,7 @@ Widget buildTwoSliverList() {
 | SliverFadeTransition            | FadeTransition      |
 | SliverLayoutBuilder             | LayoutBuilder       |
 
-还有一些其它常用的 Sliver： 
+还有一些其他常用的 Sliver： 
 
 | Sliver名称             | 说明                                                   |
 | ---------------------- | ------------------------------------------------------ |
@@ -189,7 +189,7 @@ CustomScrollView(
 
 
 
-注意，上面的代码是可以正常运行的，但是如果将 PageView 换成一个滑动方向和 CustomScrollView 一致的 ListView  则不会正常工作！原因是：CustomScrollView 组合 Sliver 的原理是为所有子 Sliver 提供一个共享的 Scrollable，然后统一处理指定滑动方向的滑动事件，如果 Sliver 中引入了其它的 Scrollable，则滑动事件便会冲突。上例中 PageView 之所以能正常工作，是因为 PageView 的 Scrollable 只处理水平方向的滑动，而 CustomScrollView 是处理垂直方向的，两者并未冲突，所以不会有问题，但是换一个也是垂直方向的 ListView 时则不能正常工作，最终的效果是，在ListView内滑动时只会对ListView 起作用，原因是滑动事件被 ListView 的 Scrollable 优先消费，CustomScrollView 的 Scrollable 便接收不到滑动事件了。
+注意，上面的代码是可以正常运行的，但是如果将 PageView 换成一个滑动方向和 CustomScrollView 一致的 ListView  则不会正常工作！原因是：CustomScrollView 组合 Sliver 的原理是为所有子 Sliver 提供一个共享的 Scrollable，然后统一处理指定滑动方向的滑动事件，如果 Sliver 中引入了其他的 Scrollable，则滑动事件便会冲突。上例中 PageView 之所以能正常工作，是因为 PageView 的 Scrollable 只处理水平方向的滑动，而 CustomScrollView 是处理垂直方向的，两者并未冲突，所以不会有问题，但是换一个也是垂直方向的 ListView 时则不能正常工作，最终的效果是，在ListView内滑动时只会对ListView 起作用，原因是滑动事件被 ListView 的 Scrollable 优先消费，CustomScrollView 的 Scrollable 便接收不到滑动事件了。
 
 > Flutter 中手势的冲突时，默认的策略是子元素生效，这个我们将在后面事件处理相关章节介绍。
 
@@ -236,7 +236,7 @@ abstract class SliverPersistentHeaderDelegate {
   
   // header 是否需要重新构建；通常当父级的 StatefulWidget 更新状态时会触发。
   // 一般来说只有当 Delegate 的配置发生变化时，应该返回false，比如新旧的 minExtent、maxExtent
-  // 等其它配置不同时需要返回 true，其余情况返回 false 即可。
+  // 等其他配置不同时需要返回 true，其余情况返回 false 即可。
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate);
 
   // 下面这几个属性是SliverPersistentHeader在SliverAppBar中时实现floating、snap 

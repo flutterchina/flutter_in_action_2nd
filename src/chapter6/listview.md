@@ -38,7 +38,7 @@ ListView({
 - `addAutomaticKeepAlives`：该属性我们将在介绍 PageView 组件时详细解释。
 - `addRepaintBoundaries`：该属性表示是否将列表项（子组件）包裹在`RepaintBoundary`组件中。`RepaintBoundary` 读者可以先简单理解为它是一个”绘制边界“，将列表项包裹在`RepaintBoundary`中可以避免列表项不必要的重绘，但是当列表项重绘的开销非常小（如一个颜色块，或者一个较短的文本）时，不添加`RepaintBoundary`反而会更高效（具体原因会在本书后面 Flutter 绘制原理相关章节中介绍）。如果列表项自身来维护是否需要添加绘制边界组件，则此参数应该指定为 false。
 
-> 注意：上面这些参数并非`ListView`特有，在本章后面介绍的其它可滚动组件也可能会拥有这些参数，它们的含义是相同的。
+> 注意：上面这些参数并非`ListView`特有，在本章后面介绍的其他可滚动组件也可能会拥有这些参数，它们的含义是相同的。
 
 默认构造函数有一个`children`参数，它接受一个Widget列表（List&lt;Widget&gt;）。这种方式适合只有少量的子组件数量已知且比较少的情况，反之则应该使用`ListView.builder` 按需动态构建列表项。
 

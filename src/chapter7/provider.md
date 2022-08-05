@@ -9,7 +9,7 @@
 ```dart
 enum Event{
   login,
-  ... //省略其它事件
+  ... //省略其他事件
 }
 ```
 
@@ -194,7 +194,7 @@ class Item {
   Item(this.price, this.count);
   double price; //商品单价
   int count; // 商品份数
-  //... 省略其它属性
+  //... 省略其他属性
 }
 ```
 
@@ -390,7 +390,7 @@ Column(
 
 至此我们便实现了一个迷你的Provider，它具备Pub上Provider Package中的核心功能；但是我们的迷你版功能并不全面，如只实现了一个可监听的ChangeNotifierProvider，并没有实现只用于数据共享的Provider；另外，我们的实现有些边界也没有考虑的到，比如如何保证在Widget树重新build时Model始终是单例等。所以建议读者在实战中还是使用Provider Package，而本节实现这个迷你Provider的主要目的主要是为了帮助读者了解Provider Package底层的原理。
 
-## 7.3.4 其它状态管理包
+## 7.3.4 其他状态管理包
 
 现在Flutter社区已经有很多专门用于状态管理的包了，在此我们列出几个相对评分比较高的：
 

@@ -32,7 +32,7 @@ flutter:
 - `name`：应用或包名称。
 - `description`: 应用或包的描述、简介。
 - `version`：应用或包的版本号。
-- `dependencies`：应用或包依赖的其它包或插件。
+- `dependencies`：应用或包依赖的其他包或插件。
 - `dev_dependencies`：开发环境依赖的工具包（而不是flutter应用本身依赖的包）。
 - `flutter`：flutter相关的配置选项。
 
@@ -115,7 +115,7 @@ Pub（https://pub.dev/ ）是 Google 官方的 Dart Packages 仓库，类似于 
    ![图2-14](../imgs/2-14.png)
 
 
-## 2.5.4 其它依赖方式
+## 2.5.4 其他依赖方式
 
 上文所述的依赖方式是依赖Pub仓库的。但我们还可以依赖本地包和git仓库。
 
@@ -150,7 +150,7 @@ Pub（https://pub.dev/ ）是 Google 官方的 Dart Packages 仓库，类似于 
         path: packages/package1        
   ```
 
-上面介绍的这些依赖方式是Flutter开发中常用的，但还有一些其它依赖方式，完整的内容读者可以自行查看：https://www.dartlang.org/tools/pub/dependencies 。
+上面介绍的这些依赖方式是Flutter开发中常用的，但还有一些其他依赖方式，完整的内容读者可以自行查看：https://www.dartlang.org/tools/pub/dependencies 。
 
 ## 2.5.5 总结
 

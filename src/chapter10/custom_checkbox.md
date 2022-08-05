@@ -293,7 +293,7 @@ void handleEvent(PointerEvent event, covariant BoxHitTestEntry entry) {
 
 ## 10.6.2 动画调度抽象 RenderObjectAnimationMixin
 
-我们可以看到，在RenderObject 中调度动画还是比较复杂的，为此我们抽象了一个  RenderObjectAnimationMixin，如果还有其它 RenderObject 中需要执行动画，可以直接复用。
+我们可以看到，在RenderObject 中调度动画还是比较复杂的，为此我们抽象了一个  RenderObjectAnimationMixin，如果还有其他 RenderObject 中需要执行动画，可以直接复用。
 
 ```dart
 mixin RenderObjectAnimationMixin on RenderObject {

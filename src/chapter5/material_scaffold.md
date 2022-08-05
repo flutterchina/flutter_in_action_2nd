@@ -97,7 +97,7 @@ AppBar({
   this.elevation = 4.0, // 导航栏阴影
   this.centerTitle, //标题是否居中 
   this.backgroundColor,
-  ...   //其它属性见源码注释
+  ...   //其他属性见源码注释
 })
 ```
 

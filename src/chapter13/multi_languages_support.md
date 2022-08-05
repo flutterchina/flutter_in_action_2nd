@@ -36,7 +36,7 @@ MaterialApp(
  supportedLocales: [
     const Locale('en', 'US'), // 美国英语
     const Locale('zh', 'CN'), // 中文简体
-    //其它Locales
+    //其他Locales
   ],
   // ...
 )
@@ -62,7 +62,7 @@ const Locale('zh', 'CN') // 中文简体
 Locale myLocale = Localizations.localeOf(context);
 ```
 
-[`Localizations`](https://docs.flutter.io/flutter/widgets/Localizations-class.html) 组件一般位于widget树中其它业务组件的顶部，它的作用是定义区域Locale以及设置子树依赖的本地化资源。 如果系统的语言环境发生变化，[WidgetsApp](https://docs.flutter.io/flutter/widgets/WidgetsApp-class.html)将创建一个新的Localizations 组件并重建它，这样子树中通过`Localizations.localeOf(context)` 获取的Locale就会更新。
+[`Localizations`](https://docs.flutter.io/flutter/widgets/Localizations-class.html) 组件一般位于widget树中其他业务组件的顶部，它的作用是定义区域Locale以及设置子树依赖的本地化资源。 如果系统的语言环境发生变化，[WidgetsApp](https://docs.flutter.io/flutter/widgets/WidgetsApp-class.html)将创建一个新的Localizations 组件并重建它，这样子树中通过`Localizations.localeOf(context)` 获取的Locale就会更新。
 
 ## 13.1.4 监听系统语言切换
 

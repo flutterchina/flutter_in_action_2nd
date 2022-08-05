@@ -114,7 +114,7 @@
          child: Column(
            mainAxisSize: MainAxisSize.min,
            children: [
-             ChessWidget(),
+             const ChessWidget(),
              ElevatedButton(
                onPressed: () {
                  setState(() => null);

@@ -45,9 +45,9 @@
 
 ## 关于随书源码
 
-- 由于当前处于草稿阶段，待本书正式发布后会上传随书源码。
+- 本书示例代码见：[随书源码](https://github.com/wendux/flutter_in_action_2).
 
-- 由于本书实例中实现了不少通用性较强的组件，为了方便复用，笔者将通用性较强的组件都添加到了 flukit 开源项目，它是笔者维护的一个flutter开源组件库，项目地址是：https://github.com/flutterchina/flukit 。
+- 由于本书实例中实现了不少通用性较强的组件，为了方便复用，笔者将通用性较强的组件都添加到了 [flukit](https://github.com/flutterchina/flukit) 开源项目，它是笔者维护的一个flutter开源组件库。
 
 
 ## 权益
@@ -58,7 +58,7 @@
 
 ## 勘误
 
-由于Flutter SDK在不断更新，本书中的部分内容（如类的继承关系、参数等）可能会和新版本的Flutter不一致，读者以最新的Flutter SDK为准。另外，由于时间仓促，书中难免有错误之处，如果发现错误，可以在本书Github项目issue列表中去反馈，地址是https://github.com/flutterchina/flutter-in-action-2nd/issues 。另外你也可以关注本书电子版官网（https://book.flutterchina.club），电子版会定期修正错误及更新内容。
+由于Flutter SDK在不断更新，本书中的部分内容（如类的继承关系、参数等）可能会和新版本的Flutter不一致，读者以最新的Flutter SDK为准。另外，由于时间仓促，书中难免有错误之处，如果发现错误，可以在本书Github项目[issue列表](https://github.com/flutterchina/flutter-in-action-2nd/issues)中去反馈 。另外你也可以关注本书电子版官网（https://book.flutterchina.club），电子版会定期修正错误及更新内容。
 
 ## 致谢
 

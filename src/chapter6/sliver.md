@@ -633,7 +633,7 @@ class SliverPersistentHeaderToBoxRoute extends StatelessWidget {
 
 ### 注意
 
-如果我们要使用 SliverAppBar，则建议使用 SliverPersistentHeader ，因为 SliverPersistentHeader 设计的初衷就是为了实现 SliverAppBar，所以它们一起使用时会有更好的协同。如果将 SliverPersistentHeaderToBox 和 SliverAppBar 一起使用，则可能又会导致其它问题，所以建议就是：**在没有使用 SliverAppBar 时，用 SliverPersistentHeaderToBox，如果使用了 SliverAppBar ，用SliverPersistentHeader**。
+如果我们要使用 SliverAppBar，则建议使用 SliverPersistentHeader ，因为 SliverPersistentHeader 设计的初衷就是为了实现 SliverAppBar，所以它们一起使用时会有更好的协同。如果将 SliverPersistentHeaderToBox 和 SliverAppBar 一起使用，则可能又会导致其他问题，所以建议就是：**在没有使用 SliverAppBar 时，用 SliverPersistentHeaderToBox，如果使用了 SliverAppBar ，用SliverPersistentHeader**。
 
 ## 6.11.4 总结
 

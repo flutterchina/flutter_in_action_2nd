@@ -286,7 +286,7 @@ class _FocusTestRouteState extends State<FocusTestRoute> {
 }
 ```
 
-`FocusNode`和`FocusScopeNode`还有一些其它的方法，详情可以查看API文档。
+`FocusNode`和`FocusScopeNode`还有一些其他的方法，详情可以查看API文档。
 
 #### 5）监听焦点状态改变事件
 

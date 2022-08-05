@@ -1,10 +1,10 @@
 # 4.4 弹性布局（Flex）
 
-弹性布局允许子组件按照一定比例来分配父容器空间。弹性布局的概念在其它UI系统中也都存在，如 H5 中的弹性盒子布局，Android中 的`FlexboxLayout`等。Flutter 中的弹性布局主要通过`Flex`和`Expanded`来配合实现。
+弹性布局允许子组件按照一定比例来分配父容器空间。弹性布局的概念在其他UI系统中也都存在，如 H5 中的弹性盒子布局，Android中 的`FlexboxLayout`等。Flutter 中的弹性布局主要通过`Flex`和`Expanded`来配合实现。
 
 ## 4.4.1 Flex
 
-`Flex`组件可以沿着水平或垂直方向排列子组件，如果你知道主轴方向，使用`Row`或`Column`会方便一些，**因为`Row`和`Column`都继承自`Flex`**，参数基本相同，所以能使用Flex的地方基本上都可以使用`Row`或`Column`。`Flex`本身功能是很强大的，它也可以和`Expanded`组件配合实现弹性布局。接下来我们只讨论`Flex`和弹性布局相关的属性(其它属性已经在介绍`Row`和`Column`时介绍过了)。
+`Flex`组件可以沿着水平或垂直方向排列子组件，如果你知道主轴方向，使用`Row`或`Column`会方便一些，**因为`Row`和`Column`都继承自`Flex`**，参数基本相同，所以能使用Flex的地方基本上都可以使用`Row`或`Column`。`Flex`本身功能是很强大的，它也可以和`Expanded`组件配合实现弹性布局。接下来我们只讨论`Flex`和弹性布局相关的属性(其他属性已经在介绍`Row`和`Column`时介绍过了)。
 
 ```dart
 Flex({

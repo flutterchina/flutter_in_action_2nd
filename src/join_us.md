@@ -103,7 +103,7 @@ sidebar: auto
     - 熟悉 ThreeJS，Babylon, Unity3D 有相关 3D 作品或 DEMO。
     -  各大前端技术社区活跃者、有自己的开源项目；
 
-## 其它职位（实习/校招/社招均可）
+## 其他职位（实习/校招/社招均可）
 
 ### Android开发工程师
 

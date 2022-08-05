@@ -91,4 +91,4 @@ class ThemeChangeRoute extends StatelessWidget{
 
 ![15-8](../imgs/15-8.png)
 
-点击其它主题色块后，APP主题色立马切换生效。
+点击其他主题色块后，APP主题色立马切换生效。

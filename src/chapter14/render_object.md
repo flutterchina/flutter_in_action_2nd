@@ -2,7 +2,7 @@
 
 在上一节我们说过每个`Element`都对应一个`RenderObject`，我们可以通过`Element.renderObject` 来获取。并且我们也说过`RenderObject`的主要职责是Layout和绘制，所有的`RenderObject`会组成一棵渲染树Render Tree。本节我们将重点介绍一下`RenderObject`的作用。
 
-`RenderObject`就是渲染树中的一个对象，它拥有一个`parent`和一个`parentData` 插槽（slot），所谓插槽，就是指预留的一个接口或位置，这个接口和位置是由其它对象来接入或占据的，这个接口或位置在软件中通常用预留变量来表示，而`parentData`正是一个预留变量，它正是由`parent` 来赋值的，`parent`通常会通过子`RenderObject`的`parentData`存储一些和子元素相关的数据，如在Stack布局中，`RenderStack`就会将子元素的偏移数据存储在子元素的`parentData`中（具体可以查看`Positioned`实现）。
+`RenderObject`就是渲染树中的一个对象，它拥有一个`parent`和一个`parentData` 插槽（slot），所谓插槽，就是指预留的一个接口或位置，这个接口和位置是由其他对象来接入或占据的，这个接口或位置在软件中通常用预留变量来表示，而`parentData`正是一个预留变量，它正是由`parent` 来赋值的，`parent`通常会通过子`RenderObject`的`parentData`存储一些和子元素相关的数据，如在Stack布局中，`RenderStack`就会将子元素的偏移数据存储在子元素的`parentData`中（具体可以查看`Positioned`实现）。
 
 `RenderObject`类本身实现了一套基础的layout和绘制协议，但是并没有定义子节点模型（如一个节点可以有几个子节点，没有子节点？一个？两个？或者更多？）。 它也没有定义坐标系统（如子节点定位是在笛卡尔坐标中还是极坐标？）和具体的布局协议（是通过宽高还是通过constraint和size?，或者是否由父节点在子节点布局之前或之后设置子节点的大小和位置等）。为此，Flutter提供了一个`RenderBox`类，它继承自``RenderObject`，布局坐标系统采用笛卡尔坐标系，这和Android和iOS原生坐标系是一致的，都是屏幕的top、left是原点，然后分宽高两个轴，大多数情况下，我们直接使用`RenderBox`就可以了，除非遇到要自定义布局模型或坐标系统的情况，下面我们重点介绍一下`RenderBox`。
 
@@ -233,7 +233,7 @@ void markNeedsPaint() {
     parent.markNeedsPaint();
     assert(parent == this.parent);
   } else {
-    // 如果直到根节点也没找到一个Layer，那么便需要绘制自身，因为没有其它节点可以绘制根节点。  
+    // 如果直到根节点也没找到一个Layer，那么便需要绘制自身，因为没有其他节点可以绘制根节点。  
     if (owner != null)
       owner.requestVisualUpdate();
   }
