@@ -47,9 +47,9 @@ class _ScaffoldRouteState extends State<ScaffoldRoute> {
       drawer: MyDrawer(), //抽屉
       bottomNavigationBar: BottomNavigationBar( // 底部导航
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Home')),
-          BottomNavigationBarItem(icon: Icon(Icons.business), title: Text('Business')),
-          BottomNavigationBarItem(icon: Icon(Icons.school), title: Text('School')),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.business), label: 'Business'),
+          BottomNavigationBarItem(icon: Icon(Icons.school), label: 'School'),
         ],
         currentIndex: _selectedIndex,
         fixedColor: Colors.blue,
@@ -212,9 +212,9 @@ bottomNavigationBar: BottomAppBar(
   shape: CircularNotchedRectangle(), // 底部导航栏打一个圆形的洞
   child: Row(
     children: [
-      IconButton(icon: Icon(Icons.home)),
+      IconButton(icon: Icon(Icons.home), onPressed: () {  }),
       SizedBox(), //中间位置空出
-      IconButton(icon: Icon(Icons.business)),
+      IconButton(icon: Icon(Icons.business), onPressed: () {  }),
     ],
     mainAxisAlignment: MainAxisAlignment.spaceAround, //均分底部导航栏横向空间
   ),
