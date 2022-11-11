@@ -148,7 +148,7 @@ class __TestWidgetState extends State<_TestWidget> {
 //定义一个便捷方法，方便子树中的widget获取共享数据
 static ShareDataWidget of(BuildContext context) {
   //return context.dependOnInheritedWidgetOfExactType<ShareDataWidget>();
-  return context.getElementForInheritedWidgetOfExactType<ShareDataWidget>().widget;
+ return context.getElementForInheritedWidgetOfExactType<ShareDataWidget>()!.widget as ShareDataWidget;
 }
 ```
 
