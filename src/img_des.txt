@@ -37,7 +37,7 @@
 3-5  DefaultTextStyle示例
 3-6  ElevatedButton示例
 3-7  TextButton示例
-3-8  OutlineButton示例
+3-8  OutlinedButton示例
 3-9  IconButton示例
 3-10 带图标的按钮
 3-11 Image示例
