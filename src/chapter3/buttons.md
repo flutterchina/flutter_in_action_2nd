@@ -35,13 +35,13 @@ TextButton(
 )
 ```
 
-## 3.2.3 OutlineButton
+## 3.2.3 OutlinedButton
 
-`OutlineButton`默认有一个边框，不带阴影且背景透明。按下后，边框颜色会变亮、同时出现背景和阴影(较弱)，如图 3-8 所示：
+`OutlinedButton`默认有一个边框，不带阴影且背景透明。按下后，边框颜色会变亮、同时出现背景和阴影(较弱)，如图 3-8 所示：
 
 ![图3-8](../imgs/3-8.png)
 
-使用`OutlineButton`也很简单，代码如下：
+使用`OutlinedButton`也很简单，代码如下：
 
 ```dart
 OutlinedButton(
