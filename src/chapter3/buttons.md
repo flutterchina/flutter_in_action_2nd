@@ -44,7 +44,7 @@ TextButton(
 使用`OutlineButton`也很简单，代码如下：
 
 ```dart
-OutlineButton(
+OutlinedButton(
   child: Text("normal"),
   onPressed: () {},
 )
