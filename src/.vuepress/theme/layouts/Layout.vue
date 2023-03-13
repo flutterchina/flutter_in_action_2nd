@@ -54,10 +54,10 @@
              target='_blank'> 购买实体书
           </a> |
           <a href='https://github.com/flutterchina'>Flutter中国开源项目</a>
-          <!--<a href='/join_us.html'>-->
-            <!--和作者做同事-->
-          <!--</a>-->
-
+          |
+          <a href='https://github.com/wendux'>
+            关于作者
+          </a>
         </div>
 
       </template>

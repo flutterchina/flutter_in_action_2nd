@@ -27,7 +27,7 @@ module.exports = {
     sidebar: [
       {
         title: "第二版序",
-        path: "/preface"
+        path: "/"
       },
       {
         title: "第一章：起步",
