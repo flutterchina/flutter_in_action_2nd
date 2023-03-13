@@ -115,7 +115,7 @@ setState(() {
       var item = buildItem(context, index);
       print('删除 ${data[index]}');
       data.removeAt(index);
-      // 删除动画是一个合成动画：渐隐 + 缩小列表项告诉
+      // 删除动画是一个合成动画：渐隐 + 收缩列表项
       return FadeTransition(
         opacity: CurvedAnimation(
           parent: animation,

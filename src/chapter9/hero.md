@@ -27,7 +27,7 @@ class _CustomHeroAnimationState extends State<CustomHeroAnimation>
   AnimationStatus? _lastAnimationStatus;
   late Animation _animation;
 
-  //两个组件在Stack中的rect
+  //两个组件在Stack中所占的区域
   Rect? child1Rect;
   Rect? child2Rect;
 
@@ -169,7 +169,7 @@ class _CustomHeroAnimationState extends State<CustomHeroAnimation>
 }
 ```
 
-运行后点击头像就可以实现上图中的动画效果，注意，我们是通过自定义的 AfterLayout 组件来获取组件的 Rect 信息的，该组件在第四章介绍过，我们将在后面 Flutter 布局原理相关章节中详细介绍该组件原理。
+运行后点击头像就可以实现上图中的动画效果，注意，我们是通过自定义的 AfterLayout 组件来获取组件的 Rect 信息的，该组件在第四章介绍过，我们将在14.4节中详细介绍该组件原理。
 
 可以看到，整个飞行动画的实现还是比较复杂的，但由于这种飞行动画在交互上会经常被用到，因此 Flutter 在框架层抽象了上述实现飞行动画的逻辑，提供了一种通用且简单的实现 Hero 动画的方式。
 

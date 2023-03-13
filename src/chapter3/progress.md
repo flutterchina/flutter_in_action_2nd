@@ -187,6 +187,6 @@ class _ProgressRouteState extends State<ProgressRoute>
 
 ## 3.6.4 自定义进度指示器样式
 
-定制进度指示器风格样式，可以通过`CustomPainter` Widget 来自定义绘制逻辑，实际上`LinearProgressIndicator`和`CircularProgressIndicator`也正是通过`CustomPainter`来实现外观绘制的。关于`CustomPainter`，我们将在后面“自定义Widget”一章中详细介绍。
+定制进度指示器风格样式，可以通过`CustomPainter` Widget 来自定义绘制逻辑，实际上`LinearProgressIndicator`和`CircularProgressIndicator`也正是通过`CustomPainter`来实现外观绘制的。关于`CustomPainter`，我们将在第十章“自定义组件”中详细介绍。
 
 > [flutter_spinkit](https://pub.flutter-io.cn/packages/flutter_spinkit) 包提供了多种风格的模糊进度指示器，读者若是感兴趣，可以参考。

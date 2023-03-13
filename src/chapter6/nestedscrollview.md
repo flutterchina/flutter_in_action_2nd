@@ -74,7 +74,7 @@ NestedScrollView 的结构图如图6-33所示：
 2. header 和 body 都是 CustomScrollView 的子 Sliver ，注意，虽然 body 是一个 RenderBox，但是它会被包装为 Sliver 。
 3. CustomScrollView 将其所有子 Sliver 在逻辑上分为 header 和 body 两部分：header 是前面部分、body 是后面部分。
 4. 当 body 是一个可滚动组件时， 它和 CustomScrollView 分别有一个 Scrollable ，由于 body 在 CustomScrollView  的内部，所以称其为内部可滚动组件，称 CustomScrollView 为外部可滚动组件；同时 因为 header 部分是 Sliver，所以没有独立的 Scrollable，滑动时是受 CustomScrollView 的 Scrollable 控制，所以为了区分，可以称 header 为外部可滚动组件（Flutter 文档中是这么约定的）。
-5. NestedScrollView 核心功能就是通过一个协调器来协调外部可滚动组件和内部可滚动组件的滚动，以使滑动效果连贯统一，协调器的实现原理就是分别给内外可滚动组件分别设置一个 controller，然后通过这两个controller 来协调控制它们的滚动。
+5. NestedScrollView 核心功能就是通过一个协调器来协调外部（outer）可滚动组件和内部（inner）可滚动组件的滚动，以使滑动效果连贯统一，协调器的实现原理就是分别给内外可滚动组件分别设置一个 controller，然后通过这两个controller 来协调控制它们的滚动。
 
 综上，在使用 NestedScrollView  有两点需要注意：
 
@@ -205,7 +205,7 @@ SliverOverlapAbsorber 和 SliverOverlapInjector 都接收有一个 handle，给�
 
 以上便是 NestedScrollView 提供的标准解决方案，可能直观上看起来不是很优雅，但笔者站在NestedScrollView 开发者的角度暂时也没有想到更好的方式。不过，幸运的是，这是一个标准方案，有需要直接复制代码即可。
 
-实际上，当 snap 为 true 时，只需要给 SliverAppBar 包裹一个 SliverOverlapAbsorber即可，而无需再给 CustomScrollView 添加 SliverOverlapInjector，因为这种情况 SliverOverlapAbsorber 会自动吸收 overlap，以调整自身的布局高度为 SliverAppBar 的实际高度，这样的话 header 的高度变化后就会自动将 body 向下撑（header 和 body 属于同一个 CustomScrollView），同时，handle 中的 overlap 长度始终 0。**而只有当 SliverAppBar 别 SliverOverlapAbsorber 包裹且为固定模式时**（pinned 为 true ），CustomScrollView 中添加SliverOverlapInjector 才有意义， handle 中的 overlap 长度不为 0。我们可以通过以下代码验证：
+实际上，当 snap 为 true 时，只需要给 SliverAppBar 包裹一个 SliverOverlapAbsorber即可，而无需再给 CustomScrollView 添加 SliverOverlapInjector，因为这种情况 SliverOverlapAbsorber 会自动吸收 overlap，以调整自身的布局高度为 SliverAppBar 的实际高度，这样的话 header 的高度变化后就会自动将 body 向下撑（header 和 body 属于同一个 CustomScrollView），同时，handle 中的 overlap 长度始终 0。**而只有当 SliverAppBar 被 SliverOverlapAbsorber 包裹且为固定模式时**（pinned 为 true ），CustomScrollView 中添加SliverOverlapInjector 才有意义， handle 中的 overlap 长度不为 0。我们可以通过以下代码验证：
 
 ```dart
 class SnapAppBar2 extends StatefulWidget {
@@ -293,7 +293,7 @@ class NestedTabBarView1 extends StatelessWidget {
     final _tabs = <String>['猜你喜欢', '今日特价', '发现更多'];
     // 构建 tabBar
     return DefaultTabController(
-      length: _tabs.length, // This is the number of tabs.
+      length: _tabs.length, // tab的数量.
       child: Scaffold(
         body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {

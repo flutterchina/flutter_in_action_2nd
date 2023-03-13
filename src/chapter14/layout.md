@@ -583,7 +583,7 @@ class RenderAfterLayout extends RenderProxyBox {
 
 1. callback 调用时机不是在子组件完成布局后就立即调用，原因是子组件布局完成后可能还有其他组件未完成布局，如果此时调用callback，一旦 callback 中存在触发更新的代码（比如调用了 setState）则会报错。因此我们在 frame 结束的时候再去触发回调。
 
-2. RenderAfterLayout 的布局调用的父类 RenderProxyBox 的 performLayout()：
+2. RenderAfterLayout 的 performLayout方法中直接调用了父类 RenderProxyBox 的 performLayout方法：
 
    ```dart
    void performLayout() {

@@ -99,7 +99,7 @@ for (final RenderObject node in dirtyNodes){
 
 ```dart
 static void repaintCompositedChild( RenderObject child, PaintingContext? childContext) {
-  assert(child.isRepaintBoundary); // 断言：能走的这节点，其isRepaintBoundary必定为true.
+  assert(child.isRepaintBoundary); // 断言：能走的这里，其isRepaintBoundary必定为true.
   OffsetLayer? childLayer = child.layer;
   if (childLayer == null) { //如果边界节点没有layer，则为其创建一个OffsetLayer
     final OffsetLayer layer = OffsetLayer();
@@ -136,7 +136,7 @@ void _startRecording() {
 }
 ```
 
-下面我们再来看看 child.paint 方法的实现，该方法需要节点自己实现，用于绘制自身，节点类型不同，绘制算法一般也不同，不过功能是差不多的，即：如果是容器组件，要绘制孩子和自身（也可能自身也可能没有绘制逻辑，只绘制孩子，比如Center组件），如果不是容器类组件，则绘制自己（比如Image）。
+下面我们再来看看 child.paint 方法的实现，该方法需要节点自己实现，用于绘制自身，节点类型不同，绘制算法一般也不同，不过功能是差不多的，即：如果是容器组件，要绘制孩子和自身（当然，容器自身也可能没有绘制逻辑，这种情况只绘制孩子即可，比如Center组件），如果不是容器类组件，则绘制自身（比如Image）。
 
 ```dart
 void paint(PaintingContext context, Offset offset) {

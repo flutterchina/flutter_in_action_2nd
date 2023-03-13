@@ -63,7 +63,7 @@ class CustomRenderRotatedBox extends RenderBox
   
  void _paint(PaintingContext context,Offset offset,Matrix4 transform ){
     // 为了不干扰其他和自己在同一个layer上绘制的节点，所以需要先调用save然后在子元素绘制完后
-    // 再restore显示，关于save/restore有兴趣可以查看Canvas API doc
+    // 再调用restore显示，关于save/restore有兴趣可以查看Canvas API doc
     context.canvas
       ..save()
       ..transform(transform.storage);
@@ -352,7 +352,7 @@ Widget build(BuildContext context) {
 }
 ```
 
-因为 CustomRotatedBox 中只判断了其直接子节点的`child!.isRepaintBoundary` 为 true时，才会进行 layer 合成，而现在它的直接子节点是Center，所以该判断会是false，则不会进行层 layer 合成。但是根据我们上面得出的结论，RepaintBoundary 作为CustomRotatedBox 的后代节点且会向 layer 树中添加新 layer 时就需要进行 layer合成，该合成时没有合成，所以预期是不能将 "A" 放倒的，运行后发现效果和之前的图14-18相同：
+因为 CustomRotatedBox 中只判断了其直接子节点的`child!.isRepaintBoundary` 为 true时，才会进行 layer 合成，而现在它的直接子节点是Center，所以该判断会是false，则不会进行 layer 合成。但是根据我们上面得出的结论，RepaintBoundary 作为CustomRotatedBox 的后代节点且会向 layer 树中添加新 layer 时就需要进行 layer合成，而本例中是应该合成layer但实际上却没有合成，所以预期是不能将 "A" 放倒的，运行后发现效果和之前的图14-18相同：
 
 ![图14-18](../imgs/14-18.png)
 
@@ -404,13 +404,13 @@ void paint(PaintingContext context, Offset offset) {
 
 ### 2. alwaysNeedsCompositing
 
- 我们考虑一下这种情况：如果  CustomRotatedBox 的后代节点中没有绘制边界节点，但是有后代节点向 layer 树中添加了新的 layer。这种情况下，按照我们之前得出的结论 CustomRotatedBox 中也是需要进行 layer 合成的，但  CustomRotatedBox  实际上并没有。问题知道了，但是这个问题却不好解决，原因是我们在 CustomRotatedBox 中遍历后代节点时，是无法知道非绘制边界节点是否往 layer树中添加了新的 layer。怎么办呢？Flutter是通过约定来解决这个问题的：
+我们考虑一下这种情况：如果  CustomRotatedBox 的后代节点中没有绘制边界节点，但是有后代节点向 layer 树中添加了新的 layer。这种情况下，按照我们之前得出的结论 CustomRotatedBox 中也是需要进行 layer 合成的，但  CustomRotatedBox  实际上并没有。问题知道了，但是这个问题却不好解决，原因是我们在 CustomRotatedBox 中遍历后代节点时，是无法知道非绘制边界节点是否往 layer树中添加了新的 layer。怎么办呢？Flutter是通过约定来解决这个问题的：
 
 1. RenderObject 中定义了一个布尔类型 `alwaysNeedsCompositing` 属性。
 
-2. 约定：自定义组件中，如果在组件 `isRepaintBoundary` 为 false 时，在绘制时会向 layer 树中添加新的 layer的话，要将 `alwaysNeedsCompositing` 置为 `true` 。
+2. 约定：自定义组件中，如果组件 `isRepaintBoundary` 为 `false` 时，在绘制时要会向 layer 树中添加新的 layer的话，要将 `alwaysNeedsCompositing` 置为 `true` 。
 
-只要开发者在自定义组件时遵守这个规范，CustomRotatedBox 中我们在子树中递归查找时的判断条件就可以改为：
+开发者在自定义组件时应该遵守这个规范。根据此规范，CustomRotatedBox 中我们在子树中递归查找时的判断条件就可以改为：
 
 ```dart
 child.isRepaintBoundary || child.alwaysNeedsCompositing
@@ -477,7 +477,7 @@ class RenderOpacity extends RenderProxyBox {
 注意，上面我们通过 CustomRotatedBox 演示了变换类组件的核心原理，不过还有一些优化的地方，比如：
 
 1. 变换类组件中，遍历子树以确定是否需要 layer 合成是变换类组件的通用逻辑，不需要在每个组件里都实现一遍。
-2. 不是每一次重绘都需要去遍历子树，比如可以在初始化时遍历一次，然后将结果缓存，如果后续有变化，再重新遍历更新即可，制时直接使用缓存的结果。
+2. 不是每一次重绘都需要去遍历子树，比如可以在初始化时遍历一次，然后将结果缓存，如果后续有变化，再重新遍历更新即可，此时直接使用缓存的结果。
 
 Flutter 也考虑到了这个问题，于是便有了flushCompositingBits 方法，我们下面来正式介绍它。
 

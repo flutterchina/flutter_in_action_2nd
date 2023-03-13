@@ -64,4 +64,4 @@ BoxDecoration({
 
 ![图5-2](../imgs/5-2.png)
 
-通过`BoxDecoration`我们实现了一个渐变按钮的外观，但此示例还不是一个标准的按钮，因为它还不能响应点击事件，我们将在后面“自定义组件”一章中实现一个完整功能的`GradientButton`。另外，上面的例子中使用了`LinearGradient`类，它用于定义线性渐变的类，Flutter中还提供了其他渐变配置类，如`RadialGradient`、`SweepGradient`，读者若有需要可以自行查看API文档。
+通过`BoxDecoration`我们实现了一个渐变按钮的外观，但此示例还不是一个标准的按钮，因为它还不能响应点击事件，我们将在10.2节中实现一个完整功能的`GradientButton`。另外，上面的例子中使用了`LinearGradient`类，它用于定义线性渐变的类，Flutter中还提供了其他渐变配置类，如`RadialGradient`、`SweepGradient`，读者若有需要可以自行查看API文档。

@@ -2,7 +2,7 @@
 
 ## 14.2.1 Element
 
-在“Widget简介”一节，我们介绍了Widget和Element的关系，我们知道最终的UI树其实是由一个个独立的Element节点构成。我们也说过组件最终的Layout、渲染都是通过`RenderObject`来完成的，从创建到渲染的大体流程是：根据Widget生成Element，然后创建相应的`RenderObject`并关联到`Element.renderObject`属性上，最后再通过`RenderObject`来完成布局排列和绘制。
+在“2.2 Widget简介”一节，我们介绍了Widget和Element的关系，我们知道最终的UI树其实是由一个个独立的Element节点构成。我们也说过组件最终的Layout、渲染都是通过`RenderObject`来完成的，从创建到渲染的大体流程是：根据Widget生成Element，然后创建相应的`RenderObject`并关联到`Element.renderObject`属性上，最后再通过`RenderObject`来完成布局排列和绘制。
 
 Element就是Widget在UI树具体位置的一个实例化对象，大多数Element只有唯一的`renderObject`，但还有一些Element会有多个子节点，如继承自`RenderObjectElement`的一些类，比如`MultiChildRenderObjectElement`。最终所有Element的RenderObject构成一棵树，我们称之为”Render Tree“即”渲染树“。总结一下，我们可以认为Flutter的UI系统包含三棵树：Widget树、Element树、渲染树。他们的依赖关系是：Element树根据Widget树生成，而渲染树又依赖于Element树，如图14-1 所示。
 
@@ -11,7 +11,7 @@ Element就是Widget在UI树具体位置的一个实例化对象，大多数Eleme
 现在我们重点看一下Element，Element的生命周期如下：
 
 1. Framework 调用`Widget.createElement` 创建一个Element实例，记为`element`
-2. Framework 调用 `element.mount(parentElement,newSlot)` ，mount方法中首先调用`element`所对应Widget的`createRenderObject`方法创建与`element`相关联的RenderObject对象，然后调用`element.attachRenderObject`方法将`element.renderObject`添加到渲染树中插槽指定的位置（这一步不是必须的，一般发生在Element树结构发生变化时才需要重新attach）。插入到渲染树后的`element`就处于“active”状态，处于“active”状态后就可以显示在屏幕上了（可以隐藏）。
+2. Framework 调用 `element.mount(parentElement,newSlot)` ，mount方法中首先调用`element`所对应Widget的`createRenderObject`方法创建与`element`相关联的RenderObject对象，然后调用`element.attachRenderObject`方法将`element.renderObject`添加到渲染树中插槽指定的位置（这一步不是必须的，一般发生在Element树结构发生变化时才需要重新添加）。插入到渲染树后的`element`就处于“active”状态，处于“active”状态后就可以显示在屏幕上了（可以隐藏）。
 3. 当有父Widget的配置数据改变时，同时其`State.build`返回的Widget结构与之前不同，此时就需要重新构建对应的Element树。为了进行Element复用，在Element重新构建前会先尝试是否可以复用旧树上相同位置的element，element节点在更新前都会调用其对应Widget的`canUpdate`方法，如果返回`true`，则复用旧Element，旧的Element会使用新Widget配置数据更新，反之则会创建一个新的Element。`Widget.canUpdate`主要是判断`newWidget`与`oldWidget`的`runtimeType`和`key`是否同时相等，如果同时相等就返回`true`，否则就会返回`false`。根据这个原理，当我们需要强制更新一个Widget时，可以通过指定不同的Key来避免复用。
 4. 当有祖先Element决定要移除`element ` 时（如Widget树结构发生了变化，导致`element`对应的Widget被移除），这时该祖先Element就会调用`deactivateChild` 方法来移除它，移除后`element.renderObject`也会被从渲染树中移除，然后Framework会调用`element.deactivate ` 方法，这时`element`状态变为“inactive”状态。
 5. “inactive”态的element将不会再显示到屏幕。为了避免在一次动画执行过程中反复创建、移除某个特定element，“inactive”态的element在当前动画最后一帧结束前都会保留，如果在动画执行结束后它还未能重新变成“active”状态，Framework就会调用其`unmount`方法将其彻底移除，这时element的状态为`defunct`,它将永远不会再被插入到树中。
@@ -132,7 +132,7 @@ class CustomHome extends Widget {
 
 在上一节我们说过每个`Element`都对应一个`RenderObject`，我们可以通过`Element.renderObject` 来获取。并且我们也说过`RenderObject`的主要职责是Layout和绘制，所有的`RenderObject`会组成一棵渲染树Render Tree。本节我们将重点介绍一下`RenderObject`的作用。
 
-`RenderObject`就是渲染树中的一个对象，它主要的作用是实现事件响应以及渲染管线中除过 build 的部分（build 部分由 element 实现），即包括：布局、绘制、层合成以及上屏，这些我们将在后面章节介绍。
+`RenderObject`就是渲染树中的一个对象，它主要的作用是实现事件响应以及渲染管线中除过 build 的执行过程（build 过程由 element 实现），即包括：布局、绘制、层合成以及上屏，这些我们将在后面章节介绍。
 
 `RenderObject`拥有一个`parent`和一个`parentData` 属性，`parent`指向渲染树中自己的父节点，而`parentData`是一个预留变量，在父组件的布局过程，会确定其所有子组件布局信息（如位置信息，即相对于父组件的偏移），而这些布局信息需要在布局阶段保存起来，因为布局信息在后续的绘制阶段还需要被使用（用于确定组件的绘制位置），而`parentData`属性的主要作用就是保存布局信息，比如在 Stack 布局中，`RenderStack`就会将子元素的偏移数据存储在子元素的`parentData`中（具体可以查看`Positioned`实现）。
 

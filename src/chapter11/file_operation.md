@@ -6,7 +6,7 @@ Dart的 IO 库包含了文件读写的相关类，它属于 Dart 语法标准的
 
 Android 和 iOS 的应用存储目录不同，[`PathProvider`](https://pub.dartlang.org/packages/path_provider) 插件提供了一种平台透明的方式来访问设备文件系统上的常用位置。该类当前支持访问两个文件系统位置：
 
-- **临时目录:**  可以使用 `getTemporaryDirectory()` 来获取临时目录； 系统可随时清除的临时目录（缓存）。在 iOS 上，这对应于[`NSTemporaryDirectory()`](https://developer.apple.com/reference/foundation/1409211-nstemporarydirectory) 返回的值。在 Android上，这是[`getCacheDir()`](https://developer.android.com/reference/android/content/Context.html#getCacheDir())返回的值。
+- **临时目录:**  可以使用 `getTemporaryDirectory()` 来获取临时目录； 系统可随时清除临时目录的文件。在 iOS 上，这对应于[`NSTemporaryDirectory()`](https://developer.apple.com/reference/foundation/1409211-nstemporarydirectory) 返回的值。在 Android上，这是[`getCacheDir()`](https://developer.android.com/reference/android/content/Context.html#getCacheDir())返回的值。
 - **文档目录:** 可以使用`getApplicationDocumentsDirectory()`来获取应用程序的文档目录，该目录用于存储只有自己可以访问的文件。只有当应用程序被卸载时，系统才会清除该目录。在 iOS 上，这对应于`NSDocumentDirectory`。在 Android 上，这是`AppData`目录。
 - **外部存储目录**：可以使用`getExternalStorageDirectory()`来获取外部存储目录，如 SD 卡；由于 iOS不支持外部目录，所以在 iOS 下调用该方法会抛出`UnsupportedError `异常，而在 Android 下结果是Android SDK 中`getExternalStorageDirectory`的返回值。
 

@@ -199,7 +199,7 @@ void _retrieveData() async {
 
 在此需要注意，`Git(context).getRepos(…)`方法中需要`refresh`参数来判断是否使用缓存。
 
-`itemBuilder`为列表项的builder，我们需要在该回调中构建每一个列表项Widget。由于列表项构建逻辑较复杂，我们单独封装一个`RepoItem` Widget 专门用于构建列表项UI。`RepoItem` 实现如下：
+`itemBuilder`为列表项的构建器（builder），我们需要在该回调中构建每一个列表项Widget。由于列表项构建逻辑较复杂，我们单独封装一个`RepoItem` Widget 专门用于构建列表项UI。`RepoItem` 实现如下：
 
 ```dart
 import '../index.dart';
@@ -378,7 +378,7 @@ class _RepoItemState extends State<RepoItem> {
 
    代码中调用了`CachedNetworkImage` 是cached_network_image包中提供的一个Widget，它不仅可以在图片加载过程中指定一个占位图，而且还可以对网络请求的图片进行缓存，更多详情读者可以自行查阅其文档。
 
-2. 由于Flutter 的Material 图标库中没有fork图标，所以我们在iconfont.cn上找了一个fork图标，然后根据“图片和Icon”一节中介绍的使用自定义字体图标的方法集成到了我们的项目中。
+2. 由于Flutter 的Material 图标库中没有fork图标，所以我们在iconfont.cn上找了一个fork图标，然后根据“3.3 图片及Icon”一节中介绍的使用自定义字体图标的方法集成到了我们的项目中。
 
 ## 15.6.3 抽屉菜单
 
@@ -399,7 +399,7 @@ class MyDrawer extends StatelessWidget {
     return Drawer(
       child: MediaQuery.removePadding(
         context: context,
-        // DrawerHeader consumes top MediaQuery padding.
+        // 移除顶部 padding.
         removeTop: true,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

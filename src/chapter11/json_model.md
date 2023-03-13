@@ -330,7 +330,7 @@ flutter packages pub run build_runner build
 
 ### 2. 嵌套JSON处理
 
-我们定义一个person.json内容修改为：
+我们创建一个person.json文件，内容如下：
 
 ```json
 {

@@ -84,13 +84,15 @@ const TextField({
 
 - `inputFormatters`：用于指定输入格式；当用户输入内容改变时，会根据指定的格式来校验。
 
-- `enable`：如果为`false`，则输入框会被禁用，禁用状态不接收输入和事件，同时显示禁用态样式（在其`decoration`中定义）。
+- `enable`：如果为`false`，则输入框会被禁用，禁用状态不能响应输入和事件，同时显示禁用态样式（在其`decoration`中定义）。
 
 - `cursorWidth`、`cursorRadius`和`cursorColor`：这三个属性是用于自定义输入框光标宽度、圆角和颜色的。
 
 ### 1. 示例：登录输入框
 
 #### 1）布局
+
+我们实现一个登录表单：
 
 ```dart
 Column(
@@ -557,7 +559,7 @@ Expanded(
 )
 ```
 
-其实`context`正是操作Widget所对应的`Element`的一个接口，由于Widget树对应的`Element`都是不同的，所以`context`也都是不同的，有关`context`的更多内容会在后面高级部分详细讨论。Flutter中有很多“of(context)”这种方法，读者在使用时一定要注意`context`是否正确。
+其实`context`正是操作Widget所对应的`Element`的一个接口，由于Widget树对应的`Element`都是不同的，所以`context`也都是不同的，有关`context`的更多内容会在本书后面进阶篇中详细讨论。Flutter中有很多“of(context)”这种方法，读者在使用时一定要注意`context`是否正确。
 
 
 

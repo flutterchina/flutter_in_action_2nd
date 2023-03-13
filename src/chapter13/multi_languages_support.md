@@ -8,7 +8,7 @@
 
 > 大多数应用程序都是通过`MaterialApp`为入口，但根据低级别的`WidgetsApp`类为入口编写的应用程序也可以使用相同的类和逻辑进行国际化。`MaterialApp`实际上也是`WidgetsApp`的一个包装。
 
-注意，”本地化的值和资源“是指我们针对不同语言准备的不同资源，这些资源一般是指文案（字符串），当然也会有一些其他的资源会根据不同语言地区而不同，比如我们需要显示一个APP上架地的国旗图片，那么不同Locale区域我们就需要提供不同的的国旗图片。
+注意，“本地化的值和资源”是指我们针对不同语言准备的不同资源，这些资源一般是指文案（字符串），当然也会有一些其他的资源会根据不同语言地区而不同，比如我们需要显示一个APP上架地的国旗图片，那么不同Locale区域我们就需要提供不同的的国旗图片。
 
 ## 13.1.2 支持国际化
 
@@ -44,7 +44,7 @@ MaterialApp(
 
 > 与`MaterialApp`类为入口的应用不同, 对基于`WidgetsApp`类为入口的应用程序进行国际化时,不需要`GlobalMaterialLocalizations.delegate`。
 
-`localizationsDelegates`列表中的元素是生成本地化值集合的工厂。`GlobalMaterialLocalizations.delegate` 为Material 组件库提供的本地化的字符串和其他值，它可以使Material 组件支持多语言。 `GlobalWidgetsLocalizations.delegate`定义组件默认的文本方向，从左到右或从右到左，这是因为有些语言的阅读习惯并不是从左到右，比如如阿拉伯语就是从右向左的。
+`localizationsDelegates`列表中的元素是生成本地化值集合的工厂类。`GlobalMaterialLocalizations.delegate` 为Material 组件库提供的本地化的字符串和其他值，它可以使Material 组件支持多语言。 `GlobalWidgetsLocalizations.delegate`定义组件默认的文本方向，从左到右或从右到左，这是因为有些语言的阅读习惯并不是从左到右，比如如阿拉伯语就是从右向左的。
 
 `supportedLocales`也接收一个Locale数组，表示我们的应用支持的语言列表，在本例中我们的应用只支持美国英语和中文简体两种语言。
 
@@ -62,7 +62,7 @@ const Locale('zh', 'CN') // 中文简体
 Locale myLocale = Localizations.localeOf(context);
 ```
 
-[`Localizations`](https://docs.flutter.io/flutter/widgets/Localizations-class.html) 组件一般位于widget树中其他业务组件的顶部，它的作用是定义区域Locale以及设置子树依赖的本地化资源。 如果系统的语言环境发生变化，[WidgetsApp](https://docs.flutter.io/flutter/widgets/WidgetsApp-class.html)将创建一个新的Localizations 组件并重建它，这样子树中通过`Localizations.localeOf(context)` 获取的Locale就会更新。
+[`Localizations`](https://docs.flutter.io/flutter/widgets/Localizations-class.html) 组件一般位于widget树中其他业务组件的顶部，它的作用是定义区域Locale以及设置子树依赖的本地化资源。 如果系统的语言环境发生变化，则会使用对应语言的本地化资源。
 
 ## 13.1.4 监听系统语言切换
 
@@ -127,7 +127,7 @@ tooltip: MaterialLocalizations.of(context).backButtonTooltip,
 
 ## 13.1.6 使用打包好的LocalizationsDelegates
 
-为了尽可能小而且简单，flutter软件包中仅提供美国英语值的`MaterialLocalizations`和`WidgetsLocalizations`接口的实现。 这些实现类分别称为`DefaultMaterialLocalizations`和`DefaultWidgetsLocalizations`。flutter_localizations 包包含`GlobalMaterialLocalizations`和`GlobalWidgetsLocalizations`的本地化接口的多语言实现， 国际化的应用程序必须按照本节开头说明的那样为这些类指定本地化Delegate。
+为了尽可能小而且简单，flutter软件包中仅提供美国英语值的`MaterialLocalizations`和`WidgetsLocalizations`接口的实现。 这些实现类分别称为`DefaultMaterialLocalizations`和`DefaultWidgetsLocalizations`。flutter_localizations 包包含`GlobalMaterialLocalizations`和`GlobalWidgetsLocalizations`的本地化接口的多语言实现， 国际化的应用程序必须按照本节开头说明的那样为这些类指定本地化的代理类。
 
 上述的`GlobalMaterialLocalizations`和`GlobalWidgetsLocalizations`只是Material组件库的本地化实现，如果我们要让自己的布局支持多语言，那么就需要实现在即的`Localizations`，我们将在下一节介绍其具体的实现方式。
 
