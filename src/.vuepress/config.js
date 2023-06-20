@@ -31,7 +31,7 @@ module.exports = {
       },
       {
         title: "第一章：起步",
-        path: "chapter1/index",
+        path: "/chapter1/index",
         collapsable: false,
         children: [
           '/chapter1/mobile_development_intro',
@@ -70,11 +70,11 @@ module.exports = {
       },
       {
         title: '第四章：布局类组件',
-        path: "chapter4/index.md",
+        path: "/chapter4/index.md",
         collapsable: false,
         children: [
           '/chapter4/intro',
-          'chapter4/constraints',
+          '/chapter4/constraints',
           '/chapter4/row_and_column',
           '/chapter4/flex',
           '/chapter4/wrap_and_flow',
