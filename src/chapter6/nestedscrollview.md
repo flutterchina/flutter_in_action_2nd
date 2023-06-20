@@ -2,7 +2,7 @@
 
 ## 6.12.1 NestedScrollView
 
-上一节中，我们知道 CustomScrollView 只能组合 Sliver，如果有孩子也是一个可滚动组件（通过 SliverToBoxAdapter 嵌入）且它们的滑动方向一致时便不能正常工作。为了解决这个问题，Flutter 中提供了一个NestedScrollView 组件，它的功能时组合（协调）两个可滚动组件，下面我们看看它的定义：
+上一节中，我们知道 CustomScrollView 只能组合 Sliver，如果有孩子也是一个可滚动组件（通过 SliverToBoxAdapter 嵌入）且它们的滑动方向一致时便不能正常工作。为了解决这个问题，Flutter 中提供了一个NestedScrollView 组件，它的功能是组合（协调）两个可滚动组件，下面我们看看它的定义：
 
 ```dart
 const NestedScrollView({
