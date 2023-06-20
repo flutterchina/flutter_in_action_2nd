@@ -35,12 +35,13 @@
       :sidebar-items="sidebarItems"
     >
 
-      <!--<template #top>-->
-        <!--<slot name="page-top"/>-->
-        <!--<div v-if="showBook" style=" text-align:center; margin-top: 100px">-->
-          <!--<img src="./book.png" class="book" title="点击去购买" @click="buy('btn')"/>-->
-        <!--</div>-->
-      <!--</template>-->
+      <template #top>
+        <slot name="page-top"/>
+        <div v-if="showBook" style=" text-align:center; margin-top: 100px">
+          <img src="./book2.jpeg" class="book" title="点击去购买" @click="buy('btn')"/>
+          <div style="margin-top: 30px">购买第二版实体书：<a href="#" @click="buy('btn')">京东</a> | <a href="#" @click="buy('btn','dangdang')">当当</a></div>
+        </div>
+      </template>
       <template #bottom>
         <div style="text-align: center">
           <img src="/assets/img/pay.a6c3cb25.jpeg" width="200">
@@ -48,15 +49,15 @@
         </div>
         <div class='copyright'> 版权所有，禁止私自转发、克隆网站。</div>
         <div style='text-align: center' class='f-links'>
-          <!--<a @click='buy("link")'-->
-             <!--title='点击购买'-->
-             <!--target='_blank'> 购买实体书-->
-          <!--</a> |-->
+          <a @click='buy("link")'
+             title='点击购买'
+             target='_blank'> 购买实体书
+          </a> |
           <a href='https://github.com/flutterchina'>Flutter中国开源项目</a>
-          <!--<a href='/join_us.html'>-->
-            <!--和作者做同事-->
-          <!--</a>-->
-
+          |
+          <a href='https://github.com/wendux'>
+            关于作者
+          </a>
         </div>
 
       </template>
@@ -196,9 +197,13 @@
 
     methods: {
 
-      buy(p) {
+      buy(p,channel) {
         _hmt.push(['_trackEvent', 'buy', 'click', p]);
-        open('https://item.jd.com/12816296.html', '_blank');
+        var href='https://item.jd.com/13640195.html';
+        if(channel){
+          href='http://product.dangdang.com/29518299.html'
+        }
+        open(href, '_blank');
       },
 
       toggleSidebar(to) {

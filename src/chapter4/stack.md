@@ -4,6 +4,8 @@
 
 ## 4.6.1 Stack
 
+Stack组件定义如下：
+
 ```dart
 Stack({
   this.alignment = AlignmentDirectional.topStart,
@@ -20,6 +22,8 @@ Stack({
 - `clipBehavior`：此属性决定对超出`Stack`显示空间的部分如何剪裁，Clip枚举类中定义了剪裁的方式，Clip.hardEdge 表示直接剪裁，不应用抗锯齿，更多信息可以查看源码注释。
 
 ## 4.6.2 Positioned
+
+Positioned 的默认构造函数如下：
 
 ```dart
 const Positioned({

@@ -69,7 +69,7 @@ class _PointerMoveIndicatorState extends State<PointerMoveIndicator> {
 
 上面只是`PointerEvent`一些常用属性，除了这些它还有很多属性，读者可以查看API文档。
 
-还有一个`behavior`属性，它决定子组件如何响应命中测试，关于该属性我们将在后面 “事件处理流程” 一节中详细介绍。
+还有一个`behavior`属性，它决定子组件如何响应命中测试，关于该属性我们将在8.3节中详细介绍。
 
 ## 8.1.3 忽略指针事件
 

@@ -24,7 +24,7 @@ class SliverConstraints extends Constraints {
     double? scrollOffset;
     //当前Sliver之前的Sliver占据的总高度，因为列表是懒加载，如果不能预估时，该值为double.infinity
     double? precedingScrollExtent;
-    //上一个 sliver 覆盖当前 sliver 的大小，通常在 sliver 是 pinned/floating
+    //上一个 sliver 覆盖当前 sliver 的长度（重叠部分的长度），通常在 sliver 是 pinned/floating
     //或者处于列表头尾时有效，我们在后面的小节中会有相关的例子。
     double? overlap;
     //当前Sliver在Viewport中的最大可以绘制的区域。
@@ -397,8 +397,8 @@ if (constraints.userScrollDirection == ScrollDirection.idle) {
 可以看到有一个突兀地跳动，这是因为 visibleExtent 变化时会导致 layoutExtent 发生变化，也就是说 SliverFlexibleHeader 在屏幕中所占的布局高度会发生变化，所以列表就出现跳动。但这个跳动效果太突兀了，我们知道每一个 Sliver 的高度是通过 scrollExtent 属性预估出来的，因此我们需要修正一下 scrollExtent，但是我们不能直接修改 scrollExtent 的值，直接修改不会有任何动画效果，仍然会跳动，为此，SliverGeometry 提供了一个 scrollOffsetCorrection 属性，它专门用于修正 scrollExtent ，我们只需要将要修正差值传给scrollOffsetCorrection，然后 Sliver 会自动执行一个动画效果过渡到我们期望的高度。
 
 ```dart
-  // 是否需要修正scrollOffset. _visibleExtent 值更新后，
-  // 为了防止突然的跳动，要先修正 scrollOffset。
+  // 是否需要修正scrollOffset。当_visibleExtent值更新后，为了防止
+  // 视觉上突然地跳动，要先修正 scrollOffset。
   double? _scrollOffsetCorrection;
 
   set visibleExtent(double value) {
@@ -580,7 +580,7 @@ class _RenderSliverPersistentHeaderToBox extends RenderSliverSingleBoxAdapter {
 1. constraints.scrollOffset 不为 0 时，则表示已经固定到顶部了。
 2. 我们在布局阶段拿到子组件的 size 信息，然后通过通过子组件的大小来确定 Sliver 大小（设置geometry）。 这样就不再需要我们显式传高度值了。
 3. 我们通过给 paintOrigin 设为 0 来实现顶部固定效果；不固定到顶部时应该传 ` - constraints.scrollOffset`，这个需要读者好好体会一下，也可以运行示例修改一下参数值来看看效果。
-4. 必须要重写 `childMainAxisPosition` ，否则事件便会失效，该方法的返回值在“点击测试”中会用到。关于点击测试我们会在本书面介绍， 读者现在只需要知道该函数应该返回 paintOrigin 的位置即可。
+4. 必须要重写 `childMainAxisPosition` ，否则事件便会失效，该方法的返回值在“点击测试”中会用到。关于点击测试我们会在8.1节中介绍， 读者现在只需要知道该函数应该返回 paintOrigin 的位置即可。
 
 大功告成！下面我们来测试一下！我们创建两个 header：
 

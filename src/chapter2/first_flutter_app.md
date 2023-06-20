@@ -154,7 +154,7 @@ class MyApp extends StatelessWidget {
    }
    ```
 
-`MyHomePage` 是应用的首页，它继承自`StatefulWidget`类，表示它是一个有状态的组件（Stateful widget）。关于 Stateful widget 我们将在第三章 “Widget简介” 一节仔细介绍，现在我们只需简单认为有状态的组件（Stateful widget） 和无状态的组件（Stateless widget）有两点不同：
+`MyHomePage` 是应用的首页，它继承自`StatefulWidget`类，表示它是一个有状态的组件（Stateful widget）。关于 Stateful widget 我们将在 “2.2Widget简介” 一节仔细介绍，现在我们只需简单认为有状态的组件（Stateful widget） 和无状态的组件（Stateless widget）有两点不同：
 
 1. Stateful widget 可以拥有状态，这些状态在 widget 生命周期中是可以变的，而 Stateless widget 是不可变的。
 

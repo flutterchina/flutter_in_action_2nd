@@ -122,7 +122,7 @@ class _WaterMarkState extends State<WaterMark> {
 ```dart
 // 离屏绘制单元水印并将绘制结果保存为图片缓存起来
 Future<MemoryImage> _getWaterMarkImage() async {
-  // 创建一个 Canvas 进行离屏绘制，细节和原理请查看本书后面关于Flutter绘制原理相关章节
+  // 创建一个 Canvas 进行离屏绘制，细节和原理请查看本书后面14.5节。
   final recorder = ui.PictureRecorder();
   final canvas = Canvas(recorder);
   // 绘制单元水印并获取其大小
@@ -537,7 +537,7 @@ class StaggerTextWaterMarkPainter extends WaterMarkPainter {
 
 ### 测试
 
-下面代码运行后就可以看到上面图片的效果了：
+下面代码运行后就可以看到图10-13的效果了：
 
 ```dart
 Widget wStaggerTextWaterMark() {
@@ -711,7 +711,7 @@ FittedBox 主要的使用场景是对子组件进行一些缩放、拉升等以�
 
 ### 3. 方案三：使用 OverflowBox 来应用偏移
 
-OverflowBox 和 UnconstrainedBox 相同的是可以取消父组件对子组件的约束，但不同的是 **OverflowBox 自身大小不会随着子组件大小而变化**，它的大小只取决于其父组件的约束，为（constraints.biggest），即在满足父组件约束的前提下会尽可能大。我们封装一个 TranslateWithExpandedPaintingArea 组件来包裹 WaterMark 组件：
+OverflowBox 和 UnconstrainedBox 相同的是可以取消父组件对子组件的约束，但不同的是 **OverflowBox 自身大小不会随着子组件大小而变化**，它的大小只取决于其父组件的约束（约束为 constraints.biggest），即在满足父组件约束的前提下会尽可能大。我们封装一个 TranslateWithExpandedPaintingArea 组件来包裹 WaterMark 组件：
 
 ```dart
 class TranslateWithExpandedPaintingArea extends StatelessWidget {

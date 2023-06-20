@@ -26,7 +26,7 @@
 
 ## 2.3.2 Widget管理自身状态
 
-_TapboxAState 类:
+我们实现一个TapboxA，在它对应的_TapboxAState 类:
 
 - 管理TapboxA的状态。
 - 定义`_active`：确定盒子的当前颜色的布尔值。

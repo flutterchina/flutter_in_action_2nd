@@ -10,7 +10,7 @@
 
 ### 1. 使用镜像
 
-由于在国内访问Flutter有时可能会受到限制，Flutter官方为中国开发者搭建了临时镜像，大家可以将如下环境变量加入到用户环境变量中：
+由于在国内访问Flutter有时可能会受到限制，Flutter官方为中国开发者搭建了临时镜像，大家可以将如下环境变量添加到到用户环境变量中：
 
 ```
 export PUB_HOSTED_URL=https://pub.flutter-io.cn
@@ -51,7 +51,7 @@ export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 
 如果你想在Windows系统自带命令行运行flutter命令，需要添加以下环境变量到用户PATH：
 
-- 转到 “控制面板>用户帐户>用户帐户>更改我的环境变量”
+- 在开始菜单的搜索功能键入“env”，然后选择 编辑系统环境变量
 - 在“用户变量”下检查是否有名为“Path”的条目:
   * 如果该条目存在， 追加 flutter\bin的全路径，使用 ; 作为分隔符.
   * 如果该条目不存在，创建一个新用户变量 Path ，然后将 `flutter\bin` 的全路径作为它的值.
@@ -139,7 +139,7 @@ Flutter依赖于Android Studio的全量安装。Android Studio不仅可以管理
 
 对于所有终端会话永久修改此变量的步骤是和特定计算机系统相关的。通常，您会在打开新窗口时将设置环境变量的命令添加到执行的文件中。例如
 
-1. 确定您Flutter SDK的目录记为“FLUTTER_INSTALL_PATH”，您将在步骤3中用到。
+1. 确定您Flutter SDK的目录记为“FLUTTER_INSTALL_PATH”，您将在后面配置中用到。
 
 2. 打开(或创建) `$HOME/.bash_profile`。文件路径和文件名可能在你的电脑上不同.
 
@@ -193,7 +193,7 @@ Flutter channels:
 * master
 ```
 
-带"*"号的分支即你本地的Flutter SDK 跟踪的分支，要切换分支，可以使用`flutter channel beta` 或 `flutter channel master`，Flutter官方建议跟踪稳定分支，但你也可以跟踪`master`分支，这样可以查看最新的变化，但这样稳定性要低的多。
+带"*"号的分支即你本地的Flutter SDK 跟踪的分支，要切换分支，可以使用`flutter channel beta` 或 `flutter channel master`，Flutter官方建议跟踪稳定分支，但你也可以跟踪`master`分支，这样可以查看最新的变化，但这样稳定性要低得多。
 
 #### 2) 升级Flutter SDK和依赖包
 
@@ -212,7 +212,7 @@ flutter upgrade
 
 ## 1.3.2 IDE配置与使用
 
-理论上可以使用任何文本编辑器与命令行工具来构建Flutter应用程序。 不过，Flutter官方建议使用Android Studio和VS Code之一以获得更好的开发体验。Flutter官方提供了这两款编辑器插件，通过IDE和插件可获得代码补全、语法高亮、widget编辑辅助、运行和调试支持等功能，可以帮助我们极大的提高开发效率。下面我们分别介绍一下Android Studio和VS Code的配置及使用（Android Studio和VS Code读者可以在其官网获得最新的安装，由于安装比较简单，故不再赘述）。
+理论上可以使用任何文本编辑器与命令行工具来构建Flutter应用程序。 不过，Flutter官方建议使用Android Studio和VS Code之一以获得更好的开发体验。Flutter官方提供了这两款编辑器插件，通过IDE和插件可获得代码补全、语法高亮、widget编辑辅助、运行和调试支持等功能，可以帮助我们极大地提高开发效率。下面我们分别介绍一下Android Studio和VS Code的配置及使用（Android Studio和VS Code读者可以在其官网获得最新的安装，由于安装比较简单，故不再赘述）。
 
 ### 1. Android Studio 配置与使用
 
@@ -306,7 +306,7 @@ VS Code是一个轻量级编辑器，支持Flutter运行和调试。
    `'You have pushed the button this many times:'` 更改为
    `'You have clicked the button this many times:'`。
 3. 不要按“停止”按钮; 让您的应用继续运行。
-4. 要查看您的更改，请调用 **Save** (`cmd-s` / `ctrl-s`), 或者点击 **热重载按钮** (绿色圆形箭头按钮)。
+4. 要查看您的更改，直接保存（`cmd+s` / `ctrl+s`），或者点击 **热重载按钮** （绿色圆形箭头按钮）即可。
 
 你会立即在运行的应用程序中看到更新的字符串。
 
@@ -324,7 +324,7 @@ Window下只支持为Android设备构建并运行Flutter应用，而macOS同时�
 
 2. 选择一个设备并选择 **Next**。
 
-3. 为要模拟的Android版本选择一个或多个系统印象，然后选择 **Next**. 建议使用 *x86* 或 *x86_64* image .
+3. 为要模拟的Android版本选择一个或多个系统镜像，然后选择 **Next**. 建议使用 *x86* 或 *x86_64* image .
 
 4. 在 “Emulated Performance”下, 选择 **Hardware - GLES 2.0** 以启用 [硬件加速](https://developer.android.com/studio/run/emulator-acceleration.html).
 
@@ -343,7 +343,7 @@ Window下只支持为Android设备构建并运行Flutter应用，而macOS同时�
 1. 在Android设备上启用 **开发人员选项** 和 **USB调试** 。详细说明可在[Android文档](https://developer.android.com/studio/debug/dev-options.html)中找到。
 2. 使用USB将手机插入电脑。如果设备出现调试授权提示，请授权你的电脑可以访问该设备。
 3. 在命令行运行 `flutter devices` 命令以验证Flutter识别您连接的Android设备。
-4. 运行启动你应用程序 `flutter run`。
+4. 运行 `flutter run` 启动应用程序。
 
 默认情况下，Flutter使用的Android SDK版本是基于你的 `adb` 工具版本。 如果想让Flutter使用不同版本的Android SDK，则必须将该 `ANDROID_HOME` 环境变量设置为相应的SDK安装目录。
 
@@ -365,7 +365,7 @@ Window下只支持为Android设备构建并运行Flutter应用，而macOS同时�
 
 ### 4. 连接iOS真机设备
 
-要将Flutter应用安装到iOS真机设备，需要一些额外的工具和一个Apple帐户，还需要在Xcode中进行一些设置。
+要将Flutter应用安装到iOS真机设备，需要一些额外的工具和一个 Apple 账户，还需要在 Xcode 中进行一些设置。
 
 1. 安装 [homebrew](http://brew.sh/) （如果已经安装了brew,跳过此步骤）。
 

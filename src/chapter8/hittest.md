@@ -229,7 +229,7 @@ class RenderPointerDownListener extends RenderProxyBox {
 }
 ```
 
-因为我们让 hitTestSelf 的返回值始终为 true，所以无论子节点是否通过命中测试，PointerDownListener 都会通过，所以续分发事件时 handleEvent 就会被调用，我们在里面判断事件类型为 PointerDownEvent 时触发回调即可，测试代码如下：
+因为我们让 hitTestSelf 的返回值始终为 true，所以无论子节点是否通过命中测试，PointerDownListener 都会通过，所以后续分发事件时 handleEvent 就会被调用，我们在里面判断事件类型为 PointerDownEvent 时触发回调即可，测试代码如下：
 
 ```dart
 class PointerDownListenerRoute extends StatelessWidget {
@@ -542,7 +542,7 @@ HitTestBlocker 是一个非常灵活的类，它可以拦截命中测试的各�
 
 ### 4. 手势存在的情况
 
-我们稍微修改一下上面的代码，将 将 Listener 换为 GestureDetector， 代码如下：
+我们稍微修改一下上面的代码， 将 Listener 换为 GestureDetector， 代码如下：
 
 ```dart
 class GestureHitTestBlockerTest extends StatelessWidget {

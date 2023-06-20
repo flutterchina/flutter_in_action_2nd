@@ -55,7 +55,7 @@ Provider是Flutter官方出的状态管理包，为了加强读者对其原理�
 
 ### 1. 自实现Provider
 
-首先，我们需要一个保存需要共享的数据`InheritedWidget`，由于具体业务数据类型不可预期，为了通用性，我们使用泛型，定义一个通用的`InheritedProvider`类，它继承自`InheritedWidget`：
+首先，我们需要一个能够保存共享数据的`InheritedWidget`，由于具体业务数据类型不可预期，为了通用性，我们使用泛型，定义一个通用的`InheritedProvider`类，它继承自`InheritedWidget`：
 
 ```dart
 // 一个通用的InheritedWidget，保存需要跨组件共享的状态

@@ -4,6 +4,8 @@
 
 ## 7.2.1 InheritedWidget 
 
+我们先介绍一下InheritedWidget组件，然后重点探讨一下State类中`didChangeDependencies `回调与InheritedWidget组件的关系。
+
 ### 1. 简介
 
 `InheritedWidget `是 Flutter 中非常重要的一个功能型组件，它提供了一种在 widget 树中从上到下共享数据的方式，比如我们在应用的根 widget 中通过`InheritedWidget`共享了一个数据，那么我们便可以在任意子widget 中来获取该共享的数据！这个特性在一些需要在整个 widget 树中共享数据的场景中非常方便！如Flutter SDK中正是通过 InheritedWidget 来共享应用主题（`Theme`）和 Locale (当前语言环境)信息的。

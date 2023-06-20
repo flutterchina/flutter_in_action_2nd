@@ -138,7 +138,7 @@
 
 ## 14.7.2 LayerHandle
 
-上面 RenderChess 实现中，我们将棋盘绘制信息缓存到了 layer 中，因为 layer 中保存的绘制产物是需要调用dispose方法释放的，如果UI变化需要ChessWidget销毁时没有释放则会发生内存泄露，所以们需要在组件销毁时，手动释放一下，给RenderChess中添加如下代码：
+上面 RenderChess 实现中，我们将棋盘绘制信息缓存到了 layer 中，因为 layer 中保存的绘制产物是需要调用dispose方法释放的，如果ChessWidget销毁时没有释放则会发生内存泄露，所以们需要在组件销毁时，手动释放一下，给RenderChess中添加如下代码：
 
 ```dart
 @override
@@ -197,13 +197,13 @@ final LayerHandle<ContainerLayer> _layerHandle = LayerHandle<ContainerLayer>();
 
 如果我们要将棋盘layer保存到预定义的 `layer`变量中的话，得先创建一个ContainerLayer，然后将绘制棋盘的PictureLayer作为子节点添加到新创建的ContainerLayer中，然后赋值给  `layer`变量。这样一来：
 
-1. 如果我们设置 RenderChess 的 isRepaintBoundary  为true，那么在每次重绘时，flutter 框架都会将 layer 子节点清空，这样的话，我们的棋盘Picturelayer就会被移除，接下来就会触发异常。
-2. 如果 RenderChess 的 isRepaintBoundary  为 false（默认值），则在重绘过程中 flutter 框架不会使用到 `layer` 属性，这中情况没有问题。
+1. 如果我们设置 RenderChess 的 isRepaintBoundary  为`true`，那么在每次重绘时，flutter 框架都会将 layer 子节点清空，这样的话，我们的棋盘Picturelayer就会被移除，接下来就会触发异常。
+2. 如果 RenderChess 的 isRepaintBoundary  为 `false`（默认值），则在重绘过程中 flutter 框架不会使用到 `layer` 属性，这中情况没有问题。
 
-虽然，本例中 RenderChess 的 isRepaintBoundary  为 false，直接使用 `layer`是可以的，但我不建议这么做，原因有二：
+虽然，本例中 RenderChess 的 isRepaintBoundary  为 `false`，直接使用 `layer`是可以的，但我不建议这么做，原因有二：
 
 1. RenderObject 中的 layer 字段在 Flutter 框架中是专门为绘制流程而设计的，按照职责分离原则，我们也不应该去蹭它。即使现在能蹭成功，万一哪天Flutter的绘制流发生变化，比如也开始使用非绘制边界节点的layer字段，那么我们的代码将会出问题。
-2. 即使去使用，我们也需要先创建一个ContainerLayer，既然如此，我们还不如乖乖创建一个LayerHandle，这省不了多少工夫。
+2. 如果要使用Layer，我们也需要先创建一个ContainerLayer，既然如此，我们还不如直接创建一个LayerHandle，这更方便。
 
 现在考虑最后一个问题，在上面示例中，我们点击按钮后，虽然棋盘不会重绘了，但棋子还是会重绘，这并不合理，我们希望棋盘区域不受外界干扰，只有新的落子行为时（点击在棋盘区域）时再重绘棋子。相信看到着，解决方案就呼之欲出了，我们有两种选择：
 

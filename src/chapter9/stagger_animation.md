@@ -122,7 +122,7 @@ class _StaggerRouteState extends State<StaggerRoute>
       //再反向执行动画
       await _controller.reverse().orCancel;
     } on TickerCanceled {
-      // the animation got canceled, probably because we were disposed
+      //捕获异常。可能发生在组件销毁时，计时器会被取消。
     }
   }
 

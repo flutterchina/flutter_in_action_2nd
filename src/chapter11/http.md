@@ -28,7 +28,7 @@ Dart IO库中提供了用于发起Http请求的一些类，我们可以直接使
    ```dart
    request.headers.add("user-agent", "test");
    ```
-   如果是post或put等可以携带请求体方法，可以通过HttpClientRequest对象发送request body，如：
+   如果是post或put等可以携带请求体方法，可以通过HttpClientRequest对象发送请求体，如：
 
    ```dart
    String payload="...";
@@ -58,7 +58,7 @@ Dart IO库中提供了用于发起Http请求的一些类，我们可以直接使
    httpClient.close();
    ```
 
-    关闭client后，通过该client发起的所有请求都会中止。
+    关闭client后，通过该client发起的所有请求都会终止。
 
 ## 11.2.1 示例
 
@@ -124,7 +124,7 @@ class _HttpTestRouteState extends State<HttpTestRoute> {
       //输出响应头
       print(response.headers);
 
-      //关闭client后，通过该client发起的所有请求都会中止。
+      //关闭client后，通过该client发起的所有请求都会终止。
       httpClient.close();
     } catch (e) {
       _text = "请求失败：$e";

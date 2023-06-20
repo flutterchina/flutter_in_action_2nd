@@ -352,7 +352,7 @@ Widget build(BuildContext context) {
 }
 ```
 
-运行后，和上图一样，完美实现了！
+运行后，和图6-9一样，完美实现了！
 
 ## 6.3.7 总结
 

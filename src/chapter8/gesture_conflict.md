@@ -111,7 +111,7 @@ void hitTest(HitTestResult result, Offset position) {
 }
 ```
 
-很简单， GestureBinding 也通过命中测试了，这样的话在事件分发阶段，GestureBinding 的 handleEvent 也便会被调用，由于它是最后被添加到 HitTestResult 中的，所以在事件分发阶段 GestureBinding 的 handleEvent：
+很简单， GestureBinding 也通过命中测试了，这样的话在事件分发阶段，GestureBinding 的 handleEvent 便也会被调用，由于它是最后被添加到 HitTestResult 中的，所以在事件分发阶段 GestureBinding 的 handleEvent会在最后被调用：
 
 ```dart
 @override 

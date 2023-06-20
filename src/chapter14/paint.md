@@ -131,7 +131,7 @@ void addToScene(ui.SceneBuilder builder, [ Offset layerOffset = Offset.zero ]) {
 
 OffsetLayer 对其子节点整体做偏移变换的功能是 Skia 中实现支持的。Skia 可以支持多层渲染，但并不是层越多越好，engineLayer 是会占用一定的资源，Flutter 自带组件库中涉及到变换效果的都是优先使用 Canvas 来实现，如果 Canvas 实现起来非常困难或实现不了时才会用 ContainerLayer 来实现。
 
-那么有什么场景下变换效果通过 Canvas 实现起来会非常困难，需要用 ContainerLayer 来实现 ？一个典型的场景是，我们需要对组件树中的某个子树整体做变换，且子树中的有多个 PictureLayer 时。这是因为一个 Canvas 往往对应一个 PictureLayer，不同 Canvas 之间相互隔离的，只有子树中所有组件都通过同一个 Canvas 绘制时才能通过该 Canvas 对所有子节点进行整体变换，否则就只能通过 ContainerLayer 。那什么时候子节点会复用同一个 PictureLayer，什么时候又会创建新的 PictureLayer，这个我们在下一节介绍。
+那么有什么场景下变换效果通过 Canvas 实现起来会非常困难，需要用 ContainerLayer 来实现 ？一个典型的场景是，我们需要对组件树中的某个子树整体做变换，且子树中有多个 PictureLayer 时。这是因为一个 Canvas 往往对应一个 PictureLayer，不同 Canvas 之间相互隔离的，只有子树中所有组件都通过同一个 Canvas 绘制时才能通过该 Canvas 对所有子节点进行整体变换，否则就只能通过 ContainerLayer 。那什么时候子节点会复用同一个 PictureLayer，什么时候又会创建新的 PictureLayer，这个我们在下一节介绍。
 
 > 注意：Canvas对象中也有名为 ...layer 相关的 API，如 Canvas.saveLayer，它和本节介绍的Layer 含义不同。Canvas对象中的 layer 主要是提供一种在绘制过程中**缓存中间绘制结果**的手段，为了在绘制复杂对象时方便多个绘制元素之间分离绘制而设计的，更多关于Canvas layer相关API读者可以查阅相关文档，我们可以简单认为不管 Canvas 对创建多少个 layer，这些 layer 都是在同一个 PictureLayer 上（当然具体Canvas API底层实现方式还是 Flutter团队说了算，但作为应用开发者，理解到这里就够了）。
 

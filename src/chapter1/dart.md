@@ -14,7 +14,7 @@ Dart 在静态语法方面和 Java 非常相似，如类型定义、函数声明
 
 ## 1.4.1 变量声明
 
-### 1. `var`
+### 1. `var` 关键字
 
 类似于 JavaScript 中的`var`，它可以接收任何类型的变量，但最大的不同是 Dart 中 var 变量一旦赋值，类型便会确定，则不能再改变其类型，如：
 
@@ -54,7 +54,7 @@ x = 1000;
 
  printLengths() {
    // 正常
-print(a.length);
+   print(a.length);
    // 报错 The getter 'length' is not defined for the class 'Object'
    print(b.length);
  }
@@ -171,9 +171,11 @@ say("hi world");
 ### 3. 函数作为参数传递
 
 ```dart
+//定义函数execute，它的参数类型为函数
 void execute(var callback) {
-    callback();
+    callback(); //执行传入的函数
 }
+//调用execute，将箭头函数作为参数传递
 execute(() => print("xxx"))
 ```
 
@@ -494,11 +496,11 @@ I/flutter (17666): hello 3
 
 ### 1. Dart vs Java
 
-客观的来讲，Dart 在语法层面确实比 Java 更有表现力；在 VM 层面，Dart VM 在内存回收和吞吐量都进行了反复的优化，但具体的性能对比，笔者没有找到相关测试数据，但在笔者看来，只要 Dart 语言能流行，VM 的性能就不用担心，毕竟 Google 在 Go（没用VM但有GC）、JavaScript（v8）、Dalvik（ Android 上的 Java VM ）上已经有了很多技术积淀。值得注意的是 Dart 在 Flutter 中已经可以将 GC 做到 10ms 以内，所以 Dart 和 Java 相比，决胜因素并不会是在性能方面。而在语法层面，Dart 要比 Java 更有表现力，最重要的是 Dart 对函数式编程支持要远强于 Java（目前只停留在 Lambda 表达式），而 Dart 目前真正的不足是**生态**，但笔者相信，随着 Flutter 的逐渐火热，会回过头来反推 Dart 生态加速发展，对于 Dart 来说，现在需要的是时间。
+客观的来讲，Dart 在语法层面确实比 Java 更有表现力；在 VM 层面，Dart VM 在内存回收和吞吐量都进行了反复的优化，但具体的性能对比，笔者没有找到相关测试数据，但在笔者看来，只要 Dart 语言能流行，VM 的性能就不用担心，毕竟 Google 在 Go、JavaScript（v8）、Dalvik（ Android 上的 Java VM ）上已经有了很多技术积淀。值得注意的是 Dart 在 Flutter 中已经可以将 GC（内存垃圾回收）做到 10ms 以内，所以 Dart 和 Java 相比，决胜因素并不会是在性能方面。而在语法层面，Dart 要比 Java 更有表现力，最重要的是 Dart 对函数式编程支持要远强于 Java（目前只停留在 Lambda 表达式），而 Dart 目前真正的不足是**生态**，但笔者相信，随着 Flutter 的逐渐火热，会回过头来反推 Dart 生态加速发展，对于 Dart 来说，现在需要的是时间。
 
 ### 2. Dart vs JavaScript
 
-JavaScript 的弱类型一直被抓短，所以 TypeScript 甚至是 Facebook 的 Flow 才有市场。就笔者使用过的脚本语言中（笔者曾使用过 Python、PHP），JavaScript 无疑是**动态化**支持最好的脚本语言，比如在 JavaScript 中，可以给任何对象在任何时候动态扩展属性，对于精通 JavaScript 的高手来说，这无疑是一把利剑。但是，任何事物都有两面性，JavaScript 强大的动态化特性也是把双刃剑，你可经常听到另一个声音，认为 JavaScript 的这种动态性糟糕透了，太过灵活反而导致代码很难预期，无法限制不被期望的修改。毕竟有些人总是对自己或别人写的代码不放心，他们希望能够让代码变得可控，并期望有一套静态类型检查系统来帮助自己减少错误。正因如此，在 Flutter中，Dart 几乎放弃了脚本语言动态化的特性，如不支持反射、也不支持动态创建函数等。并且 Dart 从 2.0 开始强制开启了类型检查（Strong Mode），原先的检查模式（checked mode）和可选类型（optional type）将淡出，所以在类型安全这个层面来说，Dart 和 TypeScript、CoffeeScript 是差不多的，所以单从动态性来看，Dart 并不具备什么明显优势，但综合起来看，Dart 既能进行服务端脚本、APP 开发、Web 开发，这就有优势了！
+JavaScript 的“弱类型”一直被诟病，所以 TypeScript （JavaScript语言的超集，语法兼容JavaScript，但添加了“类型”）才有市场。就笔者使用过的脚本语言中（笔者曾使用过 Python、PHP），JavaScript 无疑是**动态化**支持最好的脚本语言，比如在 JavaScript 中，可以给任何对象在任何时候动态扩展属性，对于精通 JavaScript 的高手来说，这无疑是一把利剑。但是，任何事物都有两面性，JavaScript 强大的动态化特性也是把双刃剑，你可经常听到另一个声音，认为 JavaScript 的这种动态性糟糕透了，太过灵活反而导致代码很难预期，无法限制不被期望的修改。毕竟有些人总是对自己或别人写的代码不放心，他们希望能够让代码变得可控，并期望有一套静态类型检查系统来帮助自己减少错误。正因如此，在 Flutter中，Dart 几乎放弃了脚本语言动态化的特性，如不支持反射、也不支持动态创建函数等。并且 Dart 从 2.0 开始强制开启了类型检查（Strong Mode），原先的检查模式（checked mode）和可选类型（optional type）将淡出，所以在类型安全这个层面来说，Dart 和 TypeScript、CoffeeScript 是差不多的，所以单从动态性来看，Dart 并不具备什么明显优势，但综合起来看，Dart 既能进行服务端脚本、App 开发、Web 开发，这就有优势了！
 
 笔者在本书第一版的时候就表示过很看好 Dart 语言的将来，事实上，这几年，在 Github 上 Dart 语言开发的项目数量一直保持高速增长，所以 enjoy it !
 

@@ -27,7 +27,7 @@ flutter:
 - …/graphics/my_icon.png
 - …/graphics/background.png
 - …/graphics/dark/background.png
-- …etc.
+- ….
 
 然后`pubspec.yaml`文件中只需包含:
 
@@ -72,7 +72,7 @@ Future<String> loadAsset() async {
 - …/image.png
 - …/**M**x/image.png
 - …/**N**x/image.png
-- …etc.
+- …
 
 其中 M 和 N 是数字标识符，对应于其中包含的图像的分辨率，也就是说，它们指定不同设备像素比例的图片。
 
@@ -124,7 +124,7 @@ Widget build(BuildContext context) {
 - …/icons/heart.png
 - …/icons/1.5x/heart.png
 - …/icons/2.0x/heart.png
-- …etc.
+- …
 
 然后加载图像，使用:
 

@@ -190,6 +190,8 @@ Builder(builder: (context) {
 
 ### 3. AfterLayout 实例
 
+下面我们看一个 AfterLayout 的测试示例：
+
 ```dart
 class AfterLayoutRoute extends StatefulWidget {
   const AfterLayoutRoute({Key? key}) : super(key: key);
@@ -282,7 +284,7 @@ class _AfterLayoutRouteState extends State<AfterLayoutRoute> {
 
 ![图4-24](../imgs/4-24.png)
 
-运行后点击 Text1 就可以在日志面板看到它的大小。点击 “追加字符串” 按钮，字符串大小变化后，屏幕上上也会显示（按钮上方挨着）。
+运行后点击 Text1 就可以在日志面板看到它的大小。点击 “追加字符串” 按钮，字符串大小变化后，屏幕上上也会显示变化后的文本区域大小（按钮上方挨着）。
 
 ## 4.8.3 Flutter 的 build 和 layout
 
