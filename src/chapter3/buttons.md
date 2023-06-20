@@ -1,6 +1,6 @@
 # 3.2 按钮
 
-Material 组件库中提供了多种按钮组件如`ElevatedButton`、`TextButton`、`OutlineButton`等，它们都是直接或间接对`RawMaterialButton`组件的包装和定制，所以他们大多数属性都和`RawMaterialButton`一样。在介绍各个按钮时我们先介绍其默认外观，而按钮的外观大都可以通过属性来自定义，我们在后面统一介绍这些属性。另外，所有 Material 库中的按钮都有如下相同点：
+Material 组件库中提供了多种按钮组件如`ElevatedButton`、`TextButton`、`OutlinedButton`等，它们都是直接或间接对`RawMaterialButton`组件的包装定制，所以他们大多数属性都和`RawMaterialButton`一样。在介绍各个按钮时我们先介绍其默认外观，而按钮的外观大都可以通过属性来自定义，我们在后面统一介绍这些属性。另外，所有 Material 库中的按钮都有如下相同点：
 
 1. 按下时都会有“水波动画”（又称“涟漪动画”，就是点击时按钮上会出现水波扩散的动画）。
 2. 有一个`onPressed`属性来设置点击回调，当按钮按下时会执行该回调，如果不提供该回调则按钮会处于禁用状态，禁用状态不响应用户点击。
@@ -69,7 +69,7 @@ IconButton(
 
 ## 3.2.5 带图标的按钮
 
-`ElevatedButton`、`TextButton`、`OutlineButton`都有一个`icon` 构造函数，通过它可以轻松创建带图标的按钮，如图3-10所示：
+`ElevatedButton`、`TextButton`、`OutlinedButton`都有一个`icon` 构造函数，通过它可以轻松创建带图标的按钮，如图3-10所示：
 
 ![图3-10](../imgs/3-10.png)
 
@@ -81,7 +81,7 @@ ElevatedButton.icon(
   label: Text("发送"),
   onPressed: _onPressed,
 ),
-OutlineButton.icon(
+OutlinedButton.icon(
   icon: Icon(Icons.add),
   label: Text("添加"),
   onPressed: _onPressed,
