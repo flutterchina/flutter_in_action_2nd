@@ -198,7 +198,7 @@ _selectionController.selection=TextSelection(
 );
 ```
 
-设置`controlle`r:
+设置`controller`:
 
 ```dart
 TextField(
