@@ -126,7 +126,10 @@ Future<MemoryImage> _getWaterMarkImage() async {
   final recorder = ui.PictureRecorder();
   final canvas = Canvas(recorder);
   // 绘制单元水印并获取其大小
-  final Size size = widget.painter.paintUnit(canvas);
+  final size = widget.painter.paintUnit(
+    canvas,
+    MediaQueryData.fromWindow(ui.window).devicePixelRatio,
+  );
   final picture = recorder.endRecording();
   //将单元水印导为图片并缓存起来
   final img = await picture.toImage(size.width.ceil(), size.height.ceil());

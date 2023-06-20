@@ -27,10 +27,10 @@ WebSocket协议本质上是一个基于tcp的协议，它是先通过HTTP协议�
 在Flutter中，我们可以创建一个`WebSocketChannel`连接到一台服务器：
 
 ```dart
-final channel = IOWebSocketChannel.connect('ws://echo.websocket.org');
+final channel = IOWebSocketChannel.connect('wss://echo.websocket.events');
 ```
 
-> 注意：ws://echo.websocket.org 为 websocket.org 提供的测试服务地址。
+> 注意：wss://echo.websocket.events 为 flutter.cn 提供的测试服务地址。
 
 ### 2. 监听来自服务器的消息
 
@@ -91,7 +91,7 @@ class _WebSocketRouteState extends State<WebSocketRoute> {
   @override
   void initState() {
     //创建websocket连接
-    channel = IOWebSocketChannel.connect('ws://echo.websocket.org');
+    channel = IOWebSocketChannel.connect('wss://echo.websocket.events');
   }
 
   @override

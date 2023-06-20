@@ -178,7 +178,7 @@ Flutter依赖于Android Studio的全量安装。Android Studio不仅可以管理
 
 #### 4）安装Android Studio
 
-和Window一样，要在Android设备上构建并运行Flutter程序都需要先安装Android Studio，读者可以先自行下载并安装Android Studio，在此不再赘述。
+和Windows一样，要在Android设备上构建并运行Flutter程序都需要先安装Android Studio，读者可以先自行下载并安装Android Studio，在此不再赘述。
 
 ### 4. 升级 Flutter
 

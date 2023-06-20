@@ -31,7 +31,7 @@ void drawFrame() {
 4. 更新绘制：遍历nodesNeedingPaint列表，调用每一个节点的paint方法进行重绘，绘制过程会生成Layer。需要说明一下，flutter中绘制结果是保存在Layer中的，也就是说只要Layer不释放，那么绘制的结果就会被缓存，因此，Layer可以跨frame来缓存绘制结果，避免不必要的重绘开销。Flutter框架绘制过程中，遇到isRepaintBoundary 为 true 的节点时，才会生成一个新的Layer。可见Layer和 renderObject 不是一一对应关系，父子节点可以共享，这个我们会在随后的一个试验中来验证。当然，如果是自定义组件，我们可以在renderObject中手动添加任意多个 Layer，这通常用于只需一次绘制而随后不会发生变化的绘制元素的缓存场景，这个随后我们也会通过一个例子来演示。
 5. 上屏：绘制完成后，我们得到的是一棵Layer树，最后我们需要将Layer树中的绘制信息在屏幕上显示。我们知道Flutter是自实现的渲染引擎，因此，我们需要将绘制信息提交给Flutter engine，而`renderView.compositeFrame` 正是完成了这个使命。
 
-以上，便是setState调用到UI更的大概更新过程，实际的流程会更复杂一些，比如在build过程中是不允许再调用setState的，框架需要做一些检查；又比如在frame中会涉及到动画的的调度、在上屏时会将所有的Layer添加到场景（Scene）对象后，再渲染Scene，读者有兴趣可以自行查看源码或关注笔者博客（后续会有补充内容哦）。
+以上，便是setState被调用到UI更的大概更新过程，实际的流程会更复杂一些，比如在build过程中是不允许再调用setState的，框架需要做一些检查；又比如在frame中会涉及到动画的调度、在上屏时会将所有的Layer添加到场景（Scene）对象后，再渲染Scene，读者有兴趣可以自行查看源码或关注笔者博客（后续会有补充内容哦）。
 
 
 

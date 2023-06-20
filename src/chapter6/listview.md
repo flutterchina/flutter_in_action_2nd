@@ -356,5 +356,5 @@ Widget build(BuildContext context) {
 
 ## 6.3.7 总结
 
-本节主要介绍了`ListView` 常用的的使用方式和要点，但并没有介绍`ListView.custom`方法，它需要实现一个`SliverChildDelegate` 用来给 ListView 生成列表项组件，更多详情请参考 API 文档。
+本节主要介绍了`ListView` 常用的使用方式和要点，但并没有介绍`ListView.custom`方法，它需要实现一个`SliverChildDelegate` 用来给 ListView 生成列表项组件，更多详情请参考 API 文档。
 

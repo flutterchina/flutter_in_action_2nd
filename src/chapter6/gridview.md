@@ -134,7 +134,7 @@ GridView.count(
 
 ## 6.6.3 GridView.extent
 
-GridView.extent构造函数内部使用了SliverGridDelegateWithMaxCrossAxisExtent，我们通过它可以快速的创建横轴子元素为固定最大长度的的GridView，上面的示例代码等价于：
+GridView.extent构造函数内部使用了SliverGridDelegateWithMaxCrossAxisExtent，我们通过它可以快速的创建横轴子元素为固定最大长度的GridView，上面的示例代码等价于：
 
 ```dart
 GridView.extent(

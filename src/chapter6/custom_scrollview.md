@@ -55,7 +55,7 @@ Widget buildTwoSliverList() {
 
 可以看到我们期望的效果实现了。
 
-综上，`CustomScrollView` 的主要功能是提供一个公共的的 Scrollable 和 Viewport，来组合多个 Sliver，CustomScrollView 的结构如图6-24：
+综上，`CustomScrollView` 的主要功能是提供一个公共的 Scrollable 和 Viewport，来组合多个 Sliver，CustomScrollView 的结构如图6-24：
 
 ![图6-24](../imgs/6-24.png)
 
@@ -213,7 +213,7 @@ const SliverPersistentHeader({
 })
 ```
 
-`floating` 的做用是：`pinned` 为 false 时 ，则 header 可以滑出可视区域（CustomScrollView 的 Viewport）（不会固定到顶部），当用户再次向下滑动时，此时不管 header 已经被滑出了多远，它都会立即出现在可视区域顶部并固定住，直到继续下滑到 header 在列表中原来的位置时，header 才会重新回到原来的位置（不再固定在顶部）。 具体效果，我们后面会有示例，读者可以实际运行起来看看效果。
+`floating` 的作用是：`pinned` 为 false 时 ，则 header 可以滑出可视区域（CustomScrollView 的 Viewport）（不会固定到顶部），当用户再次向下滑动时，此时不管 header 已经被滑出了多远，它都会立即出现在可视区域顶部并固定住，直到继续下滑到 header 在列表中原来的位置时，header 才会重新回到原来的位置（不再固定在顶部）。 具体效果，我们后面会有示例，读者可以实际运行起来看看效果。
 
 `delegate` 是用于生成 header 的委托，类型为 SliverPersistentHeaderDelegate，它是一个抽象类，需要我们自己实现，定义如下：
 

@@ -1,6 +1,6 @@
 # 4.5 流式布局（Wrap、Flow）
 
-在介绍 Row 和 Colum 时，如果子 widget 超出屏幕范围，则会报溢出错误，如：
+在介绍 Row 和 Column 时，如果子 widget 超出屏幕范围，则会报溢出错误，如：
 
 ```dart
 Row(
@@ -136,7 +136,7 @@ class TestFlowDelegate extends FlowDelegate {
 
   @override
   Size getSize(BoxConstraints constraints) {
-    // 指定Flow的大小，简单起见我们让宽度竟可能大，但高度指定为200，
+    // 指定Flow的大小，简单起见我们让宽度尽可能大，但高度指定为200，
     // 实际开发中我们需要根据子元素所占用的具体宽高来设置Flow大小
     return Size(double.infinity, 200.0);
   }

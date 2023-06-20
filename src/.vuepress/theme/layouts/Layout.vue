@@ -38,8 +38,8 @@
       <template #top>
         <slot name="page-top"/>
         <div v-if="showBook" style=" text-align:center; margin-top: 100px">
-          <img src="./book2.jpeg" class="book" title="点击去购买" @click="buy('btn')"/>
-          <div style="margin-top: 30px">购买第二版实体书：<a href="#" @click="buy('btn')">京东</a> | <a href="#" @click="buy('btn','dangdang')">当当</a></div>
+          <img src="./book2.jpeg" class="book" title="点击去购买" @click.prevent="buy('btn')"/>
+          <div style="margin-top: 30px">购买第二版实体书：<a href="#" @click.prevent="buy('btn')">京东</a> | <a href="#" @click.prevent="buy('btn','dangdang')">当当</a></div>
         </div>
       </template>
       <template #bottom>
@@ -198,12 +198,14 @@
     methods: {
 
       buy(p,channel) {
-        _hmt.push(['_trackEvent', 'buy', 'click', p]);
+        //_hmt.push(['_trackEvent', 'buy', 'click', p]);
+        _hmt.push(['_trackEvent', 'buy', 'click', 'btn']);
+        console.log(_hmt.push(['_trackEvent', 'buy', 'click', p]))
         var href='https://item.jd.com/13640195.html';
         if(channel){
           href='http://product.dangdang.com/29518299.html'
         }
-        open(href, '_blank');
+        //open(href, '_blank');
       },
 
       toggleSidebar(to) {

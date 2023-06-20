@@ -525,7 +525,7 @@ class AccurateSizedBoxRoute extends StatelessWidget {
 
 可以发现，当父组件约束子组件大小宽高是100时，我们通过 SizedBox 指定 Container 大小是为 50×50 是不能成功的， 而通过 AccurateSized 时成功了。
 
-这里需要提醒一下读者，如果一个组件的的 sizedByParent 为 true，那它在布局子组件时也是能将  `parentUsesSize` 置为 true 的，sizedByParent 为 true 表示自己是布局边界，而将  `parentUsesSize` 置为 true 或 false 决定的是子组件是否是布局边界，两者并不矛盾，这个不要混淆了。顺便提一点 Flutter 自带的 OverflowBox 组件的实现中，它的 sizedByParent 为 true，在调用子组件layout 方法时，`parentUsesSize` 传的是 true，详情读者可以查看 OverflowBox 的实现源码。
+这里需要提醒一下读者，如果一个组件的 sizedByParent 为 true，那它在布局子组件时也是能将  `parentUsesSize` 置为 true 的，sizedByParent 为 true 表示自己是布局边界，而将  `parentUsesSize` 置为 true 或 false 决定的是子组件是否是布局边界，两者并不矛盾，这个不要混淆了。顺便提一点 Flutter 自带的 OverflowBox 组件的实现中，它的 sizedByParent 为 true，在调用子组件layout 方法时，`parentUsesSize` 传的是 true，详情读者可以查看 OverflowBox 的实现源码。
 
 ## 14.4.6 AfterLayout 
 
@@ -598,7 +598,7 @@ class RenderAfterLayout extends RenderProxyBox {
 
    可以看到是直接将父组件传给自身的约束传递给子组件，并将子组件的大小设置为自身大小。也就是说 RenderAfterLayout 的大小和其子组件大小是相同的
 
-3. 我们定义了 offset 和 rect 两个属性，它们是组件相对于屏幕的的位置偏移和占用的矩形空间范围。但是实战中，我们经常需要获取的是子组件相对于某个父级组件的坐标和矩形空间范围，这时候我们可以调用 RenderObject 的`localToGlobal` 方法，比如下面的的代码展示了Stack中某个子组件获取相对于Stack 的矩形空间范围：
+3. 我们定义了 offset 和 rect 两个属性，它们是组件相对于屏幕的位置偏移和占用的矩形空间范围。但是实战中，我们经常需要获取的是子组件相对于某个父级组件的坐标和矩形空间范围，这时候我们可以调用 RenderObject 的`localToGlobal` 方法，比如下面的代码展示了Stack中某个子组件获取相对于Stack 的矩形空间范围：
 
    ```dart
    ...
