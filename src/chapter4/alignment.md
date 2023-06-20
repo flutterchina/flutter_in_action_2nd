@@ -78,7 +78,8 @@ Alignment(this.x, this.y)
 `Alignment`可以通过其**坐标转换公式**将其坐标转为子元素的具体偏移坐标：
 
 ```
-(Alignment.x*childWidth/2+childWidth/2, Alignment.y*childHeight/2+childHeight/2)
+实际偏移 = (Alignment.x * (parentWidth - childWidth) / 2 + (parentWidth - childWidth) / 2,
+        Alignment.y * (parentHeight - childHeight) / 2 + (parentHeight - childHeight) / 2)
 ```
 
 其中`childWidth`为子元素的宽度，`childHeight`为子元素高度。
@@ -105,7 +106,7 @@ Alignment(this.x, this.y)
 `FractionalOffset` 继承自 `Alignment `，它和 `Alignment `唯一的区别就是坐标原点不同！`FractionalOffset` 的坐标原点为矩形的左侧顶点，这和布局系统的一致，所以理解起来会比较容易。`FractionalOffset`的坐标转换公式为：
 
 ```
-实际偏移 = (FractionalOffse.x * childWidth, FractionalOffse.y * childHeight)
+实际偏移 = (FractionalOffse.x * (parentWidth - childWidth), FractionalOffse.y * (parentHeight - childHeight))
 ```
 
 下面看一个例子：
