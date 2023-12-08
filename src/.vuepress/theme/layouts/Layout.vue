@@ -205,7 +205,7 @@
         if(channel){
           href='http://product.dangdang.com/29518299.html'
         }
-        //open(href, '_blank');
+        open(href, '_blank');
       },
 
       toggleSidebar(to) {
