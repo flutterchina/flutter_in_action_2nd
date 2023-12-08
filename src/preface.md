@@ -60,7 +60,7 @@
 
 ## 勘误
 
-由于Flutter SDK在不断更新，本书中的部分内容（如类的继承关系、参数等）可能会和新版本的Flutter不一致，读者以最新的Flutter SDK为准。另外，由于时间仓促，书中难免有错误之处，如果发现错误，可以在本书Github项目[issue列表](https://github.com/flutterchina/flutter-in-action-2nd/issues)中去反馈 。另外你也可以关注本书电子版官网（https://book.flutterchina.club），电子版会定期修正错误及更新内容。
+由于Flutter SDK在不断更新，本书中的部分内容（如类的继承关系、参数等）可能会和新版本的Flutter不一致，读者以最新的Flutter SDK为准。另外，由于时间仓促，书中难免有错误之处，如果发现错误，可以在本书Github项目[issue列表](https://github.com/flutterchina/flutter_in_action_2nd/issues)中去反馈 。另外你也可以关注本书电子版官网（[https://book.flutterchina.club](https://book.flutterchina.club)），电子版会定期修正错误及更新内容。
 
 ## 致谢
 
