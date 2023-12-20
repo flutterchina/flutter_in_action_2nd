@@ -117,7 +117,7 @@ R runZoned<R>(R body(), {
   runZoned(
     () => runApp(MyApp()),
     zoneSpecification: ZoneSpecification(
-      // 拦截print 蜀西湖
+      // 拦截print输出
       print: (Zone self, ZoneDelegate parent, Zone zone, String line) {
         parent.print(zone, "Interceptor: $line");
       },
@@ -132,7 +132,7 @@ R runZoned<R>(R body(), {
 
   这样一来，我们 APP 中所有调用`print`方法输出日志的行为都会被拦截，通过这种方式，我们也可以在应用中记录日志，等到应用触发未捕获的异常时，将异常信息和日志统一上报。
 
-  另外我们还拦截了未被捕获的异步错误，这样一来，结合上面的 `FlutterError.onError` 我们就可以捕获我们Flutter应用错误了并进行上报了！
+  另外我们还拦截了未被捕获的异步错误，这样一来，结合上面的 `FlutterError.onError` 我们就可以捕获我们Flutter应用错误并进行上报了！
 
 ### 3. 最终的错误上报代码
 
