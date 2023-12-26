@@ -42,7 +42,7 @@ const TextField({
 
 - `focusNode`：用于控制`TextField`是否占有当前键盘的输入焦点。它是我们和键盘交互的一个句柄（handle）。
 
-- `InputDecoration`：用于控制`TextField`的外观显示，如提示文本、背景颜色、边框等。
+- `decoration`：用于控制`TextField`的外观显示，如提示文本、背景颜色、边框等。
 
 - `keyboardType`：用于设置该输入框默认的键盘输入类型，取值如下：
 
@@ -78,7 +78,7 @@ const TextField({
 
 - `toolbarOptions`：长按或鼠标右击时出现的菜单，包括 copy、cut、paste 以及 selectAll。
 
-- `onChange`：输入框内容改变时的回调函数；注：内容改变事件也可以通过`controller`来监听。
+- `onChanged`：输入框内容改变时的回调函数；注：内容改变事件也可以通过`controller`来监听。
 
 - `onEditingComplete`和`onSubmitted`：这两个回调都是在输入框输入完成时触发，比如按了键盘的完成键（对号图标）或搜索键（🔍图标）。不同的是两个回调签名不同，`onSubmitted`回调是`ValueChanged<String>`类型，它接收当前输入内容做为参数，而`onEditingComplete`不接收参数。
 
@@ -312,7 +312,7 @@ focusNode.addListener((){
 
 #### 6）自定义样式
 
-虽然我们可以通过`decoration`属性来定义输入框样式，下面以自定义输入框下划线颜色为例来介绍一下：
+我们可以通过`decoration`属性来定义输入框样式，下面以自定义输入框下划线颜色为例来介绍一下：
 
 ```dart
 TextField(
@@ -331,7 +331,7 @@ TextField(
 ),
 ```
 
-上面代码我们直接通过InputDecoration的enabledBorder和focusedBorder来分别设置了输入框在未获取焦点和获得焦点后的下划线颜色。另外，我们也可以通过主题来自定义输入框的样式，下面我们探索一下如何在不使用enabledBorder和focusedBorder的情况下来自定义下滑线颜色。
+上面代码我们直接通过`InputDecoration`的`enabledBorder`和`focusedBorder`来分别设置了输入框在未获取焦点和获得焦点后的下划线颜色。另外，我们也可以通过主题来自定义输入框的样式，下面我们探索一下如何在不使用`enabledBorder`和`focusedBorder`的情况下来自定义下滑线颜色。
 
 由于`TextField`在绘制下划线时使用的颜色是主题色里面的`hintColor`，但提示文本颜色也是用的`hintColor`， 如果我们直接修改`hintColor`，那么下划线和提示文本的颜色都会变。值得高兴的是`decoration`中可以设置`hintStyle`，它可以覆盖`hintColor`，并且主题中可以通过`inputDecorationTheme`来设置输入框默认的`decoration`。所以我们可以通过主题来自定义，代码如下：
 
@@ -442,7 +442,7 @@ const FormField({
 
 `FormState`为`Form`的`State`类，可以通过`Form.of()`或`GlobalKey`获得。我们可以通过它来对`Form`的子孙`FormField`进行统一操作。我们看看其常用的三个方法：
 
-- `FormState.validate()`：调用此方法后，会调用`Form`子孙`FormField的validate`回调，如果有一个校验失败，则返回false，所有校验失败项都会返回用户返回的错误提示。
+- `FormState.validate()`：调用此方法后，会调用`Form`子孙`FormField`的`validate`回调，如果有一个校验失败，则返回false，所有校验失败项都会返回用户返回的错误提示。
 - `FormState.save()`：调用此方法后，会调用`Form`子孙`FormField`的`save`回调，用于保存表单内容
 - `FormState.reset()`：调用此方法后，会将子孙`FormField`的内容清空。
 
