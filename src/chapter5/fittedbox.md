@@ -109,7 +109,7 @@ Widget wContainer(BoxFit boxFit) {
               padding: EdgeInsets.symmetric(vertical: 20),
               child: e,
             ))
-        .toList();,
+        .toList(),
       ),
     );
   }
