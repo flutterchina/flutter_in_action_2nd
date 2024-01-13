@@ -151,7 +151,7 @@ class SnapAppBar extends StatelessWidget {
 
 当我们滑动到顶部时，然后反向轻微滑动一点点，这时 SliverAppBar 就会整体回到屏幕顶部，但这时有一个问题，注意图中红色圈出来的部分，我们发现  SliverAppBar 返回到屏幕后将 0 - 4 这几个列表项遮住了！而按照正常的交互逻辑，预期是不能遮住的，因为往下滑时，用户就是为了看上面的内容，SliverAppBar 突然整体回到屏幕后正好遮住了上面的内容，这时，用户不得不继续往下再滑动一些距离，这个体验很不好。
 
-为了解决这个问题，能立马想到的思路就是当 SliverAppBar 在回到屏幕的过程中，底下的列表项也同时往下滑相应的偏移就 OK 了。但是我们要动手时发现了问题，因为无论是想监听 header 的滑动信息和控制 body 的滑动都需要用到内外部可滚动组件的 controller ，而 controller 的持有者是 NestedScrollView 的协调器，我们很难获取取，就算能获取（通过context），那也是 NestedScrollView 的内部逻辑，我们不应在在外部去干涉，这样不符合职责分离模式，是有侵入性的 。 Flutter 的开发者也意识到了这点，于是提供了一个标准的解决方案，我们先看看如何解决，再解释，我们修改上面的代码：
+为了解决这个问题，能立马想到的思路就是当 SliverAppBar 在回到屏幕的过程中，底下的列表项也同时往下滑相应的偏移就 OK 了。但是我们要动手时发现了问题，因为无论是想监听 header 的滑动信息和控制 body 的滑动都需要用到内外部可滚动组件的 controller ，而 controller 的持有者是 NestedScrollView 的协调器，我们很难获取，就算能获取（通过context），那也是 NestedScrollView 的内部逻辑，我们不应在在外部去干涉，这样不符合职责分离模式，是有侵入性的 。 Flutter 的开发者也意识到了这点，于是提供了一个标准的解决方案，我们先看看如何解决，再解释，我们修改上面的代码：
 
 ```dart
 class SnapAppBar extends StatelessWidget {
