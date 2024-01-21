@@ -12,7 +12,7 @@
 
 ## 8.1.2 Listener 组件
 
-Flutter中可以使用`Listener`来监听原始触摸事件，按照本书对组件的分类，则`Listener`也是一个功能性组件。下面是`Listener`的构造函数定义：
+Flutter中可以使用`Listener`来监听原始触摸事件，按照本书对组件的分类，则`Listener`也是一个功能型组件。下面是`Listener`的构造函数定义：
 
 ```dart
 Listener({
