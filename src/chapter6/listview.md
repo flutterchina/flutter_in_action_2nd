@@ -42,7 +42,7 @@ ListView({
 
 默认构造函数有一个`children`参数，它接受一个Widget列表（List&lt;Widget&gt;）。这种方式适合只有少量的子组件数量已知且比较少的情况，反之则应该使用`ListView.builder` 按需动态构建列表项。
 
-> 注意：虽然这种方式将所有`children`一次性传递给 ListView，但子组件）仍然是在需要时才会加载（build（如有）、布局、绘制），也就是说通过默认构造函数构建的 ListView 也是基于 Sliver 的列表懒加载模型。
+> 注意：虽然这种方式将所有`children`一次性传递给 ListView，但子组件仍然是在需要时才会加载（build（如有）、布局、绘制），也就是说通过默认构造函数构建的 ListView 也是基于 Sliver 的列表懒加载模型。
 
 下面是一个例子：
 

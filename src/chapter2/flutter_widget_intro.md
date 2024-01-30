@@ -2,7 +2,7 @@
 
 ## 2.2.1 Widget 概念
 
-在前面的介绍中，我们知道在Flutter中几乎所有的对象都是一个 widget 。与原生开发中“控件”不同的是，Flutter 中的 widget 的概念更广泛，它不仅可以表示UI元素，也可以表示一些功能性的组件如：用于手势检测的 `GestureDetector` 、用于APP主题数据传递的 `Theme` 等等，而原生开发中的控件通常只是指UI元素。在后面的内容中，我们在描述UI元素时可能会用到“控件”、“组件”这样的概念，读者心里需要知道他们就是 widget ，只是在不同场景的不同表述而已。由于 Flutter 主要就是用于构建用户界面的，所以，在大多数时候，读者可以认为 widget 就是一个控件，不必纠结于概念。
+在前面的介绍中，我们知道在Flutter中几乎所有的对象都是一个 widget 。与原生开发中“控件”不同的是，Flutter 中的 widget 的概念更广泛，它不仅可以表示UI元素，也可以表示一些功能型的组件如：用于手势检测的 `GestureDetector` 、用于APP主题数据传递的 `Theme` 等等，而原生开发中的控件通常只是指UI元素。在后面的内容中，我们在描述UI元素时可能会用到“控件”、“组件”这样的概念，读者心里需要知道他们就是 widget ，只是在不同场景的不同表述而已。由于 Flutter 主要就是用于构建用户界面的，所以，在大多数时候，读者可以认为 widget 就是一个控件，不必纠结于概念。
 
 Flutter 中是通过 Widget 嵌套 Widget 的方式来构建UI和进行事件处理的，所以记住，Flutter 中万物皆为Widget。
 
@@ -553,8 +553,8 @@ import 'package:flutter/widgets.dart';
 
 - [`Text`](https://docs.flutter.dev/flutter/widgets/Text-class.html)：该组件可让您创建一个带格式的文本。
 - [`Row`](https://docs.flutter.dev/flutter/widgets/Row-class.html)、 [`Column`](https://docs.flutter.dev/flutter/widgets/Column-class.html)： 这些具有弹性空间的布局类 widget 可让您在水平（Row）和垂直（Column）方向上创建灵活的布局。其设计是基于 Web 开发中的 Flexbox 布局模型。
-- [`Stack`](https://docs.flutter.dev/flutter/widgets/Stack-class.html)： 取代线性布局 (译者语：和 Android 中的`FrameLayout`相似)，[`Stack`](https://docs.flutter.dev/flutter/ widgets/Stack-class.html)允许子 widget 堆叠， 你可以使用 [`Positioned`](https://docs.flutter.dev/flutter/widgets/Positioned-class.html) 来定位他们相对于`Stack`的上下左右四条边的位置。Stacks是基于Web开发中的绝对定位（absolute positioning )布局模型设计的。
-- [`Container`](https://docs.flutter.dev/flutter/widgets/Container-class.html)： [`Container`](https://docs.flutter.dev/flutter/widgets/Container-class.html) 可让您创建矩形视觉元素。Container 可以装饰一个[`BoxDecoration`](https://docs.flutter.dev/flutter/painting/BoxDecoration-class.html), 如 background、一个边框、或者一个阴影。 [`Container`](https://docs.flutter.dev/flutter/widgets/Container-class.html) 也可以具有边距（margins）、填充(padding)和应用于其大小的约束(constraints)。另外， [`Container`](https://docs.flutter.dev/flutter/widgets/Container-class.html)可以使用矩阵在三维空间中对其进行变换。
+- [`Stack`](https://docs.flutter.dev/flutter/widgets/Stack-class.html)： 取代线性布局 (译者语：和 Android 中的`FrameLayout`相似)，[`Stack`](https://docs.flutter.dev/flutter/widgets/Stack-class.html)允许子 widget 堆叠， 你可以使用 [`Positioned`](https://docs.flutter.dev/flutter/widgets/Positioned-class.html) 来定位他们相对于`Stack`的上下左右四条边的位置。Stacks是基于Web开发中的绝对定位（absolute positioning）布局模型设计的。
+- [`Container`](https://docs.flutter.dev/flutter/widgets/Container-class.html)： [`Container`](https://docs.flutter.dev/flutter/widgets/Container-class.html) 可让您创建矩形视觉元素。Container 可以装饰一个[`BoxDecoration`](https://docs.flutter.dev/flutter/painting/BoxDecoration-class.html), 如 background、一个边框、或者一个阴影。 [`Container`](https://docs.flutter.dev/flutter/widgets/Container-class.html) 也可以具有边距（margins）、填充（padding）和应用于其大小的约束（constraints）。另外， [`Container`](https://docs.flutter.dev/flutter/widgets/Container-class.html)可以使用矩阵在三维空间中对其进行变换。
 
 
 ### 2. Material组件

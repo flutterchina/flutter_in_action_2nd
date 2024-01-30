@@ -23,7 +23,7 @@
 
 ## 赞助项目
 
-<img width='200' src='https://github.com/flutterchina/flutter_in_action_2nd/raw/main/src/imgs/sponse.jpeg'>
+<img width='200' src='https://github.com/flutterchina/flutter_in_action_2nd/raw/main/src/imgs/pay.jpeg'>
 
 ## 内容简介
 
